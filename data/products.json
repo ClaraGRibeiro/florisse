@@ -1,0 +1,105 @@
+[
+  {
+    "sales": "20",
+    "type": "Tapetes",
+    "name": "Tapete Oval",
+    "details": "70x50cm",
+    "price": "R$ 65"
+  },
+  {
+    "sales": "20",
+    "type": "Jogos",
+    "name": "Tapete Oval Par",
+    "details": "70x50cm",
+    "price": "R$ 110",
+    "no_discount": "R$ 130"
+  },
+  {
+    "sales": "20",
+    "type": "Tapetes",
+    "name": "Tapete Oval G",
+    "details": "100x50cm",
+    "price": "R$ 100"
+  },
+  {
+    "sales": "20",
+    "type": "Jogos",
+    "name": "Tapete Oval Par G",
+    "details": "100x50cm",
+    "price": "R$ 180",
+    "no_discount": "R$ 200"
+  },
+  {
+    "sales": "20",
+    "type": "Tapetes",
+    "name": "Passadeira Oval",
+    "price": "R$ 180",
+    "details": "160x50cm"
+  },
+  {
+    "sales": "20",
+    "type": "Jogos",
+    "name": "Jogo Oval",
+    "details": "2 tapetes (70x50cm) e 1 passadeira (160x50cm)",
+    "price": "R$ 270",
+    "no_discount": "R$ 310"
+  },
+  {
+    "sales": "20",
+    "type": "Jogos",
+    "name": "Jogo Oval G",
+    "details": "2 tapetes (100x50cm) e 1 passadeira (160x50cm)",
+    "price": "R$ 350",
+    "no_discount": "R$ 380"
+  },
+  {
+    "sales": "20",
+    "type": "Tapetes",
+    "name": "Tapete Redondo",
+    "price": "R$ 100",
+    "details": "80cm"
+  },
+  {
+    "sales": "20",
+    "type": "Tapetes",
+    "name": "Tapete Redondo G",
+    "price": "R$ 150",
+    "details": "100cm"
+  },
+  {
+    "sales": "20",
+    "type": "Mesa Posta",
+    "name": "Sousplat Luxo",
+    "price": "R$ 40",
+    "details": "35cm"
+  },
+  {
+    "sales": "20",
+    "type": "Mesa Posta",
+    "name": "Sourplant Luxo",
+    "price": "R$ 160",
+    "details": "140x40cm"
+  },
+  {
+    "sales": "20",
+    "type": "Jogos",
+    "name": "Jogo Mesa Luxo",
+    "details": "6 sousplat (35cm) e 1 sourplant (140x40cm)",
+    "price": "R$ 360",
+    "no_discount": "R$ 400"
+  },
+  {
+    "sales": "20",
+    "type": "Mesa Posta",
+    "name": "Trilho Quadrados",
+    "price": "R$ 180",
+    "details": "160x50cm"
+  },
+  {
+    "sales": "20",
+    "type": "Mesa Posta",
+    "name": "Trilho Hexágonos",
+    "price": "R$ 200",
+    "details": "160x50cm"
+  }
+]
