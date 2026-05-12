@@ -31,7 +31,96 @@ export default function Home() {
   )[0];
   const msg =
     "https://wa.me/5538992030710?text=Olá! Quero fazer um orçamento, Florisse...";
+  type CartItem = {
+    id: string;
+    name: string;
+    color: string;
+    size: string;
+    price: number;
+    no_discount?: number;
+    image: string;
+    quantity: number;
+  };
 
+  const [cart, setCart] = useState<CartItem[]>([]);
+  const [cartOpen, setCartOpen] = useState(false);
+
+  const addToCart = () => {
+    if (!selectedProduct) return;
+
+    const newItem: CartItem = {
+      id: crypto.randomUUID(),
+      name: selectedProduct.name,
+      color: selectedProduct.variants[selectedColor].color,
+      size: selectedProduct.sizes[selectedSize].label,
+      price: Number(selectedProduct.sizes[selectedSize].price),
+      no_discount: Number(selectedProduct.sizes[selectedSize].no_discount ?? 0),
+      image: `/products/${selectedProduct.slug}/${selectedProduct.variants[selectedColor].image}`,
+      quantity: 1,
+    };
+
+    setCart((prev) => {
+      const existing = prev.find(
+        (item) =>
+          item.name === newItem.name &&
+          item.color === newItem.color &&
+          item.size === newItem.size,
+      );
+
+      if (existing) {
+        return prev.map((item) =>
+          item.id === existing.id
+            ? {
+                ...item,
+                quantity: item.quantity + 1,
+              }
+            : item,
+        );
+      }
+
+      return [...prev, newItem];
+    });
+
+    setSelectedProduct(null);
+  };
+
+  const removeFromCart = (id: string) => {
+    setCart((prev) => prev.filter((item) => item.id !== id));
+  };
+
+  const finishOrder = () => {
+    if (cart.length === 0) return;
+
+    const total = cart.reduce(
+      (acc, item) => acc + item.price * item.quantity,
+      0,
+    );
+
+    const text = `
+Olá, Florisse!
+
+Quero fazer o seguinte pedido:
+
+${cart
+  .map(
+    (item, index) => `
+${index + 1}. ${item.name}
+• Cor: ${item.color}
+• Tamanho: ${item.size}
+• Quantidade: ${item.quantity}
+• Valor: R$ ${item.price * item.quantity}
+`,
+  )
+  .join("\n")}
+
+Total do pedido: R$ ${total}
+`;
+
+    window.open(
+      `https://wa.me/5538992030710?text=${encodeURIComponent(text)}`,
+      "_blank",
+    );
+  };
   return (
     <main className="min-h-screen bg-background text-foreground">
       <header className="sticky top-0 z-40 backdrop-blur-md bg-background/80 border-b border-border">
@@ -64,13 +153,12 @@ export default function Home() {
                 {item}
               </a>
             ))}
-            <a
-              href={msg}
-              target="_blank"
-              className="rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary-hover transition shadow-sm"
+            <button
+              onClick={() => setCartOpen(true)}
+              className="relative rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary-hover transition shadow-sm cursor-pointer"
             >
-              Orçamento
-            </a>
+              Carrinho ({cart.length})
+            </button>
           </nav>
         </div>
       </header>
@@ -180,12 +268,7 @@ export default function Home() {
                       title={variant.color}
                       className="h-5 w-5 rounded-full border-2 border-white shadow-sm"
                       style={{
-                        background:
-                          variant.color === "Cru"
-                            ? "#F5E6CC"
-                            : variant.color === "Azul Marinho"
-                              ? "#1E3A5F"
-                              : "#ccc",
+                        backgroundColor: variant.hex,
                       }}
                     />
                   ))}
@@ -271,13 +354,13 @@ export default function Home() {
             </button>
 
             <div className="grid md:grid-cols-2">
-              <div className="bg-card-soft p-5">
+              <div className="flex items-center justify-center">
                 <Image
                   src={`/products/${selectedProduct.slug}/${selectedProduct.variants[selectedColor].image}`}
                   alt={selectedProduct.name}
-                  width={1000}
-                  height={1000}
-                  className="h-full w-full rounded-[1.5rem] object-cover"
+                  width={600}
+                  height={600}
+                  className="max-h-[550px] max-w-[550px] rounded-l-3xl object-cover w-full h-auto"
                 />
               </div>
               <div className="flex flex-col justify-between p-8">
@@ -351,20 +434,135 @@ export default function Home() {
                   </div>
                 </div>
 
-                <a
-                  href={`https://wa.me/5538992030710?text=Olá! Quero o produto: ${
-                    selectedProduct.name
-                  } na cor ${
-                    selectedProduct.variants[selectedColor].color
-                  } no tamanho ${selectedProduct.sizes[selectedSize].label}`}
-                  target="_blank"
+                <button
+                  onClick={addToCart}
+                  className="mt-10 w-full rounded-2xl bg-primary py-4 text-lg font-semibold text-primary-foreground shadow-xl transition hover:scale-[1.02] hover:bg-primary-hover cursor-pointer"
                 >
-                  <button className="mt-10 w-full rounded-2xl bg-primary py-4 text-lg font-semibold text-primary-foreground shadow-xl transition hover:scale-[1.02] hover:bg-primary-hover">
-                    Pedir no WhatsApp 💬
-                  </button>
-                </a>
+                  Adicionar ao carrinho 🛒
+                </button>
               </div>
             </div>
+          </div>
+        </div>
+      )}
+      {cartOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-3 md:p-6">
+          <div className="relative flex h-[92vh] w-full max-w-4xl flex-col overflow-hidden rounded-[2rem] bg-card shadow-2xl">
+            <button
+              onClick={() => setCartOpen(false)}
+              className="absolute right-5 top-5 z-20 flex h-10 w-10 items-center justify-center rounded-full bg-background text-xl shadow-md transition hover:scale-105 cursor-pointer"
+            >
+              ✕
+            </button>
+
+            <div className="border-b border-border px-6 py-6 md:px-8">
+              <h2 className="text-3xl font-bold">Seu Carrinho 🛒</h2>
+
+              <p className="mt-1 text-sm text-muted">
+                {cart.reduce((acc, item) => acc + item.quantity, 0)} itens
+                adicionados
+              </p>
+            </div>
+
+            {cart.length === 0 ? (
+              <div className="flex flex-1 flex-col items-center justify-center px-6 text-center">
+                <div className="mb-5 text-6xl">🧶</div>
+
+                <h3 className="text-2xl font-bold">Seu carrinho está vazio</h3>
+
+                <p className="mt-2 max-w-md text-muted">
+                  Adicione peças artesanais para montar seu pedido 💖
+                </p>
+              </div>
+            ) : (
+              <>
+                <div className="flex-1 overflow-y-auto px-4 py-4 md:px-6">
+                  <div className="space-y-4">
+                    {cart.map((item) => (
+                      <div
+                        key={item.id}
+                        className="flex flex-col gap-4 rounded-3xl border border-border bg-background p-4 md:flex-row"
+                      >
+                        <Image
+                          src={item.image}
+                          alt={item.name}
+                          width={160}
+                          height={160}
+                          className="h-[130px] w-full rounded-2xl object-cover md:w-[130px]"
+                        />
+
+                        <div className="flex flex-1 flex-col justify-between">
+                          <div className="flex items-start justify-between gap-4">
+                            <div>
+                              <h3 className="text-lg font-semibold">
+                                {item.name}
+                              </h3>
+
+                              <div className="mt-2 space-y-1">
+                                <p className="text-sm text-muted">
+                                  Cor: {item.color}
+                                </p>
+
+                                <p className="text-sm text-muted">
+                                  Tamanho: {item.size}
+                                </p>
+                              </div>
+                            </div>
+
+                            <div className="text-right">
+                              <p className="text-sm text-muted">
+                                {item.quantity}x
+                              </p>
+
+                              <span className="text-lg font-bold text-primary whitespace-nowrap">
+                                R$ {item.price * item.quantity}
+                              </span>
+                              {item.no_discount && (
+                                <p className="font-medium text-muted line-through whitespace-nowrap">
+                                  R$ {item.no_discount * item.quantity}
+                                </p>
+                              )}
+                            </div>
+                          </div>
+
+                          <div className="mt-5 flex gap-3">
+                            <button
+                              onClick={() => removeFromCart(item.id)}
+                              className="rounded-xl bg-red-100 px-4 py-2 text-sm text-red-600 transition hover:bg-red-200 cursor-pointer"
+                            >
+                              Remover
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="border-t border-border bg-background/80 px-6 py-5 backdrop-blur-md">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm text-muted">Total do pedido</p>
+
+                      <h3 className="text-3xl font-bold text-primary">
+                        R${" "}
+                        {cart.reduce(
+                          (acc, item) => acc + item.price * item.quantity,
+                          0,
+                        )}
+                      </h3>
+                    </div>
+
+                    <button
+                      onClick={finishOrder}
+                      className="rounded-2xl bg-primary px-6 py-4 text-lg font-semibold text-primary-foreground shadow-xl transition hover:scale-[1.02] hover:bg-primary-hover cursor-pointer"
+                    >
+                      Finalizar
+                    </button>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
       )}

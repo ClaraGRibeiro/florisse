@@ -217,9 +217,19 @@
     "name": "Jogo Mesa Luxo",
     "sizes": [
       {
-        "label": "6 sousplat (35cm) e 1 sourplant (140x40cm)",
+        "label": "4 sousplat (35cm) e 1 trilho de mesa (140x40cm)",
+        "price": 295,
+        "no_discount": 320
+      },
+      {
+        "label": "6 sousplat (35cm) e 1 trilho de mesa (140x40cm)",
         "price": 360,
         "no_discount": 400
+      },
+      {
+        "label": "8 sousplat (35cm) e 1 trilho de mesa (140x40cm)",
+        "price": 425,
+        "no_discount": 480
       }
     ]
   }
