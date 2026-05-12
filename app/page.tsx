@@ -5,7 +5,6 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const [menuOpen, setMenuOpen] = useState(false);
   const products: Product[] = productsData;
   const [type, setType] = useState<string>("Tapetes");
   const filters = ["Tapetes", "Mesa Posta", "Jogos"];
@@ -25,19 +24,19 @@ export default function Home() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
   useEffect(() => {
-  if (!selectedProduct) return;
+    if (!selectedProduct) return;
 
-  selectedProduct.variants.forEach((variant) => {
-    const img = new window.Image();
+    selectedProduct.variants.forEach((variant) => {
+      const img = new window.Image();
 
-    img.src = `/products/${selectedProduct.slug}/${variant.image}`;
-  });
-}, [selectedProduct]);
+      img.src = `/products/${selectedProduct.name}/${variant.image}`;
+    });
+  }, [selectedProduct]);
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
   const best_selling = [...products].sort(
-    (a, b) => (b.sales ?? 0) - (a.sales ?? 0),
+    (a, b) => (b.total_sales ?? 0) - (a.total_sales ?? 0),
   )[0];
   const msg =
     "https://wa.me/5538992030710?text=Olá! Quero fazer um orçamento, Florisse...";
@@ -67,7 +66,7 @@ export default function Home() {
       no_discount: selectedProduct.sizes[selectedSize].no_discount
         ? Number(selectedProduct.sizes[selectedSize].no_discount)
         : undefined,
-      image: `/products/${selectedProduct.slug}/${selectedProduct.variants[selectedColor].image}`,
+      image: `/products/${selectedProduct.type}/${selectedProduct.name}/${selectedProduct.variants[selectedColor].image}`,
       quantity: 1,
     };
 
@@ -248,7 +247,7 @@ Total do pedido: R$ ${total}
             {/* CARD FLOUTING */}
             <div className="absolute bottom-4 left-4 rounded-2xl bg-card/95 p-4 shadow-xl backdrop-blur-md sm:bottom-6 sm:left-6 sm:p-5">
               <p className="text-xs text-muted sm:text-sm">
-                Mais vendida ({best_selling.sales} un)
+                Mais vendida ({best_selling.total_sales} un)
               </p>
 
               <h3 className="mt-1 text-lg font-bold sm:text-xl">
@@ -310,14 +309,14 @@ Total do pedido: R$ ${total}
               {/* IMAGEM */}
               <div className="relative overflow-hidden">
                 <Image
-                  src={`/products/${product.slug}/${product.variants[0].image}`}
+                  src={`/products/${product.type}/${product.name}/${product.variants[0].image}`}
                   alt={product.name}
                   width={600}
                   height={600}
                   className="h-[320px] w-full object-cover transition duration-500 group-hover:scale-105"
                 />
 
-                {product.sales >= best_selling.sales && (
+                {product.total_sales >= best_selling.total_sales && (
                   <div className="absolute left-4 top-4 rounded-full bg-accent/90 text-card px-3 py-1 text-xs font-medium shadow-md backdrop-blur">
                     Popular
                   </div>
@@ -338,7 +337,18 @@ Total do pedido: R$ ${total}
                         title={variant.color}
                         className="h-5 w-5 rounded-full border-2 border-white shadow-sm"
                         style={{
-                          backgroundColor: variant.hex,
+                          background:
+                            variant.hex.length === 1
+                              ? variant.hex[0]
+                              : variant.hex.length === 2
+                                ? `linear-gradient(
+            135deg,
+            ${variant.hex[0]} 0%,
+            ${variant.hex[0]} 50%,
+            ${variant.hex[1]} 50%,
+            ${variant.hex[1]} 100%
+          )`
+                                : `linear-gradient(135deg, ${variant.hex.join(", ")})`,
                         }}
                       />
                     ))}
@@ -443,15 +453,15 @@ Total do pedido: R$ ${total}
             <div className="grid md:grid-cols-2">
               {/* IMAGEM */}
               <div className="relative bg-card-soft">
-             <Image
-  key={selectedProduct.variants[selectedColor].image}
-  src={`/products/${selectedProduct.slug}/${selectedProduct.variants[selectedColor].image}`}
-  alt={selectedProduct.name}
-  width={700}
-  height={900}
-  priority
-  sizes="(max-width: 768px) 100vw, 50vw"
-  className="
+                <Image
+                  key={selectedProduct.variants[selectedColor].image}
+                  src={`/products/${selectedProduct.type}/${selectedProduct.name}/${selectedProduct.variants[selectedColor].image}`}
+                  alt={selectedProduct.name}
+                  width={700}
+                  height={900}
+                  priority
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="
     w-full
     object-cover
     transition-opacity duration-200
@@ -461,10 +471,10 @@ Total do pedido: R$ ${total}
     md:h-[500px]
     lg:h-[650px]
   "
-/>
+                />
 
                 <div className="absolute left-4 top-4 rounded-full bg-background/90 px-3 py-1 text-xs font-medium shadow-md backdrop-blur">
-                  {selectedProduct.sales} vendidos
+                  {selectedProduct.sizes[selectedSize].sales} vendidos
                 </div>
               </div>
 
@@ -494,26 +504,39 @@ Total do pedido: R$ ${total}
                   <div className="mt-7">
                     <p className="mb-3 text-sm font-medium">Escolha a cor:</p>
                     <div className="flex flex-wrap gap-2">
-                      {selectedProduct.variants.map((v: any, i: number) => (
-                        <button
-                          key={i}
-                          onClick={() => setSelectedColor(i)}
-                          className={`cursor-pointer flex items-center gap-2 rounded-full border px-3 py-2 text-sm transition-all ${
-                            selectedColor === i
-                              ? "scale-105 border-primary bg-primary text-primary-foreground shadow-lg"
-                              : "border-border bg-background hover:border-primary/40"
-                          }`}
-                        >
-                          <div
-                            className="h-4 w-4 rounded-full border border-white sm:h-5 sm:w-5"
-                            style={{
-                              backgroundColor: v.hex,
-                            }}
-                          />
+                      {selectedProduct.variants.map(
+                        (variant: any, i: number) => (
+                          <button
+                            key={i}
+                            onClick={() => setSelectedColor(i)}
+                            className={`cursor-pointer flex items-center gap-2 rounded-full border px-3 py-2 text-sm transition-all ${
+                              selectedColor === i
+                                ? "scale-105 border-primary bg-primary text-primary-foreground shadow-lg"
+                                : "border-border bg-background hover:border-primary/40"
+                            }`}
+                          >
+                            <div
+                              className="h-4 w-4 rounded-full border border-white sm:h-5 sm:w-5"
+                              style={{
+                                background:
+                                  variant.hex.length === 1
+                                    ? variant.hex[0]
+                                    : variant.hex.length === 2
+                                      ? `linear-gradient(
+            135deg,
+            ${variant.hex[0]} 0%,
+            ${variant.hex[0]} 50%,
+            ${variant.hex[1]} 50%,
+            ${variant.hex[1]} 100%
+          )`
+                                      : `linear-gradient(135deg, ${variant.hex.join(", ")})`,
+                              }}
+                            />
 
-                          <span className="font-medium">{v.color}</span>
-                        </button>
-                      ))}
+                            <span className="font-medium">{variant.color}</span>
+                          </button>
+                        ),
+                      )}
                     </div>
                   </div>
 
