@@ -1,57 +1,94 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap");
 @import "tailwindcss";
 
 :root {
-  /* BACKGROUNDS */
-  --background: #f8f4ea;
-  --card: #fffdf8;
+  /* 🍶 BACKGROUND - creme quentinho, cor de linha crua */
+  --background: #f7efe4;
 
-  /* TEXT */
-  --foreground: #5c4033;
-  --muted: #7b6658;
+  /* 🧺 CARD - areia clara, como algodão natural */
+  --card: #fbf6ee;
+  --card-soft: #f1e6d4;
 
-  /* PRIMARY COLORS */
-  --primary: #d4a017;
-  --primary-hover: #b8860b;
+  /* 🤎 TEXT - marrom café, suave nos olhos */
+  --foreground: #3d2b1f;
+  --foreground-soft: #5a4636;
 
-  /* SECONDARY */
-  --secondary: #a3b18a;
-  --secondary-hover: #8a9a72;
+  /* 🌾 MUTED */
+  --muted: #8a7560;
 
-  /* DETAILS */
-  --border: #e6dccd;
-  --dark: #4b352a;
+  /* 🌶 PRIMARY - terracota aconchegante */
+  --primary: #c2643b;
+  --primary-hover: #a64f29;
+  --primary-foreground: #fbf6ee;
 
-  /* INPUTS */
-  --input: #f3ede2;
+  /* 🌿 SECONDARY - verde-musgo macio */
+  --secondary: #7a8c5c;
+  --secondary-hover: #5f7045;
+
+  /* 🌸 ACCENT - rosa-velho delicado */
+  --accent: #d99c8f;
+
+  /* 🧶 BORDERS - linha fininha cor de juta */
+  --border: rgba(61, 43, 31, 0.12);
+
+  /* INPUT */
+  --input: #efe3d0;
+
+  /* 🍂 DEEP - marrom profundo p/ contrastes */
+  --dark: #2a1d14;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-card: var(--card);
+  --color-card-soft: var(--card-soft);
 
   --color-foreground: var(--foreground);
+  --color-foreground-soft: var(--foreground-soft);
   --color-muted: var(--muted);
 
   --color-primary: var(--primary);
   --color-primary-hover: var(--primary-hover);
+  --color-primary-foreground: var(--primary-foreground);
 
   --color-secondary: var(--secondary);
   --color-secondary-hover: var(--secondary-hover);
 
+  --color-accent: var(--accent);
+
   --color-border: var(--border);
   --color-dark: var(--dark);
-
   --color-input: var(--input);
 
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: "Inter", sans-serif;
+  --font-serif: "Fraunces", serif;
 }
 
 body {
-  background: var(--background);
+  background:
+    radial-gradient(circle at 10% 0%, #f5e1c8 0%, transparent 45%),
+    radial-gradient(circle at 90% 20%, #ead3bb 0%, transparent 40%),
+    radial-gradient(circle at 50% 100%, #f1dcc2 0%, transparent 50%),
+    var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Inter", sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
+
 html {
   scroll-behavior: smooth;
+}
+
+.font-serif {
+  font-family: "Fraunces", serif;
+  font-optical-sizing: auto;
+}
+
+/* textura sutil de "tricô" */
+.knit-texture {
+  background-image:
+    radial-gradient(rgba(61, 43, 31, 0.06) 1px, transparent 1px),
+    radial-gradient(rgba(61, 43, 31, 0.04) 1px, transparent 1px);
+  background-size: 14px 14px, 14px 14px;
+  background-position: 0 0, 7px 7px;
 }

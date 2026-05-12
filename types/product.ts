@@ -5,4 +5,5 @@ export interface Product {
   price: string;
   details?: string;
   no_discount?: string;
+  sales: number;
 }

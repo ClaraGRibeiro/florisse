@@ -1,105 +1,105 @@
 [
   {
-    "sales": "20",
+    "sales": 1,
     "type": "Tapetes",
     "name": "Tapete Oval",
     "details": "70x50cm",
-    "price": "R$ 65"
+    "price": 65
   },
   {
-    "sales": "20",
+    "sales": 5,
     "type": "Jogos",
     "name": "Tapete Oval Par",
     "details": "70x50cm",
-    "price": "R$ 110",
-    "no_discount": "R$ 130"
+    "price": 110,
+    "no_discount": 130
   },
   {
-    "sales": "20",
+    "sales": 9,
     "type": "Tapetes",
     "name": "Tapete Oval G",
     "details": "100x50cm",
-    "price": "R$ 100"
+    "price": 100
   },
   {
-    "sales": "20",
+    "sales": 10,
     "type": "Jogos",
     "name": "Tapete Oval Par G",
     "details": "100x50cm",
-    "price": "R$ 180",
-    "no_discount": "R$ 200"
+    "price": 180,
+    "no_discount": 200
   },
   {
-    "sales": "20",
+    "sales": 5,
     "type": "Tapetes",
     "name": "Passadeira Oval",
-    "price": "R$ 180",
+    "price": 180,
     "details": "160x50cm"
   },
   {
-    "sales": "20",
+    "sales": 3,
     "type": "Jogos",
     "name": "Jogo Oval",
     "details": "2 tapetes (70x50cm) e 1 passadeira (160x50cm)",
-    "price": "R$ 270",
-    "no_discount": "R$ 310"
+    "price": 270,
+    "no_discount": 310
   },
   {
-    "sales": "20",
+    "sales": 8,
     "type": "Jogos",
     "name": "Jogo Oval G",
     "details": "2 tapetes (100x50cm) e 1 passadeira (160x50cm)",
-    "price": "R$ 350",
-    "no_discount": "R$ 380"
+    "price": 350,
+    "no_discount": 380
   },
   {
-    "sales": "20",
+    "sales": 7,
     "type": "Tapetes",
     "name": "Tapete Redondo",
-    "price": "R$ 100",
+    "price": 100,
     "details": "80cm"
   },
   {
-    "sales": "20",
+    "sales": 6,
     "type": "Tapetes",
     "name": "Tapete Redondo G",
-    "price": "R$ 150",
+    "price": 150,
     "details": "100cm"
   },
   {
-    "sales": "20",
+    "sales": 5,
     "type": "Mesa Posta",
     "name": "Sousplat Luxo",
-    "price": "R$ 40",
+    "price": 40,
     "details": "35cm"
   },
   {
-    "sales": "20",
+    "sales": 6,
     "type": "Mesa Posta",
     "name": "Sourplant Luxo",
-    "price": "R$ 160",
+    "price": 160,
     "details": "140x40cm"
   },
   {
-    "sales": "20",
+    "sales": 2,
     "type": "Jogos",
     "name": "Jogo Mesa Luxo",
     "details": "6 sousplat (35cm) e 1 sourplant (140x40cm)",
-    "price": "R$ 360",
-    "no_discount": "R$ 400"
+    "price": 360,
+    "no_discount": 400
   },
   {
-    "sales": "20",
+    "sales": 6,
     "type": "Mesa Posta",
     "name": "Trilho Quadrados",
-    "price": "R$ 180",
+    "price": 180,
     "details": "160x50cm"
   },
   {
-    "sales": "20",
+    "sales": 3,
     "type": "Mesa Posta",
     "name": "Trilho Hexágonos",
-    "price": "R$ 200",
+    "price": 200,
     "details": "160x50cm"
   }
 ]
