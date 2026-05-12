@@ -24,6 +24,15 @@ export default function Home() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+  useEffect(() => {
+  if (!selectedProduct) return;
+
+  selectedProduct.variants.forEach((variant) => {
+    const img = new window.Image();
+
+    img.src = `/products/${selectedProduct.slug}/${variant.image}`;
+  });
+}, [selectedProduct]);
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -434,21 +443,25 @@ Total do pedido: R$ ${total}
             <div className="grid md:grid-cols-2">
               {/* IMAGEM */}
               <div className="relative bg-card-soft">
-                <Image
-                  src={`/products/${selectedProduct.slug}/${selectedProduct.variants[selectedColor].image}`}
-                  alt={selectedProduct.name}
-                  width={700}
-                  height={900}
-                  className="
-            h-[280px]
-            w-full
-            object-cover
-            
-            sm:h-[300px]
-            md:h-full
-            md:min-h-[650px]
-          "
-                />
+             <Image
+  key={selectedProduct.variants[selectedColor].image}
+  src={`/products/${selectedProduct.slug}/${selectedProduct.variants[selectedColor].image}`}
+  alt={selectedProduct.name}
+  width={700}
+  height={900}
+  priority
+  sizes="(max-width: 768px) 100vw, 50vw"
+  className="
+    w-full
+    object-cover
+    transition-opacity duration-200
+
+    h-[260px]
+    sm:h-[320px]
+    md:h-[500px]
+    lg:h-[650px]
+  "
+/>
 
                 <div className="absolute left-4 top-4 rounded-full bg-background/90 px-3 py-1 text-xs font-medium shadow-md backdrop-blur">
                   {selectedProduct.sales} vendidos
@@ -533,7 +546,7 @@ Total do pedido: R$ ${total}
                   onClick={addToCart}
                   className="mt-8 w-full rounded-2xl bg-primary py-3 text-sm font-semibold text-primary-foreground shadow-xl transition hover:scale-[1.01] hover:bg-primary-hover sm:py-4 sm:text-lg"
                 >
-                  Adicionar ao carrinho 🛒
+                  Adicionar ao carrinho
                 </button>
               </div>
             </div>
