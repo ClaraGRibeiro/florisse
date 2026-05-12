@@ -1,9 +1,21 @@
+export interface ProductVariant {
+  color: string;
+  image: string;
+  hex: string;
+}
+
+export interface ProductSize {
+  label: string;
+  price: number;
+  no_discount?: number;
+}
+
 export interface Product {
   name: string;
-  size?: string;
+  slug: string;
   type: string;
-  price: string;
-  details?: string;
-  no_discount?: string;
   sales: number;
+
+  variants: ProductVariant[];
+  sizes: ProductSize[];
 }
