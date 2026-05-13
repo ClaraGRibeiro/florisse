@@ -67,7 +67,6 @@ export default function Home() {
       }),
     };
   });
-  console.log(products);
   const [category, setCategory] = useState<string>("Tapetes");
   const filters = ["Tapetes", "Mesa Posta", "Jogos"];
   const labels = {
@@ -383,7 +382,7 @@ export default function Home() {
               <div className="relative overflow-hidden">
                 <Image
                   src={`/products/${product.category}/${product.name}/${product.colors[0].name}.png`}
-                  alt={product.name}
+                  alt={`/products/${product.category}/${product.name}/${product.colors[0].name}.png`}
                   width={600}
                   height={600}
                   className="h-80 w-full object-cover group-hover:scale-110
