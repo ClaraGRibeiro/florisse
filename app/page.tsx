@@ -207,7 +207,6 @@ export default function Home() {
     <main className="min-h-screen bg-background text-foreground">
       <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6">
-          {/* LOGO */}
           <div className="flex items-center gap-3 min-w-0">
             <div className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-full bg-primary/15 shadow-sm">
               <Image
@@ -230,7 +229,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* DESKTOP NAV */}
           <nav className="hidden items-center gap-6 lg:flex">
             {["Início", "Produtos", "Sobre", "Cuidados"].map((item) => (
               <a
@@ -254,7 +252,6 @@ export default function Home() {
             </button>
           </nav>
 
-          {/* MOBILE ACTIONS */}
           <div className="flex items-center gap-2 lg:hidden">
             <button
               onClick={() => setCartOpen(true)}
@@ -276,7 +273,6 @@ export default function Home() {
         className="relative overflow-hidden scroll-mt-20 bg-linear-to-br from-card-soft to-accent"
       >
         <div className="mx-auto grid max-w-7xl gap-14 px-4 py-14 sm:px-6 md:grid-cols-2 md:items-center md:py-20">
-          {/* TEXTO */}
           <div className="relative z-10 text-center md:text-left">
             <h2 className="mt-6 text-4xl font-extrabold leading-tight sm:text-5xl lg:text-6xl">
               Peças artesanais que deixam sua casa mais{" "}
@@ -304,7 +300,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* IMAGEM */}
           <div className="relative flex justify-center">
             <Image
               src="/hero.png"
@@ -315,7 +310,6 @@ export default function Home() {
               className="w-full max-w-145 rounded-4xl object-cover shadow-2xl"
             />
 
-            {/* CARD FLOUTING */}
             <div className="absolute bottom-4 left-4 rounded-2xl bg-card/95 p-4 shadow-xl backdrop-blur-md sm:bottom-6 sm:left-6 sm:p-5">
               <p className="text-xs text-muted sm:text-sm">
                 Mais vendida ({best_selling.total_sales} un)
@@ -328,7 +322,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* BLUR DECORATIVO */}
         <div className="absolute -left-20 top-10 h-52 w-52 rounded-full bg-primary/10 blur-3xl" />
 
         <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-primary/5 blur-3xl" />
@@ -337,7 +330,6 @@ export default function Home() {
         id="produtos"
         className="mx-auto max-w-7xl scroll-mt-20 px-4 py-14 sm:px-6 lg:px-8"
       >
-        {/* HEADER */}
         <div className="mb-10 text-center">
           <h2 className="mt-5 text-4xl font-bold leading-tight sm:text-5xl">
             Produtos em Destaque
@@ -348,7 +340,6 @@ export default function Home() {
           </p>
         </div>
 
-        {/* FILTROS */}
         <div className="mb-12 flex flex-wrap justify-center gap-3">
           {filters.map((f) => (
             <button
@@ -365,7 +356,6 @@ export default function Home() {
           ))}
         </div>
 
-        {/* GRID */}
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {filtered.map((product) => (
             <div
@@ -377,7 +367,6 @@ export default function Home() {
               key={product.name}
               className="cursor-pointer group overflow-hidden rounded-4xl border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
             >
-              {/* IMAGEM */}
               <div className="relative overflow-hidden">
                 <Image
                   src={`/products/${product.category}/${product.name}/${product.colors[0].color}.png`}
@@ -394,13 +383,14 @@ export default function Home() {
                 )}
               </div>
 
-              {/* CONTEÚDO */}
               <div className="flex flex-col gap-4 p-5">
                 <div>
                   <h3 className="line-clamp-1 text-lg font-semibold">
                     {product.name}
                   </h3>
-
+                  <span className="text-sm font-medium text-muted">
+                    {product.sizes[0].label}
+                  </span>
                   <div className="mt-3 flex items-center gap-2">
                     {product.colors.map((color, index) => (
                       <div
@@ -420,7 +410,6 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* PREÇO */}
                 <div className="flex items-end justify-between gap-4">
                   <div className="flex flex-col">
                     <span className="text-xl font-bold text-primary">
@@ -448,7 +437,6 @@ export default function Home() {
         className="scroll-mt-20 overflow-hidden bg-card-soft py-16 sm:py-20"
       >
         <div className="mx-auto grid max-w-7xl gap-14 px-4 sm:px-6 md:grid-cols-2 md:items-center lg:gap-20">
-          {/* IMAGEM */}
           <div className="relative flex justify-center">
             <Image
               src="/sobre.png"
@@ -458,11 +446,9 @@ export default function Home() {
               className="w-full max-w-155 rounded-4xl object-cover shadow-2xl"
             />
 
-            {/* DETALHE DECORATIVO */}
             <div className="absolute -bottom-6 -right-6 hidden h-32 w-32 rounded-full bg-primary/10 blur-3xl sm:block" />
           </div>
 
-          {/* TEXTO */}
           <div className="relative z-10 text-left md:text-left">
             <h2 className="mt-5 text-4xl font-bold leading-tight text-foreground sm:text-5xl">
               Sobre a Florisse
@@ -492,7 +478,6 @@ export default function Home() {
       </section>
       <section id="cuidados" className="scroll-mt-20 bg-card py-16 sm:py-20">
         <div className="mx-auto max-w-5xl px-4 sm:px-6">
-          {/* TÍTULO */}
           <div className="text-center">
             <h2 className="text-4xl font-bold sm:text-5xl">
               Como cuidar da sua peça de crochê
@@ -504,30 +489,24 @@ export default function Home() {
             </p>
           </div>
 
-          {/* CARDS */}
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {cares.map((care, index) => (
               <div
                 key={index}
                 className="group relative overflow-hidden rounded-3xl border border-border bg-linear-to-b from-card to-card-soft p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
               >
-                {/* brilho decorativo */}
                 <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-primary/10 blur-3xl transition-opacity group-hover:opacity-80" />
 
-                {/* ícone */}
                 <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-2xl transition group-hover:scale-110">
                   {care.icon}
                 </div>
 
-                {/* título */}
                 <h3 className="mt-5 text-lg font-semibold text-foreground">
                   {care.title}
                 </h3>
 
-                {/* linha decorativa */}
                 <div className="mt-2 h-0.5 w-10 rounded-full bg-primary/30 transition-all group-hover:w-16 group-hover:bg-primary" />
 
-                {/* descrição */}
                 <p className="mt-4 text-sm leading-relaxed text-muted">
                   {care.description}
                 </p>
@@ -537,7 +516,6 @@ export default function Home() {
         </div>
       </section>
       <footer className="border-t border-border">
-        {/* COPYRIGHT */}
         <div className="text-center py-4">
           <p className="text-sm text-muted">© 2026 Florisse</p>
 
@@ -555,7 +533,6 @@ export default function Home() {
             className="relative max-h-[95vh] w-full max-w-5xl overflow-y-auto rounded-4xl bg-card shadow-2xl animate-in fade-in zoom-in duration-300"
             onClick={(e) => e.stopPropagation()} // impede fechar ao clicar dentro
           >
-            {/* FECHAR */}
             <button
               onClick={() => setSelectedProduct(null)}
               className="cursor-pointer absolute right-4 top-4 z-20 flex h-10 w-10 items-center justify-center rounded-full bg-background/90 text-lg shadow-md backdrop-blur transition hover:scale-105"
@@ -564,7 +541,6 @@ export default function Home() {
             </button>
 
             <div className="grid md:grid-cols-2">
-              {/* IMAGEM */}
               <div className="relative bg-card-soft">
                 <Image
                   key={selectedProduct.colors[selectedColor].color}
@@ -582,15 +558,12 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* CONTEÚDO */}
               <div className="flex flex-col justify-between p-5 sm:p-7 md:p-8">
                 <div>
-                  {/* TÍTULO */}
                   <h2 className="text-2xl font-bold leading-tight sm:text-3xl md:text-4xl">
                     {selectedProduct.name}
                   </h2>
 
-                  {/* PREÇO */}
                   <div className="mt-5 flex flex-wrap items-center gap-3">
                     <span className="text-2xl font-bold text-primary sm:text-3xl">
                       R$ {selectedProduct.sizes[selectedSize].price}
@@ -603,7 +576,6 @@ export default function Home() {
                     )}
                   </div>
 
-                  {/* CORES */}
                   <div className="mt-7">
                     <p className="mb-3 text-sm font-medium">Escolha a cor:</p>
 
@@ -644,7 +616,6 @@ export default function Home() {
                     </div>
                   </div>
 
-                  {/* TAMANHOS */}
                   <div className="mt-7">
                     <p className="mb-3 text-sm font-medium">
                       Escolha o tamanho:
@@ -668,7 +639,6 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* BOTÃO */}
                 <button
                   onClick={addToCart}
                   className="mt-8 w-full rounded-2xl bg-primary py-3 text-sm font-semibold text-primary-foreground shadow-xl transition hover:scale-[1.01] hover:bg-primary-hover sm:py-4 sm:text-lg"
