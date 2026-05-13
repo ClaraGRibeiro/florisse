@@ -55,17 +55,18 @@ export default function Home() {
       ...product,
       total_sales: totalSales,
       colors: product.colors.map((color) => {
-        const colorParts = color.color.split("-");
+        const colorParts = color.split("-");
 
         const hex = colorParts.map((part) => colorMap.get(part) || "#000000");
 
         return {
-          ...color,
+          name: color,
           hex,
         };
       }),
     };
   });
+  console.log(products);
   const [category, setCategory] = useState<string>("Tapetes");
   const filters = ["Tapetes", "Mesa Posta", "Jogos"];
   const labels = {
@@ -91,7 +92,7 @@ export default function Home() {
     selectedProduct.colors.forEach((color) => {
       const img = new window.Image();
 
-      img.src = `/products/${selectedProduct.name}/${color.color}.png`;
+      img.src = `/products/${selectedProduct.name}/${color.name}.png`;
     });
   }, [selectedProduct]);
   const scrollToTop = () => {
@@ -101,7 +102,7 @@ export default function Home() {
     (a, b) => (b.total_sales ?? 0) - (a.total_sales ?? 0),
   )[0];
   const msg =
-    "https://wa.me/5538992030710?text=Olá! Quero fazer um orçamento de um pedido personalizado, Florisse...";
+    "https://wa.me/5538992030710?text=Olá! Vim pelo site da Florisse e gostaria de fazer um pedido personalizado.";
   type CartItem = {
     id: string;
     name: string;
@@ -122,13 +123,13 @@ export default function Home() {
     const newItem: CartItem = {
       id: crypto.randomUUID(),
       name: selectedProduct.name,
-      color: selectedProduct.colors[selectedColor].color,
+      color: selectedProduct.colors[selectedColor].name,
       size: selectedProduct.sizes[selectedSize].label,
       price: Number(selectedProduct.sizes[selectedSize].price),
       no_discount: selectedProduct.sizes[selectedSize].no_discount
         ? Number(selectedProduct.sizes[selectedSize].no_discount)
         : undefined,
-      image: `/products/${selectedProduct.category}/${selectedProduct.name}/${selectedProduct.colors[selectedColor].color}.png`,
+      image: `/products/${selectedProduct.category}/${selectedProduct.name}/${selectedProduct.colors[selectedColor].name}.png`,
       quantity: 1,
     };
 
@@ -369,7 +370,7 @@ export default function Home() {
             >
               <div className="relative overflow-hidden">
                 <Image
-                  src={`/products/${product.category}/${product.name}/${product.colors[0].color}.png`}
+                  src={`/products/${product.category}/${product.name}/${product.colors[0].name}.png`}
                   alt={product.name}
                   width={600}
                   height={600}
@@ -395,7 +396,7 @@ export default function Home() {
                     {product.colors.map((color, index) => (
                       <div
                         key={index}
-                        title={formatColor(color.color)}
+                        title={formatColor(color.name)}
                         className="h-6 w-6 rounded-full border-2 border-white shadow-sm"
                         style={{
                           background:
@@ -543,8 +544,8 @@ export default function Home() {
             <div className="grid md:grid-cols-2">
               <div className="relative bg-card-soft">
                 <Image
-                  key={selectedProduct.colors[selectedColor].color}
-                  src={`/products/${selectedProduct.category}/${selectedProduct.name}/${selectedProduct.colors[selectedColor].color}.png`}
+                  key={selectedProduct.colors[selectedColor].name}
+                  src={`/products/${selectedProduct.category}/${selectedProduct.name}/${selectedProduct.colors[selectedColor].name}.png`}
                   alt={selectedProduct.name}
                   width={700}
                   height={900}
@@ -609,7 +610,7 @@ export default function Home() {
                           />
 
                           <span className="font-medium">
-                            {formatColor(color.color)}
+                            {formatColor(color.name)}
                           </span>
                         </button>
                       ))}

@@ -19,11 +19,7 @@
         "sales": 0
       }
     ],
-    "colors": [
-      {
-        "color": "cru-bege"
-      }
-    ]
+    "colors": ["cru-bege"]
   },
   {
     "name": "Tapete Oval Bicolor",
@@ -45,11 +41,7 @@
         "sales": 0
       }
     ],
-    "colors": [
-      {
-        "color": "alecrim-militar"
-      }
-    ]
+    "colors": ["alecrim-militar"]
   },
   {
     "name": "Tapete Oval Tricolor",
@@ -71,14 +63,7 @@
         "sales": 0
       }
     ],
-    "colors": [
-      {
-        "color": "cru-militar-alecrim"
-      },
-      {
-        "color": "cru-marrom-bege"
-      }
-    ]
+    "colors": ["cru-militar-alecrim", "cru-marrom-bege"]
   },
   {
     "name": "Jogo Cozinha Retangular",
@@ -97,11 +82,7 @@
         "sales": 0
       }
     ],
-    "colors": [
-      {
-        "color": "cru-bege"
-      }
-    ]
+    "colors": ["cru-bege"]
   },
   {
     "name": "Jogo Cozinha Oval Bicolor",
@@ -120,11 +101,7 @@
         "sales": 0
       }
     ],
-    "colors": [
-      {
-        "color": "alecrim-militar"
-      }
-    ]
+    "colors": ["alecrim-militar"]
   },
   {
     "name": "Jogo Cozinha Oval Tricolor",
@@ -143,14 +120,7 @@
         "sales": 0
       }
     ],
-    "colors": [
-      {
-        "color": "cru-militar-alecrim"
-      },
-      {
-        "color": "cru-marrom-bege"
-      }
-    ]
+    "colors": ["cru-militar-alecrim", "cru-marrom-bege"]
   },
   {
     "name": "Tapete Redondo Bicolor",
@@ -167,11 +137,7 @@
         "sales": 0
       }
     ],
-    "colors": [
-      {
-        "color": "alecrim-militar"
-      }
-    ]
+    "colors": ["alecrim-militar"]
   },
   {
     "name": "Sousplat Luxo",
@@ -188,11 +154,7 @@
         "sales": 0
       }
     ],
-    "colors": [
-      {
-        "color": "cru"
-      }
-    ]
+    "colors": ["cru"]
   },
   {
     "name": "Trilho de Mesa Luxo",
@@ -209,11 +171,7 @@
         "sales": 0
       }
     ],
-    "colors": [
-      {
-        "color": "cru"
-      }
-    ]
+    "colors": ["cru"]
   },
   {
     "name": "Jogo Mesa Luxo",
@@ -268,10 +226,6 @@
         "sales": 0
       }
     ],
-    "colors": [
-      {
-        "color": "cru"
-      }
-    ]
+    "colors": ["cru"]
   }
 ]

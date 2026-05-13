@@ -1,5 +1,5 @@
 export interface Productcolors {
-  color: string;
+  name: string;
   hex: string[];
 }
 
