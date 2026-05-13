@@ -3,6 +3,7 @@ import productsData from "@/data/products.json";
 import { Product } from "@/types/product";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import colorsData from "@/data/colors.json";
 
 export default function Home() {
   const cares = [
@@ -43,8 +44,29 @@ export default function Home() {
         "Cada peça é feita à mão com tempo e carinho — trate como algo especial.",
     },
   ];
-  const products: Product[] = productsData;
-  const [type, setType] = useState<string>("Tapetes");
+  const colorMap = new Map(colorsData.map((c) => [c.color, c.hex]));
+  const products: Product[] = productsData.map((product) => {
+    const totalSales = product.sizes.reduce(
+      (acc, size) => acc + (size.sales ?? 0),
+      0,
+    );
+
+    return {
+      ...product,
+      total_sales: totalSales,
+      colors: product.colors.map((color) => {
+        const colorParts = color.color.split("-");
+
+        const hex = colorParts.map((part) => colorMap.get(part) || "#000000");
+
+        return {
+          ...color,
+          hex,
+        };
+      }),
+    };
+  });
+  const [category, setCategory] = useState<string>("Tapetes");
   const filters = ["Tapetes", "Mesa Posta", "Jogos"];
   const labels = {
     Tapetes: "Tapetes",
@@ -52,7 +74,9 @@ export default function Home() {
     Jogos: "Jogos",
   };
   const [selectedSize, setSelectedSize] = useState(0);
-  const filtered = products.filter((p) => type === "" || p.type === type);
+  const filtered = products.filter(
+    (p) => category === "" || p.category === category,
+  );
   const [showTop, setShowTop] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [selectedColor, setSelectedColor] = useState(0);
@@ -64,10 +88,10 @@ export default function Home() {
   useEffect(() => {
     if (!selectedProduct) return;
 
-    selectedProduct.variants.forEach((variant) => {
+    selectedProduct.colors.forEach((color) => {
       const img = new window.Image();
 
-      img.src = `/products/${selectedProduct.name}/${variant.image}`;
+      img.src = `/products/${selectedProduct.name}/${color.color}.png`;
     });
   }, [selectedProduct]);
   const scrollToTop = () => {
@@ -98,13 +122,13 @@ export default function Home() {
     const newItem: CartItem = {
       id: crypto.randomUUID(),
       name: selectedProduct.name,
-      color: selectedProduct.variants[selectedColor].color,
+      color: selectedProduct.colors[selectedColor].color,
       size: selectedProduct.sizes[selectedSize].label,
       price: Number(selectedProduct.sizes[selectedSize].price),
       no_discount: selectedProduct.sizes[selectedSize].no_discount
         ? Number(selectedProduct.sizes[selectedSize].no_discount)
         : undefined,
-      image: `/products/${selectedProduct.type}/${selectedProduct.name}/${selectedProduct.variants[selectedColor].image}`,
+      image: `/products/${selectedProduct.category}/${selectedProduct.name}/${selectedProduct.colors[selectedColor].color}.png`,
       quantity: 1,
     };
 
@@ -146,29 +170,38 @@ export default function Home() {
     );
 
     const text = `
-Olá, Florisse!
+      Olá, Florisse!
 
-Quero fazer o seguinte pedido:
+      Quero fazer o seguinte pedido:
 
-${cart
-  .map(
-    (item, index) => `
-${index + 1}. ${item.name}
-• Cor: ${item.color}
-• Tamanho: ${item.size}
-• Quantidade: ${item.quantity}
-• Valor: R$ ${item.price * item.quantity}
-`,
-  )
-  .join("\n")}
+      ${cart
+        .map(
+          (item, index) => `
+          ${index + 1}. ${item.name}
+          • Cor: ${item.color}
+          • Tamanho: ${item.size}
+          • Quantidade: ${item.quantity}
+          • Valor: R$ ${item.price * item.quantity}
+          `,
+        )
+        .join("\n")}
 
-Total do pedido: R$ ${total}
-`;
+      Total do pedido: R$ ${total}
+    `;
 
     window.open(
       `https://wa.me/5538992030710?text=${encodeURIComponent(text)}`,
       "_blank",
     );
+  };
+  const formatColor = (color: string) => {
+    return color
+      .split("-")
+      .map(
+        (word: string) =>
+          word.charAt(0).toUpperCase() + word.slice(1).toLowerCase(),
+      )
+      .join("/");
   };
   return (
     <main className="min-h-screen bg-background text-foreground">
@@ -199,7 +232,7 @@ Total do pedido: R$ ${total}
 
           {/* DESKTOP NAV */}
           <nav className="hidden items-center gap-6 lg:flex">
-            {["Início", "Produtos", "Sobre"].map((item) => (
+            {["Início", "Produtos", "Sobre", "Cuidados"].map((item) => (
               <a
                 key={item}
                 href={`#${item.toLowerCase()}`}
@@ -320,9 +353,9 @@ Total do pedido: R$ ${total}
           {filters.map((f) => (
             <button
               key={f}
-              onClick={() => setType(f)}
+              onClick={() => setCategory(f)}
               className={`cursor-pointer rounded-full border px-5 py-2.5 text-sm font-medium transition-all duration-200 hover:scale-105 ${
-                type === f
+                category === f
                   ? "border-transparent bg-primary text-white shadow-md"
                   : "border-border bg-card text-muted hover:border-primary/30 hover:text-primary"
               }`}
@@ -347,7 +380,7 @@ Total do pedido: R$ ${total}
               {/* IMAGEM */}
               <div className="relative overflow-hidden">
                 <Image
-                  src={`/products/${product.type}/${product.name}/${product.variants[0].image}`}
+                  src={`/products/${product.category}/${product.name}/${product.colors[0].color}.png`}
                   alt={product.name}
                   width={600}
                   height={600}
@@ -369,31 +402,21 @@ Total do pedido: R$ ${total}
                   </h3>
 
                   <div className="mt-3 flex items-center gap-2">
-                    {product.variants.map((variant, index) => (
+                    {product.colors.map((color, index) => (
                       <div
                         key={index}
-                        title={variant.color}
-                        className="h-5 w-5 rounded-full border-2 border-white shadow-sm"
+                        title={formatColor(color.color)}
+                        className="h-6 w-6 rounded-full border-2 border-white shadow-sm"
                         style={{
                           background:
-                            variant.hex.length === 1
-                              ? variant.hex[0]
-                              : variant.hex.length === 2
-                                ? `linear-gradient(
-            135deg,
-            ${variant.hex[0]} 0%,
-            ${variant.hex[0]} 50%,
-            ${variant.hex[1]} 50%,
-            ${variant.hex[1]} 100%
-          )`
-                                : `linear-gradient(135deg, ${variant.hex.join(", ")})`,
+                            color.hex.length === 1
+                              ? color.hex[0]
+                              : color.hex.length === 2
+                                ? `linear-gradient(135deg,${color.hex[0]} 0%,${color.hex[0]} 50%,${color.hex[1]} 50%,${color.hex[1]} 100%)`
+                                : `linear-gradient(135deg, ${color.hex.join(", ")})`,
                         }}
                       />
                     ))}
-
-                    <span className="ml-1 text-xs text-muted">
-                      {product.variants.length} cores
-                    </span>
                   </div>
                 </div>
 
@@ -467,7 +490,7 @@ Total do pedido: R$ ${total}
           </div>
         </div>
       </section>
-      <section className="scroll-mt-20 bg-card py-16 sm:py-20">
+      <section id="cuidados" className="scroll-mt-20 bg-card py-16 sm:py-20">
         <div className="mx-auto max-w-5xl px-4 sm:px-6">
           {/* TÍTULO */}
           <div className="text-center">
@@ -486,7 +509,7 @@ Total do pedido: R$ ${total}
             {cares.map((care, index) => (
               <div
                 key={index}
-                className="group relative overflow-hidden rounded-3xl border border-border bg-gradient-to-b from-card to-card-soft p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+                className="group relative overflow-hidden rounded-3xl border border-border bg-linear-to-b from-card to-card-soft p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
               >
                 {/* brilho decorativo */}
                 <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-primary/10 blur-3xl transition-opacity group-hover:opacity-80" />
@@ -502,7 +525,7 @@ Total do pedido: R$ ${total}
                 </h3>
 
                 {/* linha decorativa */}
-                <div className="mt-2 h-[2px] w-10 rounded-full bg-primary/30 transition-all group-hover:w-16 group-hover:bg-primary" />
+                <div className="mt-2 h-0.5 w-10 rounded-full bg-primary/30 transition-all group-hover:w-16 group-hover:bg-primary" />
 
                 {/* descrição */}
                 <p className="mt-4 text-sm leading-relaxed text-muted">
@@ -544,8 +567,8 @@ Total do pedido: R$ ${total}
               {/* IMAGEM */}
               <div className="relative bg-card-soft">
                 <Image
-                  key={selectedProduct.variants[selectedColor].image}
-                  src={`/products/${selectedProduct.type}/${selectedProduct.name}/${selectedProduct.variants[selectedColor].image}`}
+                  key={selectedProduct.colors[selectedColor].color}
+                  src={`/products/${selectedProduct.category}/${selectedProduct.name}/${selectedProduct.colors[selectedColor].color}.png`}
                   alt={selectedProduct.name}
                   width={700}
                   height={900}
@@ -585,39 +608,39 @@ Total do pedido: R$ ${total}
                     <p className="mb-3 text-sm font-medium">Escolha a cor:</p>
 
                     <div className="flex flex-wrap gap-2">
-                      {selectedProduct.variants.map(
-                        (variant: any, i: number) => (
-                          <button
-                            key={i}
-                            onClick={() => setSelectedColor(i)}
-                            className={`cursor-pointer flex items-center gap-2 rounded-full border px-3 py-2 text-sm transition-all ${
-                              selectedColor === i
-                                ? "scale-105 border-primary bg-primary text-primary-foreground shadow-lg"
-                                : "border-border bg-background hover:border-primary/40"
-                            }`}
-                          >
-                            <div
-                              className="h-4 w-4 rounded-full border border-white sm:h-5 sm:w-5"
-                              style={{
-                                background:
-                                  variant.hex.length === 1
-                                    ? variant.hex[0]
-                                    : variant.hex.length === 2
-                                      ? `linear-gradient(
+                      {selectedProduct.colors.map((color: any, i: number) => (
+                        <button
+                          key={i}
+                          onClick={() => setSelectedColor(i)}
+                          className={`cursor-pointer flex items-center gap-2 rounded-full border px-3 py-2 text-sm transition-all ${
+                            selectedColor === i
+                              ? "scale-105 border-primary bg-primary text-primary-foreground shadow-lg"
+                              : "border-border bg-background hover:border-primary/40"
+                          }`}
+                        >
+                          <div
+                            className="h-6 w-6 rounded-full border border-white sm:h-5 sm:w-5"
+                            style={{
+                              background:
+                                color.hex.length === 1
+                                  ? color.hex[0]
+                                  : color.hex.length === 2
+                                    ? `linear-gradient(
                                   135deg,
-                                  ${variant.hex[0]} 0%,
-                                  ${variant.hex[0]} 50%,
-                                  ${variant.hex[1]} 50%,
-                                  ${variant.hex[1]} 100%
+                                  ${color.hex[0]} 0%,
+                                  ${color.hex[0]} 50%,
+                                  ${color.hex[1]} 50%,
+                                  ${color.hex[1]} 100%
                                 )`
-                                      : `linear-gradient(135deg, ${variant.hex.join(", ")})`,
-                              }}
-                            />
+                                    : `linear-gradient(135deg, ${color.hex.join(", ")})`,
+                            }}
+                          />
 
-                            <span className="font-medium">{variant.color}</span>
-                          </button>
-                        ),
-                      )}
+                          <span className="font-medium">
+                            {formatColor(color.color)}
+                          </span>
+                        </button>
+                      ))}
                     </div>
                   </div>
 
@@ -718,7 +741,7 @@ Total do pedido: R$ ${total}
 
                               <div className="mt-2 space-y-1">
                                 <p className="text-sm text-muted">
-                                  Cor: {item.color}
+                                  Cor: {formatColor(item.color)}
                                 </p>
 
                                 <p className="text-sm text-muted">

@@ -1,6 +1,5 @@
-export interface ProductVariant {
+export interface Productcolors {
   color: string;
-  image: string;
   hex: string[];
 }
 
@@ -14,8 +13,8 @@ export interface ProductSize {
 export interface Product {
   total_sales: number;
   name: string;
-  type: string;
+  category: string;
 
-  variants: ProductVariant[];
+  colors: Productcolors[];
   sizes: ProductSize[];
 }

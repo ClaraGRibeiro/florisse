@@ -1,20 +1,12 @@
 [
   {
-    "total_sales": 5,
-    "variants": [
-      {
-        "color": "Cru+Bege",
-        "image": "cru-bege.png",
-        "hex": ["#F5E6CC", "#6B4F3A"]
-      }
-    ],
-    "type": "Tapetes",
     "name": "Tapete Retangular",
+    "category": "Tapetes",
     "sizes": [
       {
         "label": "70x50cm",
         "price": 70,
-        "sales": 1
+        "sales": 2
       },
       {
         "label": "100x50cm",
@@ -24,21 +16,18 @@
       {
         "label": "160x50cm",
         "price": 230,
-        "sales": 0
+        "sales": 1
+      }
+    ],
+    "colors": [
+      {
+        "color": "cru-bege"
       }
     ]
   },
   {
-    "total_sales": 2,
-    "variants": [
-      {
-        "color": "Alecrim+Militar",
-        "image": "alecrim-militar.png",
-        "hex": ["#6E8B5B", "#5D6532"]
-      }
-    ],
-    "type": "Tapetes",
     "name": "Tapete Oval Bicolor",
+    "category": "Tapetes",
     "sizes": [
       {
         "label": "70x50cm",
@@ -55,24 +44,16 @@
         "price": 180,
         "sales": 0
       }
+    ],
+    "colors": [
+      {
+        "color": "alecrim-militar"
+      }
     ]
   },
   {
-    "total_sales": 4,
-    "variants": [
-      {
-        "color": "Cru+Militar+Alecrim",
-        "image": "cru-militar-alecrim.png",
-        "hex": ["#6E8B5B", "#5D6532"]
-      },
-      {
-        "color": "Cru+Marrom+Bege",
-        "image": "cru-marrom-bege.png",
-        "hex": ["#D8C3A5", "#6B4F3A"]
-      }
-    ],
-    "type": "Tapetes",
     "name": "Tapete Oval Tricolor",
+    "category": "Tapetes",
     "sizes": [
       {
         "label": "70x50cm",
@@ -84,19 +65,19 @@
         "price": 100,
         "sales": 0
       }
+    ],
+    "colors": [
+      {
+        "color": "cru-militar-alecrim"
+      },
+      {
+        "color": "cru-marrom-bege"
+      }
     ]
   },
   {
-    "total_sales": 1,
-    "variants": [
-      {
-        "color": "Cru+Bege",
-        "image": "cru-bege.png",
-        "hex": ["#F5E6CC", "#6B4F3A"]
-      }
-    ],
-    "type": "Jogos",
     "name": "Jogo Cozinha Retangular",
+    "category": "Jogos",
     "sizes": [
       {
         "label": "2 tapetes (70x50cm) e 1 passadeira (160x50cm)",
@@ -110,19 +91,16 @@
         "no_discount": 470,
         "sales": 0
       }
+    ],
+    "colors": [
+      {
+        "color": "cru-bege"
+      }
     ]
   },
   {
-    "total_sales": 1,
-    "variants": [
-      {
-        "color": "Alecrim+Militar",
-        "image": "alecrim-militar.png",
-        "hex": ["#6E8B5B", "#5D6532"]
-      }
-    ],
-    "type": "Jogos",
     "name": "Jogo Cozinha Oval Bicolor",
+    "category": "Jogos",
     "sizes": [
       {
         "label": "2 tapetes (70x50cm) e 1 passadeira (160x50cm)",
@@ -136,24 +114,16 @@
         "no_discount": 380,
         "sales": 0
       }
+    ],
+    "colors": [
+      {
+        "color": "alecrim-militar"
+      }
     ]
   },
   {
-    "total_sales": 0,
-    "variants": [
-      {
-        "color": "Cru+Militar+Alecrim",
-        "image": "cru-militar-alecrim.png",
-        "hex": ["#6E8B5B", "#5D6532"]
-      },
-      {
-        "color": "Cru+Marrom+Bege",
-        "image": "cru-marrom-bege.png",
-        "hex": ["#D8C3A5", "#6B4F3A"]
-      }
-    ],
-    "type": "Jogos",
     "name": "Jogo Cozinha Oval Tricolor",
+    "category": "Jogos",
     "sizes": [
       {
         "label": "2 tapetes (70x50cm) e 1 passadeira (160x50cm)",
@@ -167,19 +137,19 @@
         "no_discount": 380,
         "sales": 0
       }
+    ],
+    "colors": [
+      {
+        "color": "cru-militar-alecrim"
+      },
+      {
+        "color": "cru-marrom-bege"
+      }
     ]
   },
   {
-    "total_sales": 1,
-    "variants": [
-      {
-        "color": "Alecrim+Militar",
-        "image": "alecrim-militar.png",
-        "hex": ["#6E8B5B", "#5D6532"]
-      }
-    ],
-    "type": "Tapetes",
     "name": "Tapete Redondo Bicolor",
+    "category": "Tapetes",
     "sizes": [
       {
         "label": "80cm",
@@ -191,57 +161,48 @@
         "price": 150,
         "sales": 0
       }
+    ],
+    "colors": [
+      {
+        "color": "alecrim-militar"
+      }
     ]
   },
   {
-    "total_sales": 0,
-    "variants": [
-      {
-        "color": "Cru",
-        "image": "cru.png",
-        "hex": ["#F5E6CC"]
-      }
-    ],
-    "type": "Mesa Posta",
     "name": "Sousplat Luxo",
+    "category": "Mesa Posta",
     "sizes": [
       {
         "label": "35cm",
         "price": 40,
         "sales": 0
       }
+    ],
+    "colors": [
+      {
+        "color": "cru"
+      }
     ]
   },
   {
-    "total_sales": 0,
-    "variants": [
-      {
-        "color": "Cru",
-        "image": "cru.png",
-        "hex": ["#F5E6CC"]
-      }
-    ],
-    "type": "Mesa Posta",
     "name": "Trilho de Mesa Luxo",
+    "category": "Mesa Posta",
     "sizes": [
       {
         "label": "140x40cm",
         "price": 160,
         "sales": 0
       }
+    ],
+    "colors": [
+      {
+        "color": "cru"
+      }
     ]
   },
   {
-    "total_sales": 0,
-    "variants": [
-      {
-        "color": "Cru",
-        "image": "cru.png",
-        "hex": ["#F5E6CC"]
-      }
-    ],
-    "type": "Jogos",
     "name": "Jogo Mesa Luxo",
+    "category": "Jogos",
     "sizes": [
       {
         "label": "4 sousplat (35cm) e 1 trilho de mesa (140x40cm)",
@@ -260,6 +221,11 @@
         "price": 425,
         "no_discount": 480,
         "sales": 0
+      }
+    ],
+    "colors": [
+      {
+        "color": "cru"
       }
     ]
   }
