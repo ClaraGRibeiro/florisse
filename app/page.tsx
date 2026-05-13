@@ -5,6 +5,44 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 export default function Home() {
+  const cares = [
+    {
+      icon: "🧼",
+      title: "Lavar com cuidado",
+      description:
+        "Lave sempre à mão, com sabão neutro e água fria. Evite máquinas para não deformar os pontos.",
+    },
+    {
+      icon: "🌤️",
+      title: "Secagem natural",
+      description:
+        "Deixe secar à sombra, em superfície plana. Evite sol direto para não desbotar as cores.",
+    },
+    {
+      icon: "🧺",
+      title: "Armazenamento",
+      description:
+        "Guarde dobrado em local seco. Evite pendurar para não deformar a peça com o tempo.",
+    },
+    {
+      icon: "🔥",
+      title: "Evite calor",
+      description:
+        "Não passe ferro direto nem exponha a fontes de calor intenso.",
+    },
+    {
+      icon: "🧽",
+      title: "Limpeza leve",
+      description:
+        "Para poeira do dia a dia, use pano seco ou escova bem macia.",
+    },
+    {
+      icon: "💛",
+      title: "Cuidado emocional",
+      description:
+        "Cada peça é feita à mão com tempo e carinho — trate como algo especial.",
+    },
+  ];
   const products: Product[] = productsData;
   const [type, setType] = useState<string>("Tapetes");
   const filters = ["Tapetes", "Mesa Posta", "Jogos"];
@@ -39,7 +77,7 @@ export default function Home() {
     (a, b) => (b.total_sales ?? 0) - (a.total_sales ?? 0),
   )[0];
   const msg =
-    "https://wa.me/5538992030710?text=Olá! Quero fazer um orçamento, Florisse...";
+    "https://wa.me/5538992030710?text=Olá! Quero fazer um orçamento de um pedido personalizado, Florisse...";
   type CartItem = {
     id: string;
     name: string;
@@ -227,7 +265,7 @@ Total do pedido: R$ ${total}
 
               <a href={msg} target="_blank">
                 <button className="w-full cursor-pointer rounded-2xl border border-border bg-card px-6 py-3 font-semibold text-foreground transition-all hover:bg-input sm:w-auto">
-                  Fazer orçamento
+                  Personalizar Pedido
                 </button>
               </a>
             </div>
@@ -374,7 +412,7 @@ Total do pedido: R$ ${total}
                   </div>
 
                   <button className="cursor-pointer rounded-xl bg-primary/10 px-4 py-2 text-sm font-medium text-primary transition-all hover:bg-primary hover:text-primary-foreground">
-                    Quero!
+                    Ver detalhes
                   </button>
                 </div>
               </div>
@@ -429,6 +467,52 @@ Total do pedido: R$ ${total}
           </div>
         </div>
       </section>
+      <section className="scroll-mt-20 bg-card py-16 sm:py-20">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6">
+          {/* TÍTULO */}
+          <div className="text-center">
+            <h2 className="text-4xl font-bold sm:text-5xl">
+              Como cuidar da sua peça de crochê
+            </h2>
+
+            <p className="mt-4 text-muted max-w-2xl mx-auto text-base sm:text-lg">
+              Pequenos cuidados fazem sua peça durar muitos anos com a mesma
+              beleza e carinho de quando foi feita.
+            </p>
+          </div>
+
+          {/* CARDS */}
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {cares.map((care, index) => (
+              <div
+                key={index}
+                className="group relative overflow-hidden rounded-3xl border border-border bg-gradient-to-b from-card to-card-soft p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+              >
+                {/* brilho decorativo */}
+                <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-primary/10 blur-3xl transition-opacity group-hover:opacity-80" />
+
+                {/* ícone */}
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-2xl transition group-hover:scale-110">
+                  {care.icon}
+                </div>
+
+                {/* título */}
+                <h3 className="mt-5 text-lg font-semibold text-foreground">
+                  {care.title}
+                </h3>
+
+                {/* linha decorativa */}
+                <div className="mt-2 h-[2px] w-10 rounded-full bg-primary/30 transition-all group-hover:w-16 group-hover:bg-primary" />
+
+                {/* descrição */}
+                <p className="mt-4 text-sm leading-relaxed text-muted">
+                  {care.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
       <footer className="border-t border-border">
         {/* COPYRIGHT */}
         <div className="text-center py-4">
@@ -440,135 +524,139 @@ Total do pedido: R$ ${total}
         </div>
       </footer>
       {selectedProduct && (
-  <div
-    className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-3 backdrop-blur-sm sm:p-5"
-    onClick={() => setSelectedProduct(null)} // fecha ao clicar fora
-  >
-    <div
-      className="relative max-h-[95vh] w-full max-w-5xl overflow-y-auto rounded-4xl bg-card shadow-2xl animate-in fade-in zoom-in duration-300"
-      onClick={(e) => e.stopPropagation()} // impede fechar ao clicar dentro
-    >
-      {/* FECHAR */}
-      <button
-        onClick={() => setSelectedProduct(null)}
-        className="cursor-pointer absolute right-4 top-4 z-20 flex h-10 w-10 items-center justify-center rounded-full bg-background/90 text-lg shadow-md backdrop-blur transition hover:scale-105"
-      >
-        ✕
-      </button>
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-3 backdrop-blur-sm sm:p-5"
+          onClick={() => setSelectedProduct(null)} // fecha ao clicar fora
+        >
+          <div
+            className="relative max-h-[95vh] w-full max-w-5xl overflow-y-auto rounded-4xl bg-card shadow-2xl animate-in fade-in zoom-in duration-300"
+            onClick={(e) => e.stopPropagation()} // impede fechar ao clicar dentro
+          >
+            {/* FECHAR */}
+            <button
+              onClick={() => setSelectedProduct(null)}
+              className="cursor-pointer absolute right-4 top-4 z-20 flex h-10 w-10 items-center justify-center rounded-full bg-background/90 text-lg shadow-md backdrop-blur transition hover:scale-105"
+            >
+              ✕
+            </button>
 
-      <div className="grid md:grid-cols-2">
-        {/* IMAGEM */}
-        <div className="relative bg-card-soft">
-          <Image
-            key={selectedProduct.variants[selectedColor].image}
-            src={`/products/${selectedProduct.type}/${selectedProduct.name}/${selectedProduct.variants[selectedColor].image}`}
-            alt={selectedProduct.name}
-            width={700}
-            height={900}
-            priority
-            sizes="(max-width: 768px) 100vw, 50vw"
-            className="w-full object-cover transition-opacity duration-200 h-65 sm:h-80 md:h-125 lg:h-162.5"
-          />
+            <div className="grid md:grid-cols-2">
+              {/* IMAGEM */}
+              <div className="relative bg-card-soft">
+                <Image
+                  key={selectedProduct.variants[selectedColor].image}
+                  src={`/products/${selectedProduct.type}/${selectedProduct.name}/${selectedProduct.variants[selectedColor].image}`}
+                  alt={selectedProduct.name}
+                  width={700}
+                  height={900}
+                  priority
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="w-full object-cover transition-opacity duration-200 h-65 sm:h-80 md:h-125 lg:h-162.5"
+                />
 
-          <div className="absolute left-4 top-4 rounded-full bg-background/90 px-3 py-1 text-xs font-medium shadow-md backdrop-blur">
-            {selectedProduct.sizes[selectedSize].sales} vendidos
-          </div>
-        </div>
+                <div className="absolute left-4 top-4 rounded-full bg-background/90 px-3 py-1 text-xs font-medium shadow-md backdrop-blur">
+                  {selectedProduct.sizes[selectedSize].sales} vendidos
+                </div>
+              </div>
 
-        {/* CONTEÚDO */}
-        <div className="flex flex-col justify-between p-5 sm:p-7 md:p-8">
-          <div>
-            {/* TÍTULO */}
-            <h2 className="text-2xl font-bold leading-tight sm:text-3xl md:text-4xl">
-              {selectedProduct.name}
-            </h2>
+              {/* CONTEÚDO */}
+              <div className="flex flex-col justify-between p-5 sm:p-7 md:p-8">
+                <div>
+                  {/* TÍTULO */}
+                  <h2 className="text-2xl font-bold leading-tight sm:text-3xl md:text-4xl">
+                    {selectedProduct.name}
+                  </h2>
 
-            {/* PREÇO */}
-            <div className="mt-5 flex flex-wrap items-center gap-3">
-              <span className="text-2xl font-bold text-primary sm:text-3xl">
-                R$ {selectedProduct.sizes[selectedSize].price}
-              </span>
+                  {/* PREÇO */}
+                  <div className="mt-5 flex flex-wrap items-center gap-3">
+                    <span className="text-2xl font-bold text-primary sm:text-3xl">
+                      R$ {selectedProduct.sizes[selectedSize].price}
+                    </span>
 
-              {selectedProduct.sizes[selectedSize].no_discount && (
-                <span className="text-sm text-muted line-through">
-                  R$ {selectedProduct.sizes[selectedSize].no_discount}
-                </span>
-              )}
-            </div>
+                    {selectedProduct.sizes[selectedSize].no_discount && (
+                      <span className="text-sm text-muted line-through">
+                        R$ {selectedProduct.sizes[selectedSize].no_discount}
+                      </span>
+                    )}
+                  </div>
 
-            {/* CORES */}
-            <div className="mt-7">
-              <p className="mb-3 text-sm font-medium">Escolha a cor:</p>
+                  {/* CORES */}
+                  <div className="mt-7">
+                    <p className="mb-3 text-sm font-medium">Escolha a cor:</p>
 
-              <div className="flex flex-wrap gap-2">
-                {selectedProduct.variants.map((variant: any, i: number) => (
-                  <button
-                    key={i}
-                    onClick={() => setSelectedColor(i)}
-                    className={`cursor-pointer flex items-center gap-2 rounded-full border px-3 py-2 text-sm transition-all ${
-                      selectedColor === i
-                        ? "scale-105 border-primary bg-primary text-primary-foreground shadow-lg"
-                        : "border-border bg-background hover:border-primary/40"
-                    }`}
-                  >
-                    <div
-                      className="h-4 w-4 rounded-full border border-white sm:h-5 sm:w-5"
-                      style={{
-                        background:
-                          variant.hex.length === 1
-                            ? variant.hex[0]
-                            : variant.hex.length === 2
-                              ? `linear-gradient(
+                    <div className="flex flex-wrap gap-2">
+                      {selectedProduct.variants.map(
+                        (variant: any, i: number) => (
+                          <button
+                            key={i}
+                            onClick={() => setSelectedColor(i)}
+                            className={`cursor-pointer flex items-center gap-2 rounded-full border px-3 py-2 text-sm transition-all ${
+                              selectedColor === i
+                                ? "scale-105 border-primary bg-primary text-primary-foreground shadow-lg"
+                                : "border-border bg-background hover:border-primary/40"
+                            }`}
+                          >
+                            <div
+                              className="h-4 w-4 rounded-full border border-white sm:h-5 sm:w-5"
+                              style={{
+                                background:
+                                  variant.hex.length === 1
+                                    ? variant.hex[0]
+                                    : variant.hex.length === 2
+                                      ? `linear-gradient(
                                   135deg,
                                   ${variant.hex[0]} 0%,
                                   ${variant.hex[0]} 50%,
                                   ${variant.hex[1]} 50%,
                                   ${variant.hex[1]} 100%
                                 )`
-                              : `linear-gradient(135deg, ${variant.hex.join(", ")})`,
-                      }}
-                    />
+                                      : `linear-gradient(135deg, ${variant.hex.join(", ")})`,
+                              }}
+                            />
 
-                    <span className="font-medium">{variant.color}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
+                            <span className="font-medium">{variant.color}</span>
+                          </button>
+                        ),
+                      )}
+                    </div>
+                  </div>
 
-            {/* TAMANHOS */}
-            <div className="mt-7">
-              <p className="mb-3 text-sm font-medium">Escolha o tamanho:</p>
+                  {/* TAMANHOS */}
+                  <div className="mt-7">
+                    <p className="mb-3 text-sm font-medium">
+                      Escolha o tamanho:
+                    </p>
 
-              <div className="flex flex-wrap gap-2">
-                {selectedProduct.sizes.map((size: any, i: number) => (
-                  <button
-                    key={i}
-                    onClick={() => setSelectedSize(i)}
-                    className={`cursor-pointer rounded-full border px-3 py-2 text-sm transition-all ${
-                      selectedSize === i
-                        ? "border-primary bg-primary text-white shadow-md"
-                        : "border-border bg-background hover:border-primary/40"
-                    }`}
-                  >
-                    {size.label}
-                  </button>
-                ))}
+                    <div className="flex flex-wrap gap-2">
+                      {selectedProduct.sizes.map((size: any, i: number) => (
+                        <button
+                          key={i}
+                          onClick={() => setSelectedSize(i)}
+                          className={`cursor-pointer rounded-full border px-3 py-2 text-sm transition-all ${
+                            selectedSize === i
+                              ? "border-primary bg-primary text-white shadow-md"
+                              : "border-border bg-background hover:border-primary/40"
+                          }`}
+                        >
+                          {size.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* BOTÃO */}
+                <button
+                  onClick={addToCart}
+                  className="mt-8 w-full rounded-2xl bg-primary py-3 text-sm font-semibold text-primary-foreground shadow-xl transition hover:scale-[1.01] hover:bg-primary-hover sm:py-4 sm:text-lg"
+                >
+                  Adicionar ao carrinho
+                </button>
               </div>
             </div>
           </div>
-
-          {/* BOTÃO */}
-          <button
-            onClick={addToCart}
-            className="mt-8 w-full rounded-2xl bg-primary py-3 text-sm font-semibold text-primary-foreground shadow-xl transition hover:scale-[1.01] hover:bg-primary-hover sm:py-4 sm:text-lg"
-          >
-            Adicionar ao carrinho
-          </button>
         </div>
-      </div>
-    </div>
-  </div>
-)}
+      )}
       {cartOpen && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-3 md:p-6"
