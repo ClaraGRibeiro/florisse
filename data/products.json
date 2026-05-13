@@ -57,17 +57,17 @@
     "sizes": [
       {
         "label": "70x50cm",
-        "price": 65,
+        "price": 70,
         "sales": 4
       },
       {
         "label": "100x50cm",
-        "price": 110,
+        "price": 120,
         "sales": 0
       },
       {
         "label": "160x50cm",
-        "price": 210,
+        "price": 230,
         "sales": 0
       }
     ],
@@ -132,14 +132,14 @@
     "sizes": [
       {
         "label": "2 (70x50cm) e 1 (160x50cm)",
-        "price": 306,
-        "no_discount": 340,
+        "price": 333,
+        "no_discount": 370,
         "sales": 1
       },
       {
         "label": "2 (100x50cm) e 1 (160x50cm)",
-        "price": 387,
-        "no_discount": 430,
+        "price": 423,
+        "no_discount": 470,
         "sales": 0
       }
     ],
