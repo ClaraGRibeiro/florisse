@@ -165,7 +165,7 @@ Total do pedido: R$ ${total}
               <a
                 key={item}
                 href={`#${item.toLowerCase()}`}
-                className="relative text-sm font-medium text-foreground-soft transition-colors hover:text-primary after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-primary after:transition-all hover:after:w-full"
+                className="relative text-sm font-medium text-foreground-soft transition-colors hover:text-primary after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-0 after:bg-primary after:transition-all hover:after:w-full"
               >
                 {item}
               </a>
@@ -241,7 +241,7 @@ Total do pedido: R$ ${total}
               width={1200}
               height={800}
               priority
-              className="w-full max-w-[580px] rounded-[2rem] object-cover shadow-2xl"
+              className="w-full max-w-145 rounded-4xl object-cover shadow-2xl"
             />
 
             {/* CARD FLOUTING */}
@@ -304,7 +304,7 @@ Total do pedido: R$ ${total}
                 setSelectedSize(0);
               }}
               key={product.name}
-              className="cursor-pointer group overflow-hidden rounded-[2rem] border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
+              className="cursor-pointer group overflow-hidden rounded-4xl border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
             >
               {/* IMAGEM */}
               <div className="relative overflow-hidden">
@@ -313,7 +313,7 @@ Total do pedido: R$ ${total}
                   alt={product.name}
                   width={600}
                   height={600}
-                  className="h-[320px] w-full object-cover transition duration-500 group-hover:scale-105"
+                  className="h-80 w-full object-cover transition duration-500 group-hover:scale-105"
                 />
 
                 {product.total_sales >= best_selling.total_sales && (
@@ -394,7 +394,7 @@ Total do pedido: R$ ${total}
               alt="Artesã trabalhando"
               width={1200}
               height={800}
-              className="w-full max-w-[620px] rounded-[2rem] object-cover shadow-2xl"
+              className="w-full max-w-155 rounded-4xl object-cover shadow-2xl"
             />
 
             {/* DETALHE DECORATIVO */}
@@ -415,7 +415,7 @@ Total do pedido: R$ ${total}
               </p>
 
               <p>
-                Não é só sobre peças decorativas — é sobre o processo. Cada fio
+                Não é só sobre peças decorativas, é sobre o processo. Cada fio
                 que eu trabalho me ajuda a aliviar a ansiedade e transformar
                 pensamentos em algo bonito, leve e cheio de energia boa.
               </p>
@@ -440,145 +440,144 @@ Total do pedido: R$ ${total}
         </div>
       </footer>
       {selectedProduct && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-3 backdrop-blur-sm sm:p-5">
-          <div className="relative max-h-[95vh] w-full max-w-5xl overflow-y-auto rounded-[2rem] bg-card shadow-2xl animate-in fade-in zoom-in duration-300">
-            {/* FECHAR */}
-            <button
-              onClick={() => setSelectedProduct(null)}
-              className="absolute right-4 top-4 z-20 flex h-10 w-10 items-center justify-center rounded-full bg-background/90 text-lg shadow-md backdrop-blur transition hover:scale-105"
-            >
-              ✕
-            </button>
+  <div
+    className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-3 backdrop-blur-sm sm:p-5"
+    onClick={() => setSelectedProduct(null)} // fecha ao clicar fora
+  >
+    <div
+      className="relative max-h-[95vh] w-full max-w-5xl overflow-y-auto rounded-4xl bg-card shadow-2xl animate-in fade-in zoom-in duration-300"
+      onClick={(e) => e.stopPropagation()} // impede fechar ao clicar dentro
+    >
+      {/* FECHAR */}
+      <button
+        onClick={() => setSelectedProduct(null)}
+        className="cursor-pointer absolute right-4 top-4 z-20 flex h-10 w-10 items-center justify-center rounded-full bg-background/90 text-lg shadow-md backdrop-blur transition hover:scale-105"
+      >
+        ✕
+      </button>
 
-            <div className="grid md:grid-cols-2">
-              {/* IMAGEM */}
-              <div className="relative bg-card-soft">
-                <Image
-                  key={selectedProduct.variants[selectedColor].image}
-                  src={`/products/${selectedProduct.type}/${selectedProduct.name}/${selectedProduct.variants[selectedColor].image}`}
-                  alt={selectedProduct.name}
-                  width={700}
-                  height={900}
-                  priority
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="
-    w-full
-    object-cover
-    transition-opacity duration-200
+      <div className="grid md:grid-cols-2">
+        {/* IMAGEM */}
+        <div className="relative bg-card-soft">
+          <Image
+            key={selectedProduct.variants[selectedColor].image}
+            src={`/products/${selectedProduct.type}/${selectedProduct.name}/${selectedProduct.variants[selectedColor].image}`}
+            alt={selectedProduct.name}
+            width={700}
+            height={900}
+            priority
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className="w-full object-cover transition-opacity duration-200 h-65 sm:h-80 md:h-125 lg:h-162.5"
+          />
 
-    h-[260px]
-    sm:h-[320px]
-    md:h-[500px]
-    lg:h-[650px]
-  "
-                />
+          <div className="absolute left-4 top-4 rounded-full bg-background/90 px-3 py-1 text-xs font-medium shadow-md backdrop-blur">
+            {selectedProduct.sizes[selectedSize].sales} vendidos
+          </div>
+        </div>
 
-                <div className="absolute left-4 top-4 rounded-full bg-background/90 px-3 py-1 text-xs font-medium shadow-md backdrop-blur">
-                  {selectedProduct.sizes[selectedSize].sales} vendidos
-                </div>
+        {/* CONTEÚDO */}
+        <div className="flex flex-col justify-between p-5 sm:p-7 md:p-8">
+          <div>
+            {/* TÍTULO */}
+            <h2 className="text-2xl font-bold leading-tight sm:text-3xl md:text-4xl">
+              {selectedProduct.name}
+            </h2>
+
+            {/* PREÇO */}
+            <div className="mt-5 flex flex-wrap items-center gap-3">
+              <span className="text-2xl font-bold text-primary sm:text-3xl">
+                R$ {selectedProduct.sizes[selectedSize].price}
+              </span>
+
+              {selectedProduct.sizes[selectedSize].no_discount && (
+                <span className="text-sm text-muted line-through">
+                  R$ {selectedProduct.sizes[selectedSize].no_discount}
+                </span>
+              )}
+            </div>
+
+            {/* CORES */}
+            <div className="mt-7">
+              <p className="mb-3 text-sm font-medium">Escolha a cor:</p>
+
+              <div className="flex flex-wrap gap-2">
+                {selectedProduct.variants.map((variant: any, i: number) => (
+                  <button
+                    key={i}
+                    onClick={() => setSelectedColor(i)}
+                    className={`cursor-pointer flex items-center gap-2 rounded-full border px-3 py-2 text-sm transition-all ${
+                      selectedColor === i
+                        ? "scale-105 border-primary bg-primary text-primary-foreground shadow-lg"
+                        : "border-border bg-background hover:border-primary/40"
+                    }`}
+                  >
+                    <div
+                      className="h-4 w-4 rounded-full border border-white sm:h-5 sm:w-5"
+                      style={{
+                        background:
+                          variant.hex.length === 1
+                            ? variant.hex[0]
+                            : variant.hex.length === 2
+                              ? `linear-gradient(
+                                  135deg,
+                                  ${variant.hex[0]} 0%,
+                                  ${variant.hex[0]} 50%,
+                                  ${variant.hex[1]} 50%,
+                                  ${variant.hex[1]} 100%
+                                )`
+                              : `linear-gradient(135deg, ${variant.hex.join(", ")})`,
+                      }}
+                    />
+
+                    <span className="font-medium">{variant.color}</span>
+                  </button>
+                ))}
               </div>
+            </div>
 
-              {/* CONTEÚDO */}
-              <div className="flex flex-col justify-between p-5 sm:p-7 md:p-8">
-                <div>
-                  {/* TÍTULO */}
-                  <h2 className="text-2xl font-bold leading-tight sm:text-3xl md:text-4xl">
-                    {selectedProduct.name}
-                  </h2>
+            {/* TAMANHOS */}
+            <div className="mt-7">
+              <p className="mb-3 text-sm font-medium">Escolha o tamanho:</p>
 
-                  {/* PREÇO */}
-                  <div className="mt-5 flex flex-wrap items-center gap-3">
-                    <span className="text-2xl font-bold text-primary sm:text-3xl">
-                      R$ {selectedProduct.sizes[selectedSize].price}
-                    </span>
-
-                    {selectedProduct.sizes[selectedSize].no_discount && (
-                      <span className="text-sm text-muted line-through">
-                        R$ {selectedProduct.sizes[selectedSize].no_discount}
-                      </span>
-                    )}
-                  </div>
-
-                  {/* CORES */}
-
-                  <div className="mt-7">
-                    <p className="mb-3 text-sm font-medium">Escolha a cor:</p>
-                    <div className="flex flex-wrap gap-2">
-                      {selectedProduct.variants.map(
-                        (variant: any, i: number) => (
-                          <button
-                            key={i}
-                            onClick={() => setSelectedColor(i)}
-                            className={`cursor-pointer flex items-center gap-2 rounded-full border px-3 py-2 text-sm transition-all ${
-                              selectedColor === i
-                                ? "scale-105 border-primary bg-primary text-primary-foreground shadow-lg"
-                                : "border-border bg-background hover:border-primary/40"
-                            }`}
-                          >
-                            <div
-                              className="h-4 w-4 rounded-full border border-white sm:h-5 sm:w-5"
-                              style={{
-                                background:
-                                  variant.hex.length === 1
-                                    ? variant.hex[0]
-                                    : variant.hex.length === 2
-                                      ? `linear-gradient(
-            135deg,
-            ${variant.hex[0]} 0%,
-            ${variant.hex[0]} 50%,
-            ${variant.hex[1]} 50%,
-            ${variant.hex[1]} 100%
-          )`
-                                      : `linear-gradient(135deg, ${variant.hex.join(", ")})`,
-                              }}
-                            />
-
-                            <span className="font-medium">{variant.color}</span>
-                          </button>
-                        ),
-                      )}
-                    </div>
-                  </div>
-
-                  {/* TAMANHOS */}
-                  <div className="mt-7">
-                    <p className="mb-3 text-sm font-medium">
-                      Escolha o tamanho:
-                    </p>
-
-                    <div className="flex flex-wrap gap-2">
-                      {selectedProduct.sizes.map((size: any, i: number) => (
-                        <button
-                          key={i}
-                          onClick={() => setSelectedSize(i)}
-                          className={`cursor-pointer rounded-full border px-3 py-2 text-sm transition-all ${
-                            selectedSize === i
-                              ? "border-primary bg-primary text-white shadow-md"
-                              : "border-border bg-background hover:border-primary/40"
-                          }`}
-                        >
-                          {size.label}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* BOTÃO */}
-                <button
-                  onClick={addToCart}
-                  className="mt-8 w-full rounded-2xl bg-primary py-3 text-sm font-semibold text-primary-foreground shadow-xl transition hover:scale-[1.01] hover:bg-primary-hover sm:py-4 sm:text-lg"
-                >
-                  Adicionar ao carrinho
-                </button>
+              <div className="flex flex-wrap gap-2">
+                {selectedProduct.sizes.map((size: any, i: number) => (
+                  <button
+                    key={i}
+                    onClick={() => setSelectedSize(i)}
+                    className={`cursor-pointer rounded-full border px-3 py-2 text-sm transition-all ${
+                      selectedSize === i
+                        ? "border-primary bg-primary text-white shadow-md"
+                        : "border-border bg-background hover:border-primary/40"
+                    }`}
+                  >
+                    {size.label}
+                  </button>
+                ))}
               </div>
             </div>
           </div>
+
+          {/* BOTÃO */}
+          <button
+            onClick={addToCart}
+            className="mt-8 w-full rounded-2xl bg-primary py-3 text-sm font-semibold text-primary-foreground shadow-xl transition hover:scale-[1.01] hover:bg-primary-hover sm:py-4 sm:text-lg"
+          >
+            Adicionar ao carrinho
+          </button>
         </div>
-      )}
+      </div>
+    </div>
+  </div>
+)}
       {cartOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-3 md:p-6">
-          <div className="relative flex h-[92vh] w-full max-w-4xl flex-col overflow-hidden rounded-[2rem] bg-card shadow-2xl">
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-3 md:p-6"
+          onClick={() => setCartOpen(false)} // fecha ao clicar fora
+        >
+          <div
+            className="relative flex h-[92vh] w-full max-w-4xl flex-col overflow-hidden rounded-4xl bg-card shadow-2xl"
+            onClick={(e) => e.stopPropagation()} // impede fechar ao clicar dentro
+          >
             <button
               onClick={() => setCartOpen(false)}
               className="absolute right-5 top-5 z-20 flex h-10 w-10 items-center justify-center rounded-full bg-background text-xl shadow-md transition hover:scale-105 cursor-pointer"
@@ -619,7 +618,7 @@ Total do pedido: R$ ${total}
                           alt={item.name}
                           width={160}
                           height={160}
-                          className="h-[130px] w-full rounded-2xl object-cover md:w-[130px]"
+                          className="h-32.5 w-full rounded-2xl object-cover md:w-32.5"
                         />
 
                         <div className="flex flex-1 flex-col justify-between">
@@ -648,6 +647,7 @@ Total do pedido: R$ ${total}
                               <span className="text-lg font-bold text-primary whitespace-nowrap">
                                 R$ {item.price * item.quantity}
                               </span>
+
                               {item.no_discount !== undefined && (
                                 <p className="font-medium text-muted line-through whitespace-nowrap">
                                   R$ {item.no_discount * item.quantity}
@@ -700,7 +700,7 @@ Total do pedido: R$ ${total}
       {showTop && (
         <button
           onClick={scrollToTop}
-          className="cursor-pointer fixed bottom-6 right-6 flex h-12 w-12 items-center justify-center rounded-full bg-[var(--primary)] text-[var(--primary-foreground)] shadow-xl hover:bg-[var(--primary-hover)]"
+          className="cursor-pointer fixed bottom-6 right-6 flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-xl hover:bg-primary-hover"
         >
           ↑
         </button>
