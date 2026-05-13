@@ -83,12 +83,3 @@ html {
   font-family: "Fraunces", serif;
   font-optical-sizing: auto;
 }
-
-/* textura sutil de "tricô" */
-.knit-texture {
-  background-image:
-    radial-gradient(rgba(61, 43, 31, 0.06) 1px, transparent 1px),
-    radial-gradient(rgba(61, 43, 31, 0.04) 1px, transparent 1px);
-  background-size: 14px 14px, 14px 14px;
-  background-position: 0 0, 7px 7px;
-}

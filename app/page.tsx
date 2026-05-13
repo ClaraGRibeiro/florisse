@@ -1,9 +1,10 @@
 "use client";
+import colorsData from "@/data/colors.json";
 import productsData from "@/data/products.json";
 import { Product } from "@/types/product";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import colorsData from "@/data/colors.json";
 
 export default function Home() {
   const cares = [
@@ -205,7 +206,7 @@ export default function Home() {
       .join("/");
   };
   return (
-    <main className="min-h-screen bg-background text-foreground">
+    <main className="min-h-screen bg-background text-foreground selection:bg-primary selection:text-white">
       <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6">
           <div className="flex items-center gap-3 min-w-0">
@@ -269,8 +270,12 @@ export default function Home() {
         </div>
       </header>
 
-      <section
+      <motion.section
         id="início"
+        initial={{ opacity: 0, y: 60 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
         className="relative overflow-hidden scroll-mt-20 bg-linear-to-br from-card-soft to-accent"
       >
         <div className="mx-auto grid max-w-7xl gap-14 px-4 py-14 sm:px-6 md:grid-cols-2 md:items-center md:py-20">
@@ -310,7 +315,6 @@ export default function Home() {
               priority
               className="w-full max-w-145 rounded-4xl object-cover shadow-2xl"
             />
-
             <div className="absolute bottom-4 left-4 rounded-2xl bg-card/95 p-4 shadow-xl backdrop-blur-md sm:bottom-6 sm:left-6 sm:p-5">
               <p className="text-xs text-muted sm:text-sm">
                 Mais vendida ({best_selling.total_sales} un)
@@ -326,9 +330,14 @@ export default function Home() {
         <div className="absolute -left-20 top-10 h-52 w-52 rounded-full bg-primary/10 blur-3xl" />
 
         <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-primary/5 blur-3xl" />
-      </section>
-      <section
+      </motion.section>
+
+      <motion.section
         id="produtos"
+        initial={{ opacity: 0, y: 60 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
         className="mx-auto max-w-7xl scroll-mt-20 px-4 py-14 sm:px-6 lg:px-8"
       >
         <div className="mb-10 text-center">
@@ -366,15 +375,19 @@ export default function Home() {
                 setSelectedSize(0);
               }}
               key={product.name}
-              className="cursor-pointer group overflow-hidden rounded-4xl border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
+              className="cursor-pointer group relative overflow-hidden rounded-4xl border border-border bg-card shadow-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl"
             >
+              <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.18),transparent_60%)]" />
+              </div>
               <div className="relative overflow-hidden">
                 <Image
                   src={`/products/${product.category}/${product.name}/${product.colors[0].name}.png`}
                   alt={product.name}
                   width={600}
                   height={600}
-                  className="h-80 w-full object-cover transition duration-500 group-hover:scale-105"
+                  className="h-80 w-full object-cover group-hover:scale-110
+group-hover:rotate-1 transition-transform duration-700 ease-out"
                 />
 
                 {product.total_sales >= best_selling.total_sales && (
@@ -432,9 +445,13 @@ export default function Home() {
             </div>
           ))}
         </div>
-      </section>
-      <section
+      </motion.section>
+      <motion.section
         id="sobre"
+        initial={{ opacity: 0, y: 60 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
         className="scroll-mt-20 overflow-hidden bg-card-soft py-16 sm:py-20"
       >
         <div className="mx-auto grid max-w-7xl gap-14 px-4 sm:px-6 md:grid-cols-2 md:items-center lg:gap-20">
@@ -476,8 +493,14 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
-      <section id="cuidados" className="scroll-mt-20 bg-card py-16 sm:py-20">
+      </motion.section>
+      <motion.section
+        id="cuidados"
+        initial={{ opacity: 0, y: 60 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+        className="scroll-mt-20 bg-card py-16 sm:py-20">
         <div className="mx-auto max-w-5xl px-4 sm:px-6">
           <div className="text-center">
             <h2 className="text-4xl font-bold sm:text-5xl">
@@ -515,7 +538,7 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </section>
+    </motion.section>
       <footer className="border-t border-border">
         <div className="text-center py-4">
           <p className="text-sm text-muted">© 2026 Florisse</p>
