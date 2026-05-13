@@ -129,7 +129,7 @@ export default function Home() {
       no_discount: selectedProduct.sizes[selectedSize].no_discount
         ? Number(selectedProduct.sizes[selectedSize].no_discount)
         : undefined,
-      image: `/products/${selectedProduct.category}/${selectedProduct.name}/${selectedProduct.colors[selectedColor].name}.png`,
+      image: `/products/${formatPath(selectedProduct.category)}/${formatPath(selectedProduct.name)}/${selectedProduct.colors[selectedColor].name}.png`,
       quantity: 1,
     };
 
@@ -203,6 +203,9 @@ export default function Home() {
           word.charAt(0).toUpperCase() + word.slice(1).toLowerCase(),
       )
       .join("/");
+  };
+  const formatPath = (name: string) => {
+    return name.toLowerCase().split(" ").join("-");
   };
   return (
     <main className="min-h-screen bg-background text-foreground selection:bg-primary selection:text-white">
@@ -381,8 +384,8 @@ export default function Home() {
               </div>
               <div className="relative overflow-hidden">
                 <Image
-                  src={`/products/${product.category}/${product.name}/${product.colors[0].name}.png`}
-                  alt={`/products/${product.category}/${product.name}/${product.colors[0].name}.png`}
+                  src={`/products/${formatPath(product.category)}/${formatPath(product.name)}/${product.colors[0].name}.png`}
+                  alt={product.name}
                   width={600}
                   height={600}
                   className="h-80 w-full object-cover group-hover:scale-110
@@ -499,7 +502,8 @@ group-hover:rotate-1 transition-transform duration-700 ease-out"
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
-        className="scroll-mt-20 bg-card py-16 sm:py-20">
+        className="scroll-mt-20 bg-card py-16 sm:py-20"
+      >
         <div className="mx-auto max-w-5xl px-4 sm:px-6">
           <div className="text-center">
             <h2 className="text-4xl font-bold sm:text-5xl">
@@ -537,7 +541,7 @@ group-hover:rotate-1 transition-transform duration-700 ease-out"
             ))}
           </div>
         </div>
-    </motion.section>
+      </motion.section>
       <footer className="border-t border-border">
         <div className="text-center py-4">
           <p className="text-sm text-muted">© 2026 Florisse</p>
@@ -567,7 +571,7 @@ group-hover:rotate-1 transition-transform duration-700 ease-out"
               <div className="relative bg-card-soft">
                 <Image
                   key={selectedProduct.colors[selectedColor].name}
-                  src={`/products/${selectedProduct.category}/${selectedProduct.name}/${selectedProduct.colors[selectedColor].name}.png`}
+                  src={`/products/${formatPath(selectedProduct.category)}/${formatPath(selectedProduct.name)}/${selectedProduct.colors[selectedColor].name}.png`}
                   alt={selectedProduct.name}
                   width={700}
                   height={900}
