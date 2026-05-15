@@ -1,6 +1,6 @@
 "use client";
 import colorsData from "@/data/colors.json";
-import productsData from "@/data/products.json";
+import productsData from "@/data/products"
 import { Product } from "@/types/product";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -168,7 +168,7 @@ export default function Home() {
     const total = cart.reduce(
       (acc, item) => acc + item.price * item.quantity,
       0,
-    );
+    ).toFixed(2);
 
     const text = `
       Olá, Florisse!
@@ -182,7 +182,7 @@ export default function Home() {
           • Cor: ${item.color}
           • Tamanho: ${item.size}
           • Quantidade: ${item.quantity}
-          • Valor: R$ ${item.price * item.quantity}
+          • Valor: R$ ${(item.price * item.quantity).toFixed(2)}
           `,
         )
         .join("\n")}
@@ -429,7 +429,7 @@ group-hover:rotate-1 transition-transform duration-700 ease-out"
                 <div className="flex items-end justify-between gap-4">
                   <div className="flex flex-col">
                     <span className="text-xl font-bold text-primary">
-                      R$ {product.sizes[0].price}
+                      R$ {product.sizes[0].price.toFixed(2)}
                     </span>
 
                     {product.sizes[0].no_discount && (
@@ -593,7 +593,7 @@ group-hover:rotate-1 transition-transform duration-700 ease-out"
 
                   <div className="mt-5 flex flex-wrap items-center gap-3">
                     <span className="text-2xl font-bold text-primary sm:text-3xl">
-                      R$ {selectedProduct.sizes[selectedSize].price}
+                      R$ {selectedProduct.sizes[selectedSize].price.toFixed(2)}
                     </span>
 
                     {selectedProduct.sizes[selectedSize].no_discount && (
@@ -753,7 +753,7 @@ group-hover:rotate-1 transition-transform duration-700 ease-out"
                               </p>
 
                               <span className="text-lg font-bold text-primary whitespace-nowrap">
-                                R$ {item.price * item.quantity}
+                                R$ {(item.price * item.quantity).toFixed(2)}
                               </span>
 
                               {item.no_discount !== undefined && (
@@ -788,7 +788,7 @@ group-hover:rotate-1 transition-transform duration-700 ease-out"
                         {cart.reduce(
                           (acc, item) => acc + item.price * item.quantity,
                           0,
-                        )}
+                        ).toFixed(2)}
                       </h3>
                     </div>
 

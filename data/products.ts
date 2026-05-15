@@ -1,4 +1,6 @@
-[
+const discount = 0.95
+
+const products = [
   {
     "name": "Tapete Retangular",
     "category": "Tapetes",
@@ -71,13 +73,13 @@
     "sizes": [
       {
         "label": "2 (70x50cm) e 1 (160x50cm)",
-        "price": 333,
+        "price": 370*discount,
         "no_discount": 370,
         "sales": 1
       },
       {
         "label": "2 (100x50cm) e 1 (160x50cm)",
-        "price": 423,
+        "price": 470*discount,
         "no_discount": 470,
         "sales": 0
       }
@@ -90,13 +92,13 @@
     "sizes": [
       {
         "label": "2 (70x50cm) e 1 (160x50cm)",
-        "price": 306,
+        "price": 340*discount,
         "no_discount": 340,
         "sales": 1
       },
       {
         "label": "2 (100x50cm) e 1 (160x50cm)",
-        "price": 387,
+        "price": 430*discount,
         "no_discount": 430,
         "sales": 0
       }
@@ -109,13 +111,13 @@
     "sizes": [
       {
         "label": "2 (70x50cm) e 1 (160x50cm)",
-        "price": 333,
+        "price": 370*discount,
         "no_discount": 370,
         "sales": 1
       },
       {
         "label": "2 (100x50cm) e 1 (160x50cm)",
-        "price": 423,
+        "price": 470*discount,
         "no_discount": 470,
         "sales": 0
       }
@@ -128,13 +130,13 @@
     "sizes": [
       {
         "label": "2 (70x50cm)",
-        "price": 125,
+        "price": 140*discount,
         "no_discount": 140,
         "sales": 2
       },
       {
         "label": "2 (100x50cm)",
-        "price": 225,
+        "price": 240*discount,
         "no_discount": 240,
         "sales": 0
       }
@@ -198,49 +200,49 @@
     "sizes": [
       {
         "label": "4 (35cm)",
-        "price": 152,
+        "price": 160*discount,
         "no_discount": 160,
         "sales": 0
       },
       {
         "label": "6 (35cm)",
-        "price": 228,
+        "price": 240*discount,
         "no_discount": 240,
         "sales": 0
       },
       {
         "label": "8 (35cm)",
-        "price": 304,
+        "price": 320*discount,
         "no_discount": 320,
         "sales": 0
       },
       {
         "label": "6 (35cm) e 1 (140x40cm)",
-        "price": 378,
+        "price": 420*discount,
         "no_discount": 420,
         "sales": 0
       },
       {
         "label": "4 (45cm)",
-        "price": 209,
+        "price": 220*discount,
         "no_discount": 220,
         "sales": 0
       },
       {
         "label": "6 (45cm)",
-        "price": 314,
+        "price": 330*discount,
         "no_discount": 330,
         "sales": 0
       },
       {
         "label": "8 (45cm)",
-        "price": 418,
+        "price": 440*discount,
         "no_discount": 440,
         "sales": 0
       },
       {
         "label": "6 (45cm) e 1 (180x40cm)",
-        "price": 504,
+        "price": 560*discount,
         "no_discount": 560,
         "sales": 0
       }
@@ -248,3 +250,4 @@
     "colors": ["cru"]
   }
 ]
+export default products;
