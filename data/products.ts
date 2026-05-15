@@ -120,19 +120,12 @@ const products = [
         "price": 470*discount,
         "no_discount": 470,
         "sales": 0
-      }
-    ],
-    "colors": ["cru-militar-alecrim", "cru-marrom-bege"]
-  },
-  {
-    "name": "Jogo Par Oval Tricolor",
-    "category": "Jogos",
-    "sizes": [
+      },
       {
         "label": "2 (70x50cm)",
         "price": 140*discount,
         "no_discount": 140,
-        "sales": 2
+        "sales": 1
       },
       {
         "label": "2 (100x50cm)",
