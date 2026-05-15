@@ -50,7 +50,7 @@
       {
         "label": "70x50cm",
         "price": 70,
-        "sales": 4
+        "sales": 0
       },
       {
         "label": "100x50cm",
@@ -117,6 +117,25 @@
         "label": "2 (100x50cm) e 1 (160x50cm)",
         "price": 423,
         "no_discount": 470,
+        "sales": 0
+      }
+    ],
+    "colors": ["cru-militar-alecrim", "cru-marrom-bege"]
+  },
+  {
+    "name": "Jogo Par Oval Tricolor",
+    "category": "Jogos",
+    "sizes": [
+      {
+        "label": "2 (70x50cm)",
+        "price": 125,
+        "no_discount": 140,
+        "sales": 2
+      },
+      {
+        "label": "2 (100x50cm)",
+        "price": 225,
+        "no_discount": 240,
         "sales": 0
       }
     ],
