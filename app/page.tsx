@@ -1,6 +1,6 @@
 "use client";
 import colorsData from "@/data/colors.json";
-import productsData from "@/data/products"
+import productsData from "@/data/products";
 import { Product } from "@/types/product";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -46,7 +46,8 @@ export default function Home() {
     },
   ];
   const colorMap = new Map(colorsData.map((c) => [c.color, c.hex]));
-  const products: Product[] = productsData.map((product) => {
+  const discount = ((productsData.discount*100)-100)*-1
+  const products: Product[] = productsData.products.map((product) => {
     const totalSales = product.sizes.reduce(
       (acc, size) => acc + (size.sales ?? 0),
       0,
@@ -165,10 +166,9 @@ export default function Home() {
   const finishOrder = () => {
     if (cart.length === 0) return;
 
-    const total = cart.reduce(
-      (acc, item) => acc + item.price * item.quantity,
-      0,
-    ).toFixed(2);
+    const total = cart
+      .reduce((acc, item) => acc + item.price * item.quantity, 0)
+      .toFixed(2);
 
     const text = `
       Olá, Florisse!
@@ -351,22 +351,27 @@ export default function Home() {
             Feitos à mão com muito amor, carinho e atenção em cada detalhe.
           </p>
         </div>
+<div className="mb-12 flex flex-wrap justify-center gap-3">
+  {filters.map((f) => (
+    <button
+      key={f}
+      onClick={() => setCategory(f)}
+      className={`relative cursor-pointer rounded-full border px-5 py-2.5 text-sm font-medium transition-all duration-200 hover:scale-105 ${
+        category === f
+          ? "border-transparent bg-primary text-white shadow-md"
+          : "border-border bg-card text-muted hover:border-primary/30 hover:text-primary"
+      }`}
+    >
+      {labels[f as keyof typeof labels]}
 
-        <div className="mb-12 flex flex-wrap justify-center gap-3">
-          {filters.map((f) => (
-            <button
-              key={f}
-              onClick={() => setCategory(f)}
-              className={`cursor-pointer rounded-full border px-5 py-2.5 text-sm font-medium transition-all duration-200 hover:scale-105 ${
-                category === f
-                  ? "border-transparent bg-primary text-white shadow-md"
-                  : "border-border bg-card text-muted hover:border-primary/30 hover:text-primary"
-              }`}
-            >
-              {labels[f as keyof typeof labels]}
-            </button>
-          ))}
-        </div>
+      {f === "Jogos" && (
+        <span className="absolute -right-1 -top-2 z-10 rounded-full bg-red-500 px-2 py-0.5 text-sm font-bold leading-none text-white shadow-md">
+          -{discount}%
+        </span>
+      )}
+    </button>
+  ))}
+</div>
 
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {filtered.map((product) => (
@@ -785,10 +790,12 @@ group-hover:rotate-1 transition-transform duration-700 ease-out"
 
                       <h3 className="text-3xl font-bold text-primary">
                         R${" "}
-                        {cart.reduce(
-                          (acc, item) => acc + item.price * item.quantity,
-                          0,
-                        ).toFixed(2)}
+                        {cart
+                          .reduce(
+                            (acc, item) => acc + item.price * item.quantity,
+                            0,
+                          )
+                          .toFixed(2)}
                       </h3>
                     </div>
 
