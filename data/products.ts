@@ -7,17 +7,22 @@ const products = [
     sizes: [
       {
         label: "70x50cm",
-        price: 65,
+        price: 60,
         sales: 0,
       },
       {
         label: "100x50cm",
-        price: 85,
+        price: 100,
         sales: 2,
       },
       {
+        label: "120x50cm",
+        price: 140,
+        sales: 0,
+      },
+      {
         label: "160x50cm",
-        price: 160,
+        price: 170,
         sales: 0,
       },
     ],
@@ -28,15 +33,15 @@ const products = [
     category: "Jogos",
     sizes: [
       {
-        label: "2 (70x50cm) e 1 (160x50cm)",
-        price: 370 * discount,
-        no_discount: 370,
+        label: "2 (70x50cm) e 1 (120x50cm)",
+        price: 260 * discount,
+        no_discount: 260,
         sales: 1,
       },
       {
         label: "2 (100x50cm) e 1 (160x50cm)",
-        price: 470 * discount,
-        no_discount: 470,
+        price: 370 * discount,
+        no_discount: 370,
         sales: 0,
       },
     ],
@@ -53,12 +58,17 @@ const products = [
       },
       {
         label: "100x50cm",
-        price: 70,
+        price: 90,
+        sales: 0,
+      },
+      {
+        label: "120x50cm",
+        price: 130,
         sales: 0,
       },
       {
         label: "160x50cm",
-        price: 140,
+        price: 160,
         sales: 0,
       },
     ],
@@ -69,44 +79,49 @@ const products = [
     category: "Jogos",
     sizes: [
       {
-        label: "2 (70x50cm) e 1 (160x50cm)",
-        price: 240 * discount,
-        no_discount: 240,
+        label: "2 (70x50cm) e 1 (120x50cm)",
+        price: 230 * discount,
+        no_discount: 230,
         sales: 1,
       },
       {
         label: "2 (100x50cm) e 1 (160x50cm)",
-        price: 280 * discount,
-        no_discount: 280,
-        sales: 0,
-      },
-      {
-        label: "2 (70x50cm)",
-        price: 100 * discount,
-        no_discount: 100,
+        price: 340 * discount,
+        no_discount: 340,
         sales: 1,
-      },
-      {
-        label: "2 (100x50cm)",
-        price: 140 * discount,
-        no_discount: 140,
-        sales: 0,
       },
     ],
     colors: ["alecrim-militar", "cru-militar-alecrim", "cru-marrom-bege"],
   },
   {
-    name: "Tapete Redondo",
+    name: "Tapete Redondo Maravilha",
     category: "Tapetes",
     sizes: [
       {
-        label: "80cm",
-        price: 130,
-        sales: 1,
+        label: "100cm",
+        price: 250,
+        sales: 0,
       },
       {
+        label: "150cm",
+        price: 370,
+        sales: 0,
+      },
+    ],
+    colors: ["alecrim-militar", "cru"],
+  },
+  {
+    name: "Tapete Redondo Ternura",
+    category: "Tapetes",
+    sizes: [
+      {
         label: "100cm",
-        price: 150,
+        price: 300,
+        sales: 0,
+      },
+      {
+        label: "150cm",
+        price: 420,
         sales: 0,
       },
     ],
@@ -140,7 +155,7 @@ const products = [
       },
       {
         label: "180x40cm",
-        price: 180,
+        price: 190,
         sales: 0,
       },
     ],
@@ -194,8 +209,8 @@ const products = [
       },
       {
         label: "6 (45cm) e 1 (180x40cm)",
-        price: 450 * discount,
-        no_discount: 450,
+        price: 460 * discount,
+        no_discount: 460,
         sales: 0,
       },
     ],
@@ -224,7 +239,7 @@ const products = [
     sizes: [
       {
         label: "140x40cm",
-        price: 180,
+        price: 170,
         sales: 0,
       },
       {
@@ -259,8 +274,8 @@ const products = [
       },
       {
         label: "6 (35cm) e 1 (140x40cm)",
-        price: 420 * discount,
-        no_discount: 420,
+        price: 410 * discount,
+        no_discount: 410,
         sales: 0,
       },
       {
