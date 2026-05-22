@@ -19,6 +19,8 @@ const WHATSAPP = "5538992030710";
 export default function Numbers({ rafflePrice, setNumbersOpen }: NumbersProps) {
   const [selectedNumbers, setSelectedNumbers] = useState<string[]>([]);
   const [raffleNumbers, setRaffleNumbers] = useState<RaffleNumber[]>([]);
+  const [winner, setWinner] = useState<String>("");
+  const [winNumber, setWinNumber] = useState<String>("");
 
   useEffect(() => {
     const loadSheet = async () => {
@@ -35,6 +37,15 @@ export default function Numbers({ rafflePrice, setNumbersOpen }: NumbersProps) {
         );
 
         setRaffleNumbers(data);
+        const winnerData = raffleNumbers.find(
+          (item) => Number(item.SORTEADO) === 1
+        );
+
+        setWinNumber(winnerData?.NUMERO || "");
+
+        setWinner(winnerData?.WHATSAPP
+          ? winnerData.WHATSAPP.slice(-4)
+          : "");
       } catch (error) {
         console.error("Erro ao carregar rifa:", error);
       }
@@ -42,15 +53,6 @@ export default function Numbers({ rafflePrice, setNumbersOpen }: NumbersProps) {
 
     loadSheet();
   }, []);
-  const winnerData = raffleNumbers.find(
-    (item) => Number(item.SORTEADO) === 1
-  );
-
-  const winNumber = winnerData?.NUMERO || "";
-
-  const winner = winnerData?.WHATSAPP
-    ? winnerData.WHATSAPP.slice(-4)
-    : "";
 
   const toggleNumber = (number: string) => {
     setSelectedNumbers((prev) =>
