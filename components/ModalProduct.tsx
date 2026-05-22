@@ -1,6 +1,6 @@
 import { Product } from "@/types/product";
 import Image from "next/image";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
 type AddToCartParams = {
   id: string;
@@ -37,6 +37,24 @@ export default function ModalProduct({
   formatColor,
   formatPath,
 }: ModalProductProps) {
+  const [added, setAdded] = useState(false);
+
+  const handleAdd = () => {
+    addToCart({
+      id: crypto.randomUUID(),
+      name: product.name,
+      color: product.colors[selectedColor].name,
+      size: product.sizes[selectedSize].label,
+      price: currentSize.price,
+      no_discount: currentSize.no_discount,
+      image: imageSrc,
+      quantity: 1,
+    });
+
+    setAdded(true);
+
+    setTimeout(() => setAdded(false), 1200);
+  };
   const currentColor = product.colors[selectedColor];
   const currentSize = product.sizes[selectedSize];
 
@@ -163,21 +181,10 @@ export default function ModalProduct({
             </div>
 
             <button
-              onClick={() =>
-                addToCart({
-                  id: crypto.randomUUID(),
-                  name: product.name,
-                  color: product.colors[selectedColor].name,
-                  size: product.sizes[selectedSize].label,
-                  price: currentSize.price,
-                  no_discount: currentSize.no_discount,
-                  image: imageSrc,
-                  quantity: 1,
-                })
-              }
-              className="mt-8 w-full rounded-2xl bg-primary py-3 text-sm font-semibold text-primary-foreground shadow-xl transition hover:scale-[1.01] hover:bg-primary-hover sm:py-4 sm:text-lg"
+              onClick={handleAdd}
+              className={`cursor-pointer mt-8 w-full rounded-2xl py-3 text-primary-foreground text-sm font-semibold shadow-xl transition sm:py-4 sm:text-lg ${added ? "bg-secondary scale-105" : "bg-primary hover:scale-[1.01] hover:bg-primary-hover"}`}
             >
-              Adicionar ao carrinho
+              {added ? "Adicionado ✔" : "Adicionar ao carrinho"}
             </button>
           </div>
         </div>
