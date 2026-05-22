@@ -25,7 +25,6 @@ export default function Numbers({ rafflePrice, setNumbersOpen }: NumbersProps) {
           "https://opensheet.elk.sh/1G_-cEKzvojtO6-zR86oalbrp5JvQvIEat8rShhCsaP8/Rifa-Florisse",
         );
         const data = await response.json();
-        console.log(data);
         setRaffleNumbers(
           data.map((item: RaffleNumber) => ({
             NUMERO: String(item.NUMERO).padStart(2, "0"),
@@ -102,9 +101,9 @@ export default function Numbers({ rafflePrice, setNumbersOpen }: NumbersProps) {
         </header>
 
         {/* GRID NUMBERS */}
-        <div className="mt-5 grid gap-2 grid-cols-8 sm:grid-cols-8 md:grid-cols-10 lg:grid-cols-12 xl:grid-cols-20">
+        <div className="mt-5 grid gap-2 grid-cols-8 sm:grid-cols-8 md:grid-cols-10 lg:grid-cols-12 xl:grid-cols-15">
           {raffleNumbers.map((item) => {
-            const paid = String(item.PAGO).trim().toLowerCase() === "true";
+            const paid = Number(item.PAGO) === 1;
             const selected = selectedNumbers.includes(item.NUMERO);
 
             return (
@@ -116,8 +115,8 @@ export default function Numbers({ rafflePrice, setNumbersOpen }: NumbersProps) {
                   paid
                     ? "cursor-not-allowed bg-muted/20 text-muted opacity-60"
                     : selected
-                      ? "scale-105 bg-white text-primary ring-2 ring-primary"
-                      : "cursor-pointer bg-primary text-primary-foreground hover:scale-105"
+                      ? "scale-105 bg-primary text-white"
+                      : "cursor-pointer bg-secondary text-white hover:scale-105"
                 }`}
               >
                 {item.NUMERO}
@@ -128,7 +127,8 @@ export default function Numbers({ rafflePrice, setNumbersOpen }: NumbersProps) {
 
         {/* LEGEND */}
         <div className="mt-5 flex flex-wrap gap-3 text-xs sm:text-sm text-secondary">
-          <Legend color="bg-primary" label="Disponível" />
+          <Legend color="bg-secondary" label="Disponível" />
+          <Legend color="bg-primary" label="Selecionado" />
           <Legend color="bg-muted/20" label="Reservado" />
         </div>
 
