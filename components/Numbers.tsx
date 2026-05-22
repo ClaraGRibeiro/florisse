@@ -26,7 +26,7 @@ export default function Numbers({ rafflePrice, setNumbersOpen }: NumbersProps) {
     const loadSheet = async () => {
       try {
         const response = await fetch(
-          `https://opensheet.elk.sh/1G_-cEKzvojtO6-zR86oalbrp5JvQvIEat8rShhCsaP8/Rifa-Florisse?t=${Date.now()}`,
+          "https://opensheet.elk.sh/1G_-cEKzvojtO6-zR86oalbrp5JvQvIEat8rShhCsaP8/Rifa-Florisse",
         );
         const data = await response.json();
         setRaffleNumbers(
