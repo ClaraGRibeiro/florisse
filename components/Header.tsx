@@ -1,0 +1,90 @@
+import Image from "next/image";
+
+type HeaderProps = {
+  cartLength: number;
+  openCart: () => void;
+  raffleIsOn: boolean;
+  openRaffle: () => void;
+};
+
+const navItems = ["Início", "Produtos", "Sobre", "Cuidados"];
+
+export default function Header({
+  cartLength,
+  openCart,
+  raffleIsOn,
+  openRaffle,
+}: HeaderProps) {
+  return (
+    <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-xl">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6">
+        <div className="flex min-w-0 items-center gap-3">
+          <div className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-full bg-primary/15 shadow-sm">
+            <Image
+              src="/logo.webp"
+              alt="Florisse"
+              width={80}
+              height={80}
+              priority
+              className="h-full w-full object-cover"
+            />
+          </div>
+
+          <div className="min-w-0">
+            <h1 className="truncate font-serif text-xl font-semibold tracking-tight sm:text-2xl">
+              Florisse
+            </h1>
+
+            <p className="hidden text-xs text-muted sm:block">
+              Onde o crochê vira paz.
+            </p>
+          </div>
+        </div>
+
+        <nav className="hidden items-center gap-6 lg:flex">
+          {raffleIsOn && (
+            <button
+              onClick={openRaffle}
+              className="cursor-pointer rounded-full bg-secondary px-5 py-2.5 text-sm font-medium text-primary-foreground shadow-md transition-all hover:scale-[1.03] hover:bg-secondary-hover"
+            >
+              Rifa ✨
+            </button>
+          )}
+
+          {navItems.map((item) => (
+            <a
+              key={item}
+              href={`#${item.toLowerCase()}`}
+              className="relative text-sm font-medium text-foreground-soft transition-colors hover:text-primary after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all hover:after:w-full"
+            >
+              {item}
+            </a>
+          ))}
+
+          <button
+            onClick={openCart}
+            className="cursor-pointer flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground shadow-md transition-all hover:scale-[1.03] hover:bg-primary-hover"
+          >
+            <span className="hidden sm:inline">Carrinho</span>
+
+            <span className="rounded-full bg-white/20 px-2 py-0.5 text-xs">
+              {cartLength}
+            </span>
+          </button>
+        </nav>
+
+        <button
+          onClick={openCart}
+          className="relative flex h-11 w-11 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-md transition hover:scale-105 lg:hidden"
+        >
+          🛒
+          {cartLength > 0 && (
+            <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">
+              {cartLength}
+            </span>
+          )}
+        </button>
+      </div>
+    </header>
+  );
+}
