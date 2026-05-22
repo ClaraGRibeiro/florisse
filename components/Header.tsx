@@ -41,7 +41,7 @@ export default function Header({
           </div>
         </div>
 
-        <nav className="hidden items-center gap-6 lg:flex">
+        <nav className="hidden items-center  gap-6 lg:flex">
           {navItems.map((item) => (
             <a
               key={item}
@@ -62,7 +62,7 @@ export default function Header({
           )}
           <button
             onClick={openCart}
-            className="cursor-pointer flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground shadow-md transition-all hover:scale-[1.03] hover:bg-primary-hover"
+            className="cursor-pointer flex gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground shadow-md transition-all hover:scale-[1.03] hover:bg-primary-hover"
           >
             <span className="hidden sm:inline">Carrinho</span>
 
@@ -70,7 +70,7 @@ export default function Header({
               {cartLength}
             </span>
           </button>
-        </nav>
+          
         <div className="flex gap-4">
           {raffleIsOn && (
             <button
@@ -94,6 +94,7 @@ export default function Header({
             )}
           </button>
         </div>
+        </nav>
       </div>
     </header>
   );

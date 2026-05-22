@@ -122,9 +122,9 @@ Não perca essa chance!`,
 
           {/* RIGHT */}
           <div className="flex flex-col p-5 sm:p-6">
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-2">
               {raffleItems.map((item, index) => (
-                <div key={item.title} className="flex items-center gap-3">
+                <div key={item.title} className="flex items-center gap-2">
                   <div className="relative overflow-hidden rounded-3xl shadow-xl">
                     <Image
                       src={item.image}

@@ -12,7 +12,7 @@ const products = [
       },
       {
         label: "120x50cm",
-        price: 110,
+        price: 100,
         sales: 0,
       },
     ],
@@ -24,8 +24,8 @@ const products = [
     sizes: [
       {
         label: "2 (70x50cm) e 1 (120x50cm)",
-        price: 180 * discount,
-        no_discount: 180,
+        price: 170 * discount,
+        no_discount: 170,
         sales: 1,
       },
     ],
@@ -37,12 +37,12 @@ const products = [
     sizes: [
       {
         label: "70x50cm",
-        price: 50,
+        price: 45,
         sales: 0,
       },
       {
         label: "120x50cm",
-        price: 130,
+        price: 125,
         sales: 0,
       },
     ],
@@ -53,39 +53,39 @@ const products = [
     category: "Jogos",
     sizes: [
       {
-        label: "2 (70x50cm) e 1 (100x50cm)",
-        price: 230 * discount,
-        no_discount: 230,
+        label: "2 (70x50cm) e 1 (120x50cm)",
+        price: 215 * discount,
+        no_discount: 215,
         sales: 1,
       },
     ],
     colors: ["alecrim-militar", "cru-militar-alecrim", "cru-marrom-bege"],
   },
   {
-    name: "Tapete Harmonia",
+    name: "Tapete Gisele",
     category: "Tapetes",
     sizes: [
       {
         label: "70x50cm",
-        price: 60,
+        price: 50,
         sales: 0,
       },
       {
         label: "120x50cm",
-        price: 140,
+        price: 130,
         sales: 2,
       },
     ],
     colors: ["cru-bege"],
   },
   {
-    name: "Jogo Passadeira Harmonia",
+    name: "Jogo Passadeira Gisele",
     category: "Jogos",
     sizes: [
       {
         label: "2 (70x50cm) e 1 (120x50cm)",
-        price: 260 * discount,
-        no_discount: 260,
+        price: 230 * discount,
+        no_discount: 230,
         sales: 1,
       },
     ],
@@ -132,7 +132,7 @@ const products = [
     sizes: [
       {
         label: "40cm",
-        price: 35,
+        price: 30,
         sales: 0,
       },
     ],
@@ -144,7 +144,7 @@ const products = [
     sizes: [
       {
         label: "120x40cm",
-        price: 130,
+        price: 120,
         sales: 0,
       },
     ],
@@ -155,29 +155,30 @@ const products = [
     category: "Jogos",
     sizes: [
       {
+        label: "6 (40cm) e 1 (120x40cm)",
+        price: 300 * discount,
+        no_discount: 300,
+        sales: 0,
+      },
+      {
         label: "4 (40cm)",
-        price: 140 * discount,
-        no_discount: 140,
+        price: 120 * discount,
+        no_discount: 120,
         sales: 0,
       },
       {
         label: "6 (40cm)",
-        price: 210 * discount,
-        no_discount: 210,
+        price: 180 * discount,
+        no_discount: 180,
         sales: 0,
       },
       {
         label: "8 (40cm)",
-        price: 280 * discount,
-        no_discount: 280,
+        price: 240 * discount,
+        no_discount: 240,
         sales: 0,
       },
-      {
-        label: "6 (40cm) e 1 (120x40cm)",
-        price: 340 * discount,
-        no_discount: 340,
-        sales: 0,
-      },
+
     ],
     colors: ["militar", "bege"],
   },
@@ -187,7 +188,7 @@ const products = [
     sizes: [
       {
         label: "40cm",
-        price: 45,
+        price: 40,
         sales: 0,
       },
     ],
@@ -199,7 +200,7 @@ const products = [
     sizes: [
       {
         label: "120x40cm",
-        price: 170,
+        price: 150,
         sales: 0,
       },
     ],
@@ -210,29 +211,30 @@ const products = [
     category: "Jogos",
     sizes: [
       {
+        label: "6 (40cm) e 1 (100x40cm)",
+        price: 390 * discount,
+        no_discount: 390,
+        sales: 0,
+      },
+      {
         label: "4 (40cm)",
-        price: 180 * discount,
-        no_discount: 180,
+        price: 160 * discount,
+        no_discount: 160,
         sales: 0,
       },
       {
         label: "6 (40cm)",
-        price: 270 * discount,
-        no_discount: 270,
+        price: 240 * discount,
+        no_discount: 240,
         sales: 0,
       },
       {
         label: "8 (40cm)",
-        price: 360 * discount,
-        no_discount: 360,
+        price: 320 * discount,
+        no_discount: 320,
         sales: 0,
       },
-      {
-        label: "6 (40cm) e 1 (100x40cm)",
-        price: 440 * discount,
-        no_discount: 440,
-        sales: 0,
-      },
+
     ],
     colors: ["cru"],
   },

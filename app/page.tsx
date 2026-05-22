@@ -20,7 +20,7 @@ import { useState } from "react";
 import { formatColor, formatPath } from "@/utils/format";
 
 export default function Home() {
-  const rafflePrice = 4;
+  const rafflePrice = 5;
   const raffleIsOn = true;
 
   const [numbersOpen, setNumbersOpen] = useState(false);
