@@ -21,36 +21,44 @@ export default function Numbers({ rafflePrice, setNumbersOpen }: NumbersProps) {
   const [raffleNumbers, setRaffleNumbers] = useState<RaffleNumber[]>([]);
   const [winner, setWinner] = useState<String>("");
   const [winNumber, setWinNumber] = useState<String>("");
+  const [loading, setLoading] = useState(false);
+
+  const loadSheet = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch(
+        "https://opensheet.elk.sh/1G_-cEKzvojtO6-zR86oalbrp5JvQvIEat8rShhCsaP8/Rifa-Florisse?raw=true",
+        {
+          cache: "no-store",
+        }
+      );
+      const data = await response.json();
+      const formattedData = data.map((item: RaffleNumber) => ({
+        NUMERO: String(item.NUMERO).padStart(2, "0"),
+        PAGO: String(item.PAGO),
+        WHATSAPP: String(item.WHATSAPP || ""),
+        SORTEADO: String(item.SORTEADO || "0"),
+      }));
+
+      setRaffleNumbers(formattedData);
+      setRaffleNumbers(data);
+      const winnerData = raffleNumbers.find(
+        (item) => Number(item.SORTEADO) === 1
+      );
+
+      setWinNumber(winnerData?.NUMERO || "");
+
+      setWinner(winnerData?.WHATSAPP
+        ? winnerData.WHATSAPP.slice(-4)
+        : "");
+    } catch (error) {
+      console.error("Erro ao carregar rifa:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const loadSheet = async () => {
-      try {
-        const response = await fetch(
-          "https://opensheet.elk.sh/1G_-cEKzvojtO6-zR86oalbrp5JvQvIEat8rShhCsaP8/Rifa-Florisse",
-        );
-        const data = await response.json();
-        setRaffleNumbers(
-          data.map((item: RaffleNumber) => ({
-            NUMERO: String(item.NUMERO).padStart(2, "0"),
-            PAGO: String(item.PAGO),
-          })),
-        );
-
-        setRaffleNumbers(data);
-        const winnerData = raffleNumbers.find(
-          (item) => Number(item.SORTEADO) === 1
-        );
-
-        setWinNumber(winnerData?.NUMERO || "");
-
-        setWinner(winnerData?.WHATSAPP
-          ? winnerData.WHATSAPP.slice(-4)
-          : "");
-      } catch (error) {
-        console.error("Erro ao carregar rifa:", error);
-      }
-    };
-
     loadSheet();
   }, []);
 
@@ -162,17 +170,26 @@ export default function Numbers({ rafflePrice, setNumbersOpen }: NumbersProps) {
               </div>
             )}
           </div>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={loadSheet}
+              disabled={loading}
+              className="cursor-pointer flex min-w-32.5 items-center justify-center gap-2 rounded-xl border border-border bg-card-soft px-4 py-2 text-sm font-medium transition hover:scale-105 hover:bg-card disabled:opacity-50"
+            >
+              {loading ? "Atualizando..." : "Atualizar"}
+            </button>
 
-          <button
-            onClick={() => setNumbersOpen(false)}
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-card-soft text-lg transition-all hover:scale-105 hover:bg-card"
-          >
-            ✕
-          </button>
+            <button
+              onClick={() => setNumbersOpen(false)}
+              className="cursor-pointer flex h-10 w-10 items-center justify-center rounded-full border border-border bg-card-soft text-lg transition-all hover:scale-105 hover:bg-card"
+            >
+              ✕
+            </button>
+          </div>
         </header>
 
         {/* GRID NUMBERS */}
-        {!allNumbersFilled &&
+        {!allNumbersFilled && !loading &&
           <>
             <div className="mt-5 grid gap-2 grid-cols-8 sm:grid-cols-8 md:grid-cols-10 lg:grid-cols-12 xl:grid-cols-15">
               {raffleNumbers.map((item) => {
