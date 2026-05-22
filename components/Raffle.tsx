@@ -89,6 +89,20 @@ Não perca essa chance!`,
                 Concorra a um kit exclusivo feito à mão com tapetes, passadeira,
                 sousplats e trilho de mesa 💖
               </p>
+              <div className="mt-5 inline-flex items-start gap-3 rounded-2xl border border-border bg-card-soft px-4 py-3 text-left">
+                <span className="text-lg">🚚</span>
+
+                <div>
+                  <p className="text-sm font-semibold">
+                    Entrega disponível somente em Montes Claros - MG
+                  </p>
+
+                  <p className="mt-1 text-xs text-muted">
+                    A participação na rifa é válida apenas para moradores da cidade.
+                  </p>
+                </div>
+              </div>
+
             </div>
 
             <div className="mt-8 flex flex-row items-center mx-auto sm:mx-0 gap-6">
@@ -124,7 +138,7 @@ Não perca essa chance!`,
           <div className="flex flex-col p-5 sm:p-6">
             <div className="flex flex-col sm:flex-row items-center justify-center gap-2">
               {raffleItems.map((item, index) => (
-                <div key={item.title} className="flex items-center gap-2">
+                <div key={item.title} className="flex items-baseline sm:items-center  gap-2">
                   <div className="relative overflow-hidden rounded-3xl shadow-xl">
                     <Image
                       src={item.image}
@@ -150,7 +164,7 @@ Não perca essa chance!`,
                   </div>
 
                   {index === 0 && (
-                    <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-primary text-xl font-light text-primary-foreground shadow-lg">
+                    <div className="flex h-10 w-10 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-primary text-xl font-light text-primary-foreground shadow-lg">
                       +
                     </div>
                   )}
