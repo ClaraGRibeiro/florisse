@@ -1,17 +1,14 @@
 "use client";
 
-import { useState } from "react";
 import { Product } from "@/types/product";
+import { useState } from "react";
 
 export function useProductModal() {
-  const [selectedProduct, setSelectedProduct] =
-    useState<Product | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
-  const [selectedColor, setSelectedColor] =
-    useState<number>(0);
+  const [selectedColor, setSelectedColor] = useState<number>(0);
 
-  const [selectedSize, setSelectedSize] =
-    useState<number>(0);
+  const [selectedSize, setSelectedSize] = useState<number>(0);
 
   const openProduct = (product: Product) => {
     setSelectedProduct(product);

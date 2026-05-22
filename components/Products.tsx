@@ -30,9 +30,7 @@ export default function Products({
 }: ProductsProps) {
   const [category, setCategory] = useState("Tapetes");
 
-  const discount = Math.round(
-    (productsData.discount * 100 - 100) * -1,
-  );
+  const discount = Math.round((productsData.discount * 100 - 100) * -1);
 
   const filteredProducts = products.filter(
     (product) => product.category === category,

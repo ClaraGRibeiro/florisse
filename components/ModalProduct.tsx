@@ -1,7 +1,6 @@
-import Image from "next/image";
 import { Product } from "@/types/product";
+import Image from "next/image";
 import { Dispatch, SetStateAction } from "react";
-import { CartItem } from "@/hooks/useCart";
 
 type AddToCartParams = {
   id: string;
@@ -165,17 +164,17 @@ export default function ModalProduct({
 
             <button
               onClick={() =>
-  addToCart({
-    id: crypto.randomUUID(),
-    name: product.name,
-    color: product.colors[selectedColor].name,
-    size: product.sizes[selectedSize].label,
-    price: currentSize.price,
-    no_discount: currentSize.no_discount,
-    image: imageSrc,
-    quantity: 1,
-  })
-}
+                addToCart({
+                  id: crypto.randomUUID(),
+                  name: product.name,
+                  color: product.colors[selectedColor].name,
+                  size: product.sizes[selectedSize].label,
+                  price: currentSize.price,
+                  no_discount: currentSize.no_discount,
+                  image: imageSrc,
+                  quantity: 1,
+                })
+              }
               className="mt-8 w-full rounded-2xl bg-primary py-3 text-sm font-semibold text-primary-foreground shadow-xl transition hover:scale-[1.01] hover:bg-primary-hover sm:py-4 sm:text-lg"
             >
               Adicionar ao carrinho

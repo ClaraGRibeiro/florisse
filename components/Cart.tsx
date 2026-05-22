@@ -24,15 +24,9 @@ export default function Cart({
   removeFromCart,
   formatColor,
 }: CartProps) {
-  const total = cart.reduce(
-    (acc, item) => acc + item.price * item.quantity,
-    0,
-  );
+  const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
-  const totalItems = cart.reduce(
-    (acc, item) => acc + item.quantity,
-    0,
-  );
+  const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
 
   const closeCart = () => setCartOpen(false);
 
@@ -84,9 +78,7 @@ Total do pedido: R$ ${total.toFixed(2)}
         </button>
 
         <div className="border-b border-border px-6 py-6 md:px-8">
-          <h2 className="text-3xl font-bold">
-            Seu Carrinho
-          </h2>
+          <h2 className="text-3xl font-bold">Seu Carrinho</h2>
 
           <p className="mt-1 text-sm text-muted">
             {totalItems} itens adicionados
@@ -97,9 +89,7 @@ Total do pedido: R$ ${total.toFixed(2)}
           <div className="flex flex-1 flex-col items-center justify-center px-6 text-center">
             <div className="mb-5 text-6xl">🧶</div>
 
-            <h3 className="text-2xl font-bold">
-              Seu carrinho está vazio
-            </h3>
+            <h3 className="text-2xl font-bold">Seu carrinho está vazio</h3>
 
             <p className="mt-2 max-w-md text-muted">
               Adicione peças artesanais para montar seu pedido 💖
@@ -180,9 +170,7 @@ Total do pedido: R$ ${total.toFixed(2)}
             <div className="border-t border-border bg-background/80 px-6 py-5 backdrop-blur-md">
               <div className="flex items-center justify-between gap-4">
                 <div>
-                  <p className="text-sm text-muted">
-                    Total do pedido
-                  </p>
+                  <p className="text-sm text-muted">Total do pedido</p>
 
                   <h3 className="text-3xl font-bold text-primary">
                     R$ {total.toFixed(2)}

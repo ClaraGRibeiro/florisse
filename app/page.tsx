@@ -11,10 +11,10 @@ import Products from "@/components/Products";
 import Raffle from "@/components/Raffle";
 import Sobre from "@/components/Sobre";
 
-import { useProducts } from "@/hooks/useProducts";
-import { useScrollTop } from "@/hooks/useScrollTop";
 import { useCart } from "@/hooks/useCart";
 import { useProductModal } from "@/hooks/useProductModal";
+import { useProducts } from "@/hooks/useProducts";
+import { useScrollTop } from "@/hooks/useScrollTop";
 import { useState } from "react";
 
 import { formatColor, formatPath } from "@/utils/format";

@@ -8,7 +8,7 @@ export function useProducts() {
   const products: Product[] = productsData.products.map((product) => {
     const total_sales = product.sizes.reduce(
       (acc, size) => acc + (size.sales ?? 0),
-      0
+      0,
     );
 
     return {
@@ -28,7 +28,7 @@ export function useProducts() {
   });
 
   const bestSelling = [...products].sort(
-    (a, b) => (b.total_sales ?? 0) - (a.total_sales ?? 0)
+    (a, b) => (b.total_sales ?? 0) - (a.total_sales ?? 0),
   )[0];
 
   return { products, bestSelling };
