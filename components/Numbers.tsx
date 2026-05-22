@@ -10,13 +10,13 @@ type NumbersProps = {
 type RaffleNumber = {
   NUMERO: string;
   PAGO: string;
+  WHATSAPP?: string;
+  SORTEADO?: string;
 };
 
 const WHATSAPP = "5538992030710";
 
 export default function Numbers({ rafflePrice, setNumbersOpen }: NumbersProps) {
-  const winner: string = "";
-  const winNumber: string = "";
   const [selectedNumbers, setSelectedNumbers] = useState<string[]>([]);
   const [raffleNumbers, setRaffleNumbers] = useState<RaffleNumber[]>([]);
 
@@ -39,9 +39,18 @@ export default function Numbers({ rafflePrice, setNumbersOpen }: NumbersProps) {
         console.error("Erro ao carregar rifa:", error);
       }
     };
-
+    
     loadSheet();
   }, []);
+  const winnerData = raffleNumbers.find(
+    (item) => Number(item.SORTEADO) === 1
+  );
+
+  const winNumber = winnerData?.NUMERO || "";
+
+  const winner = winnerData?.WHATSAPP
+    ? winnerData.WHATSAPP.slice(-4)
+    : "";
 
   const toggleNumber = (number: string) => {
     setSelectedNumbers((prev) =>
@@ -86,80 +95,79 @@ export default function Numbers({ rafflePrice, setNumbersOpen }: NumbersProps) {
         className="w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-3xl sm:rounded-4xl border border-border bg-background p-4 sm:p-6 shadow-2xl"
       >
         {/* HEADER */}
-      <header className="flex items-start justify-between gap-4 border-b border-border pb-4">
-  <div className="flex-1">
-    <div className="flex items-center gap-2">
-      <div
-        className={`h-3 w-3 rounded-full ${
-          !allNumbersFilled
-            ? "bg-green-500"
-            : winner === "" && winNumber === ""
-              ? "bg-yellow-500"
-              : "bg-primary"
-        }`}
-      />
+        <header className="flex items-start justify-between gap-4 border-b border-border pb-4">
+          <div className="flex-1">
+            <div className="flex items-center gap-2">
+              <div
+                className={`h-3 w-3 rounded-full ${!allNumbersFilled
+                    ? "bg-green-500"
+                    : winner === "" && winNumber === ""
+                      ? "bg-yellow-500"
+                      : "bg-primary"
+                  }`}
+              />
 
-      <span className="text-xs font-semibold uppercase tracking-wider text-muted">
-        {!allNumbersFilled
-          ? "Rifa aberta"
-          : winner === "" && winNumber === ""
-            ? "Aguardando sorteio"
-            : "Resultado disponível"}
-      </span>
-    </div>
+              <span className="text-xs font-semibold uppercase tracking-wider text-muted">
+                {!allNumbersFilled
+                  ? "Rifa aberta"
+                  : winner === "" && winNumber === ""
+                    ? "Aguardando sorteio"
+                    : "Resultado disponível"}
+              </span>
+            </div>
 
-    <h2 className="mt-2 text-2xl sm:text-3xl md:text-4xl font-black leading-tight">
-      {!allNumbersFilled
-        ? "🎟️ Escolha seu número"
-        : winner === "" && winNumber === ""
-          ? "🎉 Rifa encerrada"
-          : "🏆 Resultado da Rifa"}
-    </h2>
+            <h2 className="mt-2 text-2xl sm:text-3xl md:text-4xl font-black leading-tight">
+              {!allNumbersFilled
+                ? "🎟️ Escolha seu número"
+                : winner === "" && winNumber === ""
+                  ? "🎉 Rifa encerrada"
+                  : "🏆 Resultado da Rifa"}
+            </h2>
 
-    <p className="mt-3 max-w-2xl text-sm sm:text-base leading-relaxed text-muted">
-      {!allNumbersFilled ? (
-        <>
-          Os números em <span className="font-semibold text-secondary">verde</span> estão disponíveis para escolha.
-        </>
-      ) : winner === "" && winNumber === "" ? (
-        <>
-          Todos os números já foram preenchidos. O sorteio será realizado
-          utilizando o resultado oficial da{" "}
-          <span className="font-semibold text-foreground">
-            Loteria Federal
-          </span>{" "}
-          da próxima quarta-feira ou sábado.
-        </>
-      ) : (
-        <>
-          O número vencedor da rifa foi definido pelos últimos 2 dígitos do resultado da{" "}
-          <span className="font-semibold text-foreground">
-            Loteria Federal
-          </span>: {winNumber}
-        </>
-      )}
-    </p>
+            <p className="mt-3 max-w-2xl text-sm sm:text-base leading-relaxed text-muted">
+              {!allNumbersFilled ? (
+                <>
+                  Os números em <span className="font-semibold text-secondary">verde</span> estão disponíveis para escolha.
+                </>
+              ) : winner === "" && winNumber === "" ? (
+                <>
+                  Todos os números já foram preenchidos. O sorteio será realizado
+                  utilizando o resultado oficial da{" "}
+                  <span className="font-semibold text-foreground">
+                    Loteria Federal
+                  </span>{" "}
+                  da próxima quarta-feira ou sábado.
+                </>
+              ) : (
+                <>
+                  O número vencedor da rifa foi definido pelos últimos 2 dígitos do resultado da{" "}
+                  <span className="font-semibold text-foreground">
+                    Loteria Federal
+                  </span>: {winNumber}
+                </>
+              )}
+            </p>
 
-    {winner !== "" && winNumber !== "" && (
-      <div className="mt-4 inline-flex items-center gap-3 rounded-2xl border border-primary/20 bg-primary/10 px-4 py-3">
-        <span className="text-sm font-medium text-muted">
-          Pessoa sorteada
-        </span>
+            {winner !== "" && winNumber !== "" && (
+              <div className="mt-4 inline-flex items-center gap-3 rounded-2xl border border-primary/20 bg-primary/10 px-4 py-3">
+                <span className="text-sm font-medium text-muted">
+                  Pessoa sorteada
+                </span>
 
-        <span className="text-2xl font-black tracking-wider text-primary">
-          XXXX-{winner}
-        </span>
-      </div>
-    )}
-  </div>
+                <span className="text-2xl font-black tracking-wider text-primary">
+                  XXXX-{winner}
+                </span>
+              </div>
+            )}
+          </div>
 
-  <button
-    onClick={() => setNumbersOpen(false)}
-    className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-card-soft text-lg transition-all hover:scale-105 hover:bg-card"
-  >
-    ✕
-  </button>
-</header>
+          <button
+            onClick={() => setNumbersOpen(false)}
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-card-soft text-lg transition-all hover:scale-105 hover:bg-card"
+          >
+            ✕
+          </button>
+        </header>
 
         {/* GRID NUMBERS */}
         {!allNumbersFilled &&
