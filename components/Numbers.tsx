@@ -24,7 +24,7 @@ export default function Numbers({ rafflePrice, setNumbersOpen }: NumbersProps) {
     const loadSheet = async () => {
       try {
         const response = await fetch(
-          "https://opensheet.elk.sh/1G_-cEKzvojtO6-zR86oalbrp5JvQvIEat8rShhCsaP8/Rifa-Florisse?t=${Date.now()}",
+          `https://opensheet.elk.sh/1G_-cEKzvojtO6-zR86oalbrp5JvQvIEat8rShhCsaP8/Rifa-Florisse?t=${Date.now()}`,
         );
         const data = await response.json();
         setRaffleNumbers(
@@ -39,7 +39,7 @@ export default function Numbers({ rafflePrice, setNumbersOpen }: NumbersProps) {
         console.error("Erro ao carregar rifa:", error);
       }
     };
-    
+
     loadSheet();
   }, []);
   const winnerData = raffleNumbers.find(
@@ -100,10 +100,10 @@ export default function Numbers({ rafflePrice, setNumbersOpen }: NumbersProps) {
             <div className="flex items-center gap-2">
               <div
                 className={`h-3 w-3 rounded-full ${!allNumbersFilled
-                    ? "bg-green-500"
-                    : winner === "" && winNumber === ""
-                      ? "bg-yellow-500"
-                      : "bg-primary"
+                  ? "bg-green-500"
+                  : winner === "" && winNumber === ""
+                    ? "bg-yellow-500"
+                    : "bg-primary"
                   }`}
               />
 
