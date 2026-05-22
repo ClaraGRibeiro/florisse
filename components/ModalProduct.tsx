@@ -40,7 +40,7 @@ export default function ModalProduct({
   const currentColor = product.colors[selectedColor];
   const currentSize = product.sizes[selectedSize];
 
-  const imageSrc = `/products/${formatPath(product.category)}/${formatPath(product.name)}/${currentColor.name}.png`;
+  const imageSrc = `/products/${formatPath(product.category)}/${formatPath(product.name)}/${currentColor.name}.webp`;
 
   const getGradient = (colors: string[]) => {
     if (colors.length === 1) return colors[0];

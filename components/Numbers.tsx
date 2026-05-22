@@ -102,7 +102,7 @@ export default function Numbers({ rafflePrice, setNumbersOpen }: NumbersProps) {
         </header>
 
         {/* GRID NUMBERS */}
-        <div className="mt-5 grid gap-1 grid-cols-8 sm:grid-cols-8 md:grid-cols-10 lg:grid-cols-12 xl:grid-cols-20">
+        <div className="mt-5 grid gap-2 grid-cols-8 sm:grid-cols-8 md:grid-cols-10 lg:grid-cols-12 xl:grid-cols-20">
           {raffleNumbers.map((item) => {
             const paid = String(item.PAGO).trim().toLowerCase() === "true";
             const selected = selectedNumbers.includes(item.NUMERO);
@@ -112,7 +112,7 @@ export default function Numbers({ rafflePrice, setNumbersOpen }: NumbersProps) {
                 key={item.NUMERO}
                 disabled={paid}
                 onClick={() => toggleNumber(item.NUMERO)}
-                className={`aspect-square rounded-xl sm:rounded-2xl text-xs sm:text-sm font-semibold transition-all ${
+                className={`aspect-square rounded-xl sm:rounded-2xl text-lg sm:text-sm font-semibold transition-all ${
                   paid
                     ? "cursor-not-allowed bg-muted/20 text-muted opacity-60"
                     : selected

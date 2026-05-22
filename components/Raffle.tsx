@@ -10,13 +10,13 @@ const raffleItems = [
   {
     title: "Tapetes + Passadeira",
     subtitle: "Jogo cozinha",
-    image: "/products/jogos/jogo-passadeira-sara/bege.png",
+    image: "/products/jogos/jogo-passadeira-sara/bege.webp",
     details: ["2 tapetes (70x50cm)", "1 passadeira (120x50cm)"],
   },
   {
     title: "Sousplats + Trilho",
     subtitle: "Mesa posta",
-    image: "/products/jogos/jogo-mesa-tradicional/bege.png",
+    image: "/products/jogos/jogo-mesa-tradicional/bege.webp",
     details: ["6 sousplats (40cm)", "1 trilho (120x40cm)"],
   },
 ];

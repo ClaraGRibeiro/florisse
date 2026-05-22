@@ -97,7 +97,7 @@ export default function Products({
 
               <div className="relative overflow-hidden">
                 <Image
-                  src={`/products/${formatPath(product.category)}/${formatPath(product.name)}/${product.colors[0].name}.png`}
+                  src={`/products/${formatPath(product.category)}/${formatPath(product.name)}/${product.colors[0].name}.webp`}
                   alt={product.name}
                   width={600}
                   height={600}

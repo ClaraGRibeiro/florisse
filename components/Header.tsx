@@ -42,15 +42,6 @@ export default function Header({
         </div>
 
         <nav className="hidden items-center gap-6 lg:flex">
-          {raffleIsOn && (
-            <button
-              onClick={openRaffle}
-              className="cursor-pointer rounded-full bg-secondary px-5 py-2.5 text-sm font-medium text-primary-foreground shadow-md transition-all hover:scale-[1.03] hover:bg-secondary-hover"
-            >
-              Rifa ✨
-            </button>
-          )}
-
           {navItems.map((item) => (
             <a
               key={item}
@@ -61,6 +52,14 @@ export default function Header({
             </a>
           ))}
 
+          {raffleIsOn && (
+            <button
+              onClick={openRaffle}
+              className="cursor-pointer rounded-full bg-secondary px-5 py-2.5 text-sm font-medium text-primary-foreground shadow-md transition-all hover:scale-[1.03] hover:bg-secondary-hover"
+            >
+              <span className="hidden sm:inline">Rifa 🍀</span>
+            </button>
+          )}
           <button
             onClick={openCart}
             className="cursor-pointer flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground shadow-md transition-all hover:scale-[1.03] hover:bg-primary-hover"
@@ -72,18 +71,29 @@ export default function Header({
             </span>
           </button>
         </nav>
-
-        <button
-          onClick={openCart}
-          className="relative flex h-11 w-11 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-md transition hover:scale-105 lg:hidden"
-        >
-          🛒
-          {cartLength > 0 && (
-            <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">
-              {cartLength}
-            </span>
+        <div className="flex gap-4">
+          {raffleIsOn && (
+            <button
+              onClick={openRaffle
+              }
+              className="relative flex h-11 w-11 items-center justify-center rounded-full bg-secondary shadow-md transition hover:scale-105 lg:hidden"
+            >
+              🍀
+            </button>
           )}
-        </button>
+
+          <button
+            onClick={openCart}
+            className="relative flex h-11 w-11 items-center justify-center rounded-full bg-primary shadow-md transition hover:scale-105 lg:hidden"
+          >
+            🛒
+            {cartLength > 0 && (
+              <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">
+                {cartLength}
+              </span>
+            )}
+          </button>
+        </div>
       </div>
     </header>
   );
