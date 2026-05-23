@@ -18,7 +18,7 @@ import { useScrollTop } from "@/hooks/useScrollTop";
 import { useState } from "react";
 
 import { formatColor, formatPath } from "@/utils/format";
-import { FaArrowAltCircleUp, FaArrowUp } from "react-icons/fa";
+import { FaArrowUp } from "react-icons/fa";
 
 export default function Home() {
   const rafflePrice = 5;

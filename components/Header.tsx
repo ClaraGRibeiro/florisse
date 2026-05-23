@@ -41,8 +41,7 @@ export default function Header({
             </p>
           </div>
         </div>
-
-        <nav className="hidden items-center  gap-6 lg:flex">
+        <nav className="hidden items-center gap-4 lg:flex">
           {navItems.map((item) => (
             <a
               key={item}
@@ -56,22 +55,32 @@ export default function Header({
           {raffleIsOn && (
             <button
               onClick={openRaffle}
-              className="cursor-pointer rounded-full bg-secondary px-5 py-2.5 text-sm font-medium text-primary-foreground shadow-md transition-all hover:scale-[1.03] hover:bg-secondary-hover"
+              className="cursor-pointer flex items-center gap-2 rounded-full bg-secondary px-5 py-2.5 text-sm font-medium text-primary-foreground shadow-md transition-all hover:scale-[1.03] hover:bg-secondary-hover"
             >
-              <span className="hidden sm:inline">Rifa 🍀</span>
+              <FaClover size={16} />
+              <span>Rifa</span>
             </button>
           )}
+
           <button
             onClick={openCart}
-            className="cursor-pointer flex gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground shadow-md transition-all hover:scale-[1.03] hover:bg-primary-hover"
+            className="cursor-pointer flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground shadow-md transition-all hover:scale-[1.03] hover:bg-primary-hover"
           >
-            <span className="hidden sm:inline">Carrinho</span>
+            <span>Carrinho</span>
 
             <span className="rounded-full bg-white/20 px-2 py-0.5 text-xs">
               {cartLength}
             </span>
           </button>
-
+          <button
+            onClick={() =>
+              window.open("https://instagram.com/florisse_croche", "_blank")
+            }
+            className="cursor-pointer flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-medium text-primary shadow-md transition-all hover:scale-[1.03]"
+          >
+            <FaInstagram size={16} />
+            <span>Instagram</span>
+          </button>
         </nav>
         <div className="flex lg:hidden gap-4">
           {raffleIsOn && (
