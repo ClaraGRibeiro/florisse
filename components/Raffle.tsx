@@ -67,7 +67,7 @@ Não perca essa chance!`,
 
         <button
           onClick={closeModal}
-          className="absolute top-5 right-5 z-30 flex h-11 w-11 items-center justify-center rounded-full bg-background/90 text-lg shadow-lg backdrop-blur transition-all hover:scale-105"
+          className="cursor-pointer absolute top-5 right-5 z-30 flex h-11 w-11 items-center justify-center rounded-full bg-background/90 text-lg shadow-lg backdrop-blur transition-all hover:scale-105"
         >
           ✕
         </button>

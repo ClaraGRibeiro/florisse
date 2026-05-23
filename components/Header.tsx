@@ -1,5 +1,6 @@
 import Image from "next/image";
-
+import { FaCartPlus, FaInstagram } from "react-icons/fa";
+import { FaClover } from "react-icons/fa6";
 type HeaderProps = {
   cartLength: number;
   openCart: () => void;
@@ -70,31 +71,37 @@ export default function Header({
               {cartLength}
             </span>
           </button>
-          
-        <div className="flex gap-4">
+
+        </nav>
+        <div className="flex lg:hidden gap-4">
           {raffleIsOn && (
             <button
-              onClick={openRaffle
-              }
-              className="relative flex h-11 w-11 items-center justify-center rounded-full bg-secondary shadow-md transition hover:scale-105 lg:hidden"
+              onClick={openRaffle}
+              className="flex h-11 w-11 items-center justify-center rounded-full bg-secondary text-white shadow-md transition hover:scale-105 lg:hidden"
             >
-              🍀
+              <FaClover size={20} />
             </button>
           )}
 
           <button
             onClick={openCart}
-            className="relative flex h-11 w-11 items-center justify-center rounded-full bg-primary shadow-md transition hover:scale-105 lg:hidden"
+            className="relative flex h-11 w-11 items-center justify-center rounded-full bg-primary text-white shadow-md transition hover:scale-105 lg:hidden"
           >
-            🛒
+            <FaCartPlus size={20} />
+
             {cartLength > 0 && (
               <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">
                 {cartLength}
               </span>
             )}
           </button>
+          <button
+            onClick={() => window.open("https://instagram.com/florisse", "_blank")}
+            className="flex h-11 w-11 items-center justify-center rounded-full bg-white shadow-md transition hover:scale-105 lg:hidden"
+          >
+            <FaInstagram size={20} />
+          </button>
         </div>
-        </nav>
       </div>
     </header>
   );

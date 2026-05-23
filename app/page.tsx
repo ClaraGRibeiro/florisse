@@ -18,10 +18,11 @@ import { useScrollTop } from "@/hooks/useScrollTop";
 import { useState } from "react";
 
 import { formatColor, formatPath } from "@/utils/format";
+import { FaArrowAltCircleUp, FaArrowUp } from "react-icons/fa";
 
 export default function Home() {
   const rafflePrice = 5;
-  const raffleIsOn = true;
+  const raffleIsOn = false;
 
   const [numbersOpen, setNumbersOpen] = useState(false);
   const [raffleOpen, setRaffleOpen] = useState(true);
@@ -102,9 +103,9 @@ export default function Home() {
       {showTop && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-6 right-6 h-12 w-12 rounded-full bg-primary text-white"
+          className="cursor-pointer fixed bottom-6 right-6 flex h-12 w-12 items-center justify-center rounded-full bg-primary text-white shadow-lg transition hover:scale-105"
         >
-          ↑
+          <FaArrowUp size={18} />
         </button>
       )}
     </main>
