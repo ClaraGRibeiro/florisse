@@ -7,7 +7,7 @@ export function useProducts() {
 
   const products: Product[] = productsData.products.map((product) => {
     const total_sales = product.sizes.reduce(
-      (acc, size) => acc + (size.sales ?? 0),
+      (acc, size) => acc + ("sales" in size ? size.sales : 0),
       0,
     );
 
