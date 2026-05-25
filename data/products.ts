@@ -26,7 +26,6 @@ const products = [
   //       label: "2 (70x50cm) e 1 (120x50cm)",
   //       price: 170 * discount,
   //       no_discount: 170,
-  //       sales: 1,
   //     },
   //   ],
   //   colors: ["bege"],
@@ -37,13 +36,13 @@ const products = [
     sizes: [
       {
         label: "70x50cm",
-        price: 45,
-        sales: 0,
+        price: 50,
+        sales: 7,
       },
       {
         label: "120x50cm",
         price: 125,
-        sales: 0,
+        sales: 1,
       },
     ],
     colors: ["alecrim-militar", "cru-militar-alecrim", "cru-marrom-bege"],
@@ -54,9 +53,8 @@ const products = [
     sizes: [
       {
         label: "2 (70x50cm) e 1 (120x50cm)",
-        price: 215 * discount,
-        no_discount: 215,
-        sales: 1,
+        price: 225 * discount,
+        no_discount: 225,
       },
     ],
     colors: ["alecrim-militar", "cru-militar-alecrim", "cru-marrom-bege"],
@@ -68,12 +66,12 @@ const products = [
   //     {
   //       label: "70x50cm",
   //       price: 50,
-  //       sales: 0,
+  //       sales: 4,
   //     },
   //     {
   //       label: "120x50cm",
-  //       price: 130,
-  //       sales: 2,
+  //       price: 140,
+  //       sales: 1,
   //     },
   //   ],
   //   colors: ["cru-bege"],
@@ -84,9 +82,8 @@ const products = [
   //   sizes: [
   //     {
   //       label: "2 (70x50cm) e 1 (120x50cm)",
-  //       price: 230 * discount,
-  //       no_discount: 230,
-  //       sales: 1,
+  //       price: 240 * discount,
+  //       no_discount: 240,
   //     },
   //   ],
   //   colors: ["cru-bege"],
@@ -98,7 +95,7 @@ const products = [
       {
         label: "100cm",
         price: 250,
-        sales: 0,
+        sales: 1,
       },
       {
         label: "150cm",
@@ -130,12 +127,52 @@ const products = [
   //   category: "Mesa Posta",
   //   sizes: [
   //     {
-  //       label: "40cm",
+  //       label: "37cm",
   //       price: 30,
-  //       sales: 0,
+  //       sales: 6,
   //     },
   //   ],
-  //   colors: ["militar"],
+  //   colors: ["marrom"],
+  // },
+  // {
+  //   name: "Trilho de Mesa Franja",
+  //   category: "Mesa Posta",
+  //   sizes: [
+  //     {
+  //       label: "120x37cm",
+  //       price: 130,
+  //       sales: 1,
+  //     },
+  //   ],
+  //   colors: ["marrom"],
+  // },
+  // {
+  //   name: "Jogo Mesa Tradicional",
+  //   category: "Jogos",
+  //   sizes: [
+  //     {
+  //       label: "6 (37cm) e 1 (120x37cm)",
+  //       price: 310 * discount,
+  //       no_discount: 310,
+  //     },
+  //     {
+  //       label: "4 (37cm)",
+  //       price: 120 * discount,
+  //       no_discount: 120,
+  //     },
+  //     {
+  //       label: "6 (37cm)",
+  //       price: 180 * discount,
+  //       no_discount: 180,
+  //     },
+  //     {
+  //       label: "8 (37cm)",
+  //       price: 240 * discount,
+  //       no_discount: 240,
+  //     },
+
+  //   ],
+  //   colors: ["militar", "bege"],
   // },
   {
     name: "Trilho de Mesa Floral",
@@ -143,62 +180,18 @@ const products = [
     sizes: [
       {
         label: "110x40cm",
-        price: 120,
-        sales: 0,
+        price: 100,
+        sales: 1,
       },
     ],
     colors: ["cru-bege"],
   },
   // {
-  //   name: "Trilho de Mesa Tradicional",
-  //   category: "Mesa Posta",
-  //   sizes: [
-  //     {
-  //       label: "120x40cm",
-  //       price: 120,
-  //       sales: 0,
-  //     },
-  //   ],
-  //   colors: ["militar"],
-  // },
-  // {
-  //   name: "Jogo Mesa Tradicional",
-  //   category: "Jogos",
-  //   sizes: [
-  //     {
-  //       label: "6 (40cm) e 1 (120x40cm)",
-  //       price: 300 * discount,
-  //       no_discount: 300,
-  //       sales: 0,
-  //     },
-  //     {
-  //       label: "4 (40cm)",
-  //       price: 120 * discount,
-  //       no_discount: 120,
-  //       sales: 0,
-  //     },
-  //     {
-  //       label: "6 (40cm)",
-  //       price: 180 * discount,
-  //       no_discount: 180,
-  //       sales: 0,
-  //     },
-  //     {
-  //       label: "8 (40cm)",
-  //       price: 240 * discount,
-  //       no_discount: 240,
-  //       sales: 0,
-  //     },
-
-  //   ],
-  //   colors: ["militar", "bege"],
-  // },
-  // {
   //   name: "Sousplat Luxo",
   //   category: "Mesa Posta",
   //   sizes: [
   //     {
-  //       label: "40cm",
+  //       label: "37cm",
   //       price: 40,
   //       sales: 0,
   //     },
@@ -210,7 +203,7 @@ const products = [
   //   category: "Mesa Posta",
   //   sizes: [
   //     {
-  //       label: "120x40cm",
+  //       label: "120x37cm",
   //       price: 160,
   //       sales: 0,
   //     },
@@ -222,28 +215,24 @@ const products = [
   //   category: "Jogos",
   //   sizes: [
   //     {
-  //       label: "6 (40cm) e 1 (100x40cm)",
+  //       label: "6 (37cm) e 1 (100x37cm)",
   //       price: 390 * discount,
   //       no_discount: 390,
-  //       sales: 0,
   //     },
   //     {
-  //       label: "4 (40cm)",
+  //       label: "4 (37cm)",
   //       price: 160 * discount,
   //       no_discount: 160,
-  //       sales: 0,
   //     },
   //     {
-  //       label: "6 (40cm)",
+  //       label: "6 (37cm)",
   //       price: 240 * discount,
   //       no_discount: 240,
-  //       sales: 0,
   //     },
   //     {
-  //       label: "8 (40cm)",
+  //       label: "8 (37cm)",
   //       price: 330 * discount,
   //       no_discount: 330,
-  //       sales: 0,
   //     },
 
   //   ],

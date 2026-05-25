@@ -7,11 +7,11 @@ export interface ProductSize {
   label: string;
   price: number;
   no_discount?: number;
-  sales: number;
+  sales?: number;
 }
 
 export interface Product {
-  total_sales: number;
+  total_sales?: number;
   name: string;
   category: string;
 

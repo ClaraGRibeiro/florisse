@@ -22,7 +22,7 @@ type ModalProductProps = {
   setSelectedSize: Dispatch<SetStateAction<number>>;
   setSelectedProduct: Dispatch<SetStateAction<Product | null>>;
 
-  addToCart: (params: AddToCartParams) => void; // 👈 AQUI
+  addToCart: (params: AddToCartParams) => void;
   formatColor: (color: string) => string;
   formatPath: (name: string) => string;
 };
@@ -107,10 +107,11 @@ export default function ModalProduct({
               sizes="(max-width: 768px) 100vw, 50vw"
               className="h-65 w-full object-cover transition-opacity duration-200 sm:h-80 md:h-125 lg:h-162.5"
             />
-
-            <div className="absolute top-4 left-4 rounded-full bg-background/90 px-3 py-1 text-xs font-medium shadow-md backdrop-blur">
-              {currentSize.sales} vendidos
-            </div>
+            {currentSize?.sales !== undefined && currentSize?.sales > 0 &&
+              <div className="absolute top-4 left-4 rounded-full bg-background/90 px-3 py-1 text-xs font-medium shadow-md backdrop-blur">
+                {currentSize?.sales > 1 ? `${currentSize.sales} vendidos` : `${currentSize.sales} vendido`}
+              </div>
+            }
           </div>
 
           <div className="flex flex-col justify-between p-5 sm:p-7 md:p-8">
