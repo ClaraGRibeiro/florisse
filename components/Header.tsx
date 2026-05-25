@@ -105,7 +105,7 @@ export default function Header({
             )}
           </button>
           <button
-            onClick={() => window.open("https://instagram.com/florisse", "_blank")}
+            onClick={() => window.open("https://instagram.com/florisse_croche", "_blank")}
             className="cursor-pointer flex h-11 w-11 items-center justify-center rounded-full bg-white text-primary shadow-md transition hover:scale-105 lg:hidden"
           >
             <FaInstagram size={20} />
