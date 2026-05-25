@@ -7,7 +7,7 @@ type HeroProps = {
 };
 
 const whatsappLink =
-  "https://wa.me/5538992030710?text=Olá! Vim pelo site da Florisse e gostaria de fazer um pedido personalizado.";
+  "https://wa.me/5538992030710?text=Olá! Vim pelo site da Florisse Crochê e gostaria de fazer um pedido personalizado.";
 
 export default function Hero({ bestSelling }: HeroProps) {
   return (

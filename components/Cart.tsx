@@ -46,7 +46,7 @@ ${index + 1}. ${item.name}
       .join("\n");
 
     const text = `
-Olá, Florisse!
+Olá, Florisse Crochê!
 
 Quero fazer o seguinte pedido:
 

@@ -84,7 +84,7 @@ export default function Numbers({ rafflePrice, setNumbersOpen }: NumbersProps) {
     if (selectedNumbers.length === 0) return;
 
     const message =
-      `Olá! Vim pelo site da Florisse.%0A` +
+      `Olá! Vim pelo site da Florisse Crochê.%0A` +
       `Quero participar da rifa.%0A%0A` +
       `Números escolhidos: ${sortedNumbers.join(", ")}%0A` +
       `Total: R$ ${total.toFixed(2)}`;

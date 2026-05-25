@@ -13,10 +13,11 @@ type ProductsProps = {
   openProduct: (product: Product) => void;
 };
 
-const filters = ["Tapetes", "Jogos"];
+const filters = ["Tapetes", "Mesa Posta", "Jogos"];
 
 const labels = {
   Tapetes: "Tapetes",
+  "Mesa Posta": "Mesa Posta",
   Jogos: "Jogos",
 };
 

@@ -137,6 +137,18 @@ const products = [
   //   ],
   //   colors: ["militar"],
   // },
+  {
+    name: "Trilho de Mesa Floral",
+    category: "Mesa Posta",
+    sizes: [
+      {
+        label: "110x40cm",
+        price: 120,
+        sales: 0,
+      },
+    ],
+    colors: ["cru-bege"],
+  },
   // {
   //   name: "Trilho de Mesa Tradicional",
   //   category: "Mesa Posta",

@@ -27,12 +27,12 @@ export default function Sobre() {
 
         <div className="relative z-10 text-left md:text-left">
           <h2 className="mt-5 text-4xl font-bold leading-tight text-foreground sm:text-5xl">
-            Sobre a Florisse
+            Sobre a <span className="text-primary"> Florisse Crochê</span>
           </h2>
 
           <div className="mt-6 space-y-5 text-base leading-relaxed text-muted sm:text-lg">
             <p>
-              A Florisse nasceu do crochê como um refúgio pra mim. É onde eu
+              A Florisse Crochê nasceu do crochê como um refúgio pra mim. É onde eu
               desacelero, coloco a mente em ordem e encontro paz em cada ponto.
             </p>
 

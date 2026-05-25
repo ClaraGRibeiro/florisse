@@ -23,7 +23,7 @@ export default function Header({
           <div className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-full bg-primary/15 shadow-sm">
             <Image
               src="/logo.webp"
-              alt="Florisse"
+              alt="Florisse Crochê"
               width={80}
               height={80}
               priority
@@ -33,7 +33,7 @@ export default function Header({
 
           <div className="min-w-0">
             <h1 className="truncate font-serif text-xl font-semibold tracking-tight sm:text-2xl">
-              Florisse
+              Florisse Crochê
             </h1>
 
             <p className="hidden text-xs text-muted sm:block">

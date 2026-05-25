@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Florisse",
+  title: "Florisse Crochê",
   description: "Onde o crochê vira paz.",
 };
 
