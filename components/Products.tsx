@@ -63,11 +63,10 @@ export default function Products({
             <button
               key={filter}
               onClick={() => setCategory(filter)}
-              className={`relative cursor-pointer rounded-full border px-5 py-2.5 text-sm font-medium transition-all duration-200 hover:scale-105 ${
-                active
+              className={`relative cursor-pointer rounded-full border px-5 py-2.5 text-sm font-medium transition-all duration-200 hover:scale-105 ${active
                   ? "border-transparent bg-primary text-white shadow-md"
                   : "border-border bg-card text-muted hover:border-primary/30 hover:text-primary"
-              }`}
+                }`}
             >
               {labels[filter as keyof typeof labels]}
 
@@ -105,7 +104,7 @@ export default function Products({
                   className="h-80 w-full object-cover transition-transform duration-700 ease-out group-hover:rotate-1 group-hover:scale-110"
                 />
 
-                {product.total_sales >= bestSelling.total_sales && (
+                {product.total_sales != undefined && bestSelling.total_sales !== undefined && product.total_sales >= bestSelling.total_sales && (
                   <div className="absolute left-4 top-4 rounded-full bg-accent/90 px-3 py-1 text-xs font-medium text-card shadow-md backdrop-blur">
                     Popular
                   </div>
