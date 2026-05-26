@@ -122,7 +122,7 @@ export default function Products({
                   </span>
 
                   <div className="mt-3 flex items-center gap-2">
-                    {product.colors.map((color) => (
+                    {product.colors.slice(0, 7).map((color) => (
                       <div
                         key={color.name}
                         title={formatColor(color.name)}
@@ -143,6 +143,8 @@ export default function Products({
                         }}
                       />
                     ))}
+                    {product.colors.length > 7 &&
+                    (<span>...</span>)}
                   </div>
                 </div>
 

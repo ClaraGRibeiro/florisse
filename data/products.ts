@@ -45,7 +45,7 @@ const products = [
         sales: 1,
       },
     ],
-    colors: ["alecrim-militar", "cru-militar-alecrim", "cru-marrom-bege"],
+    colors: ["cru-marrom-bege",  "cru-militar-alecrim", "alecrim-militar"],
   },
   {
     name: "Jogo Passadeira Janine",
@@ -57,7 +57,7 @@ const products = [
         no_discount: 225,
       },
     ],
-    colors: ["alecrim-militar", "cru-militar-alecrim", "cru-marrom-bege"],
+    colors: ["cru-marrom-bege",  "cru-militar-alecrim", "alecrim-militar"],
   },
   // {
   //   name: "Tapete Gisele",
@@ -122,18 +122,18 @@ const products = [
   //   ],
   //   colors: ["cru"],
   // },
-  // {
-  //   name: "Sousplat Tradicional",
-  //   category: "Mesa Posta",
-  //   sizes: [
-  //     {
-  //       label: "37cm",
-  //       price: 30,
-  //       sales: 6,
-  //     },
-  //   ],
-  //   colors: ["marrom"],
-  // },
+  {
+    name: "Sousplat Tradicional",
+    category: "Mesa Posta",
+    sizes: [
+      {
+        label: "37cm",
+        price: 30,
+        sales: 6,
+      },
+    ],
+    colors: ["marrom"],
+  },
   // {
   //   name: "Trilho de Mesa Franja",
   //   category: "Mesa Posta",
@@ -146,34 +146,34 @@ const products = [
   //   ],
   //   colors: ["marrom"],
   // },
-  // {
-  //   name: "Jogo Mesa Tradicional",
-  //   category: "Jogos",
-  //   sizes: [
-  //     {
-  //       label: "6 (37cm) e 1 (120x37cm)",
-  //       price: 310 * discount,
-  //       no_discount: 310,
-  //     },
-  //     {
-  //       label: "4 (37cm)",
-  //       price: 120 * discount,
-  //       no_discount: 120,
-  //     },
-  //     {
-  //       label: "6 (37cm)",
-  //       price: 180 * discount,
-  //       no_discount: 180,
-  //     },
-  //     {
-  //       label: "8 (37cm)",
-  //       price: 240 * discount,
-  //       no_discount: 240,
-  //     },
+  {
+    name: "Jogo Mesa Tradicional",
+    category: "Jogos",
+    sizes: [
+      // {
+      //   label: "6 (37cm) e 1 (120x37cm)",
+      //   price: 310 * discount,
+      //   no_discount: 310,
+      // },
+      {
+        label: "4 (37cm)",
+        price: 120 * discount,
+        no_discount: 120,
+      },
+      {
+        label: "6 (37cm)",
+        price: 180 * discount,
+        no_discount: 180,
+      },
+      {
+        label: "8 (37cm)",
+        price: 240 * discount,
+        no_discount: 240,
+      },
 
-  //   ],
-  //   colors: ["militar", "bege"],
-  // },
+    ],
+    colors: ["marrom"],
+  },
   {
     name: "Trilho de Mesa Floral",
     category: "Mesa Posta",
