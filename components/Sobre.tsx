@@ -9,7 +9,7 @@ export default function Sobre() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.8 }}
-      className="scroll-mt-20 overflow-hidden bg-card-soft py-16 sm:py-20"
+      className="scroll-mt-20 overflow-hidden bg-card py-16 sm:py-20"
     >
       <div className="mx-auto grid max-w-7xl gap-14 px-4 sm:px-6 md:grid-cols-2 md:items-center lg:gap-20">
         <div className="relative flex justify-center">

@@ -3,7 +3,7 @@ import productsData from "@/data/products";
 import { Product } from "@/types/product";
 
 export function useProducts() {
-  const colorMap = new Map(colorsData.map((c) => [c.color, c.hex]));
+  const colorMap = new Map(colorsData.map((c) => [c.name, c.hex]));
 
   const products: Product[] = productsData.products.map((product) => {
     const total_sales = product.sizes.reduce(

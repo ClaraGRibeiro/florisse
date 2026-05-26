@@ -161,7 +161,7 @@ export default function Products({
                     )}
                   </div>
 
-                  <div className="rounded-xl bg-primary/10 px-4 py-2 text-sm font-medium text-primary transition-all group-hover:bg-primary group-hover:text-primary-foreground">
+                  <div className="cursor-pointer rounded-xl bg-primary/10 px-4 py-2 text-sm font-medium text-primary transition-all group-hover:bg-primary group-hover:text-primary-foreground">
                     Ver detalhes
                   </div>
                 </div>

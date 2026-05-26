@@ -54,7 +54,7 @@ export default function Cuidados() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.8 }}
-      className="scroll-mt-20 bg-card py-16 sm:py-20"
+      className="scroll-mt-20 bg-card-soft py-16 sm:py-20"
     >
       <div className="mx-auto max-w-5xl px-4 sm:px-6">
         <div className="text-center">

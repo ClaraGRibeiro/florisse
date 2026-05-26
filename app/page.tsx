@@ -19,6 +19,7 @@ import { useState } from "react";
 
 import { formatColor, formatPath } from "@/utils/format";
 import { FaArrowUp } from "react-icons/fa";
+import Cores from "@/components/Cores";
 
 export default function Home() {
   const rafflePrice = 5;
@@ -63,8 +64,10 @@ export default function Home() {
         openProduct={openProduct}
       />
 
-      <Sobre />
+      <Cores
+        formatColor={formatColor} />
       <Cuidados />
+      <Sobre />
       <Footer />
 
       {selectedProduct && (

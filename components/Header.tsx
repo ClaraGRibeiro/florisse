@@ -8,7 +8,7 @@ type HeaderProps = {
   openRaffle: () => void;
 };
 
-const navItems = ["Início", "Produtos", "Sobre", "Cuidados"];
+const navItems = ["Início", "Produtos", "Cores", "Sobre", "Cuidados"];
 
 export default function Header({
   cartLength,

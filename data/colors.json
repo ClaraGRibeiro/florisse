@@ -1,46 +1,154 @@
 [
   {
-    "color": "cru",
+    "name": "cru",
     "hex": "#F5E6CC"
   },
   {
-    "color": "bege",
-    "hex": "#BB8664"
+    "name": "branco",
+    "hex": "#FFFFFF"
   },
   {
-    "color": "marrom",
-    "hex": "#6C524B"
+    "name": "preto",
+    "hex": "#000000"
   },
   {
-    "color": "alecrim",
-    "hex": "#6E8B5B"
+    "name": "cinza",
+    "hex": "#A8AAAC"
   },
   {
-    "color": "militar",
-    "hex": "#5D6532"
+    "name": "nude",
+    "hex": "#B7AB9F"
   },
   {
-    "color": "malva",
-    "hex": "#C3747E"
-  },
-  {
-    "color": "bordo",
-    "hex": "#822636"
-  },
-  {
-    "color": "jeans",
-    "hex": "#5D6C87"
-  },
-  {
-    "color": "marinho",
-    "hex": "#2B3C63"
-  },
-  {
-    "color": "chumbo",
+    "name": "chumbo",
     "hex": "#576367"
   },
   {
-    "color": "cinza",
-    "hex": "#A8AAAC"
+    "name": "amarelo bebê",
+    "hex": "#F4DA88"
+  },
+  {
+    "name": "ouro",
+    "hex": "#EEC049"
+  },
+  {
+    "name": "mostarda",
+    "hex": "#F3A94E"
+  },
+  {
+    "name": "rosa",
+    "hex": "#FF7C9E"
+  },
+  {
+    "name": "rosa bebê",
+    "hex": "#FFC6CC"
+  },
+  {
+    "name": "pink",
+    "hex": "#F83D77"
+  },
+  {
+    "name": "malva",
+    "hex": "#C3747E"
+  },
+  {
+    "name": "lilás claro",
+    "hex": "#BAA9CE"
+  },
+  {
+    "name": "salmão",
+    "hex": "#FA9E84"
+  },
+  {
+    "name": "telha",
+    "hex": "#C74C26"
+  },
+  {
+    "name": "laranja",
+    "hex": "#F65C39"
+  },
+  {
+    "name": "agua claro",
+    "hex": "#7BD1C6"
+  },
+  {
+    "name": "limão",
+    "hex": "#A0D89A"
+  },
+  {
+    "name": "esmeralda",
+    "hex": "#709680"
+  },
+  {
+    "name": "bandeira",
+    "hex": "#00733D"
+  },
+  {
+    "name": "musgo",
+    "hex": "#16705B"
+  },
+  {
+    "name": "militar",
+    "hex": "#5D6532"
+  },
+  {
+    "name": "alecrim",
+    "hex": "#9AB4A2"
+  },
+  {
+    "name": "agua escuro",
+    "hex": "#10C1B3"
+  },
+  {
+    "name": "azul bebê",
+    "hex": "#AEE1F4"
+  },
+  {
+    "name": "piscina",
+    "hex": "#21A2D2"
+  },
+  {
+    "name": "petróleo",
+    "hex": "#017381"
+  },
+  {
+    "name": "royal",
+    "hex": "#014B96"
+  },
+  {
+    "name": "marinho",
+    "hex": "#11244B"
+  },
+  {
+    "name": "vermelho",
+    "hex": "#E22830"
+  },
+  {
+    "name": "bordô",
+    "hex": "#822636"
+  },
+  {
+    "name": "melancia",
+    "hex": "#E84D58"
+  },
+  {
+    "name": "marrom",
+    "hex": "#54362A"
+  },
+  {
+    "name": "bege",
+    "hex": "#BB8664"
+  },
+  {
+    "name": "jeans",
+    "hex": "#5D6C87"
+  },
+  {
+    "name": "magenta",
+    "hex": "#A84778"
+  },
+  {
+    "name": "roxo",
+    "hex": "#524673"
   }
 ]

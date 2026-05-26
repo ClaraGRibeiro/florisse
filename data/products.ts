@@ -36,12 +36,12 @@ const products = [
     sizes: [
       {
         label: "70x50cm",
-        price: 50,
+        price: 55,
         sales: 7,
       },
       {
         label: "120x50cm",
-        price: 125,
+        price: 130,
         sales: 1,
       },
     ],
@@ -53,8 +53,8 @@ const products = [
     sizes: [
       {
         label: "2 (70x50cm) e 1 (120x50cm)",
-        price: 225 * discount,
-        no_discount: 225,
+        price: 240 * discount,
+        no_discount: 240,
       },
     ],
     colors: ["cru-marrom-bege",  "cru-militar-alecrim", "alecrim-militar"],
