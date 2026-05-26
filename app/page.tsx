@@ -20,6 +20,7 @@ import { useState } from "react";
 import { formatColor, formatPath } from "@/utils/format";
 import { FaArrowUp } from "react-icons/fa";
 import Cores from "@/components/Cores";
+import { AnimatePresence } from "framer-motion";
 
 export default function Home() {
   const rafflePrice = 5;
@@ -70,28 +71,32 @@ export default function Home() {
       <Sobre />
       <Footer />
 
-      {selectedProduct && (
-        <ModalProduct
-          product={selectedProduct}
-          selectedColor={selectedColor}
-          selectedSize={selectedSize}
-          setSelectedColor={setSelectedColor}
-          setSelectedSize={setSelectedSize}
-          setSelectedProduct={closeProduct}
-          addToCart={addToCart}
-          formatColor={formatColor}
-          formatPath={formatPath}
-        />
-      )}
+      <AnimatePresence>
+        {selectedProduct && (
+          <ModalProduct
+            product={selectedProduct}
+            selectedColor={selectedColor}
+            selectedSize={selectedSize}
+            setSelectedColor={setSelectedColor}
+            setSelectedSize={setSelectedSize}
+            setSelectedProduct={closeProduct}
+            addToCart={addToCart}
+            formatColor={formatColor}
+            formatPath={formatPath}
+          />
+        )}
+      </AnimatePresence>
 
-      {cartOpen && (
-        <Cart
-          cart={cart}
-          setCartOpen={setCartOpen}
-          removeFromCart={removeFromCart}
-          formatColor={formatColor}
-        />
-      )}
+      <AnimatePresence>
+        {cartOpen && (
+          <Cart
+            cart={cart}
+            setCartOpen={setCartOpen}
+            removeFromCart={removeFromCart}
+            formatColor={formatColor}
+          />
+        )}
+      </AnimatePresence>
       {raffleIsOn && raffleOpen && (
         <Raffle
           setRaffleOpen={setRaffleOpen}

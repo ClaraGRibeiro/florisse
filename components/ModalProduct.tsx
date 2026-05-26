@@ -1,4 +1,5 @@
 import { Product } from "@/types/product";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import { Dispatch, SetStateAction, useState } from "react";
 import { FaCheck } from "react-icons/fa";
@@ -80,14 +81,26 @@ export default function ModalProduct({
   const closeModal = () => setSelectedProduct(null);
 
   return (
-    <div
-      onClick={closeModal}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-3 backdrop-blur-sm sm:p-5"
-    >
-      <div
-        onClick={(e) => e.stopPropagation()}
-        className="relative max-h-[95vh] w-full max-w-5xl overflow-y-auto rounded-4xl bg-card shadow-2xl animate-in fade-in zoom-in duration-300"
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5">
+
+      {/* Backdrop Padronizado (Fundo escuro com blur) */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        onClick={closeModal}
+        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+      />
+
+      {/* Caixa do Modal Padronizada */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.95, y: 20 }}
+        transition={{ duration: 0.3 }}
+        className="relative max-h-[95vh] w-full max-w-5xl overflow-y-auto rounded-4xl bg-card shadow-2xl z-10"
       >
+        {/* Botão de Fechar */}
         <button
           onClick={closeModal}
           className="absolute top-4 right-4 z-20 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-background/90 text-lg shadow-md backdrop-blur transition hover:scale-105"
@@ -96,6 +109,7 @@ export default function ModalProduct({
         </button>
 
         <div className="grid md:grid-cols-2">
+          {/* Coluna da Imagem */}
           <div className="relative bg-card-soft">
             <Image
               key={currentColor.name}
@@ -107,13 +121,14 @@ export default function ModalProduct({
               sizes="(max-width: 768px) 100vw, 50vw"
               className="h-65 w-full object-cover transition-opacity duration-200 sm:h-80 md:h-125 lg:h-162.5"
             />
-            {currentSize?.sales !== undefined && currentSize?.sales > 0 &&
+            {currentSize?.sales !== undefined && currentSize?.sales > 0 && (
               <div className="absolute top-4 left-4 rounded-full bg-background/90 px-3 py-1 text-xs font-medium shadow-md backdrop-blur">
                 {currentSize?.sales > 1 ? `${currentSize.sales} vendidos` : `${currentSize.sales} vendido`}
               </div>
-            }
+            )}
           </div>
 
+          {/* Coluna das Informações */}
           <div className="flex flex-col justify-between p-5 sm:p-7 md:p-8">
             <div>
               <h2 className="text-2xl font-bold leading-tight sm:text-3xl md:text-4xl">
@@ -132,6 +147,7 @@ export default function ModalProduct({
                 )}
               </div>
 
+              {/* Seleção de Cores */}
               <div className="mt-7">
                 <p className="mb-3 text-sm font-medium">Escolha a cor:</p>
 
@@ -141,8 +157,8 @@ export default function ModalProduct({
                       key={color.name}
                       onClick={() => setSelectedColor(index)}
                       className={`flex cursor-pointer items-center gap-2 rounded-full border px-3 py-2 text-sm transition-all ${selectedColor === index
-                        ? "scale-105 border-primary bg-primary text-primary-foreground shadow-lg"
-                        : "border-border bg-background hover:border-primary/40"
+                          ? "scale-105 border-primary bg-primary text-primary-foreground shadow-lg"
+                          : "border-border bg-background hover:border-primary/40"
                         }`}
                     >
                       <div
@@ -160,6 +176,7 @@ export default function ModalProduct({
                 </div>
               </div>
 
+              {/* Seleção de Tamanhos */}
               <div className="mt-7">
                 <p className="mb-3 text-sm font-medium">Escolha o tamanho:</p>
 
@@ -169,8 +186,8 @@ export default function ModalProduct({
                       key={size.label}
                       onClick={() => setSelectedSize(index)}
                       className={`cursor-pointer rounded-full border px-3 py-2 text-sm transition-all ${selectedSize === index
-                        ? "border-primary bg-primary text-white shadow-md"
-                        : "border-border bg-background hover:border-primary/40"
+                          ? "border-primary bg-primary text-white shadow-md"
+                          : "border-border bg-background hover:border-primary/40"
                         }`}
                     >
                       {size.label}
@@ -180,9 +197,13 @@ export default function ModalProduct({
               </div>
             </div>
 
+            {/* Botão de Compra */}
             <button
               onClick={handleAdd}
-              className={`cursor-pointer flex justify-center gap-2 items-center mt-8 w-full rounded-2xl py-3 text-primary-foreground text-sm font-semibold shadow-xl transition sm:py-4 sm:text-lg ${added ? "bg-secondary scale-105" : "bg-primary hover:scale-[1.01] hover:bg-primary-hover"}`}
+              className={`cursor-pointer flex justify-center gap-2 items-center mt-8 w-full rounded-2xl py-3 text-primary-foreground text-sm font-semibold shadow-xl transition sm:py-4 sm:text-lg ${added
+                  ? "bg-secondary scale-105"
+                  : "bg-primary hover:scale-[1.01] hover:bg-primary-hover"
+                }`}
             >
               {added ? (
                 <>
@@ -195,7 +216,7 @@ export default function ModalProduct({
             </button>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
