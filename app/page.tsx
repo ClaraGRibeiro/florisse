@@ -105,6 +105,7 @@ export default function Home() {
       <AnimatePresence>
         {selectedProduct && (
           <ModalProduct
+           openPersonalized={() => setPersonalizedOpen(true)}
             product={selectedProduct}
             selectedColor={selectedColor}
             selectedSize={selectedSize}

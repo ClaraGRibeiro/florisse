@@ -16,6 +16,7 @@ type AddToCartParams = {
 };
 
 type ModalProductProps = {
+  openPersonalized: () => void;
   product: Product;
   selectedColor: number;
   selectedSize: number;
@@ -29,6 +30,7 @@ type ModalProductProps = {
 };
 
 export default function ModalProduct({
+  openPersonalized,
   product,
   selectedColor,
   selectedSize,
@@ -157,8 +159,8 @@ export default function ModalProduct({
                       key={color.name}
                       onClick={() => setSelectedColor(index)}
                       className={`flex cursor-pointer items-center gap-2 rounded-full border px-3 py-2 text-sm transition-all ${selectedColor === index
-                          ? "scale-105 border-primary bg-primary text-primary-foreground shadow-lg"
-                          : "border-border bg-background hover:border-primary/40"
+                        ? "scale-105 border-primary bg-primary text-primary-foreground shadow-lg"
+                        : "border-border bg-background hover:border-primary/40"
                         }`}
                     >
                       <div
@@ -186,8 +188,8 @@ export default function ModalProduct({
                       key={size.label}
                       onClick={() => setSelectedSize(index)}
                       className={`cursor-pointer rounded-full border px-3 py-2 text-sm transition-all ${selectedSize === index
-                          ? "border-primary bg-primary text-white shadow-md"
-                          : "border-border bg-background hover:border-primary/40"
+                        ? "border-primary bg-primary text-white shadow-md"
+                        : "border-border bg-background hover:border-primary/40"
                         }`}
                     >
                       {size.label}
@@ -196,24 +198,34 @@ export default function ModalProduct({
                 </div>
               </div>
             </div>
+            {/* Botão Personalizar Pedido */}
+            <div>
 
-            {/* Botão de Compra */}
-            <button
-              onClick={handleAdd}
-              className={`cursor-pointer flex justify-center gap-2 items-center mt-8 w-full rounded-2xl py-3 text-primary-foreground text-sm font-semibold shadow-xl transition sm:py-4 sm:text-lg ${added
+              <button
+                onClick={() => { closeModal(); openPersonalized(); }}
+                className="mt-4 cursor-pointer text-sm text-muted underline-offset-4 transition hover:text-primary hover:underline"
+              >
+                Não encontrou o que procura? Personalize seu pedido.
+              </button>
+
+              {/* Botão de Compra */}
+              <button
+                onClick={handleAdd}
+                className={`cursor-pointer flex justify-center gap-2 items-center mt-4 w-full rounded-2xl py-3 text-primary-foreground text-sm font-semibold shadow-xl transition sm:py-4 sm:text-lg ${added
                   ? "bg-secondary scale-105"
                   : "bg-primary hover:scale-[1.01] hover:bg-primary-hover"
-                }`}
-            >
-              {added ? (
-                <>
-                  <FaCheck />
-                  Adicionado
-                </>
-              ) : (
-                "Adicionar ao carrinho"
-              )}
-            </button>
+                  }`}
+              >
+                {added ? (
+                  <>
+                    <FaCheck />
+                    Adicionado
+                  </>
+                ) : (
+                  "Adicionar ao carrinho"
+                )}
+              </button>
+            </div>
           </div>
         </div>
       </motion.div>

@@ -47,18 +47,6 @@ const products = [
     ],
     colors: ["cru-marrom-bege",  "cru-militar-alecrim", "alecrim-militar"],
   },
-  {
-    name: "Jogo Passadeira Janine",
-    category: "Jogos",
-    sizes: [
-      {
-        label: "2 (70x50cm) e 1 (120x50cm)",
-        price: 240 * discount,
-        no_discount: 240,
-      },
-    ],
-    colors: ["cru-marrom-bege",  "cru-militar-alecrim", "alecrim-militar"],
-  },
   // {
   //   name: "Tapete Gisele",
   //   category: "Tapetes",
@@ -147,34 +135,6 @@ const products = [
   //   colors: ["marrom"],
   // },
   {
-    name: "Jogo Mesa Tradicional",
-    category: "Jogos",
-    sizes: [
-      // {
-      //   label: "6 (37cm) e 1 (120x37cm)",
-      //   price: 310 * discount,
-      //   no_discount: 310,
-      // },
-      {
-        label: "4 (37cm)",
-        price: 120 * discount,
-        no_discount: 120,
-      },
-      {
-        label: "6 (37cm)",
-        price: 180 * discount,
-        no_discount: 180,
-      },
-      {
-        label: "8 (37cm)",
-        price: 240 * discount,
-        no_discount: 240,
-      },
-
-    ],
-    colors: ["marrom"],
-  },
-  {
     name: "Trilho de Mesa Floral",
     category: "Mesa Posta",
     sizes: [
@@ -238,5 +198,45 @@ const products = [
   //   ],
   //   colors: ["cru"],
   // },
+  {
+    name: "Jogo Passadeira Janine",
+    category: "Jogos",
+    sizes: [
+      {
+        label: "2 (70x50cm) e 1 (120x50cm)",
+        price: 240 * discount,
+        no_discount: 240,
+      },
+    ],
+    colors: ["cru-marrom-bege",  "cru-militar-alecrim", "alecrim-militar"],
+  },
+  {
+    name: "Jogo Mesa Tradicional",
+    category: "Jogos",
+    sizes: [
+      // {
+      //   label: "6 (37cm) e 1 (120x37cm)",
+      //   price: 310 * discount,
+      //   no_discount: 310,
+      // },
+      {
+        label: "4 (37cm)",
+        price: 120 * discount,
+        no_discount: 120,
+      },
+      {
+        label: "6 (37cm)",
+        price: 180 * discount,
+        no_discount: 180,
+      },
+      {
+        label: "8 (37cm)",
+        price: 240 * discount,
+        no_discount: 240,
+      },
+
+    ],
+    colors: ["marrom"],
+  },
 ];
 export default { products, discount };

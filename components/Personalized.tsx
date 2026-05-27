@@ -225,6 +225,11 @@ export default function Personalized({
               className="w-full rounded-2xl border border-border bg-background px-4 py-3 text-sm"
             />
           </div>
+          {!isValid && (
+            <span className="text-sm text-primary">
+              Preencha todos os campos obrigatórios.
+            </span>
+          )}
           {/* BOTÃO */}
           <button
             disabled={!isValid}
@@ -234,8 +239,8 @@ Gostaria de fazer o seguinte pedido personalizado:%0A
 Cor: ${form.cores.join(", ")}%0A
 Categoria: ${form.categoria}%0A
 Item: ${form.item}%0A
-Tamanho: ${form.comprimento}x${form.largura}%0A
-Obs: ${form.observacoes}`;
+Tamanho: ${form.comprimento}x${form.largura}
+${form.observacoes.trim() !== "" ? `%0AObs: ${form.observacoes}` : ""}`;
 
               const whatsappLink = `https://wa.me/5538992030710?text=${message}`;
               window.open(whatsappLink, "_blank");
