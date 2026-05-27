@@ -11,14 +11,8 @@ type ProductsProps = {
   formatPath: (name: string) => string;
   formatColor: (name: string) => string;
   openProduct: (product: Product) => void;
-};
-
-const filters = ["Tapetes", "Mesa Posta", "Jogos"];
-
-const labels = {
-  Tapetes: "Tapetes",
-  "Mesa Posta": "Mesa Posta",
-  Jogos: "Jogos",
+  filters: string[];
+  categoryCounts: Record<string, number>
 };
 
 export default function Products({
@@ -27,6 +21,8 @@ export default function Products({
   formatPath,
   formatColor,
   openProduct,
+  filters,
+  categoryCounts
 }: ProductsProps) {
   const [category, setCategory] = useState("Tapetes");
 
@@ -64,11 +60,11 @@ export default function Products({
               key={filter}
               onClick={() => setCategory(filter)}
               className={`relative cursor-pointer rounded-full border px-5 py-2.5 text-sm font-medium transition-all duration-200 hover:scale-105 ${active
-                  ? "border-transparent bg-primary text-white shadow-md"
-                  : "border-border bg-card text-muted hover:border-primary/30 hover:text-primary"
+                ? "border-transparent bg-primary text-white shadow-md"
+                : "border-border bg-card text-muted hover:border-primary/30 hover:text-primary"
                 }`}
             >
-              {labels[filter as keyof typeof labels]}
+              {filter} ({categoryCounts[filter] ?? 0})
 
               {filter === "Jogos" && (
                 <span className="absolute -right-1 -top-2 z-10 rounded-full bg-red-500 px-2 py-0.5 text-sm font-bold leading-none text-white shadow-md">
@@ -144,7 +140,7 @@ export default function Products({
                       />
                     ))}
                     {product.colors.length > 7 &&
-                    (<span>...</span>)}
+                      (<span>...</span>)}
                   </div>
                 </div>
 

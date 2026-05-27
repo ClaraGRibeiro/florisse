@@ -21,6 +21,7 @@ import { formatColor, formatPath } from "@/utils/format";
 import { FaArrowUp } from "react-icons/fa";
 import Cores from "@/components/Cores";
 import { AnimatePresence } from "framer-motion";
+import Personalized from "@/components/Personalized";
 
 export default function Home() {
   const rafflePrice = 5;
@@ -29,7 +30,7 @@ export default function Home() {
   const [numbersOpen, setNumbersOpen] = useState(false);
   const [raffleOpen, setRaffleOpen] = useState(true);
 
-  const { products, bestSelling } = useProducts();
+  const { products, bestSelling, categories, categoryCounts, productsFromCategory } = useProducts();
   const { showTop, scrollToTop } = useScrollTop();
 
   const { cart, addToCart, removeFromCart } = useCart();
@@ -41,9 +42,10 @@ export default function Home() {
     setSelectedColor,
     setSelectedSize,
     openProduct,
-    closeProduct,
+    closeProduct
   } = useProductModal();
 
+  const [openPersonalized, setPersonalizedOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
 
   return (
@@ -54,15 +56,44 @@ export default function Home() {
         raffleIsOn={raffleIsOn}
         openRaffle={() => setRaffleOpen(true)}
       />
-
-      <Hero bestSelling={bestSelling} />
-
+      <AnimatePresence>
+        {cartOpen && (
+          <Cart
+            cart={cart}
+            setCartOpen={setCartOpen}
+            removeFromCart={removeFromCart}
+            formatColor={formatColor}
+          />
+        )}
+      </AnimatePresence>
+      {raffleIsOn && raffleOpen && (
+        <Raffle
+          setRaffleOpen={setRaffleOpen}
+          rafflePrice={rafflePrice}
+          setNumbersOpen={setNumbersOpen}
+        />
+      )}
+      {raffleIsOn && numbersOpen && (
+        <Numbers rafflePrice={rafflePrice} setNumbersOpen={setNumbersOpen} />
+      )}
+      <Hero bestSelling={bestSelling} openPersonalized={() => setPersonalizedOpen(true)} />
+      <AnimatePresence>
+        {openPersonalized && (
+          <Personalized
+            setPersonalizedOpen={setPersonalizedOpen}
+            productsFromCategory={productsFromCategory}
+            categories={categories}
+          />
+        )}
+      </AnimatePresence>
       <Products
         products={products}
         bestSelling={bestSelling}
+        filters={categories}
         formatColor={formatColor}
         formatPath={formatPath}
         openProduct={openProduct}
+        categoryCounts={categoryCounts}
       />
 
       <Cores
@@ -86,27 +117,6 @@ export default function Home() {
           />
         )}
       </AnimatePresence>
-
-      <AnimatePresence>
-        {cartOpen && (
-          <Cart
-            cart={cart}
-            setCartOpen={setCartOpen}
-            removeFromCart={removeFromCart}
-            formatColor={formatColor}
-          />
-        )}
-      </AnimatePresence>
-      {raffleIsOn && raffleOpen && (
-        <Raffle
-          setRaffleOpen={setRaffleOpen}
-          rafflePrice={rafflePrice}
-          setNumbersOpen={setNumbersOpen}
-        />
-      )}
-      {raffleIsOn && numbersOpen && (
-        <Numbers rafflePrice={rafflePrice} setNumbersOpen={setNumbersOpen} />
-      )}
 
       {showTop && (
         <button

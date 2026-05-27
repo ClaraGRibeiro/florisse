@@ -1,15 +1,13 @@
-import Image from "next/image";
-import { motion } from "framer-motion";
 import { Product } from "@/types/product";
+import { motion } from "framer-motion";
+import Image from "next/image";
+
 
 type HeroProps = {
   bestSelling: Product;
+  openPersonalized: () => void;
 };
-
-const whatsappLink =
-  "https://wa.me/5538992030710?text=Olá! Vim pelo site da Florisse Crochê e gostaria de fazer um pedido personalizado.";
-
-export default function Hero({ bestSelling }: HeroProps) {
+export default function Hero({ bestSelling, openPersonalized }: HeroProps) {
   return (
     <motion.section
       id="início"
@@ -38,11 +36,12 @@ export default function Hero({ bestSelling }: HeroProps) {
               </button>
             </a>
 
-            <a href={whatsappLink} target="_blank">
-              <button className="w-full cursor-pointer rounded-2xl border border-border bg-card px-6 py-3 font-semibold transition-all hover:bg-input sm:w-auto">
-                Personalizar Pedido
-              </button>
-            </a>
+            <button
+              onClick={openPersonalized}
+              className="w-full cursor-pointer rounded-2xl border border-border bg-card px-6 py-3 font-semibold transition-all hover:bg-input sm:w-auto"
+            >
+              Personalizar Pedido
+            </button>
           </div>
         </div>
 
