@@ -1,6 +1,7 @@
 import colorsData from "@/data/colors.json";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
+import { FaPalette } from "react-icons/fa";
 
 interface Color {
   name: string;
@@ -14,205 +15,374 @@ type CoresProps = {
 };
 
 export default function Cores({ formatColor }: CoresProps) {
-  // Estado para controlar qual cor está selecionada e abrir o popup
+  const [openPalette, setOpenPalette] = useState(false);
   const [selectedColorName, setSelectedColorName] = useState<string | null>(null);
   const colorCombinations: Record<string, string[][]> = {
     cru: [
-      ["cru", "bege", "marrom"], // Degradê rústico chic
-      ["cru", "militar", "alecrim"], // Botânico natural
-      ["cru", "marinho", "jeans"], // Navy sofisticado
+      ["cru", "bege", "marrom"],
+      ["cru", "militar", "alecrim"],
+      ["cru", "marinho", "jeans"],
     ],
     branco: [
-      ["branco", "cru", "bege"], // Minimalista Clean
-      ["branco", "azul bebe", "rosa bebe"], // Candy pastel clássico
-      ["branco", "preto", "cinza"], // Monocromático moderno
+      ["branco", "cru", "bege"],
+      ["branco", "azul bebe", "rosa bebe"],
+      ["branco", "preto", "cinza"],
     ],
     preto: [
-      ["preto", "cru", "cinza"], // Contraste urbano
-      ["preto", "ouro", "bordo"], // Barroco elegante / Luxo
-      ["preto", "pink", "branco"], // Fashionista vibrante
+      ["preto", "cru", "cinza"],
+      ["preto", "ouro", "bordo"],
+      ["preto", "pink", "branco"],
     ],
     cinza: [
-      ["cinza", "chumbo", "branco"], // Degradê escala de cinzas
-      ["cinza", "rosa bebe", "lilas claro"], // Romântico contemporâneo
-      ["cinza", "preto", "amarelo bebe"], // Urbano com ponto de luz
+      ["cinza", "chumbo", "branco"],
+      ["cinza", "rosa bebe", "lilas claro"],
+      ["cinza", "preto", "amarelo bebe"],
     ],
     nude: [
-      ["nude", "cru", "bege"], // Atemporal / Neutro absoluto
-      ["nude", "malva", "marrom"], // Tons de terra românticos
-      ["nude", "alecrim", "salmao"], // Boho delicado
+      ["nude", "cru", "bege"],
+      ["nude", "malva", "marrom"],
+      ["nude", "alecrim", "salmao"],
     ],
     chumbo: [
-      ["chumbo", "cinza", "branco"], // Minimalista industrial
-      ["chumbo", "mostarda", "preto"], // Moderno de alto contraste
-      ["chumbo", "piscina", "cru"], // Contemporâneo ousado
+      ["chumbo", "cinza", "branco"],
+      ["chumbo", "mostarda", "preto"],
+      ["chumbo", "piscina", "cru"],
     ],
     "amarelo bebe": [
-      ["amarelo bebe", "branco", "cru"], // Delicadeza pura
-      ["amarelo bebe", "cinza", "chumbo"], // Paleta nórdica escandinava
-      ["amarelo bebe", "azul bebe", "rosa bebe"], // Trio infantil encantador
+      ["amarelo bebe", "branco", "cru"],
+      ["amarelo bebe", "cinza", "chumbo"],
+      ["amarelo bebe", "azul bebe", "rosa bebe"],
     ],
     ouro: [
-      ["ouro", "marrom", "cru"], // Outonal caloroso
-      ["ouro", "preto", "bordo"], // Requinte sofisticado
-      ["ouro", "militar", "nude"], // Terroso militar chic
+      ["ouro", "marrom", "cru"],
+      ["ouro", "preto", "bordo"],
+      ["ouro", "militar", "nude"],
     ],
     mostarda: [
-      ["mostarda", "marinho", "petroleo"], // Contraste complementar profundo
-      ["mostarda", "telha", "marrom"], // Total outonal / Boho Warm
-      ["mostarda", "cru", "cinza"], // Moderno e equilibrado
+      ["mostarda", "marinho", "petroleo"],
+      ["mostarda", "telha", "marrom"],
+      ["mostarda", "cru", "cinza"],
     ],
     rosa: [
-      ["rosa", "rosa bebe", "branco"], // Degradê romântico
-      ["rosa", "malva", "nude"], // Vintage chic
-      ["rosa", "alecrim", "cru"], // Cores complementares suaves (estilo jardim)
+      ["rosa", "rosa bebe", "branco"],
+      ["rosa", "malva", "nude"],
+      ["rosa", "alecrim", "cru"],
     ],
     "rosa bebe": [
-      ["rosa bebe", "branco", "cru"], // Suavidade clássica
-      ["rosa bebe", "lilas claro", "agua claro"], // Trio sereia / Candy macaron
-      ["rosa bebe", "cinza", "chumbo"], // Equilíbrio moderno (o cinza quebra o infantil)
+      ["rosa bebe", "branco", "cru"],
+      ["rosa bebe", "lilas claro", "agua claro"],
+      ["rosa bebe", "cinza", "chumbo"],
     ],
     pink: [
-      ["pink", "preto", "branco"], // Pop de alta energia
-      ["pink", "magenta", "roxo"], // Degradê análogo imponente
-      ["pink", "laranja", "cru"], // Color block tropical de verão
+      ["pink", "preto", "branco"],
+      ["pink", "magenta", "roxo"],
+      ["pink", "laranja", "cru"],
     ],
     malva: [
-      ["malva", "nude", "rosa bebe"], // Romantismo nostálgico
-      ["malva", "alecrim", "cru"], // Natural botânico sofisticado
-      ["malva", "bordo", "cinza"], // Elegância sóbria de inverno
+      ["malva", "nude", "rosa bebe"],
+      ["malva", "alecrim", "cru"],
+      ["malva", "bordo", "cinza"],
     ],
     "lilas claro": [
-      ["lilas claro", "branco", "cru"], // Clean e místico
-      ["lilas claro", "roxo", "magenta"], // Paleta ametista potente
-      ["lilas claro", "agua claro", "amarelo bebe"], // Jardim pastel alegre
+      ["lilas claro", "branco", "cru"],
+      ["lilas claro", "roxo", "magenta"],
+      ["lilas claro", "agua claro", "amarelo bebe"],
     ],
     salmao: [
-      ["salmao", "cru", "bege"], // Natural praiano
-      ["salmao", "melancia", "branco"], // Degradê fresh de frutas
-      ["salmao", "petroleo", "nude"], // Combinação rica de opostos
+      ["salmao", "cru", "bege"],
+      ["salmao", "melancia", "branco"],
+      ["salmao", "petroleo", "nude"],
     ],
     telha: [
-      ["telha", "marrom", "cru"], // Terracota rústico (sucesso garantido em crochê)
-      ["telha", "mostarda", "militar"], // Paleta artesanal folk
-      ["telha", "jeans", "nude"], // Rústico urbano chique
+      ["telha", "marrom", "cru"],
+      ["telha", "mostarda", "militar"],
+      ["telha", "jeans", "nude"],
     ],
     laranja: [
-      ["laranja", "preto", "branco"], // Gráfico e ousado
-      ["laranja", "pink", "mostarda"], // Pôr do sol / Energia pura
-      ["laranja", "marrom", "cru"], // Outono aconchegante
+      ["laranja", "preto", "branco"],
+      ["laranja", "pink", "mostarda"],
+      ["laranja", "marrom", "cru"],
     ],
     "agua claro": [
-      ["agua claro", "branco", "cru"], // Frescor de piscina limpa
-      ["agua claro", "agua escuro", "piscina"], // Degradê oceânico total
-      ["agua claro", "lilas claro", "rosa bebe"], // Algodão doce mágico
+      ["agua claro", "branco", "cru"],
+      ["agua claro", "agua escuro", "piscina"],
+      ["agua claro", "lilas claro", "rosa bebe"],
     ],
     limao: [
-      ["limao", "branco", "cru"], // Cítrico minimalista
-      ["limao", "militar", "musgo"], // Degradê folhagem moderno
-      ["limao", "cinza", "preto"], // Cyber / Urbano de vanguarda
+      ["limao", "branco", "cru"],
+      ["limao", "militar", "musgo"],
+      ["limao", "cinza", "preto"],
     ],
     esmeralda: [
-      ["esmeralda", "cru", "bege"], // Clássico e requintado
-      ["esmeralda", "marinho", "branco"], // Sofisticação náutica escura
-      ["esmeralda", "ouro", "nude"], // Joia imperial
+      ["esmeralda", "cru", "bege"],
+      ["esmeralda", "marinho", "branco"],
+      ["esmeralda", "ouro", "nude"],
     ],
     bandeira: [
-      ["bandeira", "branco", "cru"], // Tradicional e limpo
-      ["bandeira", "preto", "cinza"], // Forte e sóbrio
-      ["bandeira", "ouro", "marrom"], // Riqueza natural da terra
+      ["bandeira", "branco", "cru"],
+      ["bandeira", "preto", "cinza"],
+      ["bandeira", "ouro", "marrom"],
     ],
     musgo: [
-      ["musgo", "alecrim", "cru"], // Herbário / Orgânico perfeito
-      ["musgo", "marrom", "bege"], // Camuflagem terrosa clássica
-      ["musgo", "telha", "mostarda"], // Artesanal vintage encorpado
+      ["musgo", "alecrim", "cru"],
+      ["musgo", "marrom", "bege"],
+      ["musgo", "telha", "mostarda"],
     ],
     militar: [
-      ["militar", "cru", "nude"], // Utilitário suave
-      ["militar", "ouro", "preto"], // Luxo fechado
-      ["militar", "laranja", "cinza"], // Contraste fashion contemporâneo
+      ["militar", "cru", "nude"],
+      ["militar", "ouro", "preto"],
+      ["militar", "laranja", "cinza"],
     ],
     alecrim: [
-      ["alecrim", "cru", "branco"], // Calmaria / Minimalismo zen
-      ["alecrim", "musgo", "militar"], // Tom sobre tom de verdes finos
-      ["alecrim", "malva", "nude"], // Sofisticação poética apagada
+      ["alecrim", "cru", "branco"],
+      ["alecrim", "musgo", "militar"],
+      ["alecrim", "malva", "nude"],
     ],
     "agua escuro": [
-      ["agua escuro", "cru", "branco"], // Frescor litorâneo
-      ["agua escuro", "petroleo", "marinho"], // Profundidade abissal
-      ["agua escuro", "mostarda", "cinza"], // Criativo de estúdio
+      ["agua escuro", "cru", "branco"],
+      ["agua escuro", "petroleo", "marinho"],
+      ["agua escuro", "mostarda", "cinza"],
     ],
     "azul bebe": [
-      ["azul bebe", "branco", "cru"], // Nuvem clássica
-      ["azul bebe", "rosa bebe", "amarelo bebe"], // Quarto de bebê tradicional
-      ["azul bebe", "jeans", "marinho"], // Tons de jeans do claro ao escuro
+      ["azul bebe", "branco", "cru"],
+      ["azul bebe", "rosa bebe", "amarelo bebe"],
+      ["azul bebe", "jeans", "marinho"],
     ],
     piscina: [
-      ["piscina", "branco", "cru"], // Clean tropical
-      ["piscina", "royal", "marinho"], // Degradê azul elétrico
-      ["piscina", "salmao", "bege"], // Resort / Verão vibrante
+      ["piscina", "branco", "cru"],
+      ["piscina", "royal", "marinho"],
+      ["piscina", "salmao", "bege"],
     ],
     petroleo: [
-      ["petroleo", "cru", "bege"], // Elegância rústica discreta
-      ["petroleo", "mostarda", "telha"], // Paleta de arquitetura / Design rico
-      ["petroleo", "agua claro", "branco"], // Degradê refrescante e maduro
+      ["petroleo", "cru", "bege"],
+      ["petroleo", "mostarda", "telha"],
+      ["petroleo", "agua claro", "branco"],
     ],
     royal: [
-      ["royal", "branco", "preto"], // Contraste náutico agudo
-      ["royal", "ouro", "cru"], // Paleta realeza medieval
-      ["royal", "jeans", "cinza"], // Casual inteligente
+      ["royal", "branco", "preto"],
+      ["royal", "ouro", "cru"],
+      ["royal", "jeans", "cinza"],
     ],
     marinho: [
-      ["marinho", "cru", "branco"], // O verdadeiro estilo Navy litorâneo
-      ["marinho", "jeans", "azul bebe"], // Monocromático jeans perfeito
-      ["marinho", "mostarda", "telha"], // Étnico / Artesanal de peso
+      ["marinho", "cru", "branco"],
+      ["marinho", "jeans", "azul bebe"],
+      ["marinho", "mostarda", "telha"],
     ],
     vermelho: [
-      ["vermelho", "cru", "bege"], // Clássico do artesanato mineiro / Rústico
-      ["vermelho", "preto", "branco"], // Alta potência visual / Gráfico
-      ["vermelho", "bordo", "ouro"], // Opulência calorosa
+      ["vermelho", "cru", "bege"],
+      ["vermelho", "preto", "branco"],
+      ["vermelho", "bordo", "ouro"],
     ],
     bordo: [
-      ["bordo", "cru", "nude"], // Sofisticação outonal suave
-      ["bordo", "rosa bebe", "cinza"], // Contraste moderno burguês
-      ["bordo", "ouro", "preto"], // Nobre e dramático
+      ["bordo", "cru", "nude"],
+      ["bordo", "rosa bebe", "cinza"],
+      ["bordo", "ouro", "preto"],
     ],
     melancia: [
-      ["melancia", "cru", "branco"], // Delícia de verão clean
-      ["melancia", "rosa", "verde claro" /*agua claro*/], // Divertido e fiel ao fruto
-      ["melancia", "marrom", "bege"], // Equilíbrio terroso orgânico
+      ["melancia", "cru", "branco"],
+      ["melancia", "rosa", "limao"],
+      ["melancia", "marrom", "bege"],
     ],
     marrom: [
-      ["marrom", "bege", "cru"], // O degradê campeão do crochê de barbante
-      ["marrom", "telha", "ouro"], // Pôr do sol na terra
-      ["marrom", "petroleo", "nude"], // Sofisticado e incomum (estilo decoração de luxo)
+      ["marrom", "bege", "cru"],
+      ["marrom", "telha", "ouro"],
+      ["marrom", "petroleo", "nude"],
     ],
     bege: [
-      ["bege", "cru", "marrom"], // Trio orgânico infalível
-      ["bege", "nude", "branco"], // Sobriedade e leveza de linho
-      ["bege", "militar", "telha"], // Aventura safari chique
+      ["bege", "cru", "marrom"],
+      ["bege", "nude", "branco"],
+      ["bege", "militar", "telha"],
     ],
     jeans: [
-      ["jeans", "marinho", "cru"], // Casual prático equilibrado
-      ["jeans", "azul bebe", "branco"], // Céu aberto límpido
-      ["jeans", "mostarda", "chumbo"], // Paleta jovem e urbana
+      ["jeans", "marinho", "cru"],
+      ["jeans", "azul bebe", "branco"],
+      ["jeans", "mostarda", "chumbo"],
     ],
     magenta: [
-      ["magenta", "preto", "branco"], // Contraste fashion dramático
-      ["magenta", "roxo", "pink"], // Degradê análogo ultra feminino
-      ["magenta", "mostarda", "cru"], // Boho-chic indiano exótico
+      ["magenta", "preto", "branco"],
+      ["magenta", "roxo", "pink"],
+      ["magenta", "mostarda", "cru"],
     ],
     roxo: [
-      ["roxo", "lilas claro", "branco"], // Degradê espiritual / Calmo e belo
-      ["roxo", "preto", "chumbo"], // Gótico suave / Misterioso
-      ["roxo", "ouro", "nude"], // Contraste complementar refinado
+      ["roxo", "lilas claro", "branco"],
+      ["roxo", "preto", "chumbo"],
+      ["roxo", "ouro", "nude"],
     ],
   };
+  const colorsByPalette = [
+    {
+      category: "Tons de Vermelho",
+      colors: [
+        "rosa bebe",
+        "rosa",
+        "pink",
+        "melancia",
+        "vermelho",
+        "bordo",
+      ],
+    },
+    {
+      category: "Tons de Amarelo",
+      colors: [
+        "cru",
+        "nude",
+        "amarelo bebe",
+        "ouro",
+        "mostarda",
+        "bege",
+      ],
+    },
+    {
+      category: "Tons de Verde",
+      colors: [
+        "agua escuro",
+        "alecrim",
+        "esmeralda",
+        "musgo",
+        "bandeira",
+        "militar",
+      ],
+    },
+    {
+      category: "Tons de Azul",
+      colors: [
+        "azul bebe",
+        "agua claro",
+        "piscina",
+        "jeans",
+        "royal",
+        "marinho",
+      ],
+    },
+    {
+      category: "Tons Monocromáticos",
+      colors: [
+        "branco",
+        "cru",
+        "nude",
+        "cinza",
+        "chumbo",
+        "preto",
+      ],
+    },
+    {
+      category: "Arco-iris",
+      colors: [
+        "vermelho",
+        "laranja",
+        "ouro",
+        "bandeira",
+        "piscina",
+        "roxo",
+      ],
+    },
+    {
+      category: "Primavera",
+      colors: [
+        "rosa",
+        "salmao",
+        "amarelo bebe",
+        "azul bebe",
+        "alecrim",
+        "lilas claro",
+      ],
+    },
+    {
+      category: "Verão",
+      colors: [
+        "piscina",
+        "laranja",
+        "pink",
+        "ouro",
+        "royal",
+        "limao",
+      ],
+    },
+    {
+      category: "Outono",
+      colors: [
+        "telha",
+        "mostarda",
+        "marrom",
+        "militar",
+        "ouro",
+        "bordo",
+      ],
+    },
+    {
+      category: "Inverno",
+      colors: [
+        "marinho",
+        "bordo",
+        "chumbo",
+        "petroleo",
+        "roxo",
+        "cinza",
+      ],
+    },
 
-  // Encontra os dados completos do objeto da cor selecionada
+
+    {
+      category: "Páscoa",
+      colors: [
+        "amarelo bebe",
+        "rosa bebe",
+        "lilas claro",
+        "agua claro",
+        "branco",
+        "cru",
+      ],
+    },
+    {
+      category: "Chá Revelação",
+      colors: [
+        "rosa bebe",
+        "azul bebe",
+        "branco",
+        "rosa",
+        "piscina",
+        "cru",
+      ],
+    },
+    {
+      category: "Dia das Mães",
+      colors: ["rosa", "malva", "nude", "cru", "bege", "ouro"],
+    },
+    {
+      category: "Dia dos Namorados",
+      colors: ["rosa", "pink", "vermelho", "bordo", "nude", "branco"],
+    },
+
+
+    {
+      category: "Carnaval",
+      colors: ["pink", "royal", "laranja", "limao", "roxo", "amarelo bebe"],
+    },
+    {
+      category: "Festa Junina",
+      colors: ["vermelho", "mostarda", "telha", "bandeira", "marrom", "cru"],
+    },
+    {
+      category: "Halloween",
+      colors: ["laranja", "preto", "roxo", "chumbo", "mostarda", "bordo"],
+    },
+
+
+    {
+      category: "Dia dos Pais",
+      colors: ["marinho", "jeans", "cinza", "chumbo", "cru", "marrom"],
+    },
+    {
+      category: "Natal",
+      colors: ["vermelho", "bandeira", "ouro", "bordo", "militar", "marinho"],
+    },
+    {
+      category: "Ano Novo",
+      colors: ["branco", "ouro", "cinza", "cru", "nude", "preto"],
+    },
+  ];
+
   const activeColorData = colors.find((c) => c.name === selectedColorName);
-
-  // Pega as combinações para a cor selecionada (se houver)
   const activeCombinations = selectedColorName ? colorCombinations[selectedColorName] : [];
 
   return (
@@ -258,9 +428,119 @@ export default function Cores({ formatColor }: CoresProps) {
               </p>
             </div>
           ))}
+
+          <button
+            onClick={() => setOpenPalette(true)}
+            className="group flex flex-col items-center"
+          >
+            <div className="cursor-pointer flex h-12 w-full items-center justify-center rounded-xl border border-dashed border-border bg-background text-primary shadow-sm transition-all duration-200 group-hover:-translate-y-1 group-hover:shadow-lg">
+              <FaPalette size={20}/>
+            </div>
+
+            <p className="mt-2 text-center text-xs font-medium text-foreground">
+              Ideias de Paleta
+            </p>
+          </button>
         </div>
       </div>
       {/* MODAL */}
+      <AnimatePresence>
+        {openPalette && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-3 md:p-6">
+            {/* BACKDROP */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+              onClick={() => setOpenPalette(false)}
+            />
+
+            {/* MODAL */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ duration: 0.3 }}
+              className="relative z-10 flex h-[92vh] w-full max-w-5xl flex-col overflow-hidden rounded-4xl bg-card p-6 shadow-2xl md:p-8"            >
+              {/* FECHAR */}
+              <button
+                onClick={() => setOpenPalette(false)}
+                className="absolute top-5 right-5 z-20 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-background/90 text-lg shadow-md backdrop-blur transition hover:scale-105"
+              >
+                ✕
+              </button>
+
+              {/* HEADER */}
+              <div className="border-b border-border pb-5 pr-10">
+                <span className="text-sm uppercase tracking-[0.3em] text-primary">
+                  Inspirações
+                </span>
+
+                <h2 className="mt-2 text-3xl font-bold md:text-4xl">
+                  Ideias de Paletas
+                </h2>
+
+                <p className="mt-2 max-w-2xl text-sm text-muted">
+                  Combinações pensadas para ocasiões, estações e estilos.
+                </p>
+              </div>
+
+              {/* CONTEÚDO */}
+              <div className="mt-6 flex-1 overflow-y-auto pr-1">
+                <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+                  {colorsByPalette.map((palette) => (
+                    <div
+                      key={palette.category}
+                      className="rounded-3xl bg-background/40 p-5"
+                    >
+                      {/* TITULO */}
+                      <div className="mb-4 flex items-center justify-between">
+                        <h3 className="text-xl font-bold">
+                          {palette.category}
+                        </h3>
+                      </div>
+
+                      {/* BOLINHAS */}
+                      <div className="flex flex-wrap gap-3">
+                        {palette.colors.map((colorName) => {
+                          const foundColor = colors.find(
+                            (c) => c.name === colorName
+                          );
+
+                          if (!foundColor) return null;
+
+                          return (
+                            <button
+                              key={colorName}
+                              onClick={() =>
+                                setSelectedColorName(colorName)
+                              }
+                              title={formatColor(foundColor.name)}
+                              className="group"
+                            >
+                              <div
+                                className="h-12 w-32 rounded-xl border border-border shadow-sm transition-all duration-200 group-hover:shadow-lg"
+                                style={{
+                                  backgroundColor: foundColor.hex,
+                                }}
+                              />
+
+                              <span className="text-center text-xs font-medium capitalize text-foreground">
+                                {formatColor(foundColor.name)}
+                              </span>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
       <AnimatePresence>
         {selectedColorName && activeColorData && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-3 md:p-6">
@@ -279,7 +559,7 @@ export default function Cores({ formatColor }: CoresProps) {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.3 }}
-              className="relative w-full max-w-md max-h-[92vh] overflow-hidden rounded-4xl bg-card p-6 shadow-2xl md:p-8 flex flex-col z-10"
+              className="relative w-full max-w-md max-h-[92vh] overflow-y-auto rounded-4xl bg-card p-6 shadow-2xl md:p-8 flex flex-col z-10"
             >
               {/* Botão de Fechar Padronizado */}
               <button
