@@ -128,7 +128,7 @@ const products = [
   //   sizes: [
   //     {
   //       label: "120x37cm",
-  //       price: 130,
+  //       price: 140,
   //       sales: 1,
   //     },
   //   ],
