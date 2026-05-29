@@ -59,7 +59,7 @@ const products = [
   //     {
   //       label: "120x50cm",
   //       price: 140,
-  //       sales: 1,
+  //       sales: 2,
   //     },
   //   ],
   //   colors: ["cru-bege"],
@@ -75,6 +75,35 @@ const products = [
   //     },
   //   ],
   //   colors: ["cru-bege"],
+  // },
+  // {
+  //   name: "Tapete Harmonia",
+  //   category: "Tapetes",
+  //   sizes: [
+  //     {
+  //       label: "70x50cm",
+  //       price: 50,
+  //       sales: 2,
+  //     },
+  //     {
+  //       label: "120x50cm",
+  //       price: 140,
+  //       sales: 0,
+  //     },
+  //   ],
+  //   colors: ["bordo-alecrim"],
+  // },
+  // {
+  //   name: "Jogo Passadeira Harmonia",
+  //   category: "Jogos",
+  //   sizes: [
+  //     {
+  //       label: "2 (70x50cm) e 1 (120x50cm)",
+  //       price: 240 * discount,
+  //       no_discount: 240,
+  //     },
+  //   ],
+  //   colors: ["bordo-alecrim"],
   // },
   {
     name: "Tapete Maravilha",
@@ -119,8 +148,13 @@ const products = [
         price: 30,
         sales: 6,
       },
+      {
+        label: "27cm",
+        price: 20,
+        sales: 2,
+      },
     ],
-    colors: ["marrom"],
+    colors: ["malva", "marrom"],
   },
   // {
   //   name: "Trilho de Mesa Franja",
@@ -234,9 +268,24 @@ const products = [
         price: 240 * discount,
         no_discount: 240,
       },
+      {
+        label: "4 (27cm)",
+        price: 80 * discount,
+        no_discount: 80,
+      },
+      {
+        label: "6 (27cm)",
+        price: 120 * discount,
+        no_discount: 120,
+      },
+      {
+        label: "8 (27cm)",
+        price: 160 * discount,
+        no_discount: 160,
+      },
 
     ],
-    colors: ["marrom"],
+    colors: ["malva", "marrom"],
   },
 ];
 export default { products, discount };
