@@ -204,6 +204,18 @@ const products = [
   //   ],
   //   colors: ["cru"],
   // },
+  {
+    name: "Bolsa Redinha",
+    category: "Bolsas",
+    sizes: [
+      {
+        label: "30x30x10cm",
+        price: 60,
+        sales: 0,
+      },
+    ],
+    colors: ["militar"],
+  },
   // {
   //   name: "Jogo Mesa Luxo",
   //   category: "Jogos",
