@@ -81,50 +81,9 @@ export default function Personalized({
 
         {/* Conteúdo */}
         <div className="flex-1 overflow-y-auto px-6 py-6 md:px-8 space-y-10 min-h-0">
-          {/* COR */}
-          <div>
-            <p className="mb-2 text-sm font-medium">Cor (pelo menos uma) <span className="text-primary font-bold">*</span></p>
-
-            <div className="flex flex-wrap gap-2">
-              {colors.map((color) => {
-                const selected = form.cores.includes(color.name);
-
-                return (
-                  <button
-                    key={color.name}
-                    onClick={() => {
-                      setForm((prev) => {
-                        const exists = prev.cores.includes(color.name);
-
-                        return {
-                          ...prev,
-                          cores: exists
-                            ? prev.cores.filter((c) => c !== color.name)
-                            : [...prev.cores, color.name],
-                        };
-                      });
-                    }}
-                    className={`flex cursor-pointer items-center gap-2 rounded-full border px-3 py-2 text-sm transition-all ${selected
-                      ? "scale-105 border-primary bg-primary text-primary-foreground shadow-lg"
-                      : "border-border bg-background hover:border-primary/40"
-                      }`}
-                  >
-
-                    <div
-                      className="h-6 w-6 rounded-full border border-white sm:h-5 sm:w-5"
-                      style={{
-                        background: color.hex,
-                      }}
-                    />
-                    <span className="font-medium">{color.name}</span>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
 
           {/* CATEGORIA */}
-          <div className="mt-6">
+          <div>
             <p className="mb-2 text-sm font-medium">Categoria <span className="text-primary font-bold">*</span></p>
             <select
               value={form.categoria}
@@ -191,7 +150,7 @@ export default function Personalized({
                   onChange={(e) =>
                     setForm({ ...form, comprimento: e.target.value })
                   }
-                  placeholder="Ex: 50"
+                  placeholder="Ex: 70"
                   className="w-full min-w-0 rounded-2xl border border-border bg-background px-4 py-3 text-sm shadow-sm outline-none focus:border-primary"
                 />
               </div>
@@ -208,7 +167,7 @@ export default function Personalized({
                   onChange={(e) =>
                     setForm({ ...form, largura: e.target.value })
                   }
-                  placeholder="Ex: 70"
+                  placeholder="Ex: 50"
                   className="w-full min-w-0 rounded-2xl border border-border bg-background px-4 py-3 text-sm shadow-sm outline-none focus:border-primary"
                 />
               </div>
@@ -225,10 +184,84 @@ export default function Personalized({
               className="w-full rounded-2xl border border-border bg-background px-4 py-3 text-sm"
             />
           </div>
+          {/* COR */}
+          <div className="mt-6">
+            <div className="flex justify-between items-baseline">
+              <p className="mb-2 text-sm font-medium">Cor (pelo menos uma, no máximo 3) <span className="text-primary font-bold">*</span></p>
+              <p className="text-xs text-muted">
+                {form.cores.length}/3 cores selecionadas
+              </p>
+            </div>
+
+            <div className="flex flex-wrap gap-2">
+              {colors.map((color) => {
+                const selected = form.cores.includes(color.name);
+
+                return (
+                  <button
+                    key={color.name}
+                    onClick={() => {
+                      setForm((prev) => {
+                        const exists = prev.cores.includes(color.name);
+
+                        if (exists) {
+                          return {
+                            ...prev,
+                            cores: prev.cores.filter((c) => c !== color.name),
+                          };
+                        }
+
+                        // limita a 3 cores
+                        if (prev.cores.length >= 3) {
+                          return prev;
+                        }
+
+                        return {
+                          ...prev,
+                          cores: [...prev.cores, color.name],
+                        };
+                      });
+                    }}
+                    className={`flex cursor-pointer items-center gap-2 rounded-full border px-3 py-2 text-sm transition-all ${selected
+                      ? "scale-105 border-primary bg-primary text-primary-foreground shadow-lg"
+                      : "border-border bg-background hover:border-primary/40"
+                      }`}
+                  >
+
+                    <div
+                      className="h-6 w-6 rounded-full border border-white sm:h-5 sm:w-5"
+                      style={{
+                        background: color.hex,
+                      }}
+                    />
+                    <span className="font-medium">{color.name}</span>
+                  </button>
+                );
+              })}
+            </div>
+            {form.cores.length > 0 && (
+              <div className="mt-4 flex flex-row gap-2 items-center">
+                {form.cores.map((cor, index) => (
+                  <div
+                    key={cor}
+                    className="rounded-xl border border-border px-3 py-2 text-sm"
+                  >
+                    <strong>Cor {index + 1 === 1 ? "principal" : index + 1 === 2 ? "secundária" : "terciária"}:</strong> {cor}
+                  </div>
+                ))}
+              </div>
+            )}
+            <div className="mt-6 rounded-xl border border-primary/20 bg-primary/5 p-3">
+              <p className="text-xs text-muted">
+                💡 <strong>A ordem das cores é importante.</strong> A primeira cor escolhida será a que mais aparece na peça, enquanto as próximas serão usadas em menor quantidade, conforme o modelo selecionado. No site, as cores dos modelos são exibidas nessa mesma ordem. Por exemplo, em Cru/Militar/Alecrim, o cru é a cor principal, o militar aparece menos e o alecrim apenas nos detalhes. Exemplo: Cru → Marrom → Bege = tapete mais cru, com marrom em segundo lugar e bege nos detalhes. Se a ordem mudar, o resultado também mudará.</p>
+            </div>
+          </div>
           {!isValid && (
-            <span className="text-sm text-primary">
-              Preencha todos os campos obrigatórios.
-            </span>
+            <div className="mt-6 ">
+              <span className="text-sm text-primary">
+                Preencha todos os campos obrigatórios.
+              </span>
+            </div>
           )}
           {/* BOTÃO */}
           <button
