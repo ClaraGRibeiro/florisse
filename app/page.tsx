@@ -30,7 +30,7 @@ export default function Home() {
   const [numbersOpen, setNumbersOpen] = useState(false);
   const [raffleOpen, setRaffleOpen] = useState(true);
 
-  const { products, bestSelling, categories, categoryCounts, productsFromCategory } = useProducts();
+  const { products, bestSelling, bestSellingByCategory, categories, categoryCounts, productsFromCategory } = useProducts();
   const { showTop, scrollToTop } = useScrollTop();
 
   const { cart, addToCart, removeFromCart } = useCart();
@@ -88,7 +88,7 @@ export default function Home() {
       </AnimatePresence>
       <Products
         products={products}
-        bestSelling={bestSelling}
+        bestSellingByCategory={bestSellingByCategory}
         filters={categories}
         formatColor={formatColor}
         formatPath={formatPath}

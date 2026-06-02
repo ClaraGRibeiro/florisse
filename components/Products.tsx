@@ -7,7 +7,7 @@ import { Product } from "@/types/product";
 
 type ProductsProps = {
   products: Product[];
-  bestSelling: Product;
+  bestSellingByCategory: Record<string, Product>;
   formatPath: (name: string) => string;
   formatColor: (name: string) => string;
   openProduct: (product: Product) => void;
@@ -17,7 +17,7 @@ type ProductsProps = {
 
 export default function Products({
   products,
-  bestSelling,
+  bestSellingByCategory,
   formatPath,
   formatColor,
   openProduct,
@@ -25,7 +25,6 @@ export default function Products({
   categoryCounts
 }: ProductsProps) {
   const [category, setCategory] = useState("Tapetes");
-
   const discount = Math.round((productsData.discount * 100 - 100) * -1);
 
   const filteredProducts = products.filter(
@@ -99,8 +98,7 @@ export default function Products({
                   loading="lazy"
                   className="h-80 w-full object-cover transition-transform duration-700 ease-out group-hover:rotate-1 group-hover:scale-110"
                 />
-
-                {product.total_sales != undefined && bestSelling.total_sales !== undefined && product.total_sales >= bestSelling.total_sales && (
+                {bestSellingByCategory[product.category]?.name === product.name && (product.total_sales ?? 0) > 0 && (
                   <div className="absolute left-4 top-4 rounded-full bg-accent/90 px-3 py-1 text-xs font-medium text-card shadow-md backdrop-blur">
                     Popular
                   </div>

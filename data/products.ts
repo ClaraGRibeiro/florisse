@@ -53,7 +53,7 @@ const products = [
   //   sizes: [
   //     {
   //       label: "70x50cm",
-  //       price: 50,
+  //       price: 60,
   //       sales: 4,
   //     },
   //     {
@@ -76,35 +76,23 @@ const products = [
   //   ],
   //   colors: ["cru-bege"],
   // },
-  // {
-  //   name: "Tapete Harmonia",
-  //   category: "Tapetes",
-  //   sizes: [
-  //     {
-  //       label: "70x50cm",
-  //       price: 50,
-  //       sales: 2,
-  //     },
-  //     {
-  //       label: "120x50cm",
-  //       price: 140,
-  //       sales: 0,
-  //     },
-  //   ],
-  //   colors: ["bordo-alecrim"],
-  // },
-  // {
-  //   name: "Jogo Passadeira Harmonia",
-  //   category: "Jogos",
-  //   sizes: [
-  //     {
-  //       label: "2 (70x50cm) e 1 (120x50cm)",
-  //       price: 240 * discount,
-  //       no_discount: 240,
-  //     },
-  //   ],
-  //   colors: ["bordo-alecrim"],
-  // },
+  {
+    name: "Tapete Harmonia",
+    category: "Tapetes",
+    sizes: [
+      {
+        label: "70x50cm",
+        price: 65,
+        sales: 2,
+      },
+      {
+        label: "120x50cm",
+        price: 145,
+        sales: 0,
+      },
+    ],
+    colors: ["bordo-militar"],
+  },
   {
     name: "Tapete Maravilha",
     category: "Tapetes",
@@ -255,6 +243,18 @@ const products = [
       },
     ],
     colors: ["cru-marrom-bege",  "cru-militar-alecrim", "alecrim-militar"],
+  },
+  {
+    name: "Jogo Passadeira Harmonia",
+    category: "Jogos",
+    sizes: [
+      {
+        label: "2 (70x50cm) e 1 (120x50cm)",
+        price: 275 * discount,
+        no_discount: 275,
+      },
+    ],
+    colors: ["bordo-militar"],
   },
   {
     name: "Jogo Mesa Tradicional",

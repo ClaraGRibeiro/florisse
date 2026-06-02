@@ -30,8 +30,25 @@ export function useProducts() {
   const bestSelling = [...products].sort(
     (a, b) => (b.total_sales ?? 0) - (a.total_sales ?? 0),
   )[0];
+
   const categories = Array.from(
     new Set(productsData.products.map((p) => p.category))
+  );
+
+  const bestSellingByCategory = products.reduce(
+    (acc, product) => {
+      const current = acc[product.category];
+
+      if (
+        !current ||
+        (product.total_sales ?? 0) > (current.total_sales ?? 0)
+      ) {
+        acc[product.category] = product;
+      }
+
+      return acc;
+    },
+    {} as Record<string, Product>
   );
 
   const categoryCounts = productsData.products.reduce((acc, product) => {
@@ -44,10 +61,11 @@ export function useProducts() {
       .map((p) => p.name);
   };
   return {
-  products,
-  bestSelling,
-  categories,
-  categoryCounts,
-  productsFromCategory,
-};
+    products,
+    bestSelling,
+    bestSellingByCategory,
+    categories,
+    categoryCounts,
+    productsFromCategory,
+  };
 }
