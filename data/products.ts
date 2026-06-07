@@ -40,12 +40,17 @@ const products = [
         sales: 7,
       },
       {
+        label: "100x50cm",
+        price: 100,
+        sales: 2,
+      },
+      {
         label: "120x50cm",
-        price: 130,
+        price: 150,
         sales: 1,
       },
     ],
-    colors: ["cru-marrom-bege",  "cru-militar-alecrim", "alecrim-militar"],
+    colors: ["cru-marrom-bege", "cru-militar-alecrim", "bege-alecrim-cru", "alecrim-militar"],
   },
   // {
   //   name: "Tapete Gisele",
@@ -87,7 +92,7 @@ const products = [
       },
       {
         label: "120x50cm",
-        price: 145,
+        price: 150,
         sales: 0,
       },
     ],
@@ -242,7 +247,7 @@ const products = [
         no_discount: 240,
       },
     ],
-    colors: ["cru-marrom-bege",  "cru-militar-alecrim", "alecrim-militar"],
+    colors: ["cru-marrom-bege", "cru-militar-alecrim", "bege-alecrim-cru", "alecrim-militar"],
   },
   {
     name: "Jogo Passadeira Harmonia",
