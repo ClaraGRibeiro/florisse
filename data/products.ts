@@ -204,7 +204,7 @@ const products = [
       {
         label: "30x30x10cm",
         price: 80,
-        sales: 0,
+        sales: 1,
       },
     ],
     colors: ["militar"],
