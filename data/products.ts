@@ -6,12 +6,12 @@ const products = [
   //   category: "Tapetes",
   //   sizes: [
   //     {
-  //       label: "70x50cm",
+  //       label: "62x42cm",
   //       price: 35,
   //       sales: 0,
   //     },
   //     {
-  //       label: "120x50cm",
+  //       label: "100x42cm",
   //       price: 100,
   //       sales: 0,
   //     },
@@ -23,7 +23,7 @@ const products = [
   //   category: "Jogos",
   //   sizes: [
   //     {
-  //       label: "2 (70x50cm) e 1 (120x50cm)",
+  //       label: "2 (62x42cm) e 1 (100x42cm)",
   //       price: 170 * discount,
   //       no_discount: 170,
   //     },
@@ -35,18 +35,13 @@ const products = [
     category: "Tapetes",
     sizes: [
       {
-        label: "70x50cm",
+        label: "65x45cm",
         price: 55,
         sales: 7,
       },
       {
-        label: "100x50cm",
-        price: 100,
-        sales: 2,
-      },
-      {
-        label: "120x50cm",
-        price: 150,
+        label: "120x55cm",
+        price: 130,
         sales: 1,
       },
     ],
@@ -81,23 +76,23 @@ const products = [
   //   ],
   //   colors: ["cru-bege"],
   // },
-  {
-    name: "Tapete Harmonia",
-    category: "Tapetes",
-    sizes: [
-      {
-        label: "70x50cm",
-        price: 65,
-        sales: 2,
-      },
-      {
-        label: "120x50cm",
-        price: 150,
-        sales: 0,
-      },
-    ],
-    colors: ["bordo-militar"],
-  },
+  // {
+  //   name: "Tapete Harmonia",
+  //   category: "Tapetes",
+  //   sizes: [
+  //     {
+  //       label: "70x50cm",
+  //       price: 65,
+  //       sales: 2,
+  //     },
+  //     {
+  //       label: "120x50cm",
+  //       price: 150,
+  //       sales: 0,
+  //     },
+  //   ],
+  //   colors: ["bordo-militar"],
+  // },
   {
     name: "Tapete Maravilha",
     category: "Tapetes",
@@ -167,7 +162,7 @@ const products = [
     sizes: [
       {
         label: "110x40cm",
-        price: 100,
+        price: 120,
         sales: 1,
       },
     ],
@@ -203,7 +198,7 @@ const products = [
     sizes: [
       {
         label: "30x30x10cm",
-        price: 60,
+        price: 80,
         sales: 0,
       },
     ],
@@ -242,7 +237,7 @@ const products = [
     category: "Jogos",
     sizes: [
       {
-        label: "2 (70x50cm) e 1 (120x50cm)",
+        label: "2 (65x45cm) e 1 (120x45cm)",
         price: 240 * discount,
         no_discount: 240,
       },
