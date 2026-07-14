@@ -40,6 +40,11 @@ const products = [
         sales: 7,
       },
       {
+        label: "100x45cm",
+        price: 100,
+        sales: 4,
+      },
+      {
         label: "120x55cm",
         price: 130,
         sales: 1,
@@ -76,23 +81,23 @@ const products = [
   //   ],
   //   colors: ["cru-bege"],
   // },
-  // {
-  //   name: "Tapete Harmonia",
-  //   category: "Tapetes",
-  //   sizes: [
-  //     {
-  //       label: "70x50cm",
-  //       price: 65,
-  //       sales: 2,
-  //     },
-  //     {
-  //       label: "120x50cm",
-  //       price: 150,
-  //       sales: 0,
-  //     },
-  //   ],
-  //   colors: ["bordo-militar"],
-  // },
+  {
+    name: "Tapete Harmonia",
+    category: "Tapetes",
+    sizes: [
+      {
+        label: "70x50cm",
+        price: 65,
+        sales: 2,
+      },
+      {
+        label: "120x50cm",
+        price: 150,
+        sales: 0,
+      },
+    ],
+    colors: ["bordo-militar"],
+  },
   {
     name: "Tapete Maravilha",
     category: "Tapetes",
