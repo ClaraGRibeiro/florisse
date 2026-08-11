@@ -1,6 +1,7 @@
 const discount = 0.9;
 
 const products = [
+  //****************** PRODUTOS ******************//
   // {
   //   name: "Tapete Sara",
   //   category: "Tapetes",
@@ -45,12 +46,46 @@ const products = [
         sales: 4,
       },
       {
-        label: "120x55cm",
+        label: "120x45cm",
         price: 130,
         sales: 1,
       },
     ],
     colors: ["cru-marrom-bege", "cru-militar-alecrim", "bege-alecrim-cru", "alecrim-militar"],
+  },
+  {
+    name: "Tapete Gisele",
+    category: "Tapetes",
+    sizes: [
+      {
+        label: "70x50cm",
+        price: 60,
+        sales: 4,
+      },
+      {
+        label: "120x50cm",
+        price: 140,
+        sales: 2,
+      },
+    ],
+    colors: ["telha-limao-vermelho-preto"],
+  },
+  {
+    name: "Tapete Harmonia",
+    category: "Tapetes",
+    sizes: [
+      {
+        label: "70x50cm",
+        price: 65,
+        sales: 2,
+      },
+      {
+        label: "120x50cm",
+        price: 150,
+        sales: 0,
+      },
+    ],
+    colors: ["bordo-militar"],
   },
   {
     name: "Tapete Hexágonos",
@@ -73,52 +108,6 @@ const products = [
       },
     ],
     colors: ["cru-cinza-bege"],
-  },
-  {
-    name: "Tapete Gisele",
-    category: "Tapetes",
-    sizes: [
-      {
-        label: "70x50cm",
-        price: 60,
-        sales: 4,
-      },
-      {
-        label: "120x50cm",
-        price: 140,
-        sales: 2,
-      },
-    ],
-    colors: ["telha-limao-vermelho-preto"],
-  },
-  {
-    name: "Jogo Passadeira Gisele",
-    category: "Jogos",
-    sizes: [
-      {
-        label: "2 (70x50cm) e 1 (120x50cm)",
-        price: 260 * discount,
-        no_discount: 260,
-      },
-    ],
-    colors: ["telha-limao-vermelho-preto"],
-  },
-  {
-    name: "Tapete Harmonia",
-    category: "Tapetes",
-    sizes: [
-      {
-        label: "70x50cm",
-        price: 65,
-        sales: 2,
-      },
-      {
-        label: "120x50cm",
-        price: 150,
-        sales: 0,
-      },
-    ],
-    colors: ["bordo-militar"],
   },
   {
     name: "Tapete Maravilha",
@@ -172,30 +161,6 @@ const products = [
     colors: ["malva", "marrom"],
   },
   // {
-  //   name: "Trilho de Mesa Franja",
-  //   category: "Mesa Posta",
-  //   sizes: [
-  //     {
-  //       label: "120x37cm",
-  //       price: 140,
-  //       sales: 1,
-  //     },
-  //   ],
-  //   colors: ["marrom"],
-  // },
-  {
-    name: "Trilho de Mesa Floral",
-    category: "Mesa Posta",
-    sizes: [
-      {
-        label: "110x40cm",
-        price: 120,
-        sales: 1,
-      },
-    ],
-    colors: ["cru-bege"],
-  },
-  // {
   //   name: "Sousplat Luxo",
   //   category: "Mesa Posta",
   //   sizes: [
@@ -206,6 +171,18 @@ const products = [
   //     },
   //   ],
   //   colors: ["cru"],
+  // },
+  // {
+  //   name: "Trilho de Mesa Franja",
+  //   category: "Mesa Posta",
+  //   sizes: [
+  //     {
+  //       label: "120x37cm",
+  //       price: 140,
+  //       sales: 1,
+  //     },
+  //   ],
+  //   colors: ["marrom"],
   // },
   // {
   //   name: "Trilho de Mesa Luxo",
@@ -219,6 +196,18 @@ const products = [
   //   ],
   //   colors: ["cru"],
   // },
+  {
+    name: "Trilho de Mesa Floral",
+    category: "Mesa Posta",
+    sizes: [
+      {
+        label: "110x40cm",
+        price: 120,
+        sales: 1,
+      },
+    ],
+    colors: ["cru-bege"],
+  },
   {
     name: "Bolsa Redinha",
     category: "Bolsas",
@@ -259,6 +248,13 @@ const products = [
   //   ],
   //   colors: ["cru"],
   // },
+
+
+
+
+
+
+  //****************** JOGOS ******************//
   {
     name: "Jogo Passadeira Janine",
     category: "Jogos",
@@ -272,16 +268,16 @@ const products = [
     colors: ["cru-marrom-bege", "cru-militar-alecrim", "bege-alecrim-cru", "alecrim-militar"],
   },
   {
-    name: "Jogo Passadeira Hexágonos",
+    name: "Jogo Passadeira Gisele",
     category: "Jogos",
     sizes: [
       {
         label: "2 (70x50cm) e 1 (120x50cm)",
-        price: 320 * discount,
-        no_discount: 320,
+        price: 260 * discount,
+        no_discount: 260,
       },
     ],
-    colors: ["cru-cinza-bege"],
+    colors: ["telha-limao-vermelho-preto"],
   },
   {
     name: "Jogo Passadeira Harmonia",
@@ -294,6 +290,18 @@ const products = [
       },
     ],
     colors: ["bordo-militar"],
+  },
+  {
+    name: "Jogo Passadeira Hexágonos",
+    category: "Jogos",
+    sizes: [
+      {
+        label: "2 (70x50cm) e 1 (120x50cm)",
+        price: 320 * discount,
+        no_discount: 320,
+      },
+    ],
+    colors: ["cru-cinza-bege"],
   },
   {
     name: "Jogo Mesa Tradicional",
