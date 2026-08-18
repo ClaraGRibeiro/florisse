@@ -65,7 +65,7 @@ export default function Products({
             >
               {filter} ({categoryCounts[filter] ?? 0})
 
-              {filter === "Jogos" && (
+              {filter === "Kits" && (
                 <span className="absolute -right-1 -top-2 z-10 rounded-full bg-red-500 px-2 py-0.5 text-sm font-bold leading-none text-white shadow-md">
                   -{discount}%
                 </span>

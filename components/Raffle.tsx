@@ -9,14 +9,14 @@ type RaffleProps = {
 const raffleItems = [
   {
     title: "Tapetes + Passadeira",
-    subtitle: "Jogo cozinha",
-    image: "/products/jogos/jogo-passadeira-sara/bege.webp",
+    subtitle: "Kit cozinha",
+    image: "/products/kits/kit-passadeira-sara/bege.webp",
     details: ["2 tapetes (70x50cm)", "1 passadeira (120x50cm)"],
   },
   {
     title: "Sousplats + Trilho",
     subtitle: "Mesa posta",
-    image: "/products/jogos/jogo-mesa-tradicional/bege.webp",
+    image: "/products/kits/kit-mesa-tradicional/bege.webp",
     details: ["6 sousplats (40cm)", "1 trilho (120x40cm)"],
   },
 ];
@@ -81,7 +81,7 @@ Não perca essa chance!`,
               </div>
 
               <h2 className="text-center sm:text-left mt-5 text-3xl sm:text-4xl lg:text-5xl font-black leading-tight">
-                Jogo de cozinha
+                Kit de cozinha
                 <span className="block text-primary">artesanal completo</span>
               </h2>
 

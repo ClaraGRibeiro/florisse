@@ -20,8 +20,8 @@ const products = [
   //   colors: ["bordo"],
   // },
   // {
-  //   name: "Jogo Passadeira Sara",
-  //   category: "Jogos",
+  //   name: "Kit Passadeira Sara",
+  //   category: "Kits",
   //   sizes: [
   //     {
   //       label: "2 (62x42cm) e 1 (100x42cm)",
@@ -69,6 +69,23 @@ const products = [
       },
     ],
     colors: ["telha-limao-vermelho-preto"],
+  },
+  {
+    name: "Tapete Home",
+    category: "Tapetes",
+    sizes: [
+      {
+        label: "70x50cm",
+        price: 60,
+        sales: 0,
+      },
+      {
+        label: "120x50cm",
+        price: 140,
+        sales: 1,
+      },
+    ],
+    colors: ["cru-vermelho"],
   },
   {
     name: "Tapete Harmonia",
@@ -221,8 +238,8 @@ const products = [
     colors: ["militar"],
   },
   // {
-  //   name: "Jogo Mesa Luxo",
-  //   category: "Jogos",
+  //   name: "Kit Mesa Luxo",
+  //   category: "Kits",
   //   sizes: [
   //     {
   //       label: "6 (37cm) e 1 (100x37cm)",
@@ -254,10 +271,10 @@ const products = [
 
 
 
-  //****************** JOGOS ******************//
+  //****************** KITS ******************//
   {
-    name: "Jogo Passadeira Janine",
-    category: "Jogos",
+    name: "Kit Passadeira Janine",
+    category: "Kits",
     sizes: [
       {
         label: "2 (65x45cm) e 1 (120x45cm)",
@@ -268,8 +285,8 @@ const products = [
     colors: ["cru-marrom-bege", "cru-militar-alecrim", "bege-alecrim-cru", "alecrim-militar"],
   },
   {
-    name: "Jogo Passadeira Gisele",
-    category: "Jogos",
+    name: "Kit Passadeira Gisele",
+    category: "Kits",
     sizes: [
       {
         label: "2 (70x50cm) e 1 (120x50cm)",
@@ -280,8 +297,20 @@ const products = [
     colors: ["telha-limao-vermelho-preto"],
   },
   {
-    name: "Jogo Passadeira Harmonia",
-    category: "Jogos",
+    name: "Kit Passadeira Home",
+    category: "Kits",
+    sizes: [
+      {
+        label: "2 (70x50cm) e 1 (120x50cm)",
+        price: 260 * discount,
+        no_discount: 260,
+      },
+    ],
+    colors: ["cru-vermelho"],
+  },
+  {
+    name: "Kit Passadeira Harmonia",
+    category: "Kits",
     sizes: [
       {
         label: "2 (70x50cm) e 1 (120x50cm)",
@@ -292,8 +321,8 @@ const products = [
     colors: ["bordo-militar"],
   },
   {
-    name: "Jogo Passadeira Hexágonos",
-    category: "Jogos",
+    name: "Kit Passadeira Hexágonos",
+    category: "Kits",
     sizes: [
       {
         label: "2 (70x50cm) e 1 (120x50cm)",
@@ -304,8 +333,8 @@ const products = [
     colors: ["cru-cinza-bege"],
   },
   {
-    name: "Jogo Mesa Tradicional",
-    category: "Jogos",
+    name: "Kit Mesa Tradicional",
+    category: "Kits",
     sizes: [
       // {
       //   label: "6 (37cm) e 1 (120x37cm)",
