@@ -36,22 +36,22 @@ const products = [
     category: "Tapetes",
     sizes: [
       {
-        label: "65x45cm",
+        label: "70x50cm",
         price: 55,
         sales: 7,
       },
       {
-        label: "100x45cm",
+        label: "100x50cm",
         price: 100,
         sales: 4,
       },
       {
-        label: "120x45cm",
+        label: "120x50cm",
         price: 130,
         sales: 1,
       },
     ],
-    colors: ["cru-marrom-bege", "cru-militar-alecrim", "bege-alecrim-cru", "alecrim-militar"],
+    colors: ["cru-marrom-bege", "limao-cru", "cru-militar-alecrim", "bege-alecrim-cru", "alecrim-militar"],
   },
   {
     name: "Tapete Gisele",
@@ -282,7 +282,7 @@ const products = [
         no_discount: 240,
       },
     ],
-    colors: ["cru-marrom-bege", "cru-militar-alecrim", "bege-alecrim-cru", "alecrim-militar"],
+    colors: ["cru-marrom-bege", "limao-cru", "cru-militar-alecrim", "bege-alecrim-cru", "alecrim-militar"],
   },
   {
     name: "Kit Passadeira Gisele",
