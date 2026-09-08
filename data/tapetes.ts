@@ -33,70 +33,70 @@ const tapetes = [
     //   ],
     //   colors: ["militar"],
     // },
-    // {
-    //     name: "Tapete Cleo",
-    //     category: "Tapetes",
-    //     sizes: [
-    //         {
-    //             label: "65x45cm",
-    //             price: 35,
-    //             sales: 0,
-    //         },
-    //         {
-    //             label: "100x45cm",
-    //             price: 110,
-    //             sales: 0,
-    //         },
-    //         {
-    //             label: "120x45cm",
-    //             price: 130,
-    //             sales: 0,
-    //         },
-    //         {
-    //             label: "2 (100x45cm)",
-    //             price: (110+110) * discount,
-    //             no_discount: (110+110),
-    //         },
-    //         {
-    //             label: "2 (65x45cm) e 1 (120x45cm)",
-    //             price: (35+35+130) * discount,
-    //             no_discount: (35+35+130),
-    //         },
-    //     ],
-    //     colors: ["malva"],
-    // },
-    // {
-    //     name: "Tapete Cris",
-    //     category: "Tapetes",
-    //     sizes: [
-    //         {
-    //             label: "65x45cm",
-    //             price: 40,
-    //             sales: 0,
-    //         },
-    //         {
-    //             label: "100x45cm",
-    //             price: 115,
-    //             sales: 0,
-    //         },
-    //         {
-    //             label: "120x45cm",
-    //             price: 135,
-    //             sales: 0,
-    //         },
-    //         {
-    //             label: "2 (100x45cm)",
-    //             price: (115+115) * discount,
-    //             no_discount: (115+115),
-    //         },
-    //         {
-    //             label: "2 (65x45cm) e 1 (120x45cm)",
-    //             price: (40+40+135) * discount,
-    //             no_discount: (40+40+135),
-    //         },
-    //     ],
-    //     colors: ["bordo"],
-    // },
+    {
+        name: "Tapete Cleo",
+        category: "Tapetes",
+        sizes: [
+            {
+                label: "65x45cm",
+                price: 35,
+                sales: 0,
+            },
+            {
+                label: "100x45cm",
+                price: 110,
+                sales: 0,
+            },
+            {
+                label: "120x45cm",
+                price: 130,
+                sales: 0,
+            },
+            {
+                label: "2 (100x45cm)",
+                price: (110+110) * discount,
+                no_discount: (110+110),
+            },
+            {
+                label: "2 (65x45cm) e 1 (120x45cm)",
+                price: (35+35+130) * discount,
+                no_discount: (35+35+130),
+            },
+        ],
+        colors: ["malva"],
+    },
+    {
+        name: "Tapete Cris",
+        category: "Tapetes",
+        sizes: [
+            {
+                label: "65x45cm",
+                price: 40,
+                sales: 0,
+            },
+            {
+                label: "100x45cm",
+                price: 115,
+                sales: 0,
+            },
+            {
+                label: "120x45cm",
+                price: 135,
+                sales: 0,
+            },
+            {
+                label: "2 (100x45cm)",
+                price: (115+115) * discount,
+                no_discount: (115+115),
+            },
+            {
+                label: "2 (65x45cm) e 1 (120x45cm)",
+                price: (40+40+135) * discount,
+                no_discount: (40+40+135),
+            },
+        ],
+        colors: ["bordo"],
+    },
     {
         name: "Tapete Janine",
         category: "Tapetes",
