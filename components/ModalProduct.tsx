@@ -128,6 +128,12 @@ export default function ModalProduct({
                 {currentSize?.sales > 1 ? `${currentSize.sales} vendidos` : `${currentSize.sales} vendido`}
               </div>
             )}
+            {currentSize?.no_discount && (
+                <span className="absolute top-4 left-4 rounded-full bg-red-500 px-3 py-1 text-sm font-bold leading-none text-white shadow-md">
+                  -10%
+                </span>
+            )}
+            
           </div>
 
           {/* Coluna das Informações */}

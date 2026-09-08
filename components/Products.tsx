@@ -25,8 +25,6 @@ export default function Products({
   categoryCounts
 }: ProductsProps) {
   const [category, setCategory] = useState("Tapetes");
-  const discount = Math.round((productsData.discount * 100 - 100) * -1);
-
   const filteredProducts = products.filter(
     (product) => product.category === category,
   );
@@ -65,11 +63,6 @@ export default function Products({
             >
               {filter} ({categoryCounts[filter] ?? 0})
 
-              {filter === "Kits" && (
-                <span className="absolute -right-1 -top-2 z-10 rounded-full bg-red-500 px-2 py-0.5 text-sm font-bold leading-none text-white shadow-md">
-                  -{discount}%
-                </span>
-              )}
             </button>
           );
         })}
