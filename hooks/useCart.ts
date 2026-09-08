@@ -13,15 +13,6 @@ export type CartItem = {
   quantity: number;
 };
 
-type AddToCartParams = {
-  name: string;
-  color: string;
-  size: string;
-  price: number;
-  no_discount?: number;
-  image: string;
-};
-
 export function useCart() {
   const [cart, setCart] = useState<CartItem[]>([]);
 
