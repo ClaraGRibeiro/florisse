@@ -71,28 +71,28 @@ const tapetes = [
         sizes: [
             {
                 label: "65x45cm",
-                price: 35,
+                price: 40,
                 sales: 0,
             },
             {
                 label: "100x45cm",
-                price: 110,
+                price: 115,
                 sales: 0,
             },
             {
                 label: "120x45cm",
-                price: 130,
+                price: 135,
                 sales: 0,
             },
             {
                 label: "2 (100x45cm)",
-                price: (110 + 110) * discount,
-                no_discount: (110 + 110),
+                price: (115 + 115) * discount,
+                no_discount: (115 + 115),
             },
             {
                 label: "2 (65x45cm) e 1 (120x45cm)",
-                price: (35 + 35 + 130) * discount,
-                no_discount: (35 + 35 + 130),
+                price: (40 + 40 + 140) * discount,
+                no_discount: (40 + 40 + 140),
             },
         ],
         colors: ["bordo"],
