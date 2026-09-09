@@ -1,38 +1,38 @@
 const discount = 0.9;
 
 const tapetes = [
-    // {
-    //   name: "Tapete Sara",
-    //   category: "Tapetes",
-    //   sizes: [
-    //     {
-    //       label: "65x45cm",
-    //       price: 35,
-    //       sales: 0,
-    //     },
-    //     {
-    //       label: "100x45cm",
-    //       price: 110,
-    //       sales: 0,
-    //     },
-    //     {
-    //       label: "120x45cm",
-    //       price: 130,
-    //       sales: 0,
-    //     },
-    // {
-    //     label: "2 (65x45cm) e 1 (100x45cm)",
-    //     price: 180 * discount,
-    //     no_discount: 180,
-    // },
-    // {
-    //     label: "2 (65x45cm) e 1 (120x45cm)",
-    //     price: 200 * discount,
-    //     no_discount: 200,
-    // },
-    //   ],
-    //   colors: ["militar"],
-    // },
+    {
+        name: "Tapete Sara",
+        category: "Tapetes",
+        sizes: [
+            {
+                label: "65x45cm",
+                price: 35,
+                sales: 0,
+            },
+            {
+                label: "100x45cm",
+                price: 110,
+                sales: 0,
+            },
+            {
+                label: "120x45cm",
+                price: 130,
+                sales: 0,
+            },
+            {
+                label: "2 (100x45cm)",
+                price: (110 + 110) * discount,
+                no_discount: (110 + 110),
+            },
+            {
+                label: "2 (65x45cm) e 1 (120x45cm)",
+                price: (35 + 35 + 130) * discount,
+                no_discount: (35 + 35 + 130),
+            },
+        ],
+        colors: ["militar"],
+    },
     {
         name: "Tapete Cleo",
         category: "Tapetes",
@@ -54,13 +54,13 @@ const tapetes = [
             },
             {
                 label: "2 (100x45cm)",
-                price: (110+110) * discount,
-                no_discount: (110+110),
+                price: (110 + 110) * discount,
+                no_discount: (110 + 110),
             },
             {
                 label: "2 (65x45cm) e 1 (120x45cm)",
-                price: (35+35+130) * discount,
-                no_discount: (35+35+130),
+                price: (35 + 35 + 130) * discount,
+                no_discount: (35 + 35 + 130),
             },
         ],
         colors: ["malva"],
@@ -86,13 +86,13 @@ const tapetes = [
             },
             {
                 label: "2 (100x45cm)",
-                price: (115+115) * discount,
-                no_discount: (115+115),
+                price: (115 + 115) * discount,
+                no_discount: (115 + 115),
             },
             {
                 label: "2 (65x45cm) e 1 (120x45cm)",
-                price: (40+40+135) * discount,
-                no_discount: (40+40+135),
+                price: (40 + 40 + 135) * discount,
+                no_discount: (40 + 40 + 135),
             },
         ],
         colors: ["bordo"],
@@ -118,13 +118,13 @@ const tapetes = [
             },
             {
                 label: "2 (100x50cm)",
-                price: (120+120) * discount,
-                no_discount: (120+120),
+                price: (120 + 120) * discount,
+                no_discount: (120 + 120),
             },
             {
                 label: "2 (70x50cm) e 1 (120x50cm)",
-                price: (55+55+155) * discount,
-                no_discount: (55+55+155),
+                price: (55 + 55 + 155) * discount,
+                no_discount: (55 + 55 + 155),
             },
         ],
         colors: ["alecrim-militar", "cru-marrom-bege", "limao-cru", "cru-militar-alecrim", "bege-alecrim-cru"],
@@ -150,13 +150,13 @@ const tapetes = [
             },
             {
                 label: "2 (100x50cm)",
-                price: (135+135) * discount,
-                no_discount: (135+135),
+                price: (135 + 135) * discount,
+                no_discount: (135 + 135),
             },
             {
                 label: "2 (70x50cm) e 1 (120x50cm)",
-                price: (65+65+165) * discount,
-                no_discount: (65+65+165),
+                price: (65 + 65 + 165) * discount,
+                no_discount: (65 + 65 + 165),
             },
         ],
         colors: ["telha-limao-vermelho-preto"],
@@ -182,13 +182,13 @@ const tapetes = [
             },
             {
                 label: "2 (100x50cm)",
-                price: (135+135) * discount,
-                no_discount: (135+135),
+                price: (135 + 135) * discount,
+                no_discount: (135 + 135),
             },
             {
                 label: "2 (70x50cm) e 1 (120x50cm)",
-                price: (65+65+165) * discount,
-                no_discount: (65+65+165),
+                price: (65 + 65 + 165) * discount,
+                no_discount: (65 + 65 + 165),
             },
         ],
         colors: ["cru-vermelho"],
@@ -214,13 +214,13 @@ const tapetes = [
             },
             {
                 label: "2 (100x50cm)",
-                price: (135+135) * discount,
-                no_discount: (135+135),
+                price: (135 + 135) * discount,
+                no_discount: (135 + 135),
             },
             {
                 label: "2 (70x50cm) e 1 (120x50cm)",
-                price: (65+65+165) * discount,
-                no_discount: (65+65+165),
+                price: (65 + 65 + 165) * discount,
+                no_discount: (65 + 65 + 165),
             },
         ],
         colors: ["bordo-militar"],
@@ -246,13 +246,13 @@ const tapetes = [
             },
             {
                 label: "2 (100x50cm)",
-                price: (145+145) * discount,
-                no_discount: (145+145),
+                price: (145 + 145) * discount,
+                no_discount: (145 + 145),
             },
             {
                 label: "2 (70x50cm) e 1 (120x50cm)",
-                price: (80+80+175) * discount,
-                no_discount: (80+80+175),
+                price: (80 + 80 + 175) * discount,
+                no_discount: (80 + 80 + 175),
             },
         ],
         colors: ["cru-cinza-bege"],
