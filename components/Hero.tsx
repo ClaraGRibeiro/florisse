@@ -47,28 +47,31 @@ export default function Hero({ bestSelling, openPersonalized, formatPath }: Hero
           </div>
         </div>
 
-        <div className="relative flex justify-center">
-          <div className="relative w-full max-w-112.5">
-            <Image
-              src={imageSrc}
-              alt="Crochê artesanal"
-              width={600}
-              height={600}
-              priority
-              className="h-auto w-full rounded-4xl object-cover shadow-2xl"
-            />
+      <div className="relative flex justify-center">
+  <div
+    className="relative w-full max-w-112.5 overflow-hidden rounded-4xl"
+    style={{ aspectRatio: "1 / 1" }}
+  >
+    <Image
+      src={imageSrc}
+      alt="Crochê artesanal"
+      fill
+      priority
+      sizes="(max-width: 768px) 100vw, 450px"
+      className="object-cover"
+    />
 
-            <div className="absolute bottom-4 left-4 rounded-2xl bg-card/95 p-4 shadow-xl backdrop-blur-md sm:bottom-6 sm:left-6 sm:p-5">
-              <p className="text-xs text-muted sm:text-sm">
-                Mais vendido ({bestSelling.total_sales} un)
-              </p>
+    <div className="absolute bottom-4 left-4 rounded-2xl bg-card/95 p-4 shadow-xl backdrop-blur-md sm:bottom-6 sm:left-6 sm:p-5">
+      <p className="text-xs text-muted sm:text-sm">
+        Mais vendido ({bestSelling.total_sales} un)
+      </p>
 
-              <h3 className="mt-1 text-lg font-bold sm:text-xl">
-                {bestSelling.name}
-              </h3>
-            </div>
-          </div>
-        </div>
+      <h3 className="mt-1 text-lg font-bold sm:text-xl">
+        {bestSelling.name}
+      </h3>
+    </div>
+  </div>
+</div>
       </div>
 
       <div className="absolute -left-20 top-10 h-52 w-52 rounded-full bg-primary/10 blur-3xl" />
