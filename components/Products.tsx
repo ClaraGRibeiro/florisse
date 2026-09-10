@@ -49,39 +49,36 @@ function ProductCard({
       </div>
 
       {/* IMAGEM */}
-      <div className="relative h-80 w-full overflow-hidden">
-        <AnimatePresence initial={false}>
-          <motion.div
-            key={selectedColor.name}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{
-              duration: 0.6,
-              ease: "easeInOut",
-            }}
-            className="absolute inset-0"
-          >
-            <Image
-              src={imagePath}
-              alt={`${product.name} - ${formatColor(
-                selectedColor.name,
-              )}`}
-              width={600}
-              height={600}
-              loading="lazy"
-              className="h-full w-full object-cover"
-            />
-          </motion.div>
-        </AnimatePresence>
+      <div className="relative h-[450px] w-full overflow-hidden">
+  <AnimatePresence initial={false}>
+    <motion.div
+      key={selectedColor.name}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{
+        duration: 0.6,
+        ease: "easeInOut",
+      }}
+      className="absolute inset-0"
+    >
+      <Image
+        src={imagePath}
+        alt={`${product.name} - ${formatColor(selectedColor.name)}`}
+        width={600}
+        height={600}
+        loading="lazy"
+        className="h-full w-full object-cover"
+      />
+    </motion.div>
+  </AnimatePresence>
 
-        {bestSellingByCategory[product.category]?.name ===
-          product.name &&
-          (product.total_sales ?? 0) > 0 && (
-            <div className="absolute left-4 top-4 rounded-full bg-accent/90 px-3 py-1 text-xs font-medium text-card shadow-md backdrop-blur">
-              Mais vendido
-            </div>
-          )}
+  {bestSellingByCategory[product.category]?.name === product.name &&
+    (product.total_sales ?? 0) > 0 && (
+      <div className="absolute left-4 top-4 rounded-full bg-accent/90 px-3 py-1 text-xs font-medium text-card shadow-md backdrop-blur">
+        Mais vendido
       </div>
+    )}
+</div>
 
       {/* INFORMAÇÕES */}
       <div className="flex flex-col gap-4 p-5">

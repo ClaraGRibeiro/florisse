@@ -9,7 +9,7 @@ type HeroProps = {
   formatPath: (name: string) => string;
 };
 export default function Hero({ bestSelling, openPersonalized, formatPath }: HeroProps) {
-  const image = formatPath("/products/"+bestSelling.category+"/"+bestSelling.name+"/"+bestSelling.colors[0].name+".webp");
+  const image = formatPath("/products/" + bestSelling.category + "/" + bestSelling.name + "/" + bestSelling.colors[0].name + ".webp");
   return (
     <motion.section
       id="início"
@@ -48,23 +48,25 @@ export default function Hero({ bestSelling, openPersonalized, formatPath }: Hero
         </div>
 
         <div className="relative flex justify-center">
-          <Image
-            src={image}
-            alt="Crochê artesanal"
-            width={800}
-            height={800}
-            priority
-            className="w-full max-w-145 rounded-4xl object-cover shadow-2xl"
-          />
+          <div className="relative w-full max-w-112.5">
+            <Image
+              src={image}
+              alt="Crochê artesanal"
+              width={600}
+              height={600}
+              priority
+              className="h-auto w-full rounded-4xl object-cover shadow-2xl"
+            />
 
-          <div className="absolute bottom-4 left-4 rounded-2xl bg-card/95 p-4 shadow-xl backdrop-blur-md sm:bottom-6 sm:left-6 sm:p-5">
-            <p className="text-xs text-muted sm:text-sm">
-              Mais vendido ({bestSelling.total_sales} un)
-            </p>
+            <div className="absolute bottom-4 left-4 rounded-2xl bg-card/95 p-4 shadow-xl backdrop-blur-md sm:bottom-6 sm:left-6 sm:p-5">
+              <p className="text-xs text-muted sm:text-sm">
+                Mais vendido ({bestSelling.total_sales} un)
+              </p>
 
-            <h3 className="mt-1 text-lg font-bold sm:text-xl">
-              {bestSelling.name}
-            </h3>
+              <h3 className="mt-1 text-lg font-bold sm:text-xl">
+                {bestSelling.name}
+              </h3>
+            </div>
           </div>
         </div>
       </div>
