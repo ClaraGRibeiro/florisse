@@ -1,6 +1,9 @@
 export const formatPath = (text: string) =>
-  text.toLowerCase().replace(/\s+/g, "-");
-
+  text
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/\s+/g, "-");
 export const formatColor = (color: string) =>
   color
     .split("-")

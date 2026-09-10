@@ -34,7 +34,7 @@ const tapetes = [
         colors: ["militar"],
     },
     {
-        name: "Tapete Cléo",
+        name: "Tapete Cleo",
         category: "Tapetes",
         sizes: [
             {
