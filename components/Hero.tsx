@@ -6,9 +6,10 @@ import Image from "next/image";
 type HeroProps = {
   bestSelling: Product;
   openPersonalized: () => void;
+  formatPath: (name: string) => string;
 };
-export default function Hero({ bestSelling, openPersonalized }: HeroProps) {
-  console.log("/products/"+bestSelling.category.toLowerCase()+"/"+bestSelling.name.toLowerCase()+"/"+bestSelling.colors[0].name+".webp")
+export default function Hero({ bestSelling, openPersonalized, formatPath }: HeroProps) {
+  const image = formatPath("/products/"+bestSelling.category+"/"+bestSelling.name+"/"+bestSelling.colors[0].name+".webp");
   return (
     <motion.section
       id="início"
@@ -48,9 +49,9 @@ export default function Hero({ bestSelling, openPersonalized }: HeroProps) {
 
         <div className="relative flex justify-center">
           <Image
-            src={"/products/"+bestSelling.category.toLowerCase()+"/"+bestSelling.name.toLowerCase()+"/"+bestSelling.colors[0].name+".webp"}
+            src={image}
             alt="Crochê artesanal"
-            width={1200}
+            width={800}
             height={800}
             priority
             className="w-full max-w-145 rounded-4xl object-cover shadow-2xl"

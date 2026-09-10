@@ -76,7 +76,7 @@ export default function Home() {
       {raffleIsOn && numbersOpen && (
         <Numbers rafflePrice={rafflePrice} setNumbersOpen={setNumbersOpen} />
       )}
-      <Hero bestSelling={bestSelling} openPersonalized={() => setPersonalizedOpen(true)} />
+      <Hero bestSelling={bestSelling} openPersonalized={() => setPersonalizedOpen(true)} formatPath={formatPath} />
       <AnimatePresence>
         {openPersonalized && (
           <Personalized
