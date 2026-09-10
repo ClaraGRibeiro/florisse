@@ -5,14 +5,12 @@ import Cuidados from "@/components/Cuidados";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import ModalProduct from "@/components/ModalProduct";
 import Numbers from "@/components/Numbers";
 import Products from "@/components/Products";
 import Raffle from "@/components/Raffle";
 import Sobre from "@/components/Sobre";
 
 import { useCart } from "@/hooks/useCart";
-import { useProductModal } from "@/hooks/useProductModal";
 import { useProducts } from "@/hooks/useProducts";
 import { useScrollTop } from "@/hooks/useScrollTop";
 import { useState } from "react";
@@ -34,16 +32,6 @@ export default function Home() {
   const { showTop, scrollToTop } = useScrollTop();
 
   const { cart, addToCart, removeFromCart } = useCart();
-
-  const {
-    selectedProduct,
-    selectedColor,
-    selectedSize,
-    setSelectedColor,
-    setSelectedSize,
-    openProduct,
-    closeProduct
-  } = useProductModal();
 
   const [openPersonalized, setPersonalizedOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
@@ -92,7 +80,6 @@ export default function Home() {
         filters={categories}
         formatColor={formatColor}
         formatPath={formatPath}
-        openProduct={openProduct}
         categoryCounts={categoryCounts}
       />
 
@@ -101,23 +88,6 @@ export default function Home() {
       <Cuidados />
       <Sobre />
       <Footer />
-
-      <AnimatePresence>
-        {selectedProduct && (
-          <ModalProduct
-           openPersonalized={() => setPersonalizedOpen(true)}
-            product={selectedProduct}
-            selectedColor={selectedColor}
-            selectedSize={selectedSize}
-            setSelectedColor={setSelectedColor}
-            setSelectedSize={setSelectedSize}
-            setSelectedProduct={closeProduct}
-            addToCart={addToCart}
-            formatColor={formatColor}
-            formatPath={formatPath}
-          />
-        )}
-      </AnimatePresence>
 
       {showTop && (
         <button

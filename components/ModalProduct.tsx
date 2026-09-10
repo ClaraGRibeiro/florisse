@@ -136,11 +136,6 @@ export default function ModalProduct({
                   </div>
                 )}
 
-              {currentSize?.no_discount && (
-                <span className="rounded-full bg-red-500 px-3 py-1 text-xs font-bold leading-none text-white shadow-md">
-                  -10%
-                </span>
-              )}
             </div>
           </div>
 
@@ -176,11 +171,10 @@ export default function ModalProduct({
                     <button
                       key={color.name}
                       onClick={() => setSelectedColor(index)}
-                      className={`flex cursor-pointer items-center gap-2 rounded-full border px-3 py-2 text-sm transition-all ${
-                        selectedColor === index
+                      className={`flex cursor-pointer items-center gap-2 rounded-full border px-3 py-2 text-sm transition-all ${selectedColor === index
                           ? "scale-105 border-primary bg-primary text-primary-foreground shadow-lg"
                           : "border-border bg-background hover:border-primary/40"
-                      }`}
+                        }`}
                     >
                       <div
                         className="h-5 w-5 shrink-0 rounded-full border border-white"
@@ -208,13 +202,17 @@ export default function ModalProduct({
                     <button
                       key={size.label}
                       onClick={() => setSelectedSize(index)}
-                      className={`cursor-pointer rounded-full border px-3 py-2 text-sm transition-all ${
-                        selectedSize === index
+                      className={`cursor-pointer rounded-full border px-3 py-2 text-sm transition-all ${selectedSize === index
                           ? "border-primary bg-primary text-white shadow-md"
                           : "border-border bg-background hover:border-primary/40"
-                      }`}
+                        }`}
                     >
                       {size.label}
+                      {size?.no_discount && (
+                        <span className="rounded-full bg-red-500 px-3 py-1 text-xs font-bold leading-none text-white shadow-md">
+                          -10%
+                        </span>
+                      )}
                     </button>
                   ))}
                 </div>
@@ -237,11 +235,10 @@ export default function ModalProduct({
               {/* Comprar */}
               <button
                 onClick={handleAdd}
-                className={`mt-3 flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl py-3 text-sm font-semibold text-primary-foreground shadow-xl transition sm:mt-4 sm:py-4 sm:text-lg ${
-                  added
+                className={`mt-3 flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl py-3 text-sm font-semibold text-primary-foreground shadow-xl transition sm:mt-4 sm:py-4 sm:text-lg ${added
                     ? "scale-[1.02] bg-secondary"
                     : "bg-primary hover:scale-[1.01] hover:bg-primary-hover"
-                }`}
+                  }`}
               >
                 {added ? (
                   <>

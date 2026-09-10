@@ -10,11 +10,6 @@ export function useProductModal() {
 
   const [selectedSize, setSelectedSize] = useState<number>(0);
 
-  const openProduct = (product: Product) => {
-    setSelectedProduct(product);
-    setSelectedColor(0);
-    setSelectedSize(0);
-  };
 
   const closeProduct = () => {
     setSelectedProduct(null);
@@ -33,7 +28,6 @@ export function useProductModal() {
     setSelectedColor,
     setSelectedSize,
 
-    openProduct,
     closeProduct,
     resetSelection,
   };
