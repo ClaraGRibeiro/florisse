@@ -8,6 +8,7 @@ type HeroProps = {
   openPersonalized: () => void;
 };
 export default function Hero({ bestSelling, openPersonalized }: HeroProps) {
+  console.log("/products/"+bestSelling.category.toLowerCase()+"/"+bestSelling.name.toLowerCase()+"/"+bestSelling.colors[0].name+".webp")
   return (
     <motion.section
       id="início"
@@ -47,7 +48,7 @@ export default function Hero({ bestSelling, openPersonalized }: HeroProps) {
 
         <div className="relative flex justify-center">
           <Image
-            src={"/products/"+bestSelling.category+"/"+bestSelling.colors[1]+".webp"}
+            src={"/products/"+bestSelling.category.toLowerCase()+"/"+bestSelling.name.toLowerCase()+"/"+bestSelling.colors[0].name+".webp"}
             alt="Crochê artesanal"
             width={1200}
             height={800}
@@ -57,7 +58,7 @@ export default function Hero({ bestSelling, openPersonalized }: HeroProps) {
 
           <div className="absolute bottom-4 left-4 rounded-2xl bg-card/95 p-4 shadow-xl backdrop-blur-md sm:bottom-6 sm:left-6 sm:p-5">
             <p className="text-xs text-muted sm:text-sm">
-              Mais vendida ({bestSelling.total_sales} un)
+              Mais vendido ({bestSelling.total_sales} un)
             </p>
 
             <h3 className="mt-1 text-lg font-bold sm:text-xl">

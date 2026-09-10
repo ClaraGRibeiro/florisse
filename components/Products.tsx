@@ -50,20 +50,13 @@ function ProductCard({
 
       {/* IMAGEM */}
       <div className="relative h-80 w-full overflow-hidden">
-        <AnimatePresence initial={false} mode="wait">
+        <AnimatePresence initial={false}>
           <motion.div
             key={selectedColor.name}
-            initial={{
-              opacity: 0,
-            }}
-            animate={{
-              opacity: 1,
-            }}
-            exit={{
-              opacity: 0,
-            }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{
-              duration: 0.1,
+              duration: 0.6,
               ease: "easeInOut",
             }}
             className="absolute inset-0"
@@ -85,7 +78,7 @@ function ProductCard({
           product.name &&
           (product.total_sales ?? 0) > 0 && (
             <div className="absolute left-4 top-4 rounded-full bg-accent/90 px-3 py-1 text-xs font-medium text-card shadow-md backdrop-blur">
-              Popular
+              Mais vendido
             </div>
           )}
       </div>
