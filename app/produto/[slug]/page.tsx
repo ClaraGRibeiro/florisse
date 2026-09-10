@@ -115,7 +115,7 @@
                     <div className="grid items-start gap-10 md:grid-cols-[minmax(0,600px)_minmax(320px,1fr)] lg:gap-16">
 
                         {/* IMAGEM */}
-                        <div className="relative w-full max-w-200">
+                        <div className="relative w-full max-w-180">
                             <div className="relative aspect-9/12 w-full overflow-hidden rounded-3xl bg-card-soft">
                                 <Image
                                     key={currentColor.name}
