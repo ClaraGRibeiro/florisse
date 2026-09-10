@@ -46,8 +46,8 @@ export default function ProductPage({ params }: ProductPageProps) {
 
     const product = slug
         ? products.find(
-              (item) => formatPath(item.name) === slug,
-          )
+            (item) => formatPath(item.name) === slug,
+        )
         : undefined;
 
     // ============================================================
@@ -112,8 +112,11 @@ export default function ProductPage({ params }: ProductPageProps) {
         return () => {
             cancelled = true;
         };
-    }, [product, selectedColor]);
-
+    }, [
+        product?.category,
+        product?.name,
+        product?.colors[selectedColor]?.name,
+    ]);
     // ============================================================
     // LOADING
     // ============================================================
@@ -274,7 +277,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                     {/* IMAGEM */}
                     {/* ================================================= */}
 
-                    <div className="relative w-full max-w-180 md:max-w-150">
+                    <div className="relative w-full max-w-180 md:max-w-120">
 
                         <div className="relative aspect-9/12 w-full overflow-hidden rounded-3xl bg-card-soft">
 
@@ -337,14 +340,12 @@ export default function ProductPage({ params }: ProductPageProps) {
                                             onClick={() =>
                                                 setSelectedImage(index)
                                             }
-                                            aria-label={`Ver imagem ${
-                                                index + 1
-                                            }`}
-                                            className={`h-2.5 w-2.5 cursor-pointer rounded-full transition-all ${
-                                                selectedImage === index
+                                            aria-label={`Ver imagem ${index + 1
+                                                }`}
+                                            className={`h-2.5 w-2.5 cursor-pointer rounded-full transition-all ${selectedImage === index
                                                     ? "scale-125 bg-primary"
                                                     : "bg-foreground/40 hover:bg-foreground/70"
-                                            }`}
+                                                }`}
                                         />
                                     ))}
                                 </div>
@@ -437,11 +438,10 @@ export default function ProductPage({ params }: ProductPageProps) {
                                         onClick={() =>
                                             handleColorChange(index)
                                         }
-                                        className={`flex cursor-pointer items-center gap-2 rounded-full border px-3 py-2 text-sm transition-all ${
-                                            selectedColor === index
+                                        className={`flex cursor-pointer items-center gap-2 rounded-full border px-3 py-2 text-sm transition-all ${selectedColor === index
                                                 ? "border-primary bg-primary text-white shadow-md"
                                                 : "border-border bg-background hover:border-primary/40"
-                                        }`}
+                                            }`}
                                     >
                                         <span
                                             className="h-5 w-5 shrink-0 rounded-full border border-white"
@@ -474,11 +474,10 @@ export default function ProductPage({ params }: ProductPageProps) {
                                         onClick={() =>
                                             handleSizeChange(index)
                                         }
-                                        className={`flex cursor-pointer items-center gap-2 rounded-xl border px-3 py-2 text-sm transition-all ${
-                                            selectedSize === index
+                                        className={`flex cursor-pointer items-center gap-2 rounded-xl border px-3 py-2 text-sm transition-all ${selectedSize === index
                                                 ? "border-primary bg-primary text-white shadow-md"
                                                 : "border-border bg-background hover:border-primary/40"
-                                        }`}
+                                            }`}
                                     >
                                         <span>{size.label}</span>
 
@@ -506,11 +505,10 @@ export default function ProductPage({ params }: ProductPageProps) {
                             <button
                                 onClick={handleAdd}
                                 disabled={!imageSrc}
-                                className={`flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl py-4 text-base font-semibold text-primary-foreground shadow-xl transition ${
-                                    added
+                                className={`flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl py-4 text-base font-semibold text-primary-foreground shadow-xl transition ${added
                                         ? "scale-[1.02] bg-secondary"
                                         : "bg-primary hover:scale-[1.01] hover:bg-primary-hover"
-                                } disabled:cursor-not-allowed disabled:opacity-50`}
+                                    } disabled:cursor-not-allowed disabled:opacity-50`}
                             >
                                 {added ? (
                                     <>
