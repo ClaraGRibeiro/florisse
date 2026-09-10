@@ -23,7 +23,6 @@ type ModalProductProps = {
   setSelectedColor: Dispatch<SetStateAction<number>>;
   setSelectedSize: Dispatch<SetStateAction<number>>;
   setSelectedProduct: Dispatch<SetStateAction<Product | null>>;
-
   addToCart: (params: AddToCartParams) => void;
   formatColor: (color: string) => string;
   formatPath: (name: string) => string;
@@ -43,26 +42,12 @@ export default function ModalProduct({
 }: ModalProductProps) {
   const [added, setAdded] = useState(false);
 
-  const handleAdd = () => {
-    addToCart({
-      id: crypto.randomUUID(),
-      name: product.name,
-      color: product.colors[selectedColor].name,
-      size: product.sizes[selectedSize].label,
-      price: currentSize.price,
-      no_discount: currentSize.no_discount,
-      image: imageSrc,
-      quantity: 1,
-    });
-
-    setAdded(true);
-
-    setTimeout(() => setAdded(false), 1200);
-  };
   const currentColor = product.colors[selectedColor];
   const currentSize = product.sizes[selectedSize];
 
-  const imageSrc = `/products/${formatPath(product.category)}/${formatPath(product.name)}/${currentColor.name}.webp`;
+  const imageSrc = `/products/${formatPath(product.category)}/${formatPath(
+    product.name,
+  )}/${currentColor.name}.webp`;
 
   const getGradient = (colors: string[]) => {
     if (colors.length === 1) return colors[0];
@@ -80,12 +65,28 @@ export default function ModalProduct({
     return `linear-gradient(135deg, ${colors.join(", ")})`;
   };
 
+  const handleAdd = () => {
+    addToCart({
+      id: crypto.randomUUID(),
+      name: product.name,
+      color: currentColor.name,
+      size: currentSize.label,
+      price: currentSize.price,
+      no_discount: currentSize.no_discount,
+      image: imageSrc,
+      quantity: 1,
+    });
+
+    setAdded(true);
+
+    setTimeout(() => setAdded(false), 1200);
+  };
+
   const closeModal = () => setSelectedProduct(null);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5">
-
-      {/* Backdrop Padronizado (Fundo escuro com blur) */}
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-5">
+      {/* Backdrop */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -94,56 +95,65 @@ export default function ModalProduct({
         className="absolute inset-0 bg-black/60 backdrop-blur-sm"
       />
 
-      {/* Caixa do Modal Padronizada */}
+      {/* Modal */}
       <motion.div
         initial={{ opacity: 0, scale: 0.95, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: 20 }}
         transition={{ duration: 0.3 }}
-        className="relative max-h-[95vh] w-full max-w-5xl overflow-y-auto rounded-4xl bg-card shadow-2xl z-10"
+        className="relative z-10 flex max-h-[96vh] w-full max-w-5xl flex-col overflow-y-auto rounded-3xl bg-card shadow-2xl sm:rounded-4xl"
       >
-        {/* Botão de Fechar */}
+        {/* Botão fechar */}
         <button
           onClick={closeModal}
-          className="absolute top-4 right-4 z-20 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-background/90 text-lg shadow-md backdrop-blur transition hover:scale-105"
+          className="absolute right-3 top-3 z-30 flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-background/90 text-base shadow-md backdrop-blur transition hover:scale-105 sm:right-4 sm:top-4 sm:h-10 sm:w-10 sm:text-lg"
         >
           ✕
         </button>
 
         <div className="grid md:grid-cols-2">
-          {/* Coluna da Imagem */}
+          {/* IMAGEM */}
           <div className="relative bg-card-soft">
             <Image
               key={currentColor.name}
               src={imageSrc}
-              alt={product.name}
+              alt={`${product.name} - ${formatColor(currentColor.name)}`}
               width={700}
               height={900}
               priority
               sizes="(max-width: 768px) 100vw, 50vw"
-              className="h-65 w-full object-cover transition-opacity duration-200 sm:h-80 md:h-125 lg:h-162.5"
+              className="h-[260px] w-full object-cover sm:h-80 md:h-125 lg:h-162.5"
             />
-            {currentSize?.sales !== undefined && currentSize?.sales > 0 && (
-              <div className="absolute top-4 left-4 rounded-full bg-background/90 px-3 py-1 text-xs font-medium shadow-md backdrop-blur">
-                {currentSize?.sales > 1 ? `${currentSize.sales} vendidos` : `${currentSize.sales} vendido`}
-              </div>
-            )}
-            {currentSize?.no_discount && (
-                <span className="absolute top-4 left-4 rounded-full bg-red-500 px-3 py-1 text-sm font-bold leading-none text-white shadow-md">
+
+            {/* Badges */}
+            <div className="absolute left-3 top-3 flex flex-wrap gap-2 sm:left-4 sm:top-4">
+              {currentSize?.sales !== undefined &&
+                currentSize.sales > 0 && (
+                  <div className="rounded-full bg-background/90 px-3 py-1 text-xs font-medium shadow-md backdrop-blur">
+                    {currentSize.sales > 1
+                      ? `${currentSize.sales} vendidos`
+                      : `${currentSize.sales} vendido`}
+                  </div>
+                )}
+
+              {currentSize?.no_discount && (
+                <span className="rounded-full bg-red-500 px-3 py-1 text-xs font-bold leading-none text-white shadow-md">
                   -10%
                 </span>
-            )}
-            
+              )}
+            </div>
           </div>
 
-          {/* Coluna das Informações */}
-          <div className="flex flex-col justify-between p-5 sm:p-7 md:p-8">
+          {/* INFORMAÇÕES */}
+          <div className="flex flex-col justify-between p-4 sm:p-7 md:p-8">
             <div>
-              <h2 className="text-2xl font-bold leading-tight sm:text-3xl md:text-4xl">
+              {/* Nome */}
+              <h2 className="pr-10 text-2xl font-bold leading-tight sm:text-3xl md:pr-0 md:text-4xl">
                 {product.name}
               </h2>
 
-              <div className="mt-5 flex flex-wrap items-center gap-3">
+              {/* Preço */}
+              <div className="mt-3 flex flex-wrap items-center gap-2 sm:mt-5 sm:gap-3">
                 <span className="text-2xl font-bold text-primary sm:text-3xl">
                   R$ {currentSize.price.toFixed(2)}
                 </span>
@@ -155,22 +165,25 @@ export default function ModalProduct({
                 )}
               </div>
 
-              {/* Seleção de Cores */}
-              <div className="mt-7">
-                <p className="mb-3 text-sm font-medium">Escolha a cor:</p>
+              {/* CORES */}
+              <div className="mt-5 sm:mt-7">
+                <p className="mb-2 text-sm font-medium sm:mb-3">
+                  Escolha a cor:
+                </p>
 
                 <div className="flex flex-wrap gap-2">
                   {product.colors.map((color, index) => (
                     <button
                       key={color.name}
                       onClick={() => setSelectedColor(index)}
-                      className={`flex cursor-pointer items-center gap-2 rounded-full border px-3 py-2 text-sm transition-all ${selectedColor === index
-                        ? "scale-105 border-primary bg-primary text-primary-foreground shadow-lg"
-                        : "border-border bg-background hover:border-primary/40"
-                        }`}
+                      className={`flex cursor-pointer items-center gap-2 rounded-full border px-3 py-2 text-sm transition-all ${
+                        selectedColor === index
+                          ? "scale-105 border-primary bg-primary text-primary-foreground shadow-lg"
+                          : "border-border bg-background hover:border-primary/40"
+                      }`}
                     >
                       <div
-                        className="h-6 w-6 rounded-full border border-white sm:h-5 sm:w-5"
+                        className="h-5 w-5 shrink-0 rounded-full border border-white"
                         style={{
                           background: getGradient(color.hex),
                         }}
@@ -184,19 +197,22 @@ export default function ModalProduct({
                 </div>
               </div>
 
-              {/* Seleção de Tamanhos */}
-              <div className="mt-7">
-                <p className="mb-3 text-sm font-medium">Escolha o tamanho:</p>
+              {/* TAMANHOS */}
+              <div className="mt-5 sm:mt-7">
+                <p className="mb-2 text-sm font-medium sm:mb-3">
+                  Escolha o tamanho:
+                </p>
 
                 <div className="flex flex-wrap gap-2">
                   {product.sizes.map((size, index) => (
                     <button
                       key={size.label}
                       onClick={() => setSelectedSize(index)}
-                      className={`cursor-pointer rounded-full border px-3 py-2 text-sm transition-all ${selectedSize === index
-                        ? "border-primary bg-primary text-white shadow-md"
-                        : "border-border bg-background hover:border-primary/40"
-                        }`}
+                      className={`cursor-pointer rounded-full border px-3 py-2 text-sm transition-all ${
+                        selectedSize === index
+                          ? "border-primary bg-primary text-white shadow-md"
+                          : "border-border bg-background hover:border-primary/40"
+                      }`}
                     >
                       {size.label}
                     </button>
@@ -204,23 +220,28 @@ export default function ModalProduct({
                 </div>
               </div>
             </div>
-            {/* Botão Personalizar Pedido */}
-            <div>
 
+            {/* AÇÕES */}
+            <div className="mt-6 sm:mt-8">
+              {/* Personalizar */}
               <button
-                onClick={() => { closeModal(); openPersonalized(); }}
-                className="mt-4 cursor-pointer text-sm text-muted underline-offset-4 transition hover:text-primary hover:underline"
+                onClick={() => {
+                  closeModal();
+                  openPersonalized();
+                }}
+                className="w-full cursor-pointer text-center text-sm text-muted underline-offset-4 transition hover:text-primary hover:underline sm:text-left"
               >
                 Não encontrou o que procura? Personalize seu pedido.
               </button>
 
-              {/* Botão de Compra */}
+              {/* Comprar */}
               <button
                 onClick={handleAdd}
-                className={`cursor-pointer flex justify-center gap-2 items-center mt-4 w-full rounded-2xl py-3 text-primary-foreground text-sm font-semibold shadow-xl transition sm:py-4 sm:text-lg ${added
-                  ? "bg-secondary scale-105"
-                  : "bg-primary hover:scale-[1.01] hover:bg-primary-hover"
-                  }`}
+                className={`mt-3 flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl py-3 text-sm font-semibold text-primary-foreground shadow-xl transition sm:mt-4 sm:py-4 sm:text-lg ${
+                  added
+                    ? "scale-[1.02] bg-secondary"
+                    : "bg-primary hover:scale-[1.01] hover:bg-primary-hover"
+                }`}
               >
                 {added ? (
                   <>

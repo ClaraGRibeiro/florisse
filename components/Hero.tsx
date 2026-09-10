@@ -9,7 +9,7 @@ type HeroProps = {
   formatPath: (name: string) => string;
 };
 export default function Hero({ bestSelling, openPersonalized, formatPath }: HeroProps) {
-  const image = formatPath("/products/" + bestSelling.category + "/" + bestSelling.name + "/" + bestSelling.colors[0].name + ".webp");
+  const imageSrc = `/products/${formatPath(bestSelling.category)}/${formatPath(bestSelling.name)}/${bestSelling.colors[0].name}.webp`;
   return (
     <motion.section
       id="início"
@@ -50,7 +50,7 @@ export default function Hero({ bestSelling, openPersonalized, formatPath }: Hero
         <div className="relative flex justify-center">
           <div className="relative w-full max-w-112.5">
             <Image
-              src={image}
+              src={imageSrc}
               alt="Crochê artesanal"
               width={600}
               height={600}
