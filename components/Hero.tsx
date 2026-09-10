@@ -47,7 +47,7 @@ export default function Hero({ bestSelling, openPersonalized }: HeroProps) {
 
         <div className="relative flex justify-center">
           <Image
-            src="/hero.webp"
+            src={"/products/"+bestSelling.category+"/"+bestSelling.colors[1]+".webp"}
             alt="Crochê artesanal"
             width={1200}
             height={800}
