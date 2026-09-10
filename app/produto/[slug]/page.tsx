@@ -116,7 +116,7 @@ export default function ProductPage({ params }: ProductPageProps) {
 
                     {/* IMAGEM */}
                     <div className="relative w-full max-w-[800px]">
-                        <div className="relative aspect-9/16 w-full overflow-hidden rounded-3xl bg-card-soft">
+                        <div className="relative aspect-9/12 w-full overflow-hidden rounded-3xl bg-card-soft">
                             <Image
                                 key={currentColor.name}
                                 src={imageSrc}
