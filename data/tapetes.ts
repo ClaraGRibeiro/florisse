@@ -258,7 +258,7 @@ const tapetes = [
         colors: ["bordo-militar"],
     },
     {
-        name: "Tapete Hexágonos",
+        name: "Tapete Hexagonos",
         category: "Tapetes",
         sizes: [
             {

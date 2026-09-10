@@ -102,7 +102,7 @@ export default function ProductPage({ params }: ProductPageProps) {
     return (
         <main className="min-h-screen bg-background text-foreground">
             <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-10">
-{imageSrc}
+                {imageSrc}
                 {/* VOLTAR */}
                 <button
                     onClick={() => router.back()}
@@ -191,8 +191,8 @@ export default function ProductPage({ params }: ProductPageProps) {
                                         key={color.name}
                                         onClick={() => setSelectedColor(index)}
                                         className={`flex cursor-pointer items-center gap-2 rounded-full border px-3 py-2 text-sm transition-all ${selectedColor === index
-                                                ? "border-primary bg-primary text-white shadow-md"
-                                                : "border-border bg-background hover:border-primary/40"
+                                            ? "border-primary bg-primary text-white shadow-md"
+                                            : "border-border bg-background hover:border-primary/40"
                                             }`}
                                     >
                                         <span
@@ -220,8 +220,8 @@ export default function ProductPage({ params }: ProductPageProps) {
                                         key={size.label}
                                         onClick={() => setSelectedSize(index)}
                                         className={`flex cursor-pointer items-center gap-2 rounded-xl border px-3 py-2 text-sm transition-all ${selectedSize === index
-                                                ? "border-primary bg-primary text-white shadow-md"
-                                                : "border-border bg-background hover:border-primary/40"
+                                            ? "border-primary bg-primary text-white shadow-md"
+                                            : "border-border bg-background hover:border-primary/40"
                                             }`}
                                     >
                                         <span>{size.label}</span>
@@ -247,8 +247,8 @@ export default function ProductPage({ params }: ProductPageProps) {
                             <button
                                 onClick={handleAdd}
                                 className={`flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl py-4 text-base font-semibold text-primary-foreground shadow-xl transition ${added
-                                        ? "scale-[1.02] bg-secondary"
-                                        : "bg-primary hover:scale-[1.01] hover:bg-primary-hover"
+                                    ? "scale-[1.02] bg-secondary"
+                                    : "bg-primary hover:scale-[1.01] hover:bg-primary-hover"
                                     }`}
                             >
                                 {added ? (
