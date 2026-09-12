@@ -49,7 +49,7 @@ Total do pedido: R$ ${total.toFixed(2)}
       "_blank",
     );
   };
-  
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <div className="mx-auto flex w-full max-w-4xl flex-col px-4 py-8 sm:px-6 md:py-12">
@@ -78,10 +78,11 @@ Total do pedido: R$ ${total.toFixed(2)}
             <h2 className="text-2xl font-bold">
               Seu carrinho está vazio
             </h2>
-
-            <p className="mt-2 max-w-md text-muted">
-              Adicione peças artesanais para montar seu pedido 💖
-            </p>
+            <Link href={`/#produtos`} className="block">
+              <p className="mt-2 max-w-md text-muted">
+                <span className="underline">Adicione</span> peças artesanais para montar seu pedido 💖
+              </p>
+            </Link>
           </motion.div>
         ) : (
           <>
@@ -121,10 +122,12 @@ Total do pedido: R$ ${total.toFixed(2)}
                           <div className="mt-2 space-y-1">
                             <p className="text-sm text-muted">
                               Cor: {formatColor(item.color)}
+                              {/* quero que dê para mudar a cor */}
                             </p>
 
                             <p className="text-sm text-muted">
                               Tamanho: {item.size}
+                              {/* quero que dê para mudar o tamanho */}
                             </p>
                           </div>
                         </div>
@@ -133,6 +136,7 @@ Total do pedido: R$ ${total.toFixed(2)}
                         <div className="text-right">
                           <p className="text-sm text-muted">
                             {item.quantity}x
+                            {/* quero que dê para mudar a quantidade */}
                           </p>
 
                           <p className="whitespace-nowrap text-lg font-bold text-primary">
