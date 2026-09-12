@@ -162,6 +162,38 @@ const tapetes = [
         colors: ["alecrim-militar", "cru-marrom-bege", "limao-cru", "cru-militar-alecrim", "bege-alecrim-cru"],
     },
     {
+        name: "Tapete Aline",
+        category: "Tapetes",
+        sizes: [
+            {
+                label: "70x50cm",
+                price: 65,
+                sales: 6,
+            },
+            {
+                label: "100x50cm",
+                price: 130,
+                sales: 5,
+            },
+            {
+                label: "120x50cm",
+                price: 170,
+                sales: 1,
+            },
+            {
+                label: "2 (100x50cm)",
+                price: (120 + 120) * discount,
+                no_discount: (120 + 120),
+            },
+            {
+                label: "2 (70x50cm) e 1 (120x50cm)",
+                price: (65 + 65 + 170) * discount,
+                no_discount: (65 + 65 + 170),
+            },
+        ],
+        colors: ["telha-bege"],
+    },
+    {
         name: "Tapete Gisele",
         category: "Tapetes",
         sizes: [
