@@ -131,7 +131,7 @@ export default function ProductPage({ params }: ProductPageProps) {
 
     if (!product) {
         return (
-            <main className="flex min-h-screen items-center justify-center bg-background">
+            <div className="flex min-h-screen items-center justify-center bg-background">
                 <div className="text-center">
                     <h1 className="text-3xl font-bold">
                         Produto não encontrado
@@ -144,7 +144,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                         Voltar para produtos
                     </button>
                 </div>
-            </main>
+            </div>
         );
     }
 
@@ -252,7 +252,7 @@ export default function ProductPage({ params }: ProductPageProps) {
     };
 
     return (
-        <main className="min-h-screen bg-background text-foreground">
+        <div className="min-h-screen bg-background text-foreground">
             <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-10">
 
                 {/* ================================================= */}
@@ -523,6 +523,6 @@ export default function ProductPage({ params }: ProductPageProps) {
                     </div>
                 </div>
             </div>
-        </main>
+        </div>
     );
 }

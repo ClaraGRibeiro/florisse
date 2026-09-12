@@ -1,25 +1,22 @@
 "use client";
 
-import Cart from "@/components/Cart";
 import Cuidados from "@/components/Cuidados";
 import Footer from "@/components/Footer";
-import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Numbers from "@/components/Numbers";
 import Products from "@/components/Products";
 import Raffle from "@/components/Raffle";
 import Sobre from "@/components/Sobre";
 
-import { useCart } from "@/hooks/useCart";
 import { useProducts } from "@/hooks/useProducts";
 import { useScrollTop } from "@/hooks/useScrollTop";
 import { useState } from "react";
 
-import { formatColor, formatPath } from "@/utils/format";
-import { FaArrowUp } from "react-icons/fa";
 import Cores from "@/components/Cores";
-import { AnimatePresence } from "framer-motion";
 import Personalized from "@/components/Personalized";
+import { formatColor, formatPath } from "@/utils/format";
+import { AnimatePresence } from "framer-motion";
+import { FaArrowUp, FaWhatsapp } from "react-icons/fa";
 
 export default function Home() {
   const rafflePrice = 5;
@@ -31,29 +28,10 @@ export default function Home() {
   const { products, bestSelling, bestSellingByCategory, categories, categoryCounts, productsFromCategory } = useProducts();
   const { showTop, scrollToTop } = useScrollTop();
 
-  const { cart, addToCart, removeFromCart } = useCart();
-
   const [openPersonalized, setPersonalizedOpen] = useState(false);
-  const [cartOpen, setCartOpen] = useState(false);
 
   return (
-    <main className="min-h-screen bg-background text-foreground">
-      <Header
-        cartLength={cart.length}
-        openCart={() => setCartOpen(true)}
-        raffleIsOn={raffleIsOn}
-        openRaffle={() => setRaffleOpen(true)}
-      />
-      <AnimatePresence>
-        {cartOpen && (
-          <Cart
-            cart={cart}
-            setCartOpen={setCartOpen}
-            removeFromCart={removeFromCart}
-            formatColor={formatColor}
-          />
-        )}
-      </AnimatePresence>
+    <div className="min-h-screen bg-background text-foreground">
       {raffleIsOn && raffleOpen && (
         <Raffle
           setRaffleOpen={setRaffleOpen}
@@ -97,6 +75,15 @@ export default function Home() {
           <FaArrowUp size={18} />
         </button>
       )}
-    </main>
+
+      {showTop && (
+        <button
+          onClick={() => window.open(`https://wa.me/5538992030710`, "_blank")}
+          className="cursor-pointer fixed bottom-6 left-6 flex h-12 w-12 items-center justify-center rounded-full bg-primary text-white shadow-lg transition hover:scale-105"
+        >
+          <FaWhatsapp size={18} />
+        </button>
+      )}
+    </div>
   );
 }

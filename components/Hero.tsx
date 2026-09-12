@@ -54,7 +54,7 @@ export default function Hero({ bestSelling, openPersonalized, formatPath }: Hero
             className="block w-full max-w-112.5"
           >
             <div
-              className="relative w-full overflow-hidden rounded-4xl"
+              className="relative w-full overflow-hidden rounded-4xl hover:scale-105 duration-300"
               style={{ aspectRatio: "1 / 1" }}
             >
               <Image
