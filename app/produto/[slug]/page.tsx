@@ -434,10 +434,10 @@ export default function ProductPage({ params }: ProductPageProps) {
                                     key={imageSrc}
                                     src={imageSrc}
                                     alt={`${product.name} - ${isOtherColor
-                                            ? "cor personalizada"
-                                            : formatColor(
-                                                currentColor.name,
-                                            )
+                                        ? "cor personalizada"
+                                        : formatColor(
+                                            currentColor.name,
+                                        )
                                         }`}
                                     fill
                                     priority
@@ -500,9 +500,9 @@ export default function ProductPage({ params }: ProductPageProps) {
                                                     1
                                                     }`}
                                                 className={`h-2.5 w-2.5 cursor-pointer rounded-full transition-all ${selectedImage ===
-                                                        index
-                                                        ? "scale-125 bg-primary"
-                                                        : "bg-foreground/40 hover:bg-foreground/70"
+                                                    index
+                                                    ? "scale-125 bg-primary"
+                                                    : "bg-foreground/40 hover:bg-foreground/70"
                                                     }`}
                                             />
                                         ),
@@ -626,10 +626,10 @@ export default function ProductPage({ params }: ProductPageProps) {
                                                 )
                                             }
                                             className={`flex cursor-pointer items-center gap-2 rounded-full border px-3 py-2 text-sm transition-all ${!isOtherColor &&
-                                                    selectedColor ===
-                                                    index
-                                                    ? "border-primary bg-primary text-white shadow-md"
-                                                    : "border-border bg-background hover:border-primary/40"
+                                                selectedColor ===
+                                                index
+                                                ? "border-primary bg-primary text-white shadow-md"
+                                                : "border-border bg-background hover:border-primary/40"
                                                 }`}
                                         >
                                             <span
@@ -659,8 +659,8 @@ export default function ProductPage({ params }: ProductPageProps) {
                                         handleOtherColorClick
                                     }
                                     className={`flex cursor-pointer items-center gap-2 rounded-full border px-3 py-2 text-sm transition-all ${isOtherColor
-                                            ? "border-primary bg-primary text-white shadow-md"
-                                            : "border-border bg-background hover:border-primary/40"
+                                        ? "border-primary bg-primary text-white shadow-md"
+                                        : "border-border bg-background hover:border-primary/40"
                                         }`}
                                 >
                                     <span className="h-5 w-5 shrink-0 rounded-full border border-white bg-[#fbf6ee]" />
@@ -756,8 +756,8 @@ export default function ProductPage({ params }: ProductPageProps) {
                                                                         )
                                                                     }
                                                                     className={`flex w-full cursor-pointer items-center gap-3 rounded-xl px-3 py-2 text-left text-sm transition ${isSelected
-                                                                            ? "bg-primary text-white"
-                                                                            : "hover:bg-primary/10"
+                                                                        ? "bg-primary text-white"
+                                                                        : "hover:bg-primary/10"
                                                                         }`}
                                                                 >
                                                                     {/* COR */}
@@ -900,9 +900,9 @@ export default function ProductPage({ params }: ProductPageProps) {
                                                 )
                                             }
                                             className={`flex cursor-pointer items-center gap-2 rounded-xl border px-3 py-2 text-sm transition-all ${selectedSize ===
-                                                    index
-                                                    ? "border-primary bg-primary text-white shadow-md"
-                                                    : "border-border bg-background hover:border-primary/40"
+                                                index
+                                                ? "border-primary bg-primary text-white shadow-md"
+                                                : "border-border bg-background hover:border-primary/40"
                                                 }`}
                                         >
                                             <span>
@@ -934,6 +934,9 @@ export default function ProductPage({ params }: ProductPageProps) {
                         {/* ================================================= */}
 
                         <div className="mt-8">
+                            <p className="my-2 text-xs text-muted">
+                                Personalizações de cor ou tamanho podem alterar o valor do produto.
+                            </p>
                             <button
                                 type="button"
                                 onClick={handleAdd}
@@ -944,8 +947,8 @@ export default function ProductPage({ params }: ProductPageProps) {
                                         0)
                                 }
                                 className={`flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl py-4 text-base font-semibold text-primary-foreground shadow-xl transition ${added
-                                        ? "scale-[1.02] bg-secondary"
-                                        : "bg-primary hover:scale-[1.01] hover:bg-primary-hover"
+                                    ? "scale-[1.02] bg-secondary"
+                                    : "bg-primary hover:scale-[1.01] hover:bg-primary-hover"
                                     } disabled:cursor-not-allowed disabled:opacity-50`}
                             >
                                 {added ? (
