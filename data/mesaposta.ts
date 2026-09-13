@@ -8,7 +8,7 @@ const tapetes = [
             {
                 label: "37cm",
                 price: 30,
-                sales: 6,
+                sales: 7,
             },
             {
                 label: "6 (37cm) + 1 (100x25cm)",
@@ -17,6 +17,23 @@ const tapetes = [
             },
         ],
         colors: ["malva", "marrom"],
+    },
+    {
+        name: "Sousplat Encanto",
+        category: "Mesa Posta",
+        sizes: [
+            {
+                label: "37cm",
+                price: 30,
+                sales: 0,
+            },
+            {
+                label: "6 (37cm) + 1 (100x25cm)",
+                price: (30+30+30+30+30+30+70) * discount,
+                no_discount: (30+30+30+30+30+30+70),
+            },
+        ],
+        colors: ["cinza"],
     },
     {
         name: "Trilho de Mesa Tradicional",

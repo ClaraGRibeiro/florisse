@@ -177,7 +177,7 @@ export default function ProductPage({ params }: ProductPageProps) {
 
                     <button
                         type="button"
-                        onClick={() => router.push("/")}
+                        onClick={() => router.push("/#produtos")}
                         className="mt-6 cursor-pointer rounded-2xl bg-primary px-6 py-3 font-semibold text-white"
                     >
                         Voltar para produtos
