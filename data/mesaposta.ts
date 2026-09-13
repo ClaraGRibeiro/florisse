@@ -28,9 +28,9 @@ const tapetes = [
                 sales: 0,
             },
             {
-                label: "6 (37cm) + 1 (100x25cm)",
-                price: (30+30+30+30+30+30+70) * discount,
-                no_discount: (30+30+30+30+30+30+70),
+                label: "6 (37cm)",
+                price: (30+30+30+30+30+30) * discount,
+                no_discount: (30+30+30+30+30+30),
             },
         ],
         colors: ["cinza"],
