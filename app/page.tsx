@@ -69,6 +69,7 @@ export default function Home() {
 
       {showTop && (
         <button
+          title="Voltar para o início"
           onClick={scrollToTop}
           className="cursor-pointer fixed bottom-6 right-6 flex h-12 w-12 items-center justify-center rounded-full bg-primary text-white shadow-lg transition hover:scale-105"
         >
@@ -78,6 +79,7 @@ export default function Home() {
 
       {showTop && (
         <button
+          title="Contatar pelo WhatsApp"
           onClick={() => window.open(`https://wa.me/5538992030710`, "_blank")}
           className="cursor-pointer fixed bottom-6 left-6 flex h-12 w-12 items-center justify-center rounded-full bg-primary text-white shadow-lg transition hover:scale-105"
         >

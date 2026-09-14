@@ -1,10 +1,17 @@
+
 "use client";
 
 import colorsData from "@/data/colors.json";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { FaArrowLeft, FaCheck, FaSearch, FaTimes } from "react-icons/fa";
+import {
+    FaArrowLeft,
+    FaCheck,
+    FaSearch,
+    FaTimes,
+} from "react-icons/fa";
+import { FaShareFromSquare } from "react-icons/fa6";
 
 import { useProducts } from "@/hooks/useProducts";
 import { useCart } from "@/hooks/useCart";
@@ -54,7 +61,6 @@ export default function ProductPage({ params }: ProductPageProps) {
     // OUTRA COR
     // ============================================================
 
-    // Indica se o cliente está escolhendo uma cor personalizada
     const [isOtherColor, setIsOtherColor] = useState(false);
 
     // Input de busca
@@ -80,8 +86,8 @@ export default function ProductPage({ params }: ProductPageProps) {
 
     const product = slug
         ? products.find(
-            (item) => formatPath(item.name) === slug,
-        )
+              (item) => formatPath(item.name) === slug,
+          )
         : undefined;
 
     // ============================================================
@@ -127,8 +133,6 @@ export default function ProductPage({ params }: ProductPageProps) {
                     },
                 );
 
-                // Primeiro arquivo que não existe.
-                // Para a busca.
                 if (!exists) {
                     break;
                 }
@@ -197,6 +201,132 @@ export default function ProductPage({ params }: ProductPageProps) {
     const imageSrc = images[selectedImage];
 
     // ============================================================
+    // COMPARTILHAR PRODUTO
+    // ============================================================
+
+    const compartilharProduto = async () => {
+        try {
+            const url = window.location.href;
+
+            // Se não houver imagem, compartilha somente o link
+            if (!imageSrc) {
+                if (navigator.share) {
+                    await navigator.share({
+                        title: product.name,
+                        text: `Olha essa peça linda da Florisse! 🧶✨`,
+                        url,
+                    });
+
+                    return;
+                }
+
+                window.open(
+                    `https://wa.me/?text=${encodeURIComponent(
+                        `Olha essa peça linda da Florisse! 🧶✨\n\n${url}`,
+                    )}`,
+                    "_blank",
+                );
+
+                return;
+            }
+
+            // ====================================================
+            // BAIXA A IMAGEM ATUAL
+            // ====================================================
+
+            const response = await fetch(imageSrc);
+
+            if (!response.ok) {
+                throw new Error(
+                    "Não foi possível carregar a imagem.",
+                );
+            }
+
+            const blob = await response.blob();
+
+            // ====================================================
+            // TRANSFORMA A IMAGEM EM ARQUIVO
+            // ====================================================
+
+            const extension =
+                blob.type === "image/png"
+                    ? "png"
+                    : "webp";
+
+            const file = new File(
+                [blob],
+                `${formatPath(product.name)}.${extension}`,
+                {
+                    type: blob.type || "image/webp",
+                },
+            );
+
+            // ====================================================
+            // COMPARTILHAMENTO NATIVO
+            // ====================================================
+
+            const shareData = {
+                title: product.name,
+                text: `Olha essa peça linda da Florisse! 🧶✨`,
+                url,
+                files: [file],
+            };
+
+            // Verifica se o dispositivo suporta
+            // compartilhamento de arquivos
+            if (
+                navigator.share &&
+                navigator.canShare &&
+                navigator.canShare({
+                    files: [file],
+                })
+            ) {
+                await navigator.share(shareData);
+
+                return;
+            }
+
+            // ====================================================
+            // FALLBACK
+            // ====================================================
+
+            if (navigator.share) {
+                await navigator.share({
+                    title: product.name,
+                    text: `Olha essa peça linda da Florisse! 🧶✨\n\n${url}`,
+                    url,
+                });
+
+                return;
+            }
+
+            // ====================================================
+            // ÚLTIMO FALLBACK: WHATSAPP
+            // ====================================================
+
+            window.open(
+                `https://wa.me/?text=${encodeURIComponent(
+                    `Olha essa peça linda da Florisse! 🧶✨\n\n${url}`,
+                )}`,
+                "_blank",
+            );
+        } catch (error) {
+            // Fechar o menu de compartilhamento não é um erro
+            if (
+                error instanceof Error &&
+                error.name === "AbortError"
+            ) {
+                return;
+            }
+
+            console.error(
+                "Erro ao compartilhar produto:",
+                error,
+            );
+        }
+    };
+
+    // ============================================================
     // GRADIENTE DAS CORES
     // ============================================================
 
@@ -226,19 +356,14 @@ export default function ProductPage({ params }: ProductPageProps) {
     // ============================================================
 
     const handleColorChange = (index: number) => {
-        // Sai do modo "Outra"
         setIsOtherColor(false);
 
-        // Limpa as cores personalizadas
         setSelectedOtherColors([]);
 
-        // Limpa o input
         setColorSearch("");
 
-        // Seleciona a cor que possui foto
         setSelectedColor(index);
 
-        // Volta para a primeira imagem
         setSelectedImage(0);
     };
 
@@ -248,12 +373,6 @@ export default function ProductPage({ params }: ProductPageProps) {
 
     const handleOtherColorClick = () => {
         setIsOtherColor(true);
-
-        // Não alteramos selectedColor.
-        // Não alteramos selectedImage.
-        //
-        // Dessa forma, a imagem que já estava sendo exibida
-        // continua na tela.
     };
 
     // ============================================================
@@ -282,18 +401,15 @@ export default function ProductPage({ params }: ProductPageProps) {
         colorName: string,
     ) => {
         setSelectedOtherColors((prev) => {
-            // Se já está selecionada, remove
             if (prev.includes(colorName)) {
                 return prev.filter(
                     (color) => color !== colorName,
                 );
             }
 
-            // Caso contrário, adiciona
             return [...prev, colorName];
         });
 
-        // Limpa o campo depois da seleção
         setColorSearch("");
     };
 
@@ -362,13 +478,10 @@ export default function ProductPage({ params }: ProductPageProps) {
     // ============================================================
 
     const handleAdd = () => {
-        // Não permite adicionar sem uma imagem
         if (!imageSrc) {
             return;
         }
 
-        // Se estiver em "Outra", precisa ter pelo menos
-        // uma cor escolhida.
         if (
             isOtherColor &&
             selectedOtherColors.length === 0
@@ -399,17 +512,29 @@ export default function ProductPage({ params }: ProductPageProps) {
             <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-10">
 
                 {/* ================================================= */}
-                {/* VOLTAR */}
+                {/* VOLTAR / COMPARTILHAR */}
                 {/* ================================================= */}
 
-                <button
-                    type="button"
-                    onClick={() => router.back()}
-                    className="mb-8 flex cursor-pointer items-center gap-2 text-sm font-medium text-muted transition hover:text-primary"
-                >
-                    <FaArrowLeft size={13} />
-                    Voltar
-                </button>
+                <div className="flex justify-between align-middle">
+
+                    <button
+                        type="button"
+                        onClick={() => router.back()}
+                        className="mb-8 flex cursor-pointer items-center gap-2 text-sm font-medium text-muted transition hover:text-primary"
+                    >
+                        <FaArrowLeft size={13} />
+                        Voltar
+                    </button>
+
+                    <button
+                        type="button"
+                        title="Compartilhar"
+                        onClick={compartilharProduto}
+                        className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-primary text-white shadow-lg transition hover:scale-105"
+                    >
+                        <FaShareFromSquare size={18} />
+                    </button>
+                </div>
 
                 {/* ================================================= */}
                 {/* PRODUTO */}
@@ -433,12 +558,13 @@ export default function ProductPage({ params }: ProductPageProps) {
                                 <Image
                                     key={imageSrc}
                                     src={imageSrc}
-                                    alt={`${product.name} - ${isOtherColor
-                                        ? "cor personalizada"
-                                        : formatColor(
-                                            currentColor.name,
-                                        )
-                                        }`}
+                                    alt={`${product.name} - ${
+                                        isOtherColor
+                                            ? "cor personalizada"
+                                            : formatColor(
+                                                  currentColor.name,
+                                              )
+                                    }`}
                                     fill
                                     priority
                                     sizes="(max-width: 768px) 100vw, 600px"
@@ -453,9 +579,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                             {images.length > 1 && (
                                 <button
                                     type="button"
-                                    onClick={
-                                        previousImage
-                                    }
+                                    onClick={previousImage}
                                     aria-label="Imagem anterior"
                                     className="absolute left-3 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-background/80 text-2xl text-foreground shadow-md backdrop-blur transition hover:scale-105 hover:bg-background"
                                 >
@@ -487,23 +611,22 @@ export default function ProductPage({ params }: ProductPageProps) {
                                     {images.map(
                                         (_, index) => (
                                             <button
-                                                key={
-                                                    index
-                                                }
+                                                key={index}
                                                 type="button"
                                                 onClick={() =>
                                                     setSelectedImage(
                                                         index,
                                                     )
                                                 }
-                                                aria-label={`Ver imagem ${index +
-                                                    1
-                                                    }`}
-                                                className={`h-2.5 w-2.5 cursor-pointer rounded-full transition-all ${selectedImage ===
+                                                aria-label={`Ver imagem ${
+                                                    index + 1
+                                                }`}
+                                                className={`h-2.5 w-2.5 cursor-pointer rounded-full transition-all ${
+                                                    selectedImage ===
                                                     index
-                                                    ? "scale-125 bg-primary"
-                                                    : "bg-foreground/40 hover:bg-foreground/70"
-                                                    }`}
+                                                        ? "scale-125 bg-primary"
+                                                        : "bg-foreground/40 hover:bg-foreground/70"
+                                                }`}
                                             />
                                         ),
                                     )}
@@ -518,11 +641,9 @@ export default function ProductPage({ params }: ProductPageProps) {
 
                                 {currentSize.sales !==
                                     undefined &&
-                                    currentSize.sales >
-                                    0 && (
+                                    currentSize.sales > 0 && (
                                         <span className="rounded-full bg-background/90 px-3 py-1 text-xs font-medium shadow-md backdrop-blur">
-                                            {currentSize.sales >
-                                                1
+                                            {currentSize.sales > 1
                                                 ? `${currentSize.sales} vendidos`
                                                 : `${currentSize.sales} vendido`}
                                         </span>
@@ -577,17 +698,13 @@ export default function ProductPage({ params }: ProductPageProps) {
                         <div className="mt-5 flex flex-wrap items-center gap-3">
                             <span className="text-3xl font-bold text-primary">
                                 R${" "}
-                                {currentSize.price.toFixed(
-                                    2,
-                                )}
+                                {currentSize.price.toFixed(2)}
                             </span>
 
                             {currentSize.no_discount && (
                                 <span className="text-sm text-muted line-through">
                                     R${" "}
-                                    {
-                                        currentSize.no_discount
-                                    }
+                                    {currentSize.no_discount}
                                 </span>
                             )}
                         </div>
@@ -616,21 +733,20 @@ export default function ProductPage({ params }: ProductPageProps) {
                                 {product.colors.map(
                                     (color, index) => (
                                         <button
-                                            key={
-                                                color.name
-                                            }
+                                            key={color.name}
                                             type="button"
                                             onClick={() =>
                                                 handleColorChange(
                                                     index,
                                                 )
                                             }
-                                            className={`flex cursor-pointer items-center gap-2 rounded-full border px-3 py-2 text-sm transition-all ${!isOtherColor &&
+                                            className={`flex cursor-pointer items-center gap-2 rounded-full border px-3 py-2 text-sm transition-all ${
+                                                !isOtherColor &&
                                                 selectedColor ===
-                                                index
-                                                ? "border-primary bg-primary text-white shadow-md"
-                                                : "border-border bg-background hover:border-primary/40"
-                                                }`}
+                                                    index
+                                                    ? "border-primary bg-primary text-white shadow-md"
+                                                    : "border-border bg-background hover:border-primary/40"
+                                            }`}
                                         >
                                             <span
                                                 className="h-5 w-5 shrink-0 rounded-full border border-white"
@@ -658,15 +774,16 @@ export default function ProductPage({ params }: ProductPageProps) {
                                     onClick={
                                         handleOtherColorClick
                                     }
-                                    className={`flex cursor-pointer items-center gap-2 rounded-full border px-3 py-2 text-sm transition-all ${isOtherColor
-                                        ? "border-primary bg-primary text-white shadow-md"
-                                        : "border-border bg-background hover:border-primary/40"
-                                        }`}
+                                    className={`flex cursor-pointer items-center gap-2 rounded-full border px-3 py-2 text-sm transition-all ${
+                                        isOtherColor
+                                            ? "border-primary bg-primary text-white shadow-md"
+                                            : "border-border bg-background hover:border-primary/40"
+                                    }`}
                                 >
                                     <span className="h-5 w-5 shrink-0 rounded-full border border-white bg-[#fbf6ee]" />
 
                                     {selectedOtherColors.length >
-                                        0
+                                    0
                                         ? `Outra (${selectedOtherColors.length})`
                                         : "Outra"}
                                 </button>
@@ -691,13 +808,10 @@ export default function ProductPage({ params }: ProductPageProps) {
 
                                         <input
                                             type="text"
-                                            value={
-                                                colorSearch
-                                            }
+                                            value={colorSearch}
                                             onChange={(event) =>
                                                 setColorSearch(
-                                                    event
-                                                        .target
+                                                    event.target
                                                         .value,
                                                 )
                                             }
@@ -717,9 +831,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                                                 className="cursor-pointer text-muted transition hover:text-foreground"
                                             >
                                                 <FaTimes
-                                                    size={
-                                                        13
-                                                    }
+                                                    size={13}
                                                 />
                                             </button>
                                         )}
@@ -731,74 +843,69 @@ export default function ProductPage({ params }: ProductPageProps) {
 
                                     {colorSearch.trim() !==
                                         "" && (
-                                            <div className="absolute left-0 right-0 top-full z-50 mt-2 max-h-60 overflow-y-auto rounded-2xl border border-border bg-background p-2 shadow-xl">
+                                        <div className="absolute left-0 right-0 top-full z-50 mt-2 max-h-60 overflow-y-auto rounded-2xl border border-border bg-background p-2 shadow-xl">
 
-                                                {filteredColors.length >
-                                                    0 ? (
-                                                    filteredColors.map(
-                                                        (
-                                                            color,
-                                                        ) => {
-                                                            const isSelected =
-                                                                selectedOtherColors.includes(
-                                                                    color.name,
-                                                                );
+                                            {filteredColors.length >
+                                            0 ? (
+                                                filteredColors.map(
+                                                    (
+                                                        color,
+                                                    ) => {
+                                                        const isSelected =
+                                                            selectedOtherColors.includes(
+                                                                color.name,
+                                                            );
 
-                                                            return (
-                                                                <button
-                                                                    key={
-                                                                        color.name
-                                                                    }
-                                                                    type="button"
-                                                                    onClick={() =>
-                                                                        handleOtherColorChange(
-                                                                            color.name,
-                                                                        )
-                                                                    }
-                                                                    className={`flex w-full cursor-pointer items-center gap-3 rounded-xl px-3 py-2 text-left text-sm transition ${isSelected
+                                                        return (
+                                                            <button
+                                                                key={
+                                                                    color.name
+                                                                }
+                                                                type="button"
+                                                                onClick={() =>
+                                                                    handleOtherColorChange(
+                                                                        color.name,
+                                                                    )
+                                                                }
+                                                                className={`flex w-full cursor-pointer items-center gap-3 rounded-xl px-3 py-2 text-left text-sm transition ${
+                                                                    isSelected
                                                                         ? "bg-primary text-white"
                                                                         : "hover:bg-primary/10"
-                                                                        }`}
-                                                                >
-                                                                    {/* COR */}
+                                                                }`}
+                                                            >
+                                                                <span
+                                                                    className="h-6 w-6 shrink-0 rounded-full border border-border"
+                                                                    style={{
+                                                                        background:
+                                                                            color.hex,
+                                                                    }}
+                                                                />
 
-                                                                    <span
-                                                                        className="h-6 w-6 shrink-0 rounded-full border border-border"
-                                                                        style={{
-                                                                            background:
-                                                                                color.hex,
-                                                                        }}
-                                                                    />
-
-                                                                    {/* NOME */}
-
-                                                                    <span className="flex-1">
-                                                                        {formatColor(
-                                                                            color.name,
-                                                                        )}
-                                                                    </span>
-
-                                                                    {/* CHECK */}
-
-                                                                    {isSelected && (
-                                                                        <FaCheck
-                                                                            size={
-                                                                                12
-                                                                            }
-                                                                        />
+                                                                <span className="flex-1">
+                                                                    {formatColor(
+                                                                        color.name,
                                                                     )}
-                                                                </button>
-                                                            );
-                                                        },
-                                                    )
-                                                ) : (
-                                                    <p className="px-3 py-3 text-sm text-muted">
-                                                        Nenhuma cor
-                                                        encontrada.
-                                                    </p>
-                                                )}
-                                            </div>
-                                        )}
+                                                                </span>
+
+                                                                {isSelected && (
+                                                                    <FaCheck
+                                                                        size={
+                                                                            12
+                                                                        }
+                                                                    />
+                                                                )}
+                                                            </button>
+                                                        );
+                                                    },
+                                                )
+                                            ) : (
+                                                <p className="px-3 py-3 text-sm text-muted">
+                                                    Nenhuma cor
+                                                    encontrada.
+                                                </p>
+                                            )}
+                                        </div>
+                                    )}
 
                                     {/* ================================================= */}
                                     {/* CORES SELECIONADAS */}
@@ -806,64 +913,64 @@ export default function ProductPage({ params }: ProductPageProps) {
 
                                     {selectedOtherColors.length >
                                         0 && (
-                                            <div className="mt-3 flex flex-wrap gap-2">
+                                        <div className="mt-3 flex flex-wrap gap-2">
 
-                                                {selectedOtherColors.map(
-                                                    (
-                                                        colorName,
-                                                    ) => {
-                                                        const color =
-                                                            colors.find(
-                                                                (
-                                                                    item,
-                                                                ) =>
-                                                                    item.name ===
-                                                                    colorName,
-                                                            );
-
-                                                        if (
-                                                            !color
-                                                        ) {
-                                                            return null;
-                                                        }
-
-                                                        return (
-                                                            <button
-                                                                key={
-                                                                    colorName
-                                                                }
-                                                                type="button"
-                                                                onClick={() =>
-                                                                    removeOtherColor(
-                                                                        colorName,
-                                                                    )
-                                                                }
-                                                                className="flex cursor-pointer items-center gap-2 rounded-full bg-primary/10 px-3 py-1.5 text-xs text-primary transition hover:bg-primary/20"
-                                                                title="Remover cor"
-                                                            >
-                                                                <span
-                                                                    className="h-4 w-4 rounded-full border border-border"
-                                                                    style={{
-                                                                        background:
-                                                                            color.hex,
-                                                                    }}
-                                                                />
-
-                                                                {formatColor(
-                                                                    colorName,
-                                                                )}
-
-                                                                <FaTimes
-                                                                    size={
-                                                                        9
-                                                                    }
-                                                                />
-                                                            </button>
+                                            {selectedOtherColors.map(
+                                                (
+                                                    colorName,
+                                                ) => {
+                                                    const color =
+                                                        colors.find(
+                                                            (
+                                                                item,
+                                                            ) =>
+                                                                item.name ===
+                                                                colorName,
                                                         );
-                                                    },
-                                                )}
-                                            </div>
-                                        )}
+
+                                                    if (
+                                                        !color
+                                                    ) {
+                                                        return null;
+                                                    }
+
+                                                    return (
+                                                        <button
+                                                            key={
+                                                                colorName
+                                                            }
+                                                            type="button"
+                                                            onClick={() =>
+                                                                removeOtherColor(
+                                                                    colorName,
+                                                                )
+                                                            }
+                                                            className="flex cursor-pointer items-center gap-2 rounded-full bg-primary/10 px-3 py-1.5 text-xs text-primary transition hover:bg-primary/20"
+                                                            title="Remover cor"
+                                                        >
+                                                            <span
+                                                                className="h-4 w-4 rounded-full border border-border"
+                                                                style={{
+                                                                    background:
+                                                                        color.hex,
+                                                                }}
+                                                            />
+
+                                                            {formatColor(
+                                                                colorName,
+                                                            )}
+
+                                                            <FaTimes
+                                                                size={
+                                                                    9
+                                                                }
+                                                            />
+                                                        </button>
+                                                    );
+                                                },
+                                            )}
+                                        </div>
+                                    )}
 
                                     {/* ================================================= */}
                                     {/* TEXTO EXPLICATIVO */}
@@ -890,20 +997,19 @@ export default function ProductPage({ params }: ProductPageProps) {
                                 {product.sizes.map(
                                     (size, index) => (
                                         <button
-                                            key={
-                                                size.label
-                                            }
+                                            key={size.label}
                                             type="button"
                                             onClick={() =>
                                                 handleSizeChange(
                                                     index,
                                                 )
                                             }
-                                            className={`flex cursor-pointer items-center gap-2 rounded-xl border px-3 py-2 text-sm transition-all ${selectedSize ===
+                                            className={`flex cursor-pointer items-center gap-2 rounded-xl border px-3 py-2 text-sm transition-all ${
+                                                selectedSize ===
                                                 index
-                                                ? "border-primary bg-primary text-white shadow-md"
-                                                : "border-border bg-background hover:border-primary/40"
-                                                }`}
+                                                    ? "border-primary bg-primary text-white shadow-md"
+                                                    : "border-border bg-background hover:border-primary/40"
+                                            }`}
                                         >
                                             <span>
                                                 {
@@ -915,7 +1021,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                                                 <span
                                                     className={
                                                         selectedSize ===
-                                                            index
+                                                        index
                                                             ? "text-[10px] font-bold text-white/80"
                                                             : "text-[10px] font-bold text-red-500"
                                                     }
@@ -935,8 +1041,11 @@ export default function ProductPage({ params }: ProductPageProps) {
 
                         <div className="mt-8">
                             <p className="my-2 text-xs text-muted">
-                                Personalizações de cor ou tamanho podem alterar o valor do produto.
+                                Personalizações de cor ou
+                                tamanho podem alterar o valor
+                                do produto.
                             </p>
+
                             <button
                                 type="button"
                                 onClick={handleAdd}
@@ -944,12 +1053,13 @@ export default function ProductPage({ params }: ProductPageProps) {
                                     !imageSrc ||
                                     (isOtherColor &&
                                         selectedOtherColors.length ===
-                                        0)
+                                            0)
                                 }
-                                className={`flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl py-4 text-base font-semibold text-primary-foreground shadow-xl transition ${added
-                                    ? "scale-[1.02] bg-secondary"
-                                    : "bg-primary hover:scale-[1.01] hover:bg-primary-hover"
-                                    } disabled:cursor-not-allowed disabled:opacity-50`}
+                                className={`flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl py-4 text-base font-semibold text-primary-foreground shadow-xl transition ${
+                                    added
+                                        ? "scale-[1.02] bg-secondary"
+                                        : "bg-primary hover:scale-[1.01] hover:bg-primary-hover"
+                                } disabled:cursor-not-allowed disabled:opacity-50`}
                             >
                                 {added ? (
                                     <>
