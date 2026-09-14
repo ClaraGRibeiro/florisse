@@ -515,7 +515,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                 {/* VOLTAR / COMPARTILHAR */}
                 {/* ================================================= */}
 
-                <div className="flex justify-between align-middle">
+                <div className="flex justify-between align-middle mb-2">
 
                     <button
                         type="button"
