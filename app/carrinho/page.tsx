@@ -167,6 +167,9 @@ Total do pedido: R$ ${total.toFixed(2)}
               })}
             </div>
 
+            <p className="text-sm text-muted mt-2">
+              Personalizações de cor ou tamanho podem alterar o valor do produto.
+            </p>
             {/* Resumo */}
             <div className="mt-6 rounded-3xl border border-border bg-card p-6 shadow-sm">
               <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">

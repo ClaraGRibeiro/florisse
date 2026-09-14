@@ -47,18 +47,18 @@ const tapetes = [
         ],
         colors: ["marrom"],
     },
-    // {
-    //     name: "Trilho Losango",
-    //     category: "Mesa Posta",
-    //     sizes: [
-    //         {
-    //             label: "100x36cm",
-    //             price: 120,
-    //             sales: 0,
-    //         },
-    //     ],
-    //     colors: ["militar-cru-telha"],
-    // },
+    {
+        name: "Trilho Losango",
+        category: "Mesa Posta",
+        sizes: [
+            {
+                label: "120x35cm",
+                price: 85,
+                sales: 0,
+            },
+        ],
+        colors: ["militar-cru-telha"],
+    },
     // {
     //   name: "Sousplat Luxo",
     //   category: "Mesa Posta",

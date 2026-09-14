@@ -1,4 +1,3 @@
-
 "use client";
 
 import colorsData from "@/data/colors.json";
@@ -45,10 +44,23 @@ export default function ProductPage({ params }: ProductPageProps) {
     // Cor que possui foto
     const [selectedColor, setSelectedColor] = useState(0);
 
-    // Tamanho
+    // Tamanho normal
     const [selectedSize, setSelectedSize] = useState(0);
 
-    // Imagem
+    // ============================================================
+    // TAMANHO PERSONALIZADO
+    // ============================================================
+
+    const [isCustomSize, setIsCustomSize] = useState(false);
+
+    const [customLength, setCustomLength] = useState("");
+
+    const [customWidth, setCustomWidth] = useState("");
+
+    // ============================================================
+    // IMAGEM
+    // ============================================================
+
     const [selectedImage, setSelectedImage] = useState(0);
 
     // Imagens da cor atual
@@ -196,9 +208,18 @@ export default function ProductPage({ params }: ProductPageProps) {
     // ============================================================
 
     const currentColor = product.colors[selectedColor];
+
     const currentSize = product.sizes[selectedSize];
 
     const imageSrc = images[selectedImage];
+
+    // ============================================================
+    // TAMANHO QUE SERÁ ENVIADO PARA O CARRINHO
+    // ============================================================
+
+    const cartSize = isCustomSize
+        ? `${customLength}x${customWidth}cm`
+        : currentSize.label;
 
     // ============================================================
     // COMPARTILHAR PRODUTO
@@ -272,8 +293,6 @@ export default function ProductPage({ params }: ProductPageProps) {
                 files: [file],
             };
 
-            // Verifica se o dispositivo suporta
-            // compartilhamento de arquivos
             if (
                 navigator.share &&
                 navigator.canShare &&
@@ -311,7 +330,6 @@ export default function ProductPage({ params }: ProductPageProps) {
                 "_blank",
             );
         } catch (error) {
-            // Fechar o menu de compartilhamento não é um erro
             if (
                 error instanceof Error &&
                 error.name === "AbortError"
@@ -368,7 +386,7 @@ export default function ProductPage({ params }: ProductPageProps) {
     };
 
     // ============================================================
-    // ABRE "OUTRA"
+    // ABRE "OUTRA COR"
     // ============================================================
 
     const handleOtherColorClick = () => {
@@ -426,11 +444,27 @@ export default function ProductPage({ params }: ProductPageProps) {
     };
 
     // ============================================================
-    // TROCA DE TAMANHO
+    // TROCA DE TAMANHO NORMAL
     // ============================================================
 
     const handleSizeChange = (index: number) => {
+        // Sai do modo personalizado
+        setIsCustomSize(false);
+
+        // Limpa os campos personalizados
+        setCustomLength("");
+        setCustomWidth("");
+
+        // Seleciona o tamanho normal
         setSelectedSize(index);
+    };
+
+    // ============================================================
+    // ABRE TAMANHO PERSONALIZADO
+    // ============================================================
+
+    const handleCustomSizeClick = () => {
+        setIsCustomSize(true);
     };
 
     // ============================================================
@@ -482,9 +516,19 @@ export default function ProductPage({ params }: ProductPageProps) {
             return;
         }
 
+        // Verifica cor personalizada
         if (
             isOtherColor &&
             selectedOtherColors.length === 0
+        ) {
+            return;
+        }
+
+        // Verifica tamanho personalizado
+        if (
+            isCustomSize &&
+            (!customLength.trim() ||
+                !customWidth.trim())
         ) {
             return;
         }
@@ -493,7 +537,7 @@ export default function ProductPage({ params }: ProductPageProps) {
             id: crypto.randomUUID(),
             name: product.name,
             color: cartColor,
-            size: currentSize.label,
+            size: cartSize,
             price: currentSize.price,
             no_discount: currentSize.no_discount,
             image: imageSrc,
@@ -507,6 +551,18 @@ export default function ProductPage({ params }: ProductPageProps) {
         }, 1200);
     };
 
+    // ============================================================
+    // VERIFICA SE PODE ADICIONAR
+    // ============================================================
+
+    const canAddToCart =
+        !!imageSrc &&
+        (!isOtherColor ||
+            selectedOtherColors.length > 0) &&
+        (!isCustomSize ||
+            (customLength.trim() &&
+                customWidth.trim()));
+
     return (
         <div className="min-h-screen bg-background text-foreground">
             <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-10">
@@ -515,7 +571,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                 {/* VOLTAR / COMPARTILHAR */}
                 {/* ================================================= */}
 
-                <div className="flex justify-between align-middle mb-2">
+                <div className="mb-2 flex justify-between align-middle">
 
                     <button
                         type="button"
@@ -550,9 +606,7 @@ export default function ProductPage({ params }: ProductPageProps) {
 
                         <div className="relative aspect-9/12 w-full overflow-hidden rounded-3xl bg-card-soft">
 
-                            {/* ================================================= */}
                             {/* IMAGEM PRINCIPAL */}
-                            {/* ================================================= */}
 
                             {imageSrc && (
                                 <Image
@@ -572,9 +626,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                                 />
                             )}
 
-                            {/* ================================================= */}
                             {/* SETA ESQUERDA */}
-                            {/* ================================================= */}
 
                             {images.length > 1 && (
                                 <button
@@ -587,9 +639,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                                 </button>
                             )}
 
-                            {/* ================================================= */}
                             {/* SETA DIREITA */}
-                            {/* ================================================= */}
 
                             {images.length > 1 && (
                                 <button
@@ -602,9 +652,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                                 </button>
                             )}
 
-                            {/* ================================================= */}
                             {/* BOLINHAS */}
-                            {/* ================================================= */}
 
                             {images.length > 1 && (
                                 <div className="absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 gap-2 rounded-full bg-background/80 px-3 py-2 shadow-md backdrop-blur">
@@ -633,9 +681,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                                 </div>
                             )}
 
-                            {/* ================================================= */}
                             {/* BADGES */}
-                            {/* ================================================= */}
 
                             <div className="absolute left-4 top-4 z-20 flex flex-wrap gap-2">
 
@@ -657,9 +703,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                             </div>
                         </div>
 
-                        {/* ================================================= */}
                         {/* CONTADOR */}
-                        {/* ================================================= */}
 
                         {images.length > 1 && (
                             <p className="mt-2 text-center text-xs text-muted">
@@ -675,25 +719,19 @@ export default function ProductPage({ params }: ProductPageProps) {
 
                     <div className="flex min-w-0 flex-col pt-1 md:pt-4">
 
-                        {/* ================================================= */}
                         {/* CATEGORIA */}
-                        {/* ================================================= */}
 
                         <p className="text-sm font-medium text-primary">
                             {product.category}
                         </p>
 
-                        {/* ================================================= */}
                         {/* NOME */}
-                        {/* ================================================= */}
 
                         <h1 className="mt-2 text-3xl font-bold leading-tight sm:text-4xl">
                             {product.name}
                         </h1>
 
-                        {/* ================================================= */}
                         {/* PREÇO */}
-                        {/* ================================================= */}
 
                         <div className="mt-5 flex flex-wrap items-center gap-3">
                             <span className="text-3xl font-bold text-primary">
@@ -726,9 +764,7 @@ export default function ProductPage({ params }: ProductPageProps) {
 
                             <div className="flex flex-wrap gap-2">
 
-                                {/* ================================================= */}
                                 {/* CORES COM FOTO */}
-                                {/* ================================================= */}
 
                                 {product.colors.map(
                                     (color, index) => (
@@ -765,9 +801,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                                     ),
                                 )}
 
-                                {/* ================================================= */}
-                                {/* OUTRA */}
-                                {/* ================================================= */}
+                                {/* OUTRA COR */}
 
                                 <button
                                     type="button"
@@ -796,9 +830,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                             {isOtherColor && (
                                 <div className="relative mt-3 w-full max-w-md">
 
-                                    {/* ================================================= */}
                                     {/* INPUT */}
-                                    {/* ================================================= */}
 
                                     <div className="flex items-center gap-2 rounded-2xl border border-border bg-background px-4 py-3 transition focus-within:border-primary">
                                         <FaSearch
@@ -837,9 +869,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                                         )}
                                     </div>
 
-                                    {/* ================================================= */}
-                                    {/* RESULTADOS DA BUSCA */}
-                                    {/* ================================================= */}
+                                    {/* RESULTADOS */}
 
                                     {colorSearch.trim() !==
                                         "" && (
@@ -907,9 +937,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                                         </div>
                                     )}
 
-                                    {/* ================================================= */}
                                     {/* CORES SELECIONADAS */}
-                                    {/* ================================================= */}
 
                                     {selectedOtherColors.length >
                                         0 && (
@@ -972,9 +1000,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                                         </div>
                                     )}
 
-                                    {/* ================================================= */}
-                                    {/* TEXTO EXPLICATIVO */}
-                                    {/* ================================================= */}
+                                    {/* TEXTO */}
 
                                     <p className="mt-2 text-xs text-muted">
                                         Você pode escolher
@@ -989,11 +1015,15 @@ export default function ProductPage({ params }: ProductPageProps) {
                         {/* ================================================= */}
 
                         <div className="mt-7">
+
                             <p className="mb-3 text-sm font-medium">
                                 Escolha o tamanho:
                             </p>
 
                             <div className="flex flex-wrap gap-2">
+
+                                {/* TAMANHOS CADASTRADOS */}
+
                                 {product.sizes.map(
                                     (size, index) => (
                                         <button
@@ -1005,8 +1035,9 @@ export default function ProductPage({ params }: ProductPageProps) {
                                                 )
                                             }
                                             className={`flex cursor-pointer items-center gap-2 rounded-xl border px-3 py-2 text-sm transition-all ${
+                                                !isCustomSize &&
                                                 selectedSize ===
-                                                index
+                                                    index
                                                     ? "border-primary bg-primary text-white shadow-md"
                                                     : "border-border bg-background hover:border-primary/40"
                                             }`}
@@ -1020,8 +1051,9 @@ export default function ProductPage({ params }: ProductPageProps) {
                                             {size.no_discount && (
                                                 <span
                                                     className={
+                                                        !isCustomSize &&
                                                         selectedSize ===
-                                                        index
+                                                            index
                                                             ? "text-[10px] font-bold text-white/80"
                                                             : "text-[10px] font-bold text-red-500"
                                                     }
@@ -1032,7 +1064,119 @@ export default function ProductPage({ params }: ProductPageProps) {
                                         </button>
                                     ),
                                 )}
+
+                                {/* OUTRO TAMANHO */}
+
+                                <button
+                                    type="button"
+                                    onClick={
+                                        handleCustomSizeClick
+                                    }
+                                    className={`cursor-pointer rounded-xl border px-3 py-2 text-sm transition-all ${
+                                        isCustomSize
+                                            ? "border-primary bg-primary text-white shadow-md"
+                                            : "border-border bg-background hover:border-primary/40"
+                                    }`}
+                                >
+                                    Outro
+                                </button>
                             </div>
+
+                            {/* ================================================= */}
+                            {/* TAMANHO PERSONALIZADO */}
+                            {/* ================================================= */}
+
+                            {isCustomSize && (
+                                <div className="mt-3 w-full max-w-md">
+
+                                    <div className="grid grid-cols-2 gap-3">
+
+                                        {/* COMPRIMENTO */}
+
+                                        <div>
+                                            <label
+                                                htmlFor="custom-length"
+                                                className="mb-2 block text-xs font-medium text-muted"
+                                            >
+                                                Comprimento
+                                            </label>
+
+                                            <div className="flex items-center rounded-2xl border border-border bg-background px-4 py-3 transition focus-within:border-primary">
+                                                <input
+                                                    id="custom-length"
+                                                    type="number"
+                                                    min="1"
+                                                    step="0.1"
+                                                    value={
+                                                        customLength
+                                                    }
+                                                    onChange={(
+                                                        event,
+                                                    ) =>
+                                                        setCustomLength(
+                                                            event
+                                                                .target
+                                                                .value,
+                                                        )
+                                                    }
+                                                    placeholder="Ex.: 150"
+                                                    className="min-w-0 flex-1 bg-transparent text-sm outline-none placeholder:text-muted"
+                                                />
+
+                                                <span className="ml-2 text-xs text-muted">
+                                                    cm
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        {/* LARGURA */}
+
+                                        <div>
+                                            <label
+                                                htmlFor="custom-width"
+                                                className="mb-2 block text-xs font-medium text-muted"
+                                            >
+                                                Largura
+                                            </label>
+
+                                            <div className="flex items-center rounded-2xl border border-border bg-background px-4 py-3 transition focus-within:border-primary">
+                                                <input
+                                                    id="custom-width"
+                                                    type="number"
+                                                    min="1"
+                                                    step="0.1"
+                                                    value={
+                                                        customWidth
+                                                    }
+                                                    onChange={(
+                                                        event,
+                                                    ) =>
+                                                        setCustomWidth(
+                                                            event
+                                                                .target
+                                                                .value,
+                                                        )
+                                                    }
+                                                    placeholder="Ex.: 200"
+                                                    className="min-w-0 flex-1 bg-transparent text-sm outline-none placeholder:text-muted"
+                                                />
+
+                                                <span className="ml-2 text-xs text-muted">
+                                                    cm
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* AVISO */}
+
+                                    <p className="mt-2 text-xs text-muted">
+                                        O valor para tamanho
+                                        personalizado será
+                                        negociado.
+                                    </p>
+                                </div>
+                            )}
                         </div>
 
                         {/* ================================================= */}
@@ -1040,6 +1184,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                         {/* ================================================= */}
 
                         <div className="mt-8">
+
                             <p className="my-2 text-xs text-muted">
                                 Personalizações de cor ou
                                 tamanho podem alterar o valor
@@ -1049,12 +1194,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                             <button
                                 type="button"
                                 onClick={handleAdd}
-                                disabled={
-                                    !imageSrc ||
-                                    (isOtherColor &&
-                                        selectedOtherColors.length ===
-                                            0)
-                                }
+                                disabled={!canAddToCart}
                                 className={`flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl py-4 text-base font-semibold text-primary-foreground shadow-xl transition ${
                                     added
                                         ? "scale-[1.02] bg-secondary"
