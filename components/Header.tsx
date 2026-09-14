@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaCartPlus, FaInstagram } from "react-icons/fa";
 
-const navItems = ["Início", "Produtos", "Cores", "Sobre", "Cuidados", ""];
+const navItems = ["Início", "Produtos", "Cores", "Cuidados", "Sobre"];
 
 export default function Header() {
   const { cart } = useCart();
