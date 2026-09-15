@@ -5,6 +5,7 @@ import { useState } from "react";
 
 import productsData from "@/data/products";
 import { Product } from "@/types/product";
+import { getGradient } from "@/utils/gradient";
 
 type ProductsProps = {
   products: Product[];
@@ -104,20 +105,7 @@ function ProductCard({
                     : "hover:scale-110"
                     }`}
                   style={{
-                    background:
-                      color.hex.length === 1
-                        ? color.hex[0]
-                        : color.hex.length === 2
-                          ? `linear-gradient(
-                            135deg,
-                            ${color.hex[0]} 0%,
-                            ${color.hex[0]} 50%,
-                            ${color.hex[1]} 50%,
-                            ${color.hex[1]} 100%
-                          )`
-                          : `linear-gradient(135deg, ${color.hex.join(
-                            ", ",
-                          )})`,
+                    background: getGradient(color.hex),
                   }}
                 />
               ))}

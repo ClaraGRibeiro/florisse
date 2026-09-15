@@ -21,6 +21,7 @@ import {
   formatColor,
   formatPath,
 } from "@/utils/format";
+import { getGradient } from "@/utils/gradient";
 
 type ColorData = {
   name: string;
@@ -132,32 +133,6 @@ export default function Carrinho() {
         .includes(search),
     );
   }, [colorSearch, colors]);
-
-  // ============================================================
-  // GRADIENTE
-  // ============================================================
-
-  function getGradient(
-    hex: string[],
-  ) {
-    if (hex.length === 1) {
-      return hex[0];
-    }
-
-    if (hex.length === 2) {
-      return `linear-gradient(135deg, ${hex[0]} 50%, ${hex[1]} 50%)`;
-    }
-
-    return `linear-gradient(
-      135deg,
-      ${hex[0]} 0%,
-      ${hex[0]} 33%,
-      ${hex[1]} 33%,
-      ${hex[1]} 66%,
-      ${hex[2]} 66%,
-      ${hex[2]} 100%
-    )`;
-  }
 
   // ============================================================
   // ABRIR MODAL PARA REMOVER ITEM
@@ -1193,10 +1168,10 @@ Total do pedido: R$ ${total.toFixed(2)}
                                       )
                                     }
                                     className={`flex cursor-pointer items-center gap-2 rounded-full border px-3 py-2 text-sm transition-all ${!isOtherColor &&
-                                        selectedColor ===
-                                        index
-                                        ? "border-primary bg-primary text-white shadow-md"
-                                        : "border-border bg-background hover:border-primary/40"
+                                      selectedColor ===
+                                      index
+                                      ? "border-primary bg-primary text-white shadow-md"
+                                      : "border-border bg-background hover:border-primary/40"
                                       }`}
                                   >
                                     <span
@@ -1224,12 +1199,17 @@ Total do pedido: R$ ${total.toFixed(2)}
                                   handleOtherColorClick
                                 }
                                 className={`flex cursor-pointer items-center gap-2 rounded-full border px-3 py-2 text-sm transition-all ${isOtherColor
-                                    ? "border-primary bg-primary text-white shadow-md"
-                                    : "border-border bg-background hover:border-primary/40"
+                                  ? "border-primary bg-primary text-white shadow-md"
+                                  : "border-border bg-background hover:border-primary/40"
                                   }`}
                               >
-                                <span className="h-5 w-5 shrink-0 rounded-full border border-white bg-[#fbf6ee]" />
-
+                                <span
+                                  className="h-5 w-5 shrink-0 rounded-full border border-white shadow-sm"
+                                  style={{
+                                    background:
+                                      "conic-gradient(#f59e0b 0deg 72deg, #ef4444 72deg 144deg, #a855f7 144deg 216deg, #3b82f6 216deg 288deg, #22c55e 288deg 360deg)",
+                                  }}
+                                />
                                 {selectedOtherColors.length >
                                   0
                                   ? `Outra (${selectedOtherColors.length})`
@@ -1322,8 +1302,8 @@ Total do pedido: R$ ${total.toFixed(2)}
                                                   )
                                                 }
                                                 className={`flex w-full cursor-pointer items-center gap-3 rounded-xl px-3 py-2 text-left text-sm transition ${isSelected
-                                                    ? "bg-primary text-white"
-                                                    : "hover:bg-primary/10"
+                                                  ? "bg-primary text-white"
+                                                  : "hover:bg-primary/10"
                                                   }`}
                                               >
 
@@ -1471,10 +1451,10 @@ Total do pedido: R$ ${total.toFixed(2)}
                                       )
                                     }
                                     className={`flex cursor-pointer items-center gap-2 rounded-xl border px-3 py-2 text-sm transition-all ${!isCustomSize &&
-                                        selectedSize ===
-                                        index
-                                        ? "border-primary bg-primary text-white shadow-md"
-                                        : "border-border bg-background hover:border-primary/40"
+                                      selectedSize ===
+                                      index
+                                      ? "border-primary bg-primary text-white shadow-md"
+                                      : "border-border bg-background hover:border-primary/40"
                                       }`}
                                   >
 
@@ -1510,8 +1490,8 @@ Total do pedido: R$ ${total.toFixed(2)}
                                   handleCustomSizeClick
                                 }
                                 className={`cursor-pointer rounded-xl border px-3 py-2 text-sm transition-all ${isCustomSize
-                                    ? "border-primary bg-primary text-white shadow-md"
-                                    : "border-border bg-background hover:border-primary/40"
+                                  ? "border-primary bg-primary text-white shadow-md"
+                                  : "border-border bg-background hover:border-primary/40"
                                   }`}
                               >
                                 Outro

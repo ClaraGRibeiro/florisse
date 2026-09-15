@@ -15,6 +15,7 @@ import { FaShareFromSquare } from "react-icons/fa6";
 import { useProducts } from "@/hooks/useProducts";
 import { useCart } from "@/hooks/useCart";
 import { formatColor, formatPath } from "@/utils/format";
+import { getGradient } from "@/utils/gradient";
 
 interface Color {
     name: string;
@@ -345,31 +346,6 @@ export default function ProductPage({ params }: ProductPageProps) {
     };
 
     // ============================================================
-    // GRADIENTE DAS CORES
-    // ============================================================
-
-    const getGradient = (colorHex: string[]) => {
-        if (colorHex.length === 1) {
-            return colorHex[0];
-        }
-
-        if (colorHex.length === 2) {
-            return `linear-gradient(
-                135deg,
-                ${colorHex[0]} 0%,
-                ${colorHex[0]} 50%,
-                ${colorHex[1]} 50%,
-                ${colorHex[1]} 100%
-            )`;
-        }
-
-        return `linear-gradient(
-            135deg,
-            ${colorHex.join(", ")}
-        )`;
-    };
-
-    // ============================================================
     // TROCA PARA UMA COR COM FOTO
     // ============================================================
 
@@ -613,10 +589,10 @@ export default function ProductPage({ params }: ProductPageProps) {
                                     key={imageSrc}
                                     src={imageSrc}
                                     alt={`${product.name} - ${isOtherColor
-                                            ? "cor personalizada"
-                                            : formatColor(
-                                                currentColor.name,
-                                            )
+                                        ? "cor personalizada"
+                                        : formatColor(
+                                            currentColor.name,
+                                        )
                                         }`}
                                     fill
                                     priority
@@ -668,9 +644,9 @@ export default function ProductPage({ params }: ProductPageProps) {
                                                 aria-label={`Ver imagem ${index + 1
                                                     }`}
                                                 className={`h-2.5 w-2.5 cursor-pointer rounded-full transition-all ${selectedImage ===
-                                                        index
-                                                        ? "scale-125 bg-primary"
-                                                        : "bg-foreground/40 hover:bg-foreground/70"
+                                                    index
+                                                    ? "scale-125 bg-primary"
+                                                    : "bg-foreground/40 hover:bg-foreground/70"
                                                     }`}
                                             />
                                         ),
@@ -774,10 +750,10 @@ export default function ProductPage({ params }: ProductPageProps) {
                                                 )
                                             }
                                             className={`flex cursor-pointer items-center gap-2 rounded-full border px-3 py-2 text-sm transition-all ${!isOtherColor &&
-                                                    selectedColor ===
-                                                    index
-                                                    ? "border-primary bg-primary text-white shadow-md"
-                                                    : "border-border bg-background hover:border-primary/40"
+                                                selectedColor ===
+                                                index
+                                                ? "border-primary bg-primary text-white shadow-md"
+                                                : "border-border bg-background hover:border-primary/40"
                                                 }`}
                                         >
                                             <span
@@ -805,12 +781,17 @@ export default function ProductPage({ params }: ProductPageProps) {
                                         handleOtherColorClick
                                     }
                                     className={`flex cursor-pointer items-center gap-2 rounded-full border px-3 py-2 text-sm transition-all ${isOtherColor
-                                            ? "border-primary bg-primary text-white shadow-md"
-                                            : "border-border bg-background hover:border-primary/40"
+                                        ? "border-primary bg-primary text-white shadow-md"
+                                        : "border-border bg-background hover:border-primary/40"
                                         }`}
                                 >
-                                    <span className="h-5 w-5 shrink-0 rounded-full border border-white bg-[#fbf6ee]" />
-
+                                    <span
+                                        className="h-5 w-5 shrink-0 rounded-full border border-white shadow-sm"
+                                        style={{
+                                            background:
+                                                "conic-gradient(#f59e0b 0deg 72deg, #ef4444 72deg 144deg, #a855f7 144deg 216deg, #3b82f6 216deg 288deg, #22c55e 288deg 360deg)",
+                                        }}
+                                    />
                                     {selectedOtherColors.length >
                                         0
                                         ? `Outra (${selectedOtherColors.length})`
@@ -893,8 +874,8 @@ export default function ProductPage({ params }: ProductPageProps) {
                                                                         )
                                                                     }
                                                                     className={`flex w-full cursor-pointer items-center gap-3 rounded-xl px-3 py-2 text-left text-sm transition ${isSelected
-                                                                            ? "bg-primary text-white"
-                                                                            : "hover:bg-primary/10"
+                                                                        ? "bg-primary text-white"
+                                                                        : "hover:bg-primary/10"
                                                                         }`}
                                                                 >
                                                                     <span
@@ -1028,10 +1009,10 @@ export default function ProductPage({ params }: ProductPageProps) {
                                                 )
                                             }
                                             className={`flex cursor-pointer items-center gap-2 rounded-xl border px-3 py-2 text-sm transition-all ${!isCustomSize &&
-                                                    selectedSize ===
-                                                    index
-                                                    ? "border-primary bg-primary text-white shadow-md"
-                                                    : "border-border bg-background hover:border-primary/40"
+                                                selectedSize ===
+                                                index
+                                                ? "border-primary bg-primary text-white shadow-md"
+                                                : "border-border bg-background hover:border-primary/40"
                                                 }`}
                                         >
                                             <span>
@@ -1065,8 +1046,8 @@ export default function ProductPage({ params }: ProductPageProps) {
                                         handleCustomSizeClick
                                     }
                                     className={`cursor-pointer rounded-xl border px-3 py-2 text-sm transition-all ${isCustomSize
-                                            ? "border-primary bg-primary text-white shadow-md"
-                                            : "border-border bg-background hover:border-primary/40"
+                                        ? "border-primary bg-primary text-white shadow-md"
+                                        : "border-border bg-background hover:border-primary/40"
                                         }`}
                                 >
                                     Outro
@@ -1187,8 +1168,8 @@ export default function ProductPage({ params }: ProductPageProps) {
                                 onClick={handleAdd}
                                 disabled={!canAddToCart}
                                 className={`flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl py-4 text-base font-semibold text-primary-foreground shadow-xl transition ${added
-                                        ? "scale-[1.02] bg-secondary"
-                                        : "bg-primary hover:scale-[1.01] hover:bg-primary-hover"
+                                    ? "scale-[1.02] bg-secondary"
+                                    : "bg-primary hover:scale-[1.01] hover:bg-primary-hover"
                                     } disabled:cursor-not-allowed disabled:opacity-50`}
                             >
                                 {added ? (
