@@ -40,10 +40,10 @@ export default function Hero({ bestSelling, openPersonalized, formatPath }: Hero
             </a>
 
             <button
-              onClick={openPersonalized}
+              onClick={() => window.open(`https://wa.me/5538992030710`, "_blank")}
               className="w-full cursor-pointer rounded-2xl border border-border bg-card px-6 py-3 font-semibold transition-all hover:bg-input sm:w-auto"
             >
-              Personalizar Pedido
+              Contato
             </button>
           </div>
         </div>
