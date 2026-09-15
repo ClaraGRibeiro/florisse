@@ -98,8 +98,8 @@ export default function ProductPage({ params }: ProductPageProps) {
 
     const product = slug
         ? products.find(
-              (item) => formatPath(item.name) === slug,
-          )
+            (item) => formatPath(item.name) === slug,
+        )
         : undefined;
 
     // ============================================================
@@ -612,13 +612,12 @@ export default function ProductPage({ params }: ProductPageProps) {
                                 <Image
                                     key={imageSrc}
                                     src={imageSrc}
-                                    alt={`${product.name} - ${
-                                        isOtherColor
+                                    alt={`${product.name} - ${isOtherColor
                                             ? "cor personalizada"
                                             : formatColor(
-                                                  currentColor.name,
-                                              )
-                                    }`}
+                                                currentColor.name,
+                                            )
+                                        }`}
                                     fill
                                     priority
                                     sizes="(max-width: 768px) 100vw, 600px"
@@ -666,15 +665,13 @@ export default function ProductPage({ params }: ProductPageProps) {
                                                         index,
                                                     )
                                                 }
-                                                aria-label={`Ver imagem ${
-                                                    index + 1
-                                                }`}
-                                                className={`h-2.5 w-2.5 cursor-pointer rounded-full transition-all ${
-                                                    selectedImage ===
-                                                    index
+                                                aria-label={`Ver imagem ${index + 1
+                                                    }`}
+                                                className={`h-2.5 w-2.5 cursor-pointer rounded-full transition-all ${selectedImage ===
+                                                        index
                                                         ? "scale-125 bg-primary"
                                                         : "bg-foreground/40 hover:bg-foreground/70"
-                                                }`}
+                                                    }`}
                                             />
                                         ),
                                     )}
@@ -776,13 +773,12 @@ export default function ProductPage({ params }: ProductPageProps) {
                                                     index,
                                                 )
                                             }
-                                            className={`flex cursor-pointer items-center gap-2 rounded-full border px-3 py-2 text-sm transition-all ${
-                                                !isOtherColor &&
-                                                selectedColor ===
+                                            className={`flex cursor-pointer items-center gap-2 rounded-full border px-3 py-2 text-sm transition-all ${!isOtherColor &&
+                                                    selectedColor ===
                                                     index
                                                     ? "border-primary bg-primary text-white shadow-md"
                                                     : "border-border bg-background hover:border-primary/40"
-                                            }`}
+                                                }`}
                                         >
                                             <span
                                                 className="h-5 w-5 shrink-0 rounded-full border border-white"
@@ -808,16 +804,15 @@ export default function ProductPage({ params }: ProductPageProps) {
                                     onClick={
                                         handleOtherColorClick
                                     }
-                                    className={`flex cursor-pointer items-center gap-2 rounded-full border px-3 py-2 text-sm transition-all ${
-                                        isOtherColor
+                                    className={`flex cursor-pointer items-center gap-2 rounded-full border px-3 py-2 text-sm transition-all ${isOtherColor
                                             ? "border-primary bg-primary text-white shadow-md"
                                             : "border-border bg-background hover:border-primary/40"
-                                    }`}
+                                        }`}
                                 >
                                     <span className="h-5 w-5 shrink-0 rounded-full border border-white bg-[#fbf6ee]" />
 
                                     {selectedOtherColors.length >
-                                    0
+                                        0
                                         ? `Outra (${selectedOtherColors.length})`
                                         : "Outra"}
                                 </button>
@@ -873,138 +868,136 @@ export default function ProductPage({ params }: ProductPageProps) {
 
                                     {colorSearch.trim() !==
                                         "" && (
-                                        <div className="absolute left-0 right-0 top-full z-50 mt-2 max-h-60 overflow-y-auto rounded-2xl border border-border bg-background p-2 shadow-xl">
+                                            <div className="absolute left-0 right-0 top-full z-50 mt-2 max-h-60 overflow-y-auto rounded-2xl border border-border bg-background p-2 shadow-xl">
 
-                                            {filteredColors.length >
-                                            0 ? (
-                                                filteredColors.map(
-                                                    (
-                                                        color,
-                                                    ) => {
-                                                        const isSelected =
-                                                            selectedOtherColors.includes(
-                                                                color.name,
+                                                {filteredColors.length >
+                                                    0 ? (
+                                                    filteredColors.map(
+                                                        (
+                                                            color,
+                                                        ) => {
+                                                            const isSelected =
+                                                                selectedOtherColors.includes(
+                                                                    color.name,
+                                                                );
+
+                                                            return (
+                                                                <button
+                                                                    key={
+                                                                        color.name
+                                                                    }
+                                                                    type="button"
+                                                                    onClick={() =>
+                                                                        handleOtherColorChange(
+                                                                            color.name,
+                                                                        )
+                                                                    }
+                                                                    className={`flex w-full cursor-pointer items-center gap-3 rounded-xl px-3 py-2 text-left text-sm transition ${isSelected
+                                                                            ? "bg-primary text-white"
+                                                                            : "hover:bg-primary/10"
+                                                                        }`}
+                                                                >
+                                                                    <span
+                                                                        className="h-6 w-6 shrink-0 rounded-full border border-border"
+                                                                        style={{
+                                                                            background:
+                                                                                color.hex,
+                                                                        }}
+                                                                    />
+
+                                                                    <span className="flex-1">
+                                                                        {formatColor(
+                                                                            color.name,
+                                                                        )}
+                                                                    </span>
+
+                                                                    {isSelected && (
+                                                                        <FaCheck
+                                                                            size={
+                                                                                12
+                                                                            }
+                                                                        />
+                                                                    )}
+                                                                </button>
                                                             );
+                                                        },
+                                                    )
+                                                ) : (
+                                                    <p className="px-3 py-3 text-sm text-muted">
+                                                        Nenhuma cor
+                                                        encontrada.
+                                                    </p>
+                                                )}
+                                            </div>
+                                        )}
+
+                                    {/* CORES SELECIONADAS */}
+
+                                    {selectedOtherColors.length >
+                                        0 && (
+                                            <div className="mt-3 flex flex-wrap gap-2">
+
+                                                {selectedOtherColors.map(
+                                                    (
+                                                        colorName,
+                                                    ) => {
+                                                        const color =
+                                                            colors.find(
+                                                                (
+                                                                    item,
+                                                                ) =>
+                                                                    item.name ===
+                                                                    colorName,
+                                                            );
+
+                                                        if (
+                                                            !color
+                                                        ) {
+                                                            return null;
+                                                        }
 
                                                         return (
                                                             <button
                                                                 key={
-                                                                    color.name
+                                                                    colorName
                                                                 }
                                                                 type="button"
                                                                 onClick={() =>
-                                                                    handleOtherColorChange(
-                                                                        color.name,
+                                                                    removeOtherColor(
+                                                                        colorName,
                                                                     )
                                                                 }
-                                                                className={`flex w-full cursor-pointer items-center gap-3 rounded-xl px-3 py-2 text-left text-sm transition ${
-                                                                    isSelected
-                                                                        ? "bg-primary text-white"
-                                                                        : "hover:bg-primary/10"
-                                                                }`}
+                                                                className="flex cursor-pointer items-center gap-2 rounded-full bg-primary/10 px-3 py-1.5 text-xs text-primary transition hover:bg-primary/20"
+                                                                title="Remover cor"
                                                             >
                                                                 <span
-                                                                    className="h-6 w-6 shrink-0 rounded-full border border-border"
+                                                                    className="h-4 w-4 rounded-full border border-border"
                                                                     style={{
                                                                         background:
                                                                             color.hex,
                                                                     }}
                                                                 />
 
-                                                                <span className="flex-1">
-                                                                    {formatColor(
-                                                                        color.name,
-                                                                    )}
-                                                                </span>
-
-                                                                {isSelected && (
-                                                                    <FaCheck
-                                                                        size={
-                                                                            12
-                                                                        }
-                                                                    />
+                                                                {formatColor(
+                                                                    colorName,
                                                                 )}
+
+                                                                <FaTimes
+                                                                    size={
+                                                                        9
+                                                                    }
+                                                                />
                                                             </button>
                                                         );
                                                     },
-                                                )
-                                            ) : (
-                                                <p className="px-3 py-3 text-sm text-muted">
-                                                    Nenhuma cor
-                                                    encontrada.
-                                                </p>
-                                            )}
-                                        </div>
-                                    )}
-
-                                    {/* CORES SELECIONADAS */}
-
-                                    {selectedOtherColors.length >
-                                        0 && (
-                                        <div className="mt-3 flex flex-wrap gap-2">
-
-                                            {selectedOtherColors.map(
-                                                (
-                                                    colorName,
-                                                ) => {
-                                                    const color =
-                                                        colors.find(
-                                                            (
-                                                                item,
-                                                            ) =>
-                                                                item.name ===
-                                                                colorName,
-                                                        );
-
-                                                    if (
-                                                        !color
-                                                    ) {
-                                                        return null;
-                                                    }
-
-                                                    return (
-                                                        <button
-                                                            key={
-                                                                colorName
-                                                            }
-                                                            type="button"
-                                                            onClick={() =>
-                                                                removeOtherColor(
-                                                                    colorName,
-                                                                )
-                                                            }
-                                                            className="flex cursor-pointer items-center gap-2 rounded-full bg-primary/10 px-3 py-1.5 text-xs text-primary transition hover:bg-primary/20"
-                                                            title="Remover cor"
-                                                        >
-                                                            <span
-                                                                className="h-4 w-4 rounded-full border border-border"
-                                                                style={{
-                                                                    background:
-                                                                        color.hex,
-                                                                }}
-                                                            />
-
-                                                            {formatColor(
-                                                                colorName,
-                                                            )}
-
-                                                            <FaTimes
-                                                                size={
-                                                                    9
-                                                                }
-                                                            />
-                                                        </button>
-                                                    );
-                                                },
-                                            )}
-                                        </div>
-                                    )}
+                                                )}
+                                            </div>
+                                        )}
 
                                     {/* TEXTO */}
 
                                     <p className="mt-2 text-xs text-muted">
-                                        Você pode escolher
-                                        uma ou mais cores.
+                                        A quantidade de cores pode variar conforme o modelo.
                                     </p>
                                 </div>
                             )}
@@ -1034,13 +1027,12 @@ export default function ProductPage({ params }: ProductPageProps) {
                                                     index,
                                                 )
                                             }
-                                            className={`flex cursor-pointer items-center gap-2 rounded-xl border px-3 py-2 text-sm transition-all ${
-                                                !isCustomSize &&
-                                                selectedSize ===
+                                            className={`flex cursor-pointer items-center gap-2 rounded-xl border px-3 py-2 text-sm transition-all ${!isCustomSize &&
+                                                    selectedSize ===
                                                     index
                                                     ? "border-primary bg-primary text-white shadow-md"
                                                     : "border-border bg-background hover:border-primary/40"
-                                            }`}
+                                                }`}
                                         >
                                             <span>
                                                 {
@@ -1052,7 +1044,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                                                 <span
                                                     className={
                                                         !isCustomSize &&
-                                                        selectedSize ===
+                                                            selectedSize ===
                                                             index
                                                             ? "text-[10px] font-bold text-white/80"
                                                             : "text-[10px] font-bold text-red-500"
@@ -1072,11 +1064,10 @@ export default function ProductPage({ params }: ProductPageProps) {
                                     onClick={
                                         handleCustomSizeClick
                                     }
-                                    className={`cursor-pointer rounded-xl border px-3 py-2 text-sm transition-all ${
-                                        isCustomSize
+                                    className={`cursor-pointer rounded-xl border px-3 py-2 text-sm transition-all ${isCustomSize
                                             ? "border-primary bg-primary text-white shadow-md"
                                             : "border-border bg-background hover:border-primary/40"
-                                    }`}
+                                        }`}
                                 >
                                     Outro
                                 </button>
@@ -1195,11 +1186,10 @@ export default function ProductPage({ params }: ProductPageProps) {
                                 type="button"
                                 onClick={handleAdd}
                                 disabled={!canAddToCart}
-                                className={`flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl py-4 text-base font-semibold text-primary-foreground shadow-xl transition ${
-                                    added
+                                className={`flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl py-4 text-base font-semibold text-primary-foreground shadow-xl transition ${added
                                         ? "scale-[1.02] bg-secondary"
                                         : "bg-primary hover:scale-[1.01] hover:bg-primary-hover"
-                                } disabled:cursor-not-allowed disabled:opacity-50`}
+                                    } disabled:cursor-not-allowed disabled:opacity-50`}
                             >
                                 {added ? (
                                     <>
