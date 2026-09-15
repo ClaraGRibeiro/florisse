@@ -779,7 +779,7 @@ Total do pedido: R$ ${total.toFixed(2)}
 
       {confirmationModal && (
         <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 px-4 backdrop-blur-sm"
+          className="fixed inset-0 z-100 flex items-center justify-center bg-black/40 px-4 backdrop-blur-sm"
           onMouseDown={(event) => {
             if (
               event.target ===

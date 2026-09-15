@@ -548,7 +548,7 @@ export default function ProductPage({ params }: ProductPageProps) {
 
         setTimeout(() => {
             setAdded(false);
-        }, 1200);
+        }, 600);
     };
 
     // ============================================================
