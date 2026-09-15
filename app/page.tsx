@@ -13,9 +13,7 @@ import { useScrollTop } from "@/hooks/useScrollTop";
 import { useState } from "react";
 
 import Cores from "@/components/Cores";
-import Personalized from "@/components/Personalized";
 import { formatColor, formatPath } from "@/utils/format";
-import { AnimatePresence } from "framer-motion";
 import { FaArrowUp, FaWhatsapp } from "react-icons/fa";
 
 export default function Home() {
@@ -27,8 +25,6 @@ export default function Home() {
 
   const { products, bestSelling, bestSellingByCategory, categories, categoryCounts, productsFromCategory } = useProducts();
   const { showTop, scrollToTop } = useScrollTop();
-
-  const [openPersonalized, setPersonalizedOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -42,16 +38,8 @@ export default function Home() {
       {raffleIsOn && numbersOpen && (
         <Numbers rafflePrice={rafflePrice} setNumbersOpen={setNumbersOpen} />
       )}
-      <Hero bestSelling={bestSelling} openPersonalized={() => setPersonalizedOpen(true)} formatPath={formatPath} />
-      <AnimatePresence>
-        {openPersonalized && (
-          <Personalized
-            setPersonalizedOpen={setPersonalizedOpen}
-            productsFromCategory={productsFromCategory}
-            categories={categories}
-          />
-        )}
-      </AnimatePresence>
+      <Hero bestSelling={bestSelling} formatPath={formatPath} />
+     
       <Products
         products={products}
         bestSellingByCategory={bestSellingByCategory}

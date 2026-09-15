@@ -6,10 +6,9 @@ import Link from "next/link";
 
 type HeroProps = {
   bestSelling: Product;
-  openPersonalized: () => void;
   formatPath: (name: string) => string;
 };
-export default function Hero({ bestSelling, openPersonalized, formatPath }: HeroProps) {
+export default function Hero({ bestSelling, formatPath }: HeroProps) {
   const imageSrc = `/products/${formatPath(bestSelling.category)}/${formatPath(bestSelling.name)}/${bestSelling.colors[0].name}.webp`;
   return (
     <motion.section

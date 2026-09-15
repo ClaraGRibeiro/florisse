@@ -84,6 +84,22 @@ export default function Carrinho() {
     useState("");
 
   // ============================================================
+  // ESTADOS DO MODAL DE CONFIRMAÇÃO
+  // ============================================================
+
+  const [confirmationModal, setConfirmationModal] =
+    useState<
+      | {
+        type: "remove";
+        itemId: string;
+      }
+      | {
+        type: "clear";
+      }
+      | null
+    >(null);
+
+  // ============================================================
   // ITEM SENDO EDITADO
   // ============================================================
 
@@ -141,6 +157,69 @@ export default function Carrinho() {
       ${hex[2]} 66%,
       ${hex[2]} 100%
     )`;
+  }
+
+  // ============================================================
+  // ABRIR MODAL PARA REMOVER ITEM
+  // ============================================================
+
+  function openRemoveModal(
+    itemId: string,
+  ) {
+    setConfirmationModal({
+      type: "remove",
+      itemId,
+    });
+  }
+
+  // ============================================================
+  // ABRIR MODAL PARA LIMPAR CARRINHO
+  // ============================================================
+
+  function openClearCartModal() {
+    if (!cart.length) {
+      return;
+    }
+
+    setConfirmationModal({
+      type: "clear",
+    });
+  }
+
+  // ============================================================
+  // FECHAR MODAL
+  // ============================================================
+
+  function closeConfirmationModal() {
+    setConfirmationModal(null);
+  }
+
+  // ============================================================
+  // CONFIRMAR REMOÇÃO
+  // ============================================================
+
+  function confirmRemoval() {
+    if (!confirmationModal) {
+      return;
+    }
+
+    if (
+      confirmationModal.type ===
+      "remove"
+    ) {
+      removeFromCart(
+        confirmationModal.itemId,
+      );
+    }
+
+    if (
+      confirmationModal.type ===
+      "clear"
+    ) {
+      clearCart();
+    }
+
+    setConfirmationModal(null);
   }
 
   // ============================================================
@@ -658,11 +737,136 @@ Total do pedido: R$ ${total.toFixed(2)}
   ]);
 
   // ============================================================
+  // ESC FECHA O MODAL
+  // ============================================================
+
+  useEffect(() => {
+    if (!confirmationModal) {
+      return;
+    }
+
+    function handleKeyDown(
+      event: KeyboardEvent,
+    ) {
+      if (event.key === "Escape") {
+        closeConfirmationModal();
+      }
+    }
+
+    document.addEventListener(
+      "keydown",
+      handleKeyDown,
+    );
+
+    return () => {
+      document.removeEventListener(
+        "keydown",
+        handleKeyDown,
+      );
+    };
+  }, [confirmationModal]);
+
+  // ============================================================
   // RENDER
   // ============================================================
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+
+      {/* ====================================================== */}
+      {/* MODAL DE CONFIRMAÇÃO */}
+      {/* ====================================================== */}
+
+      {confirmationModal && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 px-4 backdrop-blur-sm"
+          onMouseDown={(event) => {
+            if (
+              event.target ===
+              event.currentTarget
+            ) {
+              closeConfirmationModal();
+            }
+          }}
+        >
+          <motion.div
+            initial={{
+              opacity: 0,
+              scale: 0.94,
+              y: 10,
+            }}
+            animate={{
+              opacity: 1,
+              scale: 1,
+              y: 0,
+            }}
+            exit={{
+              opacity: 0,
+              scale: 0.94,
+              y: 10,
+            }}
+            transition={{
+              duration: 0.2,
+              ease: "easeOut",
+            }}
+            className="w-full max-w-sm rounded-3xl border border-border bg-card p-6 shadow-2xl"
+            onMouseDown={(event) =>
+              event.stopPropagation()
+            }
+          >
+            {/* ÍCONE */}
+
+            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-primary/10">
+              <FaTimes
+                size={20}
+                className="text-primary"
+              />
+            </div>
+
+            {/* TEXTO */}
+
+            <div className="mt-5 text-center">
+              <h2 className="text-xl font-semibold">
+                Tem certeza disso?
+              </h2>
+
+              <p className="mt-2 text-sm leading-6 text-muted">
+                {confirmationModal.type ===
+                  "clear"
+                  ? "Todos os produtos serão removidos do seu carrinho."
+                  : "Este produto será removido do seu carrinho."}
+              </p>
+            </div>
+
+            {/* BOTÕES */}
+
+            <div className="mt-6 grid grid-cols-2 gap-3">
+
+              <button
+                type="button"
+                onClick={
+                  closeConfirmationModal
+                }
+                className="cursor-pointer rounded-2xl border border-border bg-background px-4 py-3 text-sm font-medium transition hover:border-primary hover:bg-primary/5"
+              >
+                Cancelar
+              </button>
+
+              <button
+                type="button"
+                onClick={
+                  confirmRemoval
+                }
+                className="cursor-pointer rounded-2xl bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground shadow-md transition hover:bg-primary-hover"
+              >
+                Sim, remover
+              </button>
+
+            </div>
+          </motion.div>
+        </div>
+      )}
+
       <div className="mx-auto flex w-full max-w-4xl flex-col px-4 py-8 sm:px-6 md:py-12">
 
         {/* ================================================== */}
@@ -699,7 +903,7 @@ Total do pedido: R$ ${total.toFixed(2)}
             className="flex min-h-[50vh] flex-col items-center justify-center px-6 text-center"
           >
             <div className="mb-5 text-6xl">
-              🧶
+              😿🧶
             </div>
 
             <h2 className="text-2xl font-bold">
@@ -864,13 +1068,24 @@ Total do pedido: R$ ${total.toFixed(2)}
 
                             <button
                               type="button"
-                              onClick={() =>
+                              onClick={() => {
+                                if (
+                                  item.quantity <=
+                                  1
+                                ) {
+                                  openRemoveModal(
+                                    item.id,
+                                  );
+
+                                  return;
+                                }
+
                                 updateQuantity(
                                   item.id,
                                   item.quantity -
                                   1,
-                                )
-                              }
+                                );
+                              }}
                               className="flex h-9 w-9 cursor-pointer items-center justify-center text-muted transition hover:bg-primary/10 hover:text-primary"
                               aria-label="Diminuir quantidade"
                             >
@@ -927,7 +1142,7 @@ Total do pedido: R$ ${total.toFixed(2)}
                           <button
                             type="button"
                             onClick={() =>
-                              removeFromCart(
+                              openRemoveModal(
                                 item.id,
                               )
                             }
@@ -1489,7 +1704,7 @@ Total do pedido: R$ ${total.toFixed(2)}
                   <button
                     type="button"
                     onClick={
-                      clearCart
+                      openClearCartModal
                     }
                     className="cursor-pointer rounded-xl px-3 py-2 text-sm text-red-300 underline transition hover:text-red-600"
                   >
