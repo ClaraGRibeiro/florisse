@@ -7,28 +7,28 @@ const tapetes = [
         sizes: [
             {
                 label: "65x45cm",
-                price: 35,
+                price: 30,
                 sales: 0,
             },
             {
                 label: "100x45cm",
-                price: 110,
+                price: 100,
                 sales: 0,
             },
             {
                 label: "120x45cm",
-                price: 130,
+                price: 120,
                 sales: 0,
             },
             {
                 label: "2 (100x45cm)",
-                price: (110 + 110) * discount,
-                no_discount: (110 + 110),
+                price: (100 + 100) * discount,
+                no_discount: (100 + 100),
             },
             {
                 label: "2 (65x45cm) e 1 (120x45cm)",
-                price: (35 + 35 + 130) * discount,
-                no_discount: (35 + 35 + 130),
+                price: (30 + 30 + 120) * discount,
+                no_discount: (30 + 30 + 120),
             },
         ],
         colors: ["militar"],
@@ -39,6 +39,38 @@ const tapetes = [
         sizes: [
             {
                 label: "65x45cm",
+                price: 30,
+                sales: 0,
+            },
+            {
+                label: "100x45cm",
+                price: 100,
+                sales: 0,
+            },
+            {
+                label: "120x45cm",
+                price: 120,
+                sales: 0,
+            },
+            {
+                label: "2 (100x45cm)",
+                price: (100 + 100) * discount,
+                no_discount: (100 + 100),
+            },
+            {
+                label: "2 (65x45cm) e 1 (120x45cm)",
+                price: (30 + 30 + 120) * discount,
+                no_discount: (30 + 30 + 120),
+            },
+        ],
+        colors: ["malva"],
+    },
+    {
+        name: "Tapete Cris",
+        category: "Tapetes",
+        sizes: [
+            {
+                label: "65x45cm",
                 price: 35,
                 sales: 0,
             },
@@ -63,38 +95,6 @@ const tapetes = [
                 no_discount: (35 + 35 + 130),
             },
         ],
-        colors: ["malva"],
-    },
-    {
-        name: "Tapete Cris",
-        category: "Tapetes",
-        sizes: [
-            {
-                label: "65x45cm",
-                price: 40,
-                sales: 0,
-            },
-            {
-                label: "100x45cm",
-                price: 115,
-                sales: 0,
-            },
-            {
-                label: "120x45cm",
-                price: 135,
-                sales: 0,
-            },
-            {
-                label: "2 (100x45cm)",
-                price: (115 + 115) * discount,
-                no_discount: (115 + 115),
-            },
-            {
-                label: "2 (65x45cm) e 1 (120x45cm)",
-                price: (40 + 40 + 140) * discount,
-                no_discount: (40 + 40 + 140),
-            },
-        ],
         colors: ["bordo"],
     },
     {
@@ -103,28 +103,28 @@ const tapetes = [
         sizes: [
             {
                 label: "65x45cm",
-                price: 40,
-                sales: 1,
+                price: 35,
+                sales: 0,
             },
             {
                 label: "100x45cm",
-                price: 115,
+                price: 110,
                 sales: 0,
             },
             {
                 label: "120x45cm",
-                price: 135,
+                price: 130,
                 sales: 0,
             },
             {
                 label: "2 (100x45cm)",
-                price: (115 + 115) * discount,
-                no_discount: (115 + 115),
+                price: (110 + 110) * discount,
+                no_discount: (110 + 110),
             },
             {
                 label: "2 (65x45cm) e 1 (120x45cm)",
-                price: (40 + 40 + 140) * discount,
-                no_discount: (40 + 40 + 140),
+                price: (35 + 35 + 130) * discount,
+                no_discount: (35 + 35 + 130),
             },
         ],
         colors: ["vermelho"],
@@ -135,28 +135,28 @@ const tapetes = [
         sizes: [
             {
                 label: "70x50cm",
-                price: 55,
+                price: 50,
                 sales: 6,
             },
             {
                 label: "100x50cm",
-                price: 120,
+                price: 115,
                 sales: 5,
             },
             {
                 label: "120x50cm",
-                price: 155,
+                price: 145,
                 sales: 1,
             },
             {
                 label: "2 (100x50cm)",
-                price: (120 + 120) * discount,
-                no_discount: (120 + 120),
+                price: (115 + 115) * discount,
+                no_discount: (115 + 115),
             },
             {
                 label: "2 (70x50cm) e 1 (120x50cm)",
-                price: (55 + 55 + 155) * discount,
-                no_discount: (55 + 55 + 155),
+                price: (50 + 50 + 145) * discount,
+                no_discount: (50 + 50 + 145),
             },
         ],
         colors: ["alecrim-militar", "cru-marrom-bege", "limao-cru", "cru-militar-alecrim", "bege-alecrim-cru"],
@@ -167,28 +167,28 @@ const tapetes = [
         sizes: [
             {
                 label: "70x50cm",
-                price: 65,
-                sales: 0,
+                price: 60,
+                sales: 6,
             },
             {
                 label: "100x50cm",
-                price: 130,
-                sales: 0,
+                price: 125,
+                sales: 5,
             },
             {
                 label: "120x50cm",
-                price: 170,
-                sales: 0,
+                price: 155,
+                sales: 1,
             },
             {
                 label: "2 (100x50cm)",
-                price: (120 + 120) * discount,
-                no_discount: (120 + 120),
+                price: (125 + 125) * discount,
+                no_discount: (125 + 125),
             },
             {
                 label: "2 (70x50cm) e 1 (120x50cm)",
-                price: (65 + 65 + 170) * discount,
-                no_discount: (65 + 65 + 170),
+                price: (60 + 60 + 155) * discount,
+                no_discount: (60 + 60 + 155),
             },
         ],
         colors: ["telha-bege"],
@@ -199,28 +199,28 @@ const tapetes = [
         sizes: [
             {
                 label: "70x50cm",
-                price: 65,
-                sales: 0,
+                price: 60,
+                sales: 6,
             },
             {
                 label: "100x50cm",
-                price: 135,
-                sales: 0,
+                price: 125,
+                sales: 5,
             },
             {
                 label: "120x50cm",
-                price: 165,
+                price: 155,
                 sales: 1,
             },
             {
                 label: "2 (100x50cm)",
-                price: (135 + 135) * discount,
-                no_discount: (135 + 135),
+                price: (125 + 125) * discount,
+                no_discount: (125 + 125),
             },
             {
                 label: "2 (70x50cm) e 1 (120x50cm)",
-                price: (65 + 65 + 165) * discount,
-                no_discount: (65 + 65 + 165),
+                price: (60 + 60 + 155) * discount,
+                no_discount: (60 + 60 + 155),
             },
         ],
         colors: ["telha-limao-vermelho-preto"],
@@ -231,28 +231,28 @@ const tapetes = [
         sizes: [
             {
                 label: "70x50cm",
-                price: 65,
-                sales: 0,
+                price: 60,
+                sales: 6,
             },
             {
                 label: "100x50cm",
-                price: 135,
-                sales: 0,
+                price: 125,
+                sales: 5,
             },
             {
                 label: "120x50cm",
-                price: 165,
+                price: 155,
                 sales: 1,
             },
             {
                 label: "2 (100x50cm)",
-                price: (135 + 135) * discount,
-                no_discount: (135 + 135),
+                price: (125 + 125) * discount,
+                no_discount: (125 + 125),
             },
             {
                 label: "2 (70x50cm) e 1 (120x50cm)",
-                price: (65 + 65 + 165) * discount,
-                no_discount: (65 + 65 + 165),
+                price: (60 + 60 + 155) * discount,
+                no_discount: (60 + 60 + 155),
             },
         ],
         colors: ["cru-vermelho"],
@@ -263,28 +263,28 @@ const tapetes = [
         sizes: [
             {
                 label: "70x50cm",
-                price: 65,
-                sales: 2,
+                price: 60,
+                sales: 6,
             },
             {
                 label: "100x50cm",
-                price: 135,
-                sales: 0,
+                price: 125,
+                sales: 5,
             },
             {
                 label: "120x50cm",
-                price: 165,
-                sales: 0,
+                price: 155,
+                sales: 1,
             },
             {
                 label: "2 (100x50cm)",
-                price: (135 + 135) * discount,
-                no_discount: (135 + 135),
+                price: (125 + 125) * discount,
+                no_discount: (125 + 125),
             },
             {
                 label: "2 (70x50cm) e 1 (120x50cm)",
-                price: (65 + 65 + 165) * discount,
-                no_discount: (65 + 65 + 165),
+                price: (60 + 60 + 155) * discount,
+                no_discount: (60 + 60 + 155),
             },
         ],
         colors: ["bordo-militar"],
@@ -295,28 +295,28 @@ const tapetes = [
         sizes: [
             {
                 label: "70x50cm",
-                price: 80,
-                sales: 0,
+                price: 75,
+                sales: 6,
             },
             {
                 label: "100x50cm",
-                price: 145,
-                sales: 0,
+                price: 140,
+                sales: 5,
             },
             {
                 label: "120x50cm",
-                price: 175,
+                price: 170,
                 sales: 1,
             },
             {
                 label: "2 (100x50cm)",
-                price: (145 + 145) * discount,
-                no_discount: (145 + 145),
+                price: (140 + 140) * discount,
+                no_discount: (140 + 140),
             },
             {
                 label: "2 (70x50cm) e 1 (120x50cm)",
-                price: (80 + 80 + 175) * discount,
-                no_discount: (80 + 80 + 175),
+                price: (75 + 75 + 170) * discount,
+                no_discount: (75 + 75 + 170),
             },
         ],
         colors: ["cru-cinza-bege"],
