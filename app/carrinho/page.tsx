@@ -784,14 +784,14 @@ Total do pedido: R$ ${total.toFixed(2)}
               duration: 0.2,
               ease: "easeOut",
             }}
-            className="w-full max-w-sm rounded-3xl border border-border bg-card p-6 shadow-2xl"
+            className="w-full max-w-sm rounded-[1.75rem] border border-border/80 bg-card p-7 shadow-2xl"
             onMouseDown={(event) =>
               event.stopPropagation()
             }
           >
             {/* ÍCONE */}
 
-            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-primary/10">
+            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 ring-8 ring-primary/5">
               <FaTimes
                 size={20}
                 className="text-primary"
@@ -800,8 +800,8 @@ Total do pedido: R$ ${total.toFixed(2)}
 
             {/* TEXTO */}
 
-            <div className="mt-5 text-center">
-              <h2 className="text-xl font-semibold">
+            <div className="mt-6 text-center">
+              <h2 className="font-serif text-2xl font-semibold tracking-tight">
                 Tem certeza disso?
               </h2>
 
@@ -815,14 +815,14 @@ Total do pedido: R$ ${total.toFixed(2)}
 
             {/* BOTÕES */}
 
-            <div className="mt-6 grid grid-cols-2 gap-3">
+            <div className="mt-7 grid grid-cols-2 gap-3">
 
               <button
                 type="button"
                 onClick={
                   closeConfirmationModal
                 }
-                className="cursor-pointer rounded-2xl border border-border bg-background px-4 py-3 text-sm font-medium transition hover:border-primary hover:bg-primary/5"
+                className="cursor-pointer rounded-full border border-border bg-background px-4 py-3 text-sm font-medium transition-all duration-300 hover:border-primary hover:bg-primary/5"
               >
                 Cancelar
               </button>
@@ -832,7 +832,7 @@ Total do pedido: R$ ${total.toFixed(2)}
                 onClick={
                   confirmRemoval
                 }
-                className="cursor-pointer rounded-2xl bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground shadow-md transition hover:bg-primary-hover"
+                className="cursor-pointer rounded-full bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary-hover"
               >
                 Sim, remover
               </button>
@@ -842,18 +842,21 @@ Total do pedido: R$ ${total.toFixed(2)}
         </div>
       )}
 
-      <div className="mx-auto flex w-full max-w-4xl flex-col px-4 py-8 sm:px-6 md:py-12">
+      <div className="mx-auto flex w-full max-w-6xl flex-col px-4 py-10 sm:px-6 md:py-14">
 
         {/* ================================================== */}
         {/* CABEÇALHO */}
         {/* ================================================== */}
 
-        <div className="mb-6 border-b border-border pb-6">
-          <h1 className="text-3xl font-bold md:text-4xl">
+        <div className="mb-10 border-b border-border/70 pb-7">
+          <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+            Seu pedido
+          </p>
+          <h1 className="font-serif text-3xl font-semibold tracking-tight md:text-5xl">
             Seu Carrinho
           </h1>
 
-          <p className="mt-1 text-sm text-muted">
+          <p className="mt-2 text-sm text-muted">
             {totalItems}{" "}
             {totalItems === 1
               ? "item adicionado"
@@ -875,13 +878,13 @@ Total do pedido: R$ ${total.toFixed(2)}
               opacity: 1,
               y: 0,
             }}
-            className="flex min-h-[50vh] flex-col items-center justify-center px-6 text-center"
+            className="flex min-h-[52vh] flex-col items-center justify-center rounded-[2rem] border border-border/70 bg-card/40 px-6 py-16 text-center"
           >
-            <div className="mb-5 text-6xl">
+            <div className="mb-6 text-5xl">
               😿🧶
             </div>
 
-            <h2 className="text-2xl font-bold">
+            <h2 className="font-serif text-3xl font-semibold tracking-tight">
               Seu carrinho está vazio
             </h2>
 
@@ -889,7 +892,7 @@ Total do pedido: R$ ${total.toFixed(2)}
               href="/#produtos"
               className="block"
             >
-              <p className="mt-2 max-w-md text-muted">
+              <p className="mt-3 max-w-md leading-relaxed text-muted">
                 <span className="underline">
                   Adicione
                 </span>{" "}
@@ -903,6 +906,11 @@ Total do pedido: R$ ${total.toFixed(2)}
             {/* ================================================== */}
             {/* LISTA DE ITENS */}
             {/* ================================================== */}
+
+            <div className="mb-4 flex items-center gap-3 text-xs font-medium uppercase tracking-[0.14em] text-muted">
+              <span className="h-px w-8 bg-primary/40" />
+              <span>Suas escolhas</span>
+            </div>
 
             <div className="space-y-4">
               {cart.map((item) => {
@@ -925,7 +933,7 @@ Total do pedido: R$ ${total.toFixed(2)}
                       opacity: 1,
                       y: 0,
                     }}
-                    className="rounded-3xl border border-border bg-card p-4 shadow-sm"
+                    className="rounded-[1.75rem] border border-border/80 bg-card p-4 shadow-sm transition-shadow duration-300 hover:shadow-md sm:p-5"
                   >
 
                     {/* ================================================== */}
@@ -952,7 +960,7 @@ Total do pedido: R$ ${total.toFixed(2)}
                           width={160}
                           height={160}
                           loading="lazy"
-                          className="h-40 w-full rounded-2xl object-cover duration-200 hover:scale-105 md:h-32.5 md:w-32.5"
+                          className="h-40 w-full rounded-[1.25rem] object-cover transition-transform duration-500 hover:scale-[1.025] md:h-36 md:w-36"
                         />
                       </Link>
 
@@ -963,22 +971,22 @@ Total do pedido: R$ ${total.toFixed(2)}
                         <div className="flex items-start justify-between gap-4">
 
                           <div>
-                            <h2 className="text-lg font-semibold">
+                            <h2 className="font-serif text-xl font-semibold leading-tight tracking-tight">
                               {
                                 item.name
                               }
                             </h2>
 
-                            <div className="mt-2 space-y-1">
+                            <div className="mt-3 space-y-1.5">
 
-                              <p className="text-sm text-muted">
+                              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted">
                                 Cor:{" "}
                                 {formatColor(
                                   item.color,
                                 )}
                               </p>
 
-                              <p className="text-sm text-muted">
+                              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted">
                                 Tamanho:{" "}
                                 {
                                   item.size
@@ -1008,7 +1016,7 @@ Total do pedido: R$ ${total.toFixed(2)}
 
                           <div className="text-right">
 
-                            <p className="text-lg font-bold text-primary">
+                            <p className="font-serif text-xl font-semibold text-primary">
                               R${" "}
                               {subtotal.toFixed(
                                 2,
@@ -1035,11 +1043,11 @@ Total do pedido: R$ ${total.toFixed(2)}
                         {/* CONTROLES */}
                         {/* ================================================== */}
 
-                        <div className="mt-5 flex flex-wrap items-center gap-2">
+                        <div className="mt-6 flex flex-wrap items-center gap-2">
 
                           {/* QUANTIDADE */}
 
-                          <div className="flex items-center overflow-hidden rounded-xl border border-border bg-background">
+                          <div className="flex items-center overflow-hidden rounded-full border border-border bg-background shadow-sm">
 
                             <button
                               type="button"
@@ -1061,7 +1069,7 @@ Total do pedido: R$ ${total.toFixed(2)}
                                   1,
                                 );
                               }}
-                              className="flex h-9 w-9 cursor-pointer items-center justify-center text-muted transition hover:bg-primary/10 hover:text-primary"
+                              className="flex h-10 w-10 cursor-pointer items-center justify-center text-muted transition hover:bg-primary/10 hover:text-primary"
                               aria-label="Diminuir quantidade"
                             >
                               <FaMinus
@@ -1069,7 +1077,7 @@ Total do pedido: R$ ${total.toFixed(2)}
                               />
                             </button>
 
-                            <span className="flex h-9 min-w-10 items-center justify-center border-x border-border px-2 text-sm font-semibold">
+                            <span className="flex h-10 min-w-11 items-center justify-center border-x border-border px-3 text-sm font-semibold">
                               {
                                 item.quantity
                               }
@@ -1084,7 +1092,7 @@ Total do pedido: R$ ${total.toFixed(2)}
                                   1,
                                 )
                               }
-                              className="flex h-9 w-9 cursor-pointer items-center justify-center text-muted transition hover:bg-primary/10 hover:text-primary"
+                              className="flex h-10 w-10 cursor-pointer items-center justify-center text-muted transition hover:bg-primary/10 hover:text-primary"
                               aria-label="Aumentar quantidade"
                             >
                               <FaPlus
@@ -1105,7 +1113,7 @@ Total do pedido: R$ ${total.toFixed(2)}
                                   item,
                                 )
                             }
-                            className="cursor-pointer rounded-xl border border-border px-3 py-2 text-sm transition hover:border-primary hover:text-primary"
+                            className="cursor-pointer rounded-full border border-border px-4 py-2.5 text-sm font-medium transition-all duration-300 hover:border-primary/50 hover:bg-primary/5 hover:text-primary"
                           >
                             {isEditing
                               ? "Fechar edição"
@@ -1121,7 +1129,7 @@ Total do pedido: R$ ${total.toFixed(2)}
                                 item.id,
                               )
                             }
-                            className="cursor-pointer rounded-xl bg-red-100 px-3 py-2 text-sm text-red-600 transition hover:bg-red-200"
+                            className="cursor-pointer rounded-full border border-border px-4 py-2.5 text-sm font-medium text-muted transition-all duration-300 hover:border-destructive/40 hover:bg-destructive/5 hover:text-destructive"
                           >
                             Remover
                           </button>
@@ -1137,15 +1145,15 @@ Total do pedido: R$ ${total.toFixed(2)}
 
                     {isEditing &&
                       editingProduct && (
-                        <div className="mt-6 border-t border-border pt-6">
+                        <div className="mt-7 rounded-[1.5rem] border border-border/70 bg-muted/10 p-5 sm:p-6">
 
                           {/* ================================================= */}
                           {/* CORES */}
                           {/* ================================================= */}
 
                           <div>
-                            <p className="mb-3 text-sm font-medium">
-                              Escolha a cor:
+                            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-muted">
+                              Cor da peça:
                             </p>
 
                             <div className="flex flex-wrap gap-2">
@@ -1427,8 +1435,8 @@ Total do pedido: R$ ${total.toFixed(2)}
 
                           <div className="mt-7">
 
-                            <p className="mb-3 text-sm font-medium">
-                              Escolha o tamanho:
+                            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-muted">
+                              Tamanho da peça:
                             </p>
 
                             <div className="flex flex-wrap gap-2">
@@ -1607,14 +1615,14 @@ Total do pedido: R$ ${total.toFixed(2)}
                           {/* BOTÕES */}
                           {/* ================================================= */}
 
-                          <div className="mt-6 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
+                          <div className="mt-7 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
 
                             <button
                               type="button"
                               onClick={
                                 closeEditor
                               }
-                              className="cursor-pointer rounded-xl border border-border px-4 py-2.5 text-sm transition hover:bg-primary/10"
+                              className="cursor-pointer rounded-full border border-border px-5 py-2.5 text-sm font-medium transition-all duration-300 hover:border-primary/50 hover:bg-primary/5 hover:text-primary"
                             >
                               Cancelar
                             </button>
@@ -1638,7 +1646,7 @@ Total do pedido: R$ ${total.toFixed(2)}
                                   selectedSize ===
                                   null)
                               }
-                              className="cursor-pointer rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-md transition hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-50"
+                              className="cursor-pointer rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-50"
                             >
                               Salvar alterações
                             </button>
@@ -1656,7 +1664,7 @@ Total do pedido: R$ ${total.toFixed(2)}
             {/* AVISO */}
             {/* ================================================== */}
 
-            <p className="mt-3 text-sm text-muted">
+            <p className="mt-4 text-sm leading-relaxed text-muted">
               Personalizações de cor ou tamanho
               podem alterar o valor do produto.
             </p>
@@ -1665,16 +1673,16 @@ Total do pedido: R$ ${total.toFixed(2)}
             {/* RESUMO */}
             {/* ================================================== */}
 
-            <div className="mt-6 rounded-3xl border border-border bg-card p-6 shadow-sm">
+            <div className="mt-8 rounded-[1.75rem] border border-border/80 bg-card p-6 shadow-sm sm:p-7">
 
               <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
 
                 <div>
-                  <p className="text-sm text-muted">
-                    Total do pedido
+                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted">
+                    Resumo do pedido
                   </p>
 
-                  <h2 className="text-3xl font-bold text-primary">
+                  <h2 className="mt-1 font-serif text-3xl font-semibold text-primary">
                     R$ {total.toFixed(2)}
                   </h2>
                 </div>
@@ -1686,7 +1694,7 @@ Total do pedido: R$ ${total.toFixed(2)}
                     onClick={
                       openClearCartModal
                     }
-                    className="cursor-pointer rounded-xl px-3 py-2 text-sm text-red-300 underline transition hover:text-red-600"
+                    className="cursor-pointer rounded-full px-4 py-2.5 text-sm font-medium text-muted transition hover:bg-destructive/5 hover:text-destructive"
                   >
                     Limpar Carrinho
                   </button>
@@ -1696,7 +1704,7 @@ Total do pedido: R$ ${total.toFixed(2)}
                     onClick={
                       finishOrder
                     }
-                    className="w-full cursor-pointer rounded-2xl bg-primary px-6 py-4 text-lg font-semibold text-primary-foreground shadow-xl transition hover:scale-[1.02] hover:bg-primary-hover sm:w-auto"
+                    className="w-full cursor-pointer rounded-full bg-primary px-7 py-4 text-base font-semibold text-primary-foreground shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary-hover hover:shadow-xl sm:w-auto"
                   >
                     Finalizar pedido
                   </button>

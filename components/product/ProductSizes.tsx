@@ -1,3 +1,5 @@
+import { FaTimes } from "react-icons/fa";
+
 import { Product } from "@/types/product";
 
 type ProductSizesProps = {
@@ -87,19 +89,33 @@ export default function ProductSizes({
         {/* Outro */}
         <button
           type="button"
-          onClick={
-            onCustomSizeClick
-          }
-          aria-pressed={
+          onClick={onCustomSizeClick}
+          aria-pressed={isCustomSize}
+          className={`flex cursor-pointer items-center gap-2 rounded-full border px-5 py-2.5 text-sm font-medium transition-all duration-300 ${
             isCustomSize
-          }
-          className={`cursor-pointer rounded-full border px-5 py-2.5 text-sm font-medium transition-all duration-300 ${
-            isCustomSize
-              ? "border-primary bg-primary text-primary-foreground shadow-sm"
+              ? "border-primary bg-primary text-primary-foreground shadow-md"
               : "border-border bg-background text-foreground hover:border-primary/50 hover:text-primary"
           }`}
         >
-          Outro
+          {isCustomSize ? (
+            <>
+              <FaTimes
+                aria-hidden="true"
+                className="text-xs"
+              />
+              Fechar
+            </>
+          ) : (
+            <>
+              <span
+                aria-hidden="true"
+                className="text-base"
+              >
+                +
+              </span>
+              Outro
+            </>
+          )}
         </button>
       </div>
 
@@ -130,9 +146,7 @@ export default function ProductSizes({
                   type="number"
                   min="1"
                   inputMode="numeric"
-                  value={
-                    customLength
-                  }
+                  value={customLength}
                   onChange={(event) =>
                     onCustomLengthChange(
                       event.target.value,
@@ -160,9 +174,7 @@ export default function ProductSizes({
                   type="number"
                   min="1"
                   inputMode="numeric"
-                  value={
-                    customWidth
-                  }
+                  value={customWidth}
                   onChange={(event) =>
                     onCustomWidthChange(
                       event.target.value,

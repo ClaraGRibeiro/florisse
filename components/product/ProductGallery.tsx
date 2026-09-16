@@ -41,9 +41,8 @@ export default function ProductGallery({
       : 0;
 
   return (
-    <div className="relative">
-      <div className="relative aspect-9/12 w-full overflow-hidden rounded-4xl border border-border/70 bg-muted shadow-sm">
-        {imageSrc ? (
+<div className="relative mx-auto w-full max-w-120">
+  <div className="relative aspect-9/12 w-full overflow-hidden rounded-4xl border border-border/70 bg-muted shadow-sm">        {imageSrc ? (
           <Image
             src={imageSrc}
             alt={`${productName} - imagem ${selectedImage + 1}`}

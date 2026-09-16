@@ -86,11 +86,10 @@ export default function ProductCustomColor({
                     type="button"
                     onClick={() => onColorToggle(color.name)}
                     aria-pressed={isSelected}
-                    className={`flex cursor-pointer items-center gap-3 rounded-xl px-3 py-2.5 text-left transition-all ${
-                      isSelected
+                    className={`flex cursor-pointer items-center gap-3 rounded-xl px-3 py-2.5 text-left transition-all ${isSelected
                         ? "bg-primary/10"
                         : "hover:bg-muted/50"
-                    }`}
+                      }`}
                   >
                     <span
                       className="h-7 w-7 shrink-0 rounded-full border border-border shadow-sm"
@@ -166,8 +165,7 @@ export default function ProductCustomColor({
       )}
 
       <div className="mt-5 rounded-xl bg-primary/5 px-4 py-3 text-xs leading-relaxed text-muted">
-        Você pode escolher quantas cores quiser para criar uma combinação
-        personalizada.
+        A quantidade de cores pode variar conforme o modelo. Combine as cores disponíveis e crie uma peça do seu jeito.
       </div>
     </div>
   );
