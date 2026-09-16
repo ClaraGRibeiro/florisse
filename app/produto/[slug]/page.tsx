@@ -7,8 +7,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { FaArrowLeft } from "react-icons/fa";
-import { FaShareFromSquare } from "react-icons/fa6";
+import { FaArrowLeft, FaArrowUp } from "react-icons/fa";
 
 import { useCart } from "@/hooks/useCart";
 import { useProducts } from "@/hooks/useProducts";
@@ -18,6 +17,9 @@ import { formatPath } from "@/utils/format";
 
 import ProductGallery from "@/components/product/ProductGallery";
 import ProductInfo from "@/components/product/ProductInfo";
+import ProductRelated from "@/components/product/ProductRelated";
+import Share from "@/components/product/Share";
+import { useScrollTop } from "@/hooks/useScrollTop";
 
 const colors = colorsData as Color[];
 
@@ -26,9 +28,6 @@ type ProductPageProps = {
     slug: string;
   }>;
 };
-
-const SHARE_TEXT =
-  "Olha essa peça linda da Florisse! 🧶✨";
 
 function checkImageExists(
   src: string,
@@ -45,6 +44,8 @@ function checkImageExists(
 export default function ProductPage({
   params,
 }: ProductPageProps) {
+  const { showTop, scrollToTop } = useScrollTop();
+
   const { products } = useProducts();
   const { addToCart } = useCart();
   const router = useRouter();
@@ -447,103 +448,6 @@ export default function ProductPage({
   };
 
   /*
-   * Compartilhar produto.
-   */
-  const compartilharProduto =
-    async () => {
-      const url =
-        window.location.href;
-
-      try {
-        /*
-         * Primeiro tenta compartilhar
-         * a imagem junto.
-         */
-        if (
-          imageSrc &&
-          navigator.share &&
-          navigator.canShare
-        ) {
-          try {
-            const response =
-              await fetch(imageSrc);
-
-            const blob =
-              await response.blob();
-
-            const extension =
-              blob.type ===
-                "image/png"
-                ? "png"
-                : "webp";
-
-            const file = new File(
-              [blob],
-              `${formatPath(
-                product.name,
-              )}.${extension}`,
-              {
-                type: blob.type,
-              },
-            );
-
-            if (
-              navigator.canShare({
-                files: [file],
-              })
-            ) {
-              await navigator.share({
-                title:
-                  product.name,
-                text: SHARE_TEXT,
-                files: [file],
-              });
-
-              return;
-            }
-          } catch {
-            /*
-             * Continua para o compartilhamento
-             * por URL.
-             */
-          }
-        }
-
-        /*
-         * Compartilhamento normal.
-         */
-        if (navigator.share) {
-          await navigator.share({
-            title: product.name,
-            text: SHARE_TEXT,
-            url,
-          });
-
-          return;
-        }
-
-        /*
-         * Fallback para WhatsApp.
-         */
-        const whatsappMessage =
-          encodeURIComponent(
-            `${SHARE_TEXT}\n\n${product.name}\n${url}`,
-          );
-
-        window.open(
-          `https://wa.me/?text=${whatsappMessage}`,
-          "_blank",
-          "noopener,noreferrer",
-        );
-      } catch {
-        /*
-         * Usuário pode simplesmente ter
-         * fechado o menu de compartilhamento.
-         */
-      }
-    };
-
-  /*
    * Adicionar ao carrinho.
    */
   const handleAdd = () => {
@@ -595,19 +499,11 @@ export default function ProductPage({
             <span>Voltar</span>
           </button>
 
-          <button
-            type="button"
-            onClick={
-              compartilharProduto
-            }
-            className="group flex cursor-pointer items-center gap-2 rounded-full border border-border bg-card px-4 py-2.5 text-sm font-medium text-foreground shadow-sm transition-all duration-300 hover:border-primary/40 hover:text-primary hover:shadow-md"
-          >
-            <FaShareFromSquare className="text-sm transition-transform duration-300 group-hover:scale-110" />
 
-            <span className="hidden sm:inline">
-              Compartilhar
-            </span>
-          </button>
+          <Share
+            product={product}
+            imageSrc={imageSrc}
+          />
         </div>
 
         {/* Produto */}
@@ -668,6 +564,21 @@ export default function ProductPage({
             onAddToCart={handleAdd}
           />
         </div>
+
+        {/* PRODUTOS RELACIONADOS */}
+        <ProductRelated
+          product={product}
+          products={products}
+        />
+        {showTop && (
+          <button
+            title="Voltar para o início"
+            onClick={scrollToTop}
+            className="cursor-pointer fixed bottom-6 right-6 flex h-12 w-12 items-center justify-center rounded-full bg-primary text-white shadow-lg transition hover:scale-105"
+          >
+            <FaArrowUp size={18} />
+          </button>
+        )}
       </div>
     </main>
   );

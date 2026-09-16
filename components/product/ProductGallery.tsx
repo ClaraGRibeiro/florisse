@@ -35,30 +35,30 @@ export default function ProductGallery({
 
   const discountPercentage =
     currentPrice !== undefined &&
-    originalPrice !== undefined &&
-    originalPrice > currentPrice
+      originalPrice !== undefined &&
+      originalPrice > currentPrice
       ? Math.round((1 - currentPrice / originalPrice) * 100)
       : 0;
 
   return (
-<div className="relative mx-auto w-full max-w-120">
-  <div className="relative aspect-9/12 w-full overflow-hidden rounded-4xl border border-border/70 bg-muted shadow-sm">        {imageSrc ? (
-          <Image
-            src={imageSrc}
-            alt={`${productName} - imagem ${selectedImage + 1}`}
-            fill
-            priority
-            sizes="(max-width: 768px) 100vw, 50vw"
-            className="object-cover transition-transform duration-700"
-          />
-        ) : (
-          <div
-            className="absolute inset-0 flex items-center justify-center"
-            aria-label="Carregando imagem do produto"
-          >
-            <span className="h-8 w-8 animate-spin rounded-full border-2 border-border border-t-primary" />
-          </div>
-        )}
+    <div className="relative mx-auto w-full max-w-120">
+      <div className="relative aspect-9/12 w-full overflow-hidden rounded-4xl border border-border/70 bg-muted shadow-sm">        {imageSrc ? (
+        <Image
+          src={imageSrc}
+          alt={`${productName} - imagem ${selectedImage + 1}`}
+          fill
+          priority
+          sizes="(max-width: 768px) 100vw, 50vw"
+          className="object-cover transition-transform duration-700"
+        />
+      ) : (
+        <div
+          className="absolute inset-0 flex items-center justify-center"
+          aria-label="Carregando imagem do produto"
+        >
+          <span className="h-8 w-8 animate-spin rounded-full border-2 border-border border-t-primary" />
+        </div>
+      )}
 
         {totalSales > 0 && (
           <div className="absolute left-4 top-4 rounded-full bg-background/90 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-primary shadow-sm backdrop-blur-md">
@@ -119,11 +119,10 @@ export default function ProductGallery({
               aria-current={
                 selectedImage === index ? "true" : undefined
               }
-              className={`cursor-pointer rounded-full transition-all duration-300 ${
-                selectedImage === index
+              className={`cursor-pointer rounded-full transition-all duration-300 ${selectedImage === index
                   ? "h-2 w-7 bg-primary"
                   : "h-2 w-2 bg-border hover:bg-primary/50"
-              }`}
+                }`}
             />
           ))}
         </div>
