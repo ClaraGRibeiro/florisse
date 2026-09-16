@@ -16,10 +16,6 @@ import { useProducts } from "@/hooks/useProducts";
 import { useCart } from "@/hooks/useCart";
 import { formatColor, formatPath } from "@/utils/format";
 import { getGradient } from "@/utils/gradient";
-import { Metadata } from "next";
-import tapetes from "@/data/tapetes";
-import bolsa from "@/data/bolsa";
-import mesaposta from "@/data/mesaposta";
 
 interface Color {
     name: string;
@@ -33,61 +29,7 @@ type ProductPageProps = {
         slug: string;
     }>;
 };
-export async function generateMetadata({
-    params,
-}: {
-    params: Promise<{ slug: string }>;
-}): Promise<Metadata> {
-    const { slug } = await params;
 
-    const product = [...tapetes, ...mesaposta, ...bolsa].find(
-        (item) => formatPath(item.name) === slug
-    );
-
-    if (!product) {
-        return {
-            title: "Produto não encontrado",
-        };
-    }
-
-    const imageUrl = `/products/${formatPath(product.category)}/${formatPath(
-        product.name
-    )}/${formatColor(product.colors?.[0] ?? "")}.webp`;
-
-    return {
-        title: product.name,
-        description: `Conheça o ${product.name} da Florisse Crochê. Feito à mão e personalizável em diferentes cores e tamanhos.`,
-
-        alternates: {
-            canonical: `/produto/${slug}`,
-        },
-
-        openGraph: {
-            type: "website",
-            title: `${product.name} | Florisse Crochê`,
-            description: `Conheça o ${product.name} da Florisse Crochê.`,
-            url: `/produto/${slug}`,
-            siteName: "Florisse Crochê",
-            locale: "pt_BR",
-
-            images: [
-                {
-                    url: imageUrl,
-                    width: 1200,
-                    height: 1200,
-                    alt: product.name,
-                },
-            ],
-        },
-
-        twitter: {
-            card: "summary_large_image",
-            title: `${product.name} | Florisse Crochê`,
-            description: `Conheça o ${product.name} da Florisse Crochê.`,
-            images: [imageUrl],
-        },
-    };
-}
 export default function ProductPage({ params }: ProductPageProps) {
     const { products } = useProducts();
     const { addToCart } = useCart();
