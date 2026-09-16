@@ -21,7 +21,7 @@ export default function ProductImage({
   )}/${formatPath(product.name)}/${selectedColor.name}.webp`;
 
   return (
-    <div className="relative aspect-square w-full overflow-hidden bg-muted">
+    <div className="relative aspect-9/12 w-full overflow-hidden bg-muted">
       <AnimatePresence initial={false} mode="sync">
         <motion.div
           key={selectedColor.name}

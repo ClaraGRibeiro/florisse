@@ -1,1190 +1,674 @@
 "use client";
 
 import colorsData from "@/data/colors.json";
-import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 import {
-    FaArrowLeft,
-    FaCheck,
-    FaSearch,
-    FaTimes,
-} from "react-icons/fa";
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import { FaArrowLeft } from "react-icons/fa";
 import { FaShareFromSquare } from "react-icons/fa6";
 
-import { useProducts } from "@/hooks/useProducts";
 import { useCart } from "@/hooks/useCart";
-import { formatColor, formatPath } from "@/utils/format";
-import { getGradient } from "@/utils/gradient";
+import { useProducts } from "@/hooks/useProducts";
 
-interface Color {
-    name: string;
-    hex: string;
-}
+import { Color } from "@/types/color";
+import { formatPath } from "@/utils/format";
+
+import ProductGallery from "@/components/product/ProductGallery";
+import ProductInfo from "@/components/product/ProductInfo";
 
 const colors = colorsData as Color[];
 
 type ProductPageProps = {
-    params: Promise<{
-        slug: string;
-    }>;
+  params: Promise<{
+    slug: string;
+  }>;
 };
 
-export default function ProductPage({ params }: ProductPageProps) {
-    const { products } = useProducts();
-    const { addToCart } = useCart();
-
-    const router = useRouter();
-
-    // ============================================================
-    // ESTADOS
-    // ============================================================
-
-    const [slug, setSlug] = useState<string | null>(null);
-
-    // Cor que possui foto
-    const [selectedColor, setSelectedColor] = useState(0);
-
-    // Tamanho normal
-    const [selectedSize, setSelectedSize] = useState(0);
-
-    // ============================================================
-    // TAMANHO PERSONALIZADO
-    // ============================================================
-
-    const [isCustomSize, setIsCustomSize] = useState(false);
-
-    const [customLength, setCustomLength] = useState("");
-
-    const [customWidth, setCustomWidth] = useState("");
-
-    // ============================================================
-    // IMAGEM
-    // ============================================================
-
-    const [selectedImage, setSelectedImage] = useState(0);
-
-    // Imagens da cor atual
-    const [images, setImages] = useState<string[]>([]);
-
-    // Feedback do botão de adicionar
-    const [added, setAdded] = useState(false);
-
-    // ============================================================
-    // OUTRA COR
-    // ============================================================
-
-    const [isOtherColor, setIsOtherColor] = useState(false);
-
-    // Input de busca
-    const [colorSearch, setColorSearch] = useState("");
-
-    // Cores escolhidas pelo cliente
-    const [selectedOtherColors, setSelectedOtherColors] =
-        useState<string[]>([]);
-
-    // ============================================================
-    // CARREGA O SLUG
-    // ============================================================
-
-    useEffect(() => {
-        params.then((value) => {
-            setSlug(value.slug);
-        });
-    }, [params]);
-
-    // ============================================================
-    // ENCONTRA O PRODUTO
-    // ============================================================
-
-    const product = slug
-        ? products.find(
-            (item) => formatPath(item.name) === slug,
-        )
-        : undefined;
-
-    // ============================================================
-    // DESCOBRE AS IMAGENS DA COR
-    // ============================================================
-
-    useEffect(() => {
-        if (!product) {
-            return;
-        }
-
-        const currentColor = product.colors[selectedColor];
-
-        if (!currentColor) {
-            return;
-        }
-
-        let cancelled = false;
-
-        const loadColorImages = async () => {
-            const basePath = `/products/${formatPath(
-                product.category,
-            )}/${formatPath(product.name)}/${currentColor.name}`;
-
-            const existingImages: string[] = [];
-
-            let index = 1;
-
-            while (!cancelled) {
-                const suffix =
-                    index === 1 ? "" : `-${index}`;
-
-                const path = `${basePath}${suffix}.webp`;
-
-                const exists = await new Promise<boolean>(
-                    (resolve) => {
-                        const img = new window.Image();
-
-                        img.onload = () => resolve(true);
-                        img.onerror = () => resolve(false);
-
-                        img.src = path;
-                    },
-                );
-
-                if (!exists) {
-                    break;
-                }
-
-                existingImages.push(path);
-
-                index++;
-            }
-
-            if (!cancelled) {
-                setImages(existingImages);
-                setSelectedImage(0);
-            }
-        };
-
-        loadColorImages();
-
-        return () => {
-            cancelled = true;
-        };
-    }, [
-        product?.category,
-        product?.name,
-        product?.colors[selectedColor]?.name,
-    ]);
-
-    // ============================================================
-    // LOADING
-    // ============================================================
-
-    if (!slug || products.length === 0) {
-        return null;
-    }
-
-    // ============================================================
-    // PRODUTO NÃO ENCONTRADO
-    // ============================================================
-
-    if (!product) {
-        return (
-            <div className="flex min-h-screen items-center justify-center bg-background">
-                <div className="text-center">
-                    <h1 className="text-3xl font-bold">
-                        Produto não encontrado
-                    </h1>
-
-                    <button
-                        type="button"
-                        onClick={() => router.push("/#produtos")}
-                        className="mt-6 cursor-pointer rounded-2xl bg-primary px-6 py-3 font-semibold text-white"
-                    >
-                        Voltar para produtos
-                    </button>
-                </div>
-            </div>
-        );
-    }
-
-    // ============================================================
-    // DADOS ATUAIS
-    // ============================================================
-
-    const currentColor = product.colors[selectedColor];
-
-    const currentSize = product.sizes[selectedSize];
-
-    const imageSrc = images[selectedImage];
-
-    // ============================================================
-    // TAMANHO QUE SERÁ ENVIADO PARA O CARRINHO
-    // ============================================================
-
-    const cartSize = isCustomSize
-        ? `${customLength}x${customWidth}cm`
-        : currentSize.label;
-
-    // ============================================================
-    // COMPARTILHAR PRODUTO
-    // ============================================================
-
-    const compartilharProduto = async () => {
-        try {
-            const url = window.location.href;
-
-            // Se não houver imagem, compartilha somente o link
-            if (!imageSrc) {
-                if (navigator.share) {
-                    await navigator.share({
-                        title: product.name,
-                        text: `Olha essa peça linda da Florisse! 🧶✨`,
-                        url,
-                    });
-
-                    return;
-                }
-
-                window.open(
-                    `https://wa.me/?text=${encodeURIComponent(
-                        `Olha essa peça linda da Florisse! 🧶✨\n\n${url}`,
-                    )}`,
-                    "_blank",
-                );
-
-                return;
-            }
-
-            // ====================================================
-            // BAIXA A IMAGEM ATUAL
-            // ====================================================
-
-            const response = await fetch(imageSrc);
-
-            if (!response.ok) {
-                throw new Error(
-                    "Não foi possível carregar a imagem.",
-                );
-            }
-
-            const blob = await response.blob();
-
-            // ====================================================
-            // TRANSFORMA A IMAGEM EM ARQUIVO
-            // ====================================================
-
-            const extension =
-                blob.type === "image/png"
-                    ? "png"
-                    : "webp";
-
-            const file = new File(
-                [blob],
-                `${formatPath(product.name)}.${extension}`,
-                {
-                    type: blob.type || "image/webp",
-                },
-            );
-
-            // ====================================================
-            // COMPARTILHAMENTO NATIVO
-            // ====================================================
-
-            const shareData = {
-                title: product.name,
-                text: `Olha essa peça linda da Florisse! 🧶✨`,
-                url,
-                files: [file],
-            };
-
-            if (
-                navigator.share &&
-                navigator.canShare &&
-                navigator.canShare({
-                    files: [file],
-                })
-            ) {
-                await navigator.share(shareData);
-
-                return;
-            }
-
-            // ====================================================
-            // FALLBACK
-            // ====================================================
-
-            if (navigator.share) {
-                await navigator.share({
-                    title: product.name,
-                    text: `Olha essa peça linda da Florisse! 🧶✨\n\n${url}`,
-                    url,
-                });
-
-                return;
-            }
-
-            // ====================================================
-            // ÚLTIMO FALLBACK: WHATSAPP
-            // ====================================================
-
-            window.open(
-                `https://wa.me/?text=${encodeURIComponent(
-                    `Olha essa peça linda da Florisse! 🧶✨\n\n${url}`,
-                )}`,
-                "_blank",
-            );
-        } catch (error) {
-            if (
-                error instanceof Error &&
-                error.name === "AbortError"
-            ) {
-                return;
-            }
-
-            console.error(
-                "Erro ao compartilhar produto:",
-                error,
-            );
-        }
-    };
-
-    // ============================================================
-    // TROCA PARA UMA COR COM FOTO
-    // ============================================================
-
-    const handleColorChange = (index: number) => {
-        setIsOtherColor(false);
-
-        setSelectedOtherColors([]);
-
-        setColorSearch("");
-
-        setSelectedColor(index);
-
-        setSelectedImage(0);
-    };
-
-    // ============================================================
-    // ABRE "OUTRA COR"
-    // ============================================================
-
-    const handleOtherColorClick = () => {
-        setIsOtherColor(true);
-    };
-
-    // ============================================================
-    // BUSCA DE CORES
-    // ============================================================
-
-    const filteredColors = colors.filter((color) => {
-        const search = colorSearch
-            .trim()
-            .toLowerCase();
-
-        if (!search) {
-            return false;
-        }
-
-        return color.name
-            .toLowerCase()
-            .includes(search);
+const SHARE_TEXT =
+  "Olha essa peça linda da Florisse! 🧶✨";
+
+function checkImageExists(
+  src: string,
+): Promise<boolean> {
+  return new Promise((resolve) => {
+    const image = new window.Image();
+
+    image.onload = () => resolve(true);
+    image.onerror = () => resolve(false);
+    image.src = src;
+  });
+}
+
+export default function ProductPage({
+  params,
+}: ProductPageProps) {
+  const { products } = useProducts();
+  const { addToCart } = useCart();
+  const router = useRouter();
+
+  const [slug, setSlug] =
+    useState<string | null>(null);
+
+  const [selectedColor, setSelectedColor] =
+    useState(0);
+
+  const [selectedSize, setSelectedSize] =
+    useState(0);
+
+  const [isCustomSize, setIsCustomSize] =
+    useState(false);
+
+  const [customLength, setCustomLength] =
+    useState("");
+
+  const [customWidth, setCustomWidth] =
+    useState("");
+
+  const [images, setImages] =
+    useState<string[]>([]);
+
+  const [selectedImage, setSelectedImage] =
+    useState(0);
+
+  const [added, setAdded] =
+    useState(false);
+
+  const [isOtherColor, setIsOtherColor] =
+    useState(false);
+
+  const [colorSearch, setColorSearch] =
+    useState("");
+
+  const [
+    selectedOtherColors,
+    setSelectedOtherColors,
+  ] = useState<string[]>([]);
+
+  const addedTimeout =
+    useRef<ReturnType<typeof setTimeout> | null>(
+      null,
+    );
+
+  /*
+   * Resolve o slug da página.
+   */
+  useEffect(() => {
+    let active = true;
+
+    params.then(({ slug: currentSlug }) => {
+      if (active) {
+        setSlug(currentSlug);
+      }
     });
 
-    // ============================================================
-    // SELECIONA / REMOVE COR PERSONALIZADA
-    // ============================================================
+    return () => {
+      active = false;
+    };
+  }, [params]);
 
-    const handleOtherColorChange = (
-        colorName: string,
-    ) => {
-        setSelectedOtherColors((prev) => {
-            if (prev.includes(colorName)) {
-                return prev.filter(
-                    (color) => color !== colorName,
-                );
-            }
+  /*
+   * Encontra o produto pelo slug.
+   */
+  const product = slug
+    ? products.find(
+      (item) =>
+        formatPath(item.name) === slug,
+    )
+    : undefined;
 
-            return [...prev, colorName];
-        });
+  /*
+   * IMPORTANTE:
+   *
+   * Não colocamos "product" inteiro nas dependências
+   * do useEffect.
+   *
+   * O objeto pode receber uma nova referência a cada
+   * renderização e isso poderia criar um loop:
+   *
+   * render
+   * → effect
+   * → setImages
+   * → render
+   * → effect
+   * → ...
+   *
+   * Por isso usamos apenas valores primitivos.
+   */
+  const productName = product?.name;
 
-        setColorSearch("");
+  const productCategory =
+    product?.category;
+
+  const currentColorName =
+    product?.colors[selectedColor]?.name;
+
+  /*
+   * Procura as imagens da cor selecionada.
+   *
+   * Exemplo:
+   *
+   * cru.webp
+   * cru-2.webp
+   * cru-3.webp
+   */
+  useEffect(() => {
+    if (
+      !productName ||
+      !productCategory ||
+      !currentColorName
+    ) {
+      setImages([]);
+      setSelectedImage(0);
+      return;
+    }
+
+    let cancelled = false;
+
+    const loadImages = async () => {
+      const basePath =
+        `/products/${formatPath(
+          productCategory,
+        )}/${formatPath(
+          productName,
+        )}/${currentColorName}`;
+
+      const loadedImages: string[] = [];
+
+      for (let index = 1; ; index++) {
+        const suffix =
+          index === 1
+            ? ""
+            : `-${index}`;
+
+        const src =
+          `${basePath}${suffix}.webp`;
+
+        const exists =
+          await checkImageExists(src);
+
+        if (!exists || cancelled) {
+          break;
+        }
+
+        loadedImages.push(src);
+      }
+
+      if (!cancelled) {
+        setImages(loadedImages);
+        setSelectedImage(0);
+      }
     };
 
-    // ============================================================
-    // REMOVE COR PERSONALIZADA
-    // ============================================================
+    /*
+     * Limpa as imagens anteriores enquanto
+     * as novas são carregadas.
+     */
+    setImages([]);
+    setSelectedImage(0);
 
-    const removeOtherColor = (colorName: string) => {
-        setSelectedOtherColors((prev) =>
-            prev.filter(
-                (color) => color !== colorName,
-            ),
+    loadImages();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [
+    productName,
+    productCategory,
+    currentColorName,
+  ]);
+
+  /*
+   * Limpa o timeout do botão de adicionar
+   * ao desmontar a página.
+   */
+  useEffect(() => {
+    return () => {
+      if (addedTimeout.current) {
+        clearTimeout(
+          addedTimeout.current,
         );
+      }
     };
+  }, []);
 
-    // ============================================================
-    // TROCA DE TAMANHO NORMAL
-    // ============================================================
+  /*
+   * Enquanto os dados ainda estão carregando.
+   */
+  if (!slug || products.length === 0) {
+    return null;
+  }
 
-    const handleSizeChange = (index: number) => {
-        // Sai do modo personalizado
-        setIsCustomSize(false);
-
-        // Limpa os campos personalizados
-        setCustomLength("");
-        setCustomWidth("");
-
-        // Seleciona o tamanho normal
-        setSelectedSize(index);
-    };
-
-    // ============================================================
-    // ABRE TAMANHO PERSONALIZADO
-    // ============================================================
-
-    const handleCustomSizeClick = () => {
-        setIsCustomSize(true);
-    };
-
-    // ============================================================
-    // PRÓXIMA IMAGEM
-    // ============================================================
-
-    const nextImage = () => {
-        if (images.length <= 1) {
-            return;
-        }
-
-        setSelectedImage((prev) =>
-            prev === images.length - 1
-                ? 0
-                : prev + 1,
-        );
-    };
-
-    // ============================================================
-    // IMAGEM ANTERIOR
-    // ============================================================
-
-    const previousImage = () => {
-        if (images.length <= 1) {
-            return;
-        }
-
-        setSelectedImage((prev) =>
-            prev === 0
-                ? images.length - 1
-                : prev - 1,
-        );
-    };
-
-    // ============================================================
-    // COR QUE SERÁ ENVIADA PARA O CARRINHO
-    // ============================================================
-
-    const cartColor = isOtherColor
-        ? selectedOtherColors.join("/")
-        : currentColor.name;
-
-    // ============================================================
-    // ADICIONAR AO CARRINHO
-    // ============================================================
-
-    const handleAdd = () => {
-        if (!imageSrc) {
-            return;
-        }
-
-        // Verifica cor personalizada
-        if (
-            isOtherColor &&
-            selectedOtherColors.length === 0
-        ) {
-            return;
-        }
-
-        // Verifica tamanho personalizado
-        if (
-            isCustomSize &&
-            (!customLength.trim() ||
-                !customWidth.trim())
-        ) {
-            return;
-        }
-
-        addToCart({
-            id: crypto.randomUUID(),
-            name: product.name,
-            color: cartColor,
-            size: cartSize,
-            price: currentSize.price,
-            no_discount: currentSize.no_discount,
-            image: imageSrc,
-            quantity: 1,
-        });
-
-        setAdded(true);
-
-        setTimeout(() => {
-            setAdded(false);
-        }, 600);
-    };
-
-    // ============================================================
-    // VERIFICA SE PODE ADICIONAR
-    // ============================================================
-
-    const canAddToCart =
-        !!imageSrc &&
-        (!isOtherColor ||
-            selectedOtherColors.length > 0) &&
-        (!isCustomSize ||
-            (customLength.trim() &&
-                customWidth.trim()));
-
+  /*
+   * Produto inexistente.
+   */
+  if (!product) {
     return (
-        <div className="min-h-screen bg-background text-foreground">
-            <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-10">
-
-                {/* ================================================= */}
-                {/* VOLTAR / COMPARTILHAR */}
-                {/* ================================================= */}
-
-                <div className="mb-2 flex justify-between align-middle">
-
-                    <button
-                        type="button"
-                        onClick={() => router.back()}
-                        className="mb-8 flex cursor-pointer items-center gap-2 text-sm font-medium text-muted transition hover:text-primary"
-                    >
-                        <FaArrowLeft size={13} />
-                        Voltar
-                    </button>
-
-                    <button
-                        type="button"
-                        title="Compartilhar"
-                        onClick={compartilharProduto}
-                        className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-primary text-white shadow-lg transition hover:scale-105"
-                    >
-                        <FaShareFromSquare size={18} />
-                    </button>
-                </div>
-
-                {/* ================================================= */}
-                {/* PRODUTO */}
-                {/* ================================================= */}
-
-                <div className="grid items-start gap-10 md:grid-cols-[minmax(0,600px)_minmax(320px,1fr)] lg:gap-16">
-
-                    {/* ================================================= */}
-                    {/* IMAGEM */}
-                    {/* ================================================= */}
-
-                    <div className="relative w-full max-w-180 md:max-w-120">
-
-                        <div className="relative aspect-9/12 w-full overflow-hidden rounded-3xl bg-card-soft">
-
-                            {/* IMAGEM PRINCIPAL */}
-
-                            {imageSrc && (
-                                <Image
-                                    key={imageSrc}
-                                    src={imageSrc}
-                                    alt={`${product.name} - ${isOtherColor
-                                        ? "cor personalizada"
-                                        : formatColor(
-                                            currentColor.name,
-                                        )
-                                        }`}
-                                    fill
-                                    priority
-                                    sizes="(max-width: 768px) 100vw, 600px"
-                                    className="object-cover"
-                                />
-                            )}
-
-                            {/* SETA ESQUERDA */}
-
-                            {images.length > 1 && (
-                                <button
-                                    type="button"
-                                    onClick={previousImage}
-                                    aria-label="Imagem anterior"
-                                    className="absolute left-3 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-background/80 text-2xl text-foreground shadow-md backdrop-blur transition hover:scale-105 hover:bg-background"
-                                >
-                                    ‹
-                                </button>
-                            )}
-
-                            {/* SETA DIREITA */}
-
-                            {images.length > 1 && (
-                                <button
-                                    type="button"
-                                    onClick={nextImage}
-                                    aria-label="Próxima imagem"
-                                    className="absolute right-3 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-background/80 text-2xl text-foreground shadow-md backdrop-blur transition hover:scale-105 hover:bg-background"
-                                >
-                                    ›
-                                </button>
-                            )}
-
-                            {/* BOLINHAS */}
-
-                            {images.length > 1 && (
-                                <div className="absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 gap-2 rounded-full bg-background/80 px-3 py-2 shadow-md backdrop-blur">
-                                    {images.map(
-                                        (_, index) => (
-                                            <button
-                                                key={index}
-                                                type="button"
-                                                onClick={() =>
-                                                    setSelectedImage(
-                                                        index,
-                                                    )
-                                                }
-                                                aria-label={`Ver imagem ${index + 1
-                                                    }`}
-                                                className={`h-2.5 w-2.5 cursor-pointer rounded-full transition-all ${selectedImage ===
-                                                    index
-                                                    ? "scale-125 bg-primary"
-                                                    : "bg-foreground/40 hover:bg-foreground/70"
-                                                    }`}
-                                            />
-                                        ),
-                                    )}
-                                </div>
-                            )}
-
-                            {/* BADGES */}
-
-                            <div className="absolute left-4 top-4 z-20 flex flex-wrap gap-2">
-
-                                {currentSize.sales !==
-                                    undefined &&
-                                    currentSize.sales > 0 && (
-                                        <span className="rounded-full bg-background/90 px-3 py-1 text-xs font-medium shadow-md backdrop-blur">
-                                            {currentSize.sales > 1
-                                                ? `${currentSize.sales} vendidos`
-                                                : `${currentSize.sales} vendido`}
-                                        </span>
-                                    )}
-
-                                {currentSize.no_discount && (
-                                    <span className="rounded-full bg-red-500 px-3 py-1 text-xs font-bold text-white shadow-md">
-                                        -10%
-                                    </span>
-                                )}
-                            </div>
-                        </div>
-
-                        {/* CONTADOR */}
-
-                        {images.length > 1 && (
-                            <p className="mt-2 text-center text-xs text-muted">
-                                {selectedImage + 1} /{" "}
-                                {images.length}
-                            </p>
-                        )}
-                    </div>
-
-                    {/* ================================================= */}
-                    {/* INFORMAÇÕES */}
-                    {/* ================================================= */}
-
-                    <div className="flex min-w-0 flex-col pt-1 md:pt-4">
-
-                        {/* CATEGORIA */}
-
-                        <p className="text-sm font-medium text-primary">
-                            {product.category}
-                        </p>
-
-                        {/* NOME */}
-
-                        <h1 className="mt-2 text-3xl font-bold leading-tight sm:text-4xl">
-                            {product.name}
-                        </h1>
-
-                        {/* PREÇO */}
-
-                        <div className="mt-5 flex flex-wrap items-center gap-3">
-                            <span className="text-3xl font-bold text-primary">
-                                R${" "}
-                                {currentSize.price.toFixed(2)}
-                            </span>
-
-                            {currentSize.no_discount && (
-                                <span className="text-sm text-muted line-through">
-                                    R${" "}
-                                    {currentSize.no_discount}
-                                </span>
-                            )}
-                        </div>
-
-                        {/* ================================================= */}
-                        {/* DIVISÓRIA */}
-                        {/* ================================================= */}
-
-                        <div className="my-7 h-px bg-border" />
-
-                        {/* ================================================= */}
-                        {/* CORES */}
-                        {/* ================================================= */}
-
-                        <div>
-                            <p className="mb-3 text-sm font-medium">
-                                Escolha a cor:
-                            </p>
-
-                            <div className="flex flex-wrap gap-2">
-
-                                {/* CORES COM FOTO */}
-
-                                {product.colors.map(
-                                    (color, index) => (
-                                        <button
-                                            key={color.name}
-                                            type="button"
-                                            onClick={() =>
-                                                handleColorChange(
-                                                    index,
-                                                )
-                                            }
-                                            className={`flex cursor-pointer items-center gap-2 rounded-full border px-3 py-2 text-sm transition-all ${!isOtherColor &&
-                                                selectedColor ===
-                                                index
-                                                ? "border-primary bg-primary text-white shadow-md"
-                                                : "border-border bg-background hover:border-primary/40"
-                                                }`}
-                                        >
-                                            <span
-                                                className="h-5 w-5 shrink-0 rounded-full border border-white"
-                                                style={{
-                                                    background:
-                                                        getGradient(
-                                                            color.hex,
-                                                        ),
-                                                }}
-                                            />
-
-                                            {formatColor(
-                                                color.name,
-                                            )}
-                                        </button>
-                                    ),
-                                )}
-
-                                {/* OUTRA COR */}
-
-                                <button
-                                    type="button"
-                                    onClick={
-                                        handleOtherColorClick
-                                    }
-                                    className={`flex cursor-pointer items-center gap-2 rounded-full border px-3 py-2 text-sm transition-all ${isOtherColor
-                                        ? "border-primary bg-primary text-white shadow-md"
-                                        : "border-border bg-background hover:border-primary/40"
-                                        }`}
-                                >
-                                    <span
-                                        className="h-5 w-5 shrink-0 rounded-full border border-white shadow-sm"
-                                        style={{
-                                            background:
-                                                "conic-gradient(#f59e0b 0deg 72deg, #ef4444 72deg 144deg, #a855f7 144deg 216deg, #3b82f6 216deg 288deg, #22c55e 288deg 360deg)",
-                                        }}
-                                    />
-                                    {selectedOtherColors.length >
-                                        0
-                                        ? `Outra (${selectedOtherColors.length})`
-                                        : "Outra"}
-                                </button>
-                            </div>
-
-                            {/* ================================================= */}
-                            {/* ÁREA DE OUTRA COR */}
-                            {/* ================================================= */}
-
-                            {isOtherColor && (
-                                <div className="relative mt-3 w-full max-w-md">
-
-                                    {/* INPUT */}
-
-                                    <div className="flex items-center gap-2 rounded-2xl border border-border bg-background px-4 py-3 transition focus-within:border-primary">
-                                        <FaSearch
-                                            size={13}
-                                            className="shrink-0 text-muted"
-                                        />
-
-                                        <input
-                                            type="text"
-                                            value={colorSearch}
-                                            onChange={(event) =>
-                                                setColorSearch(
-                                                    event.target
-                                                        .value,
-                                                )
-                                            }
-                                            placeholder="Digite uma cor..."
-                                            className="min-w-0 flex-1 bg-transparent text-sm outline-none placeholder:text-muted"
-                                        />
-
-                                        {colorSearch && (
-                                            <button
-                                                type="button"
-                                                onClick={() =>
-                                                    setColorSearch(
-                                                        "",
-                                                    )
-                                                }
-                                                aria-label="Limpar busca"
-                                                className="cursor-pointer text-muted transition hover:text-foreground"
-                                            >
-                                                <FaTimes
-                                                    size={13}
-                                                />
-                                            </button>
-                                        )}
-                                    </div>
-
-                                    {/* RESULTADOS */}
-
-                                    {colorSearch.trim() !==
-                                        "" && (
-                                            <div className="absolute left-0 right-0 top-full z-50 mt-2 max-h-60 overflow-y-auto rounded-2xl border border-border bg-background p-2 shadow-xl">
-
-                                                {filteredColors.length >
-                                                    0 ? (
-                                                    filteredColors.map(
-                                                        (
-                                                            color,
-                                                        ) => {
-                                                            const isSelected =
-                                                                selectedOtherColors.includes(
-                                                                    color.name,
-                                                                );
-
-                                                            return (
-                                                                <button
-                                                                    key={
-                                                                        color.name
-                                                                    }
-                                                                    type="button"
-                                                                    onClick={() =>
-                                                                        handleOtherColorChange(
-                                                                            color.name,
-                                                                        )
-                                                                    }
-                                                                    className={`flex w-full cursor-pointer items-center gap-3 rounded-xl px-3 py-2 text-left text-sm transition ${isSelected
-                                                                        ? "bg-primary text-white"
-                                                                        : "hover:bg-primary/10"
-                                                                        }`}
-                                                                >
-                                                                    <span
-                                                                        className="h-6 w-6 shrink-0 rounded-full border border-border"
-                                                                        style={{
-                                                                            background:
-                                                                                color.hex,
-                                                                        }}
-                                                                    />
-
-                                                                    <span className="flex-1">
-                                                                        {formatColor(
-                                                                            color.name,
-                                                                        )}
-                                                                    </span>
-
-                                                                    {isSelected && (
-                                                                        <FaCheck
-                                                                            size={
-                                                                                12
-                                                                            }
-                                                                        />
-                                                                    )}
-                                                                </button>
-                                                            );
-                                                        },
-                                                    )
-                                                ) : (
-                                                    <p className="px-3 py-3 text-sm text-muted">
-                                                        Nenhuma cor
-                                                        encontrada.
-                                                    </p>
-                                                )}
-                                            </div>
-                                        )}
-
-                                    {/* CORES SELECIONADAS */}
-
-                                    {selectedOtherColors.length >
-                                        0 && (
-                                            <div className="mt-3 flex flex-wrap gap-2">
-
-                                                {selectedOtherColors.map(
-                                                    (
-                                                        colorName,
-                                                    ) => {
-                                                        const color =
-                                                            colors.find(
-                                                                (
-                                                                    item,
-                                                                ) =>
-                                                                    item.name ===
-                                                                    colorName,
-                                                            );
-
-                                                        if (
-                                                            !color
-                                                        ) {
-                                                            return null;
-                                                        }
-
-                                                        return (
-                                                            <button
-                                                                key={
-                                                                    colorName
-                                                                }
-                                                                type="button"
-                                                                onClick={() =>
-                                                                    removeOtherColor(
-                                                                        colorName,
-                                                                    )
-                                                                }
-                                                                className="flex cursor-pointer items-center gap-2 rounded-full bg-primary/10 px-3 py-1.5 text-xs text-primary transition hover:bg-primary/20"
-                                                                title="Remover cor"
-                                                            >
-                                                                <span
-                                                                    className="h-4 w-4 rounded-full border border-border"
-                                                                    style={{
-                                                                        background:
-                                                                            color.hex,
-                                                                    }}
-                                                                />
-
-                                                                {formatColor(
-                                                                    colorName,
-                                                                )}
-
-                                                                <FaTimes
-                                                                    size={
-                                                                        9
-                                                                    }
-                                                                />
-                                                            </button>
-                                                        );
-                                                    },
-                                                )}
-                                            </div>
-                                        )}
-
-                                    {/* TEXTO */}
-
-                                    <p className="mt-2 text-xs text-muted">
-                                        A quantidade de cores pode variar conforme o modelo.
-                                    </p>
-                                </div>
-                            )}
-                        </div>
-
-                        {/* ================================================= */}
-                        {/* TAMANHOS */}
-                        {/* ================================================= */}
-
-                        <div className="mt-7">
-
-                            <p className="mb-3 text-sm font-medium">
-                                Escolha o tamanho:
-                            </p>
-
-                            <div className="flex flex-wrap gap-2">
-
-                                {/* TAMANHOS CADASTRADOS */}
-
-                                {product.sizes.map(
-                                    (size, index) => (
-                                        <button
-                                            key={size.label}
-                                            type="button"
-                                            onClick={() =>
-                                                handleSizeChange(
-                                                    index,
-                                                )
-                                            }
-                                            className={`flex cursor-pointer items-center gap-2 rounded-xl border px-3 py-2 text-sm transition-all ${!isCustomSize &&
-                                                selectedSize ===
-                                                index
-                                                ? "border-primary bg-primary text-white shadow-md"
-                                                : "border-border bg-background hover:border-primary/40"
-                                                }`}
-                                        >
-                                            <span>
-                                                {
-                                                    size.label
-                                                }
-                                            </span>
-
-                                            {size.no_discount && (
-                                                <span
-                                                    className={
-                                                        !isCustomSize &&
-                                                            selectedSize ===
-                                                            index
-                                                            ? "text-[10px] font-bold text-white/80"
-                                                            : "text-[10px] font-bold text-red-500"
-                                                    }
-                                                >
-                                                    -10%
-                                                </span>
-                                            )}
-                                        </button>
-                                    ),
-                                )}
-
-                                {/* OUTRO TAMANHO */}
-
-                                <button
-                                    type="button"
-                                    onClick={
-                                        handleCustomSizeClick
-                                    }
-                                    className={`cursor-pointer rounded-xl border px-3 py-2 text-sm transition-all ${isCustomSize
-                                        ? "border-primary bg-primary text-white shadow-md"
-                                        : "border-border bg-background hover:border-primary/40"
-                                        }`}
-                                >
-                                    Outro
-                                </button>
-                            </div>
-
-                            {/* ================================================= */}
-                            {/* TAMANHO PERSONALIZADO */}
-                            {/* ================================================= */}
-
-                            {isCustomSize && (
-                                <div className="mt-3 w-full max-w-md">
-
-                                    <div className="grid grid-cols-2 gap-3">
-
-                                        {/* COMPRIMENTO */}
-
-                                        <div>
-                                            <label
-                                                htmlFor="custom-length"
-                                                className="mb-2 block text-xs font-medium text-muted"
-                                            >
-                                                Comprimento
-                                            </label>
-
-                                            <div className="flex items-center rounded-2xl border border-border bg-background px-4 py-3 transition focus-within:border-primary">
-                                                <input
-                                                    id="custom-length"
-                                                    type="number"
-                                                    min="1"
-                                                    step="0.1"
-                                                    value={
-                                                        customLength
-                                                    }
-                                                    onChange={(
-                                                        event,
-                                                    ) =>
-                                                        setCustomLength(
-                                                            event
-                                                                .target
-                                                                .value,
-                                                        )
-                                                    }
-                                                    placeholder="Ex.: 150"
-                                                    className="min-w-0 flex-1 bg-transparent text-sm outline-none placeholder:text-muted"
-                                                />
-
-                                                <span className="ml-2 text-xs text-muted">
-                                                    cm
-                                                </span>
-                                            </div>
-                                        </div>
-
-                                        {/* LARGURA */}
-
-                                        <div>
-                                            <label
-                                                htmlFor="custom-width"
-                                                className="mb-2 block text-xs font-medium text-muted"
-                                            >
-                                                Largura
-                                            </label>
-
-                                            <div className="flex items-center rounded-2xl border border-border bg-background px-4 py-3 transition focus-within:border-primary">
-                                                <input
-                                                    id="custom-width"
-                                                    type="number"
-                                                    min="1"
-                                                    step="0.1"
-                                                    value={
-                                                        customWidth
-                                                    }
-                                                    onChange={(
-                                                        event,
-                                                    ) =>
-                                                        setCustomWidth(
-                                                            event
-                                                                .target
-                                                                .value,
-                                                        )
-                                                    }
-                                                    placeholder="Ex.: 200"
-                                                    className="min-w-0 flex-1 bg-transparent text-sm outline-none placeholder:text-muted"
-                                                />
-
-                                                <span className="ml-2 text-xs text-muted">
-                                                    cm
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    {/* AVISO */}
-
-                                    <p className="mt-2 text-xs text-muted">
-                                        O valor para tamanho
-                                        personalizado será
-                                        negociado.
-                                    </p>
-                                </div>
-                            )}
-                        </div>
-
-                        {/* ================================================= */}
-                        {/* COMPRA */}
-                        {/* ================================================= */}
-
-                        <div className="mt-8">
-
-                            <p className="my-2 text-xs text-muted">
-                                Personalizações de cor ou
-                                tamanho podem alterar o valor
-                                do produto.
-                            </p>
-
-                            <button
-                                type="button"
-                                onClick={handleAdd}
-                                disabled={!canAddToCart}
-                                className={`flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl py-4 text-base font-semibold text-primary-foreground shadow-xl transition ${added
-                                    ? "scale-[1.02] bg-secondary"
-                                    : "bg-primary hover:scale-[1.01] hover:bg-primary-hover"
-                                    } disabled:cursor-not-allowed disabled:opacity-50`}
-                            >
-                                {added ? (
-                                    <>
-                                        <FaCheck />
-                                        Adicionado
-                                    </>
-                                ) : (
-                                    "Adicionar ao carrinho"
-                                )}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      <main className="flex min-h-screen items-center justify-center px-4">
+        <div className="text-center">
+          <h1 className="font-serif text-3xl font-semibold text-foreground">
+            Peça não encontrada
+          </h1>
+
+          <p className="mt-3 text-sm text-muted">
+            Não encontramos o produto que você
+            está procurando.
+          </p>
+
+          <button
+            type="button"
+            onClick={() =>
+              router.push("/#produtos")
+            }
+            className="mt-6 cursor-pointer rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-all hover:opacity-90"
+          >
+            Ver produtos
+          </button>
         </div>
+      </main>
     );
+  }
+
+  const currentColor =
+    product.colors[selectedColor];
+
+  const currentSize =
+    product.sizes[selectedSize];
+
+  /*
+   * Proteção caso os índices deixem de existir.
+   */
+  if (!currentColor || !currentSize) {
+    return null;
+  }
+
+  const imageSrc =
+    images[selectedImage];
+
+  const cartSize = isCustomSize
+    ? `${customLength}x${customWidth}cm`
+    : currentSize.label;
+
+  const cartColor = isOtherColor
+    ? selectedOtherColors.join("/")
+    : currentColor.name;
+
+  const canAddToCart =
+    Boolean(imageSrc) &&
+    Boolean(currentColor) &&
+    (!isOtherColor ||
+      selectedOtherColors.length > 0) &&
+    (!isCustomSize ||
+      (customLength.trim().length > 0 &&
+        customWidth.trim().length > 0));
+
+  /*
+   * Seleciona uma cor normal.
+   */
+  const handleColorChange = (
+    index: number,
+  ) => {
+    setSelectedColor(index);
+
+    setIsOtherColor(false);
+    setColorSearch("");
+    setSelectedOtherColors([]);
+
+    setSelectedImage(0);
+  };
+
+  /*
+   * Ativa/desativa "Outra".
+   */
+  const handleOtherColorClick = () => {
+    setIsOtherColor(
+      (previous) => !previous,
+    );
+
+    setColorSearch("");
+    setSelectedOtherColors([]);
+
+    setSelectedImage(0);
+  };
+
+  /*
+   * Filtra as cores.
+   */
+  const filteredColors =
+    colors.filter((color) =>
+      color.name
+        .toLowerCase()
+        .includes(
+          colorSearch.toLowerCase(),
+        ),
+    );
+
+  /*
+   * Seleciona uma cor personalizada.
+   */
+  const handleOtherColorChange = (
+    colorName: string,
+  ) => {
+    setSelectedOtherColors(
+      (previous) => {
+        if (
+          previous.includes(colorName)
+        ) {
+          return previous.filter(
+            (name) =>
+              name !== colorName,
+          );
+        }
+
+        return [
+          ...previous,
+          colorName,
+        ];
+      },
+    );
+
+    setColorSearch("");
+  };
+
+  /*
+   * Remove uma cor personalizada.
+   */
+  const removeOtherColor = (
+    colorName: string,
+  ) => {
+    setSelectedOtherColors(
+      (previous) =>
+        previous.filter(
+          (name) =>
+            name !== colorName,
+        ),
+    );
+  };
+
+  /*
+   * Seleciona tamanho padrão.
+   */
+  const handleSizeChange = (
+    index: number,
+  ) => {
+    setSelectedSize(index);
+
+    setIsCustomSize(false);
+    setCustomLength("");
+    setCustomWidth("");
+  };
+
+  /*
+   * Ativa/desativa tamanho personalizado.
+   */
+  const handleCustomSizeClick = () => {
+    setIsCustomSize(
+      (previous) => !previous,
+    );
+
+    if (!isCustomSize) {
+      setCustomLength("");
+      setCustomWidth("");
+    }
+  };
+
+  /*
+   * Próxima imagem.
+   */
+  const nextImage = () => {
+    if (images.length <= 1) {
+      return;
+    }
+
+    setSelectedImage(
+      (previous) =>
+        (previous + 1) %
+        images.length,
+    );
+  };
+
+  /*
+   * Imagem anterior.
+   */
+  const previousImage = () => {
+    if (images.length <= 1) {
+      return;
+    }
+
+    setSelectedImage(
+      (previous) =>
+        (previous -
+          1 +
+          images.length) %
+        images.length,
+    );
+  };
+
+  /*
+   * Compartilhar produto.
+   */
+  const compartilharProduto =
+    async () => {
+      const url =
+        window.location.href;
+
+      try {
+        /*
+         * Primeiro tenta compartilhar
+         * a imagem junto.
+         */
+        if (
+          imageSrc &&
+          navigator.share &&
+          navigator.canShare
+        ) {
+          try {
+            const response =
+              await fetch(imageSrc);
+
+            const blob =
+              await response.blob();
+
+            const extension =
+              blob.type ===
+                "image/png"
+                ? "png"
+                : "webp";
+
+            const file = new File(
+              [blob],
+              `${formatPath(
+                product.name,
+              )}.${extension}`,
+              {
+                type: blob.type,
+              },
+            );
+
+            if (
+              navigator.canShare({
+                files: [file],
+              })
+            ) {
+              await navigator.share({
+                title:
+                  product.name,
+                text: SHARE_TEXT,
+                files: [file],
+              });
+
+              return;
+            }
+          } catch {
+            /*
+             * Continua para o compartilhamento
+             * por URL.
+             */
+          }
+        }
+
+        /*
+         * Compartilhamento normal.
+         */
+        if (navigator.share) {
+          await navigator.share({
+            title: product.name,
+            text: SHARE_TEXT,
+            url,
+          });
+
+          return;
+        }
+
+        /*
+         * Fallback para WhatsApp.
+         */
+        const whatsappMessage =
+          encodeURIComponent(
+            `${SHARE_TEXT}\n\n${product.name}\n${url}`,
+          );
+
+        window.open(
+          `https://wa.me/?text=${whatsappMessage}`,
+          "_blank",
+          "noopener,noreferrer",
+        );
+      } catch {
+        /*
+         * Usuário pode simplesmente ter
+         * fechado o menu de compartilhamento.
+         */
+      }
+    };
+
+  /*
+   * Adicionar ao carrinho.
+   */
+  const handleAdd = () => {
+    if (!canAddToCart) {
+      return;
+    }
+
+    addToCart({
+      id: crypto.randomUUID(),
+      name: product.name,
+      color: cartColor,
+      size: cartSize,
+      price: currentSize.price,
+      no_discount:
+        currentSize.no_discount,
+      image: imageSrc,
+      quantity: 1,
+    });
+
+    setAdded(true);
+
+    if (addedTimeout.current) {
+      clearTimeout(
+        addedTimeout.current,
+      );
+    }
+
+    addedTimeout.current =
+      setTimeout(() => {
+        setAdded(false);
+        addedTimeout.current = null;
+      }, 600);
+  };
+
+  return (
+    <main className="min-h-screen bg-background">
+      <div className="mx-auto max-w-7xl px-4 pb-16 pt-6 sm:px-6 lg:px-8">
+        {/* Cabeçalho */}
+        <div className="mb-8 flex items-center justify-between gap-4">
+          <button
+            type="button"
+            onClick={() =>
+              router.back()
+            }
+            className="group flex cursor-pointer items-center gap-2 rounded-full px-3 py-2 text-sm font-medium text-muted transition-colors hover:bg-muted/10 hover:text-primary"
+          >
+            <FaArrowLeft className="text-xs transition-transform duration-300 group-hover:-translate-x-1" />
+
+            <span>Voltar</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={
+              compartilharProduto
+            }
+            className="group flex cursor-pointer items-center gap-2 rounded-full border border-border bg-card px-4 py-2.5 text-sm font-medium text-foreground shadow-sm transition-all duration-300 hover:border-primary/40 hover:text-primary hover:shadow-md"
+          >
+            <FaShareFromSquare className="text-sm transition-transform duration-300 group-hover:scale-110" />
+
+            <span className="hidden sm:inline">
+              Compartilhar
+            </span>
+          </button>
+        </div>
+
+        {/* Produto */}
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(380px,0.95fr)] lg:gap-16 xl:gap-20">
+          {/* Galeria */}
+          <ProductGallery
+            productName={product.name}
+            imageSrc={imageSrc}
+            images={images}
+            selectedImage={
+              selectedImage
+            }
+            totalSales={
+              product.total_sales ?? 0
+            }
+            currentPrice={
+              currentSize.price
+            }
+            originalPrice={
+              currentSize.no_discount
+                ? Number(
+                  currentSize.no_discount,
+                )
+                : undefined
+            }
+            onPreviousImage={
+              previousImage
+            }
+            onNextImage={nextImage}
+            onSelectImage={
+              setSelectedImage
+            }
+          />
+
+          {/* Informações */}
+          <ProductInfo
+            product={product}
+            colors={colors}
+            selectedColor={selectedColor}
+            isOtherColor={isOtherColor}
+            colorSearch={colorSearch}
+            selectedOtherColors={selectedOtherColors}
+            selectedSize={selectedSize}
+            isCustomSize={isCustomSize}
+            customLength={customLength}
+            customWidth={customWidth}
+            canAddToCart={canAddToCart}
+            added={added}
+            onColorChange={handleColorChange}
+            onToggleOtherColor={handleOtherColorClick}
+            onColorSearchChange={setColorSearch}
+            onOtherColorToggle={handleOtherColorChange}
+            onOtherColorRemove={removeOtherColor}
+            onSizeChange={handleSizeChange}
+            onCustomSizeClick={handleCustomSizeClick}
+            onCustomLengthChange={setCustomLength}
+            onCustomWidthChange={setCustomWidth}
+            onAddToCart={handleAdd}
+          />
+        </div>
+      </div>
+    </main>
+  );
 }
