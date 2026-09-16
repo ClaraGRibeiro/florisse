@@ -1,44 +1,94 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { FaHeart, FaLeaf } from "react-icons/fa";
 
 export default function Sobre() {
   return (
     <motion.section
       id="sobre"
-      initial={{ opacity: 0, y: 60 }}
+      initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.8 }}
-      className="scroll-mt-20 overflow-hidden bg-card py-16 sm:py-20"
+      transition={{ duration: 0.7 }}
+      className="relative scroll-mt-20 overflow-hidden bg-card py-20 sm:py-24"
     >
-      <div className="mx-auto grid max-w-7xl gap-14 px-4 sm:px-6 md:grid-cols-2 md:items-center lg:gap-20">
-        <div className="relative flex justify-center">
-          <Image
-            src="/sobre.webp"
-            alt="Artesã trabalhando"
-            width={1200}
-            height={800}
-            loading="lazy"
-            className="w-full max-w-155 rounded-4xl object-cover shadow-2xl"
-          />
+      {/* Elementos decorativos */}
+      <div className="pointer-events-none absolute -left-24 top-20 h-64 w-64 rounded-full bg-primary/5 blur-3xl" />
+      <div className="pointer-events-none absolute -right-24 bottom-10 h-72 w-72 rounded-full bg-primary/5 blur-3xl" />
 
-          <div className="absolute -bottom-6 -right-6 hidden h-32 w-32 rounded-full bg-primary/10 blur-3xl sm:block" />
-        </div>
+      <div className="relative mx-auto grid max-w-6xl gap-14 px-4 sm:px-6 md:grid-cols-2 md:items-center lg:gap-20">
+        {/* Imagem */}
+        <motion.div
+          initial={{ opacity: 0, x: -25 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.1 }}
+          className="relative flex justify-center"
+        >
+          {/* Moldura decorativa */}
+          <div className="absolute -bottom-4 -left-4 h-full w-full max-w-155 rounded-[2rem] border border-primary/15 sm:-bottom-5 sm:-left-5" />
 
-        <div className="relative z-10 text-left md:text-left">
-          <h2 className="mt-5 text-4xl font-bold leading-tight text-foreground sm:text-5xl">
-            Sobre a <span className="text-primary"> Florisse Crochê</span>
+          <div className="relative w-full max-w-155 overflow-hidden rounded-[2rem] shadow-xl">
+            <Image
+              src="/sobre.webp"
+              alt="Artesã trabalhando em uma peça de crochê"
+              width={1200}
+              height={800}
+              loading="lazy"
+              className="h-auto w-full object-cover transition-transform duration-700 hover:scale-[1.02]"
+            />
+
+            {/* Overlay sutil */}
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent" />
+          </div>
+
+          {/* Selo */}
+          <div className="absolute -bottom-5 right-2 flex h-20 w-20 rotate-3 items-center justify-center rounded-full border border-primary/20 bg-card shadow-lg sm:right-6">
+            <div className="flex flex-col items-center text-primary">
+              <FaHeart size={15} />
+              <span className="mt-1 text-[9px] font-medium uppercase tracking-[0.16em]">
+                Feito
+              </span>
+              <span className="text-[9px] font-medium uppercase tracking-[0.16em]">
+                à mão
+              </span>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Conteúdo */}
+        <motion.div
+          initial={{ opacity: 0, x: 25 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+          className="relative z-10"
+        >
+          {/* Eyebrow */}
+          <div className="flex items-center gap-3 text-xs font-medium uppercase tracking-[0.2em] text-primary">
+            <FaLeaf size={11} />
+            <span>De onde vem cada ponto</span>
+          </div>
+
+          <h2 className="mt-4 font-serif text-4xl font-medium leading-[1.1] text-foreground sm:text-5xl">
+            Sobre a{" "}
+            <span className="italic text-primary">
+              Florisse Crochê
+            </span>
           </h2>
 
-          <div className="mt-6 space-y-5 text-base leading-relaxed text-muted sm:text-lg">
+          <div className="mt-6 h-px w-16 bg-primary/40" />
+
+          <div className="mt-7 space-y-5 text-base leading-relaxed text-muted sm:text-lg">
             <p>
-              A Florisse Crochê nasceu do crochê como um refúgio pra mim. É onde eu
-              desacelero, coloco a mente em ordem e encontro paz em cada ponto.
+              A Florisse Crochê nasceu do crochê como um refúgio pra mim. É onde
+              eu desacelero, coloco a mente em ordem e encontro paz em cada
+              ponto.
             </p>
 
             <p>
-              Não é só sobre peças decorativas, é sobre o processo. Cada fio que
-              eu trabalho me ajuda a aliviar a ansiedade e transformar
+              Não é só sobre peças decorativas, é sobre o processo. Cada fio
+              que eu trabalho me ajuda a aliviar a ansiedade e transformar
               pensamentos em algo bonito, leve e cheio de energia boa.
             </p>
 
@@ -48,7 +98,15 @@ export default function Sobre() {
               fazer tudo com amor.
             </p>
           </div>
-        </div>
+
+          {/* Assinatura */}
+          <div className="mt-8 flex items-center gap-3">
+            <div className="h-px w-10 bg-border" />
+            <span className="font-serif text-sm italic text-muted">
+              Onde o crochê vira paz.
+            </span>
+          </div>
+        </motion.div>
       </div>
     </motion.section>
   );
