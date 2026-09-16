@@ -1,72 +1,209 @@
-"use client"
+"use client";
+
+import { useState } from "react";
 import { useCart } from "@/hooks/useCart";
 import Image from "next/image";
 import Link from "next/link";
-import { FaCartPlus, FaInstagram } from "react-icons/fa";
+import {
+  FaBars,
+  FaCartPlus,
+  FaInstagram,
+  FaTimes,
+} from "react-icons/fa";
 
 const navItems = ["Início", "Produtos", "Cores", "Cuidados", "Sobre"];
 
 export default function Header() {
   const { cart } = useCart();
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const closeMenu = () => {
+    setMenuOpen(false);
+  };
+
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6">
-        <Link
-          href={`/`}
-          className="block">
-          <div className="flex min-w-0 items-center gap-3">
-            <div className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-full bg-primary/15 shadow-sm">
-              <Image
-                src="/logo.webp"
-                alt="Florisse Crochê"
-                width={80}
-                height={80}
-                priority
-                className="h-full w-full object-cover"
-              />
-            </div>
+    <>
+      <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6">
+          {/* LOGO */}
+          <Link href="/" className="block" onClick={closeMenu}>
+            <div className="flex min-w-0 items-center gap-3">
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-full bg-primary/15 shadow-sm">
+                <Image
+                  src="/logo.webp"
+                  alt="Florisse Crochê"
+                  width={80}
+                  height={80}
+                  priority
+                  className="h-full w-full object-cover"
+                />
+              </div>
 
-            <div className="min-w-0">
-              <h1 className="truncate font-serif text-xl font-semibold tracking-tight sm:text-2xl">
-                Florisse Crochê
-              </h1>
+              <div className="min-w-0">
+                <h1 className="truncate font-serif text-xl font-semibold tracking-tight sm:text-2xl">
+                  Florisse Crochê
+                </h1>
 
-              <p className="hidden text-xs text-muted sm:block">
-                Onde o crochê vira paz.
-              </p>
+                <p className="hidden text-xs text-muted sm:block">
+                  Onde o crochê vira paz.
+                </p>
+              </div>
             </div>
+          </Link>
+
+          {/* DESKTOP */}
+          <nav className="hidden items-center gap-4 lg:flex">
+            {navItems.map((item) => (
+              <a
+                key={item}
+                href={`/#${item.toLowerCase()}`}
+                className="relative text-sm font-medium text-foreground-soft transition-colors hover:text-primary after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all hover:after:w-full"
+              >
+                {item}
+              </a>
+            ))}
+
+            {/* CARRINHO */}
+            <Link href="/carrinho" className="block">
+              <button
+                type="button"
+                className="flex cursor-pointer items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground shadow-md transition-all hover:scale-[1.03] hover:bg-primary-hover"
+              >
+                <FaCartPlus size={16} />
+
+                <span>Carrinho</span>
+
+                <span className="rounded-full bg-white/20 px-2 py-0.5 text-xs">
+                  {cart.length}
+                </span>
+              </button>
+            </Link>
+
+            {/* INSTAGRAM */}
+            <button
+              type="button"
+              onClick={() =>
+                window.open(
+                  "https://instagram.com/florisse_croche",
+                  "_blank",
+                  "noopener,noreferrer"
+                )
+              }
+              className="flex cursor-pointer items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-medium text-primary shadow-md transition-all hover:scale-[1.03]"
+            >
+              <FaInstagram size={16} />
+              <span>Instagram</span>
+            </button>
+          </nav>
+
+          {/* MOBILE */}
+          <div className="flex items-center gap-2 lg:hidden">
+            {/* CARRINHO MOBILE */}
+            <Link href="/carrinho" aria-label="Abrir carrinho">
+              <button
+                type="button"
+                className="relative flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-primary text-white shadow-md transition hover:scale-105"
+              >
+                <FaCartPlus size={20} />
+
+                {cart.length > 0 && (
+                  <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-bold text-white">
+                    {cart.length}
+                  </span>
+                )}
+              </button>
+            </Link>
+            <button
+              type="button"
+              onClick={() => {
+                closeMenu();
+
+                window.open(
+                  "https://instagram.com/florisse_croche",
+                  "_blank",
+                  "noopener,noreferrer"
+                );
+              }}
+                className="relative flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-border bg-white text-primary shadow-md transition hover:scale-105"
+            >
+              <FaInstagram size={16} />
+            </button>
+
+            {/* MENU */}
+            <button
+              type="button"
+              aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
+              aria-expanded={menuOpen}
+              onClick={() => setMenuOpen((prev) => !prev)}
+              className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-border bg-background text-foreground shadow-sm transition hover:bg-muted"
+            >
+              {menuOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
+            </button>
           </div>
-        </Link>
-        <nav className="hidden items-center gap-4 lg:flex">
+        </div>
+      </header>
+
+      {/* OVERLAY */}
+      {menuOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-black/30 backdrop-blur-[2px] lg:hidden"
+          onClick={closeMenu}
+          aria-hidden="true"
+        />
+      )}
+
+      {/* MENU LATERAL MOBILE */}
+      <aside
+        className={`fixed right-0 top-0 z-50 flex h-full w-[min(85vw,360px)] flex-col border-l border-border bg-background shadow-2xl transition-transform duration-300 lg:hidden ${menuOpen ? "translate-x-0" : "translate-x-full"
+          }`}
+        aria-hidden={!menuOpen}
+      >
+        {/* CABEÇALHO DO MENU */}
+        <div className="flex items-center justify-between border-b border-border px-5 py-5">
+          <div>
+            <p className="font-serif text-xl font-semibold">
+              Florisse Crochê
+            </p>
+
+            <p className="mt-0.5 text-xs text-muted">
+              Onde o crochê vira paz.
+            </p>
+          </div>
+
+          <button
+            type="button"
+            onClick={closeMenu}
+            aria-label="Fechar menu"
+            className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-border text-foreground transition hover:bg-muted"
+          >
+            <FaTimes size={18} />
+          </button>
+        </div>
+
+        {/* NAVEGAÇÃO */}
+        <nav className="flex flex-col px-5 py-6">
           {navItems.map((item) => (
             <a
               key={item}
               href={`/#${item.toLowerCase()}`}
-              className="relative text-sm font-medium text-foreground-soft transition-colors hover:text-primary after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all hover:after:w-full"
+              onClick={closeMenu}
+              className="border-b border-border py-4 text-base font-medium text-foreground transition-colors hover:text-primary"
             >
               {item}
             </a>
           ))}
+        </nav>
 
-          <Link
-            href={`/carrinho`}
-            className="block"
-          >
+        {/* AÇÕES */}
+        <div className="mt-auto border-t border-border p-5">
+          <Link href="/carrinho" onClick={closeMenu}>
             <button
-              className="relative flex h-11 w-11 items-center justify-center rounded-full bg-primary text-white shadow-md transition hover:scale-105 lg:hidden"
+              type="button"
+              className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-medium text-primary-foreground shadow-md transition hover:bg-primary-hover"
             >
-              <FaCartPlus size={20} />
+              <FaCartPlus size={16} />
 
-              {cart.length > 0 && (
-                <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">
-                  {cart.length}
-                </span>
-              )}
-            </button>
-            <button
-              className="cursor-pointer flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground shadow-md transition-all hover:scale-[1.03] hover:bg-primary-hover"
-            >
-              <span>Carrinho</span>
+              <span>Meu carrinho</span>
 
               <span className="rounded-full bg-white/20 px-2 py-0.5 text-xs">
                 {cart.length}
@@ -75,16 +212,24 @@ export default function Header() {
           </Link>
 
           <button
-            onClick={() =>
-              window.open("https://instagram.com/florisse_croche", "_blank")
-            }
-            className="cursor-pointer flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-medium text-primary shadow-md transition-all hover:scale-[1.03]"
+            type="button"
+            onClick={() => {
+              closeMenu();
+
+              window.open(
+                "https://instagram.com/florisse_croche",
+                "_blank",
+                "noopener,noreferrer"
+              );
+            }}
+            className="mt-3 flex w-full cursor-pointer items-center justify-center gap-2 rounded-full border border-border bg-white px-5 py-3 text-sm font-medium text-primary shadow-sm transition hover:bg-muted"
           >
             <FaInstagram size={16} />
+
             <span>Instagram</span>
           </button>
-        </nav>
-      </div>
-    </header>
+        </div>
+      </aside>
+    </>
   );
 }
