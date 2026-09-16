@@ -62,7 +62,7 @@ export default function ProductGallery({
 
         {totalSales > 0 && (
           <div className="absolute left-4 top-4 rounded-full bg-background/90 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-primary shadow-sm backdrop-blur-md">
-            Mais vendido
+            {totalSales} {totalSales > 1 ? "vendidos" : "vendido"}
           </div>
         )}
 

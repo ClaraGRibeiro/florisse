@@ -104,7 +104,7 @@ const tapetes = [
             {
                 label: "65x45cm",
                 price: 35,
-                sales: 0,
+                sales: 1,
             },
             {
                 label: "100x45cm",
@@ -168,17 +168,17 @@ const tapetes = [
             {
                 label: "70x50cm",
                 price: 60,
-                sales: 6,
+                sales: 0,
             },
             {
                 label: "100x50cm",
                 price: 125,
-                sales: 5,
+                sales: 0,
             },
             {
                 label: "120x50cm",
                 price: 155,
-                sales: 1,
+                sales: 0,
             },
             {
                 label: "2 (100x50cm)",
@@ -200,12 +200,12 @@ const tapetes = [
             {
                 label: "70x50cm",
                 price: 60,
-                sales: 6,
+                sales: 0,
             },
             {
                 label: "100x50cm",
                 price: 125,
-                sales: 5,
+                sales: 0,
             },
             {
                 label: "120x50cm",
@@ -232,12 +232,12 @@ const tapetes = [
             {
                 label: "70x50cm",
                 price: 60,
-                sales: 6,
+                sales: 0,
             },
             {
                 label: "100x50cm",
                 price: 125,
-                sales: 5,
+                sales: 0,
             },
             {
                 label: "120x50cm",
@@ -264,17 +264,17 @@ const tapetes = [
             {
                 label: "70x50cm",
                 price: 60,
-                sales: 6,
+                sales: 0,
             },
             {
                 label: "100x50cm",
                 price: 125,
-                sales: 5,
+                sales: 2,
             },
             {
                 label: "120x50cm",
                 price: 155,
-                sales: 1,
+                sales: 0,
             },
             {
                 label: "2 (100x50cm)",
@@ -296,12 +296,12 @@ const tapetes = [
             {
                 label: "70x50cm",
                 price: 75,
-                sales: 6,
+                sales: 0,
             },
             {
                 label: "100x50cm",
                 price: 140,
-                sales: 5,
+                sales: 0,
             },
             {
                 label: "120x50cm",
