@@ -1,6 +1,6 @@
 const discount = 0.9;
 
-const tapetes = [
+const mesaposta = [
     {
         name: "Sousplat Tradicional",
         category: "Mesa Posta",
@@ -72,4 +72,4 @@ const tapetes = [
         colors: ["cru-bege"],
     },
 ]
-export default tapetes;
+export default mesaposta;

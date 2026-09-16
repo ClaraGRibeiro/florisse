@@ -15,9 +15,103 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const siteUrl = "https://florisse.vercel.app";
+
 export const metadata: Metadata = {
-  title: "Florisse Crochê",
-  description: "Onde o crochê vira paz.",
+  metadataBase: new URL(siteUrl),
+
+  title: {
+    default: "Florisse Crochê | Tapetes e peças artesanais em crochê",
+    template: "%s | Florisse Crochê",
+  },
+
+  description:
+    "Tapetes e peças artesanais em crochê feitos à mão. Escolha suas cores, personalize sua peça e encomende pelo WhatsApp.",
+
+  keywords: [
+    "Florisse Crochê",
+    "crochê",
+    "tapetes de crochê",
+    "tapete artesanal",
+    "tapetes personalizados",
+    "peças de crochê",
+    "mesa posta",
+    "crochê Montes Claros",
+    "artesanato Montes Claros",
+  ],
+
+  authors: [
+    {
+      name: "Florisse Crochê",
+    },
+  ],
+
+  creator: "Florisse Crochê",
+  publisher: "Florisse Crochê",
+
+  applicationName: "Florisse Crochê",
+
+  alternates: {
+    canonical: "./",
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+
+  icons: {
+    icon: [
+      {
+        url: "/favicon.ico",
+        sizes: "any",
+      },
+    ],
+    apple: "/apple-touch-icon.png",
+  },
+
+  openGraph: {
+    type: "website",
+    locale: "pt_BR",
+    url: siteUrl,
+
+    siteName: "Florisse Crochê",
+
+    title: "Florisse Crochê | Tapetes e peças artesanais em crochê",
+
+    description:
+      "Tapetes e peças artesanais em crochê feitos à mão. Escolha suas cores, personalize sua peça e encomende pelo WhatsApp.",
+
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Florisse Crochê — Onde o crochê vira paz.",
+      },
+    ],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+
+    title: "Florisse Crochê | Tapetes e peças artesanais em crochê",
+
+    description:
+      "Tapetes e peças artesanais em crochê feitos à mão. Escolha suas cores, personalize sua peça e encomende pelo WhatsApp.",
+
+    images: ["/og-image.jpg"],
+  },
+
+  category: "shopping",
 };
 
 export default function RootLayout({
@@ -27,7 +121,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="pt-br"
+      lang="pt-BR"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
