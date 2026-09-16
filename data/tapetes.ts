@@ -159,7 +159,7 @@ const tapetes = [
                 no_discount: (50 + 50 + 145),
             },
         ],
-        colors: ["alecrim-militar", "cru-marrom-bege", "limao-cru", "cru-militar-alecrim", "bege-alecrim-cru"],
+        colors: ["cru-militar-alecrim", "cru-marrom-bege", "limao-cru", "bege-alecrim-cru", "alecrim-militar"],
     },
     {
         name: "Tapete Aline",
