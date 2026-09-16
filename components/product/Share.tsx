@@ -9,19 +9,13 @@ import {
 import { FaShareFromSquare } from "react-icons/fa6";
 
 import { Product } from "@/types/product";
-import { formatPath } from "@/utils/format";
 
 type ShareProps = {
   product: Product;
-  imageSrc?: string;
 };
-
-const SHARE_TEXT =
-  "Olha essa peça linda da Florisse! 🧶✨";
 
 export default function Share({
   product,
-  imageSrc,
 }: ShareProps) {
   const [shareMenuOpen, setShareMenuOpen] =
     useState(false);
@@ -34,9 +28,6 @@ export default function Share({
       null,
     );
 
-  /*
-   * Fecha o menu quando clicar fora.
-   */
   useEffect(() => {
     if (!shareMenuOpen) {
       return;
@@ -59,9 +50,6 @@ export default function Share({
     };
   }, [shareMenuOpen]);
 
-  /*
-   * Limpa o timeout ao desmontar.
-   */
   useEffect(() => {
     return () => {
       if (copiedTimeout.current) {
@@ -72,77 +60,25 @@ export default function Share({
     };
   }, []);
 
-  /*
-   * Compartilhar usando o recurso nativo
-   * do dispositivo.
-   */
+  const url =
+    typeof window !== "undefined"
+      ? window.location.href
+      : "";
+
+  const shareText =
+    "Olha essa peça linda da Florisse! 🧶✨";
+
   const compartilharProduto =
     async () => {
-      const url =
-        window.location.href;
+      if (!url) {
+        return;
+      }
 
       try {
-        /*
-         * Primeiro tenta compartilhar
-         * a imagem junto.
-         */
-        if (
-          imageSrc &&
-          navigator.share &&
-          navigator.canShare
-        ) {
-          try {
-            const response =
-              await fetch(imageSrc);
-
-            const blob =
-              await response.blob();
-
-            const extension =
-              blob.type === "image/png"
-                ? "png"
-                : "webp";
-
-            const file = new File(
-              [blob],
-              `${formatPath(
-                product.name,
-              )}.${extension}`,
-              {
-                type: blob.type,
-              },
-            );
-
-            if (
-              navigator.canShare({
-                files: [file],
-              })
-            ) {
-              await navigator.share({
-                title:
-                  product.name,
-                text: SHARE_TEXT,
-                files: [file],
-              });
-
-              setShareMenuOpen(false);
-              return;
-            }
-          } catch {
-            /*
-             * Continua para o compartilhamento
-             * por URL.
-             */
-          }
-        }
-
-        /*
-         * Compartilhamento normal.
-         */
         if (navigator.share) {
           await navigator.share({
             title: product.name,
-            text: SHARE_TEXT,
+            text: shareText,
             url,
           });
 
@@ -150,32 +86,24 @@ export default function Share({
           return;
         }
 
-        /*
-         * Fallback para WhatsApp.
-         */
         compartilharWhatsApp();
       } catch {
-        /*
-         * O usuário pode simplesmente ter
-         * fechado o menu nativo.
-         */
+        // Usuário fechou o compartilhamento.
       }
     };
 
-  /*
-   * Compartilhar diretamente pelo WhatsApp.
-   */
   const compartilharWhatsApp = () => {
-    const url =
-      window.location.href;
+    if (!url) {
+      return;
+    }
 
-    const whatsappMessage =
-      encodeURIComponent(
-        `${SHARE_TEXT}\n\n${product.name}\n${url}`,
-      );
+    const message =
+      `${shareText}\n\n${product.name}\n${url}`;
 
     window.open(
-      `https://wa.me/?text=${whatsappMessage}`,
+      `https://wa.me/?text=${encodeURIComponent(
+        message,
+      )}`,
       "_blank",
       "noopener,noreferrer",
     );
@@ -183,75 +111,32 @@ export default function Share({
     setShareMenuOpen(false);
   };
 
-  /*
-   * Copiar link do produto.
-   */
   const copiarLink = async () => {
-    const url =
-      window.location.href;
+    if (!url) {
+      return;
+    }
 
     try {
       await navigator.clipboard.writeText(
         url,
       );
 
-      mostrarLinkCopiado();
-    } catch {
-      /*
-       * Fallback para navegadores que não
-       * disponibilizam navigator.clipboard.
-       */
-      try {
-        const textarea =
-          document.createElement(
-            "textarea",
-          );
+      setLinkCopied(true);
 
-        textarea.value = url;
-        textarea.style.position =
-          "fixed";
-        textarea.style.opacity = "0";
-
-        document.body.appendChild(
-          textarea,
+      if (copiedTimeout.current) {
+        clearTimeout(
+          copiedTimeout.current,
         );
-
-        textarea.focus();
-        textarea.select();
-
-        document.execCommand(
-          "copy",
-        );
-
-        document.body.removeChild(
-          textarea,
-        );
-
-        mostrarLinkCopiado();
-      } catch {
-        setLinkCopied(false);
       }
+
+      copiedTimeout.current =
+        setTimeout(() => {
+          setLinkCopied(false);
+          copiedTimeout.current = null;
+        }, 1800);
+    } catch {
+      setLinkCopied(false);
     }
-  };
-
-  /*
-   * Exibe o feedback "Link copiado!"
-   * por alguns segundos.
-   */
-  const mostrarLinkCopiado = () => {
-    setLinkCopied(true);
-
-    if (copiedTimeout.current) {
-      clearTimeout(
-        copiedTimeout.current,
-      );
-    }
-
-    copiedTimeout.current =
-      setTimeout(() => {
-        setLinkCopied(false);
-        copiedTimeout.current = null;
-      }, 1800);
   };
 
   return (
@@ -295,12 +180,10 @@ export default function Share({
             </p>
 
             <p className="mt-0.5 text-xs text-muted">
-              Espalhe esse cantinho da
-              Florisse ✨
+              Espalhe esse cantinho da Florisse ✨
             </p>
           </div>
 
-          {/* WhatsApp */}
           <button
             type="button"
             onClick={
@@ -323,7 +206,6 @@ export default function Share({
             </span>
           </button>
 
-          {/* Copiar link */}
           <button
             type="button"
             onClick={copiarLink}
@@ -352,7 +234,6 @@ export default function Share({
             </span>
           </button>
 
-          {/* Compartilhamento nativo */}
           <button
             type="button"
             onClick={

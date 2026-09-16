@@ -65,9 +65,7 @@ export default function ProductRelated({
      * Embaralha apenas os produtos selecionados
      * para que a seção não fique sempre exatamente igual.
      */
-    return selected.sort(
-      () => Math.random() - 0.5,
-    );
+    return selected;
   }, [product, products]);
 
   if (relatedProducts.length === 0) {
