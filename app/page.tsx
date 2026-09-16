@@ -4,7 +4,7 @@ import Cuidados from "@/components/Cuidados";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import Numbers from "@/components/Numbers";
-import Products from "@/components/Products";
+import Products from "@/components/products/Products";
 import Raffle from "@/components/Raffle";
 import Sobre from "@/components/Sobre";
 
