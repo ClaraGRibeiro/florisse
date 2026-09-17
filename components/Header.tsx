@@ -40,8 +40,16 @@ export default function Header() {
               </div>
 
               <div className="min-w-0">
-                <h1 className="truncate font-serif text-xl font-semibold tracking-tight sm:text-2xl">
-                  Florisse Crochê
+                <h1 className="font-serif text-base font-semibold leading-tight tracking-tight sm:text-2xl">
+                  <span className="sm:hidden">
+                    Florisse
+                    <br />
+                    Crochê
+                  </span>
+
+                  <span className="hidden sm:inline">
+                    Florisse Crochê
+                  </span>
                 </h1>
 
                 <p className="hidden text-xs text-muted sm:block">
@@ -124,7 +132,7 @@ export default function Header() {
                   "noopener,noreferrer"
                 );
               }}
-                className="relative flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-border bg-white text-primary shadow-md transition hover:scale-105"
+              className="relative flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-border bg-white text-primary shadow-md transition hover:scale-105"
             >
               <FaInstagram size={16} />
             </button>
