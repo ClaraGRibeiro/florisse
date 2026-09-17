@@ -19,9 +19,8 @@ const navItems = [
   { label: "Cuidados", href: "/#cuidados" },
   { label: "Sobre", href: "/#sobre" },
 ];
-const { totalItems } = useCart();
 export default function Header() {
-  const { cart } = useCart();
+  const { totalItems } = useCart();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const closeMenu = () => {
@@ -122,9 +121,9 @@ export default function Header() {
               >
                 <FaCartPlus size={20} />
 
-                {cart.length > 0 && (
+                {totalItems > 0 && (
                   <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-bold text-white">
-                    {cart.length}
+                    {totalItems}
                   </span>
                 )}
               </button>
@@ -222,7 +221,7 @@ export default function Header() {
               <span>Meu carrinho</span>
 
               <span className="rounded-full bg-white/20 px-2 py-0.5 text-xs">
-                {cart.length}
+                {totalItems}
               </span>
             </button>
           </Link>
