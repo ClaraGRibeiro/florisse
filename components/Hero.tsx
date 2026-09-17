@@ -70,8 +70,8 @@ export default function Hero({ bestSelling, formatPath }: HeroProps) {
             transition={{ delay: 0.35, duration: 0.6 }}
             className="mt-7 flex flex-wrap justify-center gap-x-5 gap-y-2 text-xs text-muted sm:text-sm md:justify-start"
           >
-            <span>✦ Feito à mão</span>
             <span>✦ Cores personalizáveis</span>
+            <span>✦ Tamanhos sob medida</span>
             <span>✦ Montes Claros — MG</span>
           </motion.div>
 
@@ -83,13 +83,11 @@ export default function Hero({ bestSelling, formatPath }: HeroProps) {
             transition={{ delay: 0.4, duration: 0.5 }}
             className="mt-9 flex flex-col gap-3 sm:flex-row sm:justify-center md:justify-start"
           >
-            <a href="#produtos">
-              <button
-                type="button"
-                className="w-full cursor-pointer rounded-full bg-primary px-7 py-3.5 font-semibold text-primary-foreground shadow-md transition-all hover:-translate-y-0.5 hover:bg-primary-hover hover:shadow-lg sm:w-auto"
-              >
-                Ver peças
-              </button>
+            <a
+              href="#produtos"
+              className="w-full cursor-pointer rounded-full bg-primary px-7 py-3.5 font-semibold text-primary-foreground shadow-md transition-all hover:-translate-y-0.5 hover:bg-primary-hover hover:shadow-lg sm:w-auto"
+            >
+              Ver peças
             </a>
 
             <button

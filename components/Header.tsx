@@ -19,7 +19,7 @@ const navItems = [
   { label: "Cuidados", href: "/#cuidados" },
   { label: "Sobre", href: "/#sobre" },
 ];
-
+const { totalItems } = useCart();
 export default function Header() {
   const { cart } = useCart();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -90,7 +90,7 @@ export default function Header() {
                 <span>Carrinho</span>
 
                 <span className="rounded-full bg-white/20 px-2 py-0.5 text-xs">
-                  {cart.length}
+                  {totalItems}
                 </span>
               </button>
             </Link>

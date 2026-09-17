@@ -48,6 +48,13 @@ export default function Footer() {
               </Link>
 
               <Link
+                href="/#por-que-florisse"
+                className="w-fit text-sm text-muted transition-colors hover:text-primary"
+              >
+                Por que Florisse?
+              </Link>
+
+              <Link
                 href="/#cuidados"
                 className="w-fit text-sm text-muted transition-colors hover:text-primary"
               >

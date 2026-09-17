@@ -41,19 +41,19 @@ export default function Products({
     >
       {/* CABEÇALHO */}
       <div className="mx-auto max-w-2xl text-center">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary sm:text-sm">
-          Feito ponto por ponto
-        </p>
+  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary sm:text-sm">
+    Feito ponto por ponto
+  </p>
 
-        <h2 className="mt-4 font-serif text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
-          Peças para fazer parte da sua casa
-        </h2>
+  <h2 className="mt-4 font-serif text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
+    Peças para transformar seu ambiente
+  </h2>
 
-        <p className="mx-auto mt-5 max-w-xl text-sm leading-7 text-muted sm:text-base">
-          Crochês feitos à mão para trazer textura, cor e aconchego aos
-          espaços que fazem parte da sua rotina.
-        </p>
-      </div>
+  <p className="mx-auto mt-5 max-w-xl text-sm leading-7 text-muted sm:text-base">
+    Crochês feitos à mão para trazer textura, cor e aconchego aos
+    espaços que fazem parte da sua rotina.
+  </p>
+</div>
 
       {/* FILTROS */}
       <ProductFilters
