@@ -16,5 +16,6 @@ export interface Product {
   category: string;
 
   colors: Productcolors[];
+  images: Record<string, string[]>;
   sizes: ProductSize[];
 }

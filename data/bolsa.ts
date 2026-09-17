@@ -10,6 +10,12 @@ const bolsa = [
             },
         ],
         colors: ["militar"],
+        images: {
+            militar: [
+                "/products/bolsas/bolsa-redinha/militar.webp",
+            ],
+        },
     },
-]
+];
+
 export default bolsa;

@@ -14,30 +14,18 @@ import { useProducts } from "@/hooks/useProducts";
 import { useScrollTop } from "@/hooks/useScrollTop";
 
 import { Color } from "@/types/color";
-import { formatPath } from "@/utils/format";
 
 import ProductGallery from "@/components/product/ProductGallery";
 import ProductInfo from "@/components/product/ProductInfo";
 import ProductRelated from "@/components/product/ProductRelated";
 import Share from "@/components/product/Share";
+import { formatPath } from "@/utils/format";
 
 const colors = colorsData as Color[];
 
 type ProductClientProps = {
   slug: string;
 };
-
-function checkImageExists(
-  src: string,
-): Promise<boolean> {
-  return new Promise((resolve) => {
-    const image = new window.Image();
-
-    image.onload = () => resolve(true);
-    image.onerror = () => resolve(false);
-    image.src = src;
-  });
-}
 
 export default function ProductClient({
   slug,
@@ -64,9 +52,6 @@ export default function ProductClient({
 
   const [customWidth, setCustomWidth] =
     useState("");
-
-  const [images, setImages] =
-    useState<string[]>([]);
 
   const [selectedImage, setSelectedImage] =
     useState(0);
@@ -95,75 +80,33 @@ export default function ProductClient({
       formatPath(item.name) === slug,
   );
 
-  const productName = product?.name;
-
-  const productCategory =
-    product?.category;
+  /*
+   * Cor atual selecionada.
+   *
+   * Os produtos possuem:
+   *
+   * colors: ["malva", "marrom"]
+   *
+   * ou, dependendo do seu tipo Product:
+   *
+   * colors: [{ name: "malva" }, { name: "marrom" }]
+   */
+  const currentColor =
+    product?.colors[selectedColor];
 
   const currentColorName =
-    product?.colors[selectedColor]?.name;
+    typeof currentColor === "string"
+      ? currentColor
+      : currentColor?.name;
+
+  const images: string[] =
+    product && currentColorName
+      ? product.images?.[currentColorName] ?? []
+      : [];
 
   useEffect(() => {
-    if (
-      !productName ||
-      !productCategory ||
-      !currentColorName
-    ) {
-      setImages([]);
-      setSelectedImage(0);
-      return;
-    }
-
-    let cancelled = false;
-
-    const loadImages = async () => {
-      const basePath =
-        `/products/${formatPath(
-          productCategory,
-        )}/${formatPath(
-          productName,
-        )}/${currentColorName}`;
-
-      const loadedImages: string[] = [];
-
-      for (let index = 1; ; index++) {
-        const suffix =
-          index === 1
-            ? ""
-            : `-${index}`;
-
-        const src =
-          `${basePath}${suffix}.webp`;
-
-        const exists =
-          await checkImageExists(src);
-
-        if (!exists || cancelled) {
-          break;
-        }
-
-        loadedImages.push(src);
-      }
-
-      if (!cancelled) {
-        setImages(loadedImages);
-        setSelectedImage(0);
-      }
-    };
-
-    setImages([]);
     setSelectedImage(0);
-
-    loadImages();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [
-    productName,
-    productCategory,
-    currentColorName,
-  ]);
+  }, [currentColorName]);
 
   useEffect(() => {
     return () => {
@@ -206,13 +149,14 @@ export default function ProductClient({
     );
   }
 
-  const currentColor =
-    product.colors[selectedColor];
+  if (!currentColor) {
+    return null;
+  }
 
   const currentSize =
     product.sizes[selectedSize];
 
-  if (!currentColor || !currentSize) {
+  if (!currentSize) {
     return null;
   }
 
@@ -225,7 +169,9 @@ export default function ProductClient({
 
   const cartColor = isOtherColor
     ? selectedOtherColors.join("/")
-    : currentColor.name;
+    : typeof currentColor === "string"
+      ? currentColor
+      : currentColor.name;
 
   const canAddToCart =
     Boolean(imageSrc) &&
@@ -358,16 +304,28 @@ export default function ProductClient({
     addToCart({
       id: crypto.randomUUID(),
       name: product.name,
-      type: isCustomSize ? "custom-order" : "product",
+      type: isCustomSize
+        ? "custom-order"
+        : "product",
       color: cartColor,
       size: cartSize,
-      customLength: isCustomSize ? customLength : undefined,
-      customWidth: isCustomSize ? customWidth : undefined,
-      // Pedido personalizado não tem preço definido no site.
-      price: isCustomSize ? 0 : currentSize.price,
+      customLength: isCustomSize
+        ? customLength
+        : undefined,
+      customWidth: isCustomSize
+        ? customWidth
+        : undefined,
+
+      // Pedido personalizado não tem
+      // preço definido no site.
+      price: isCustomSize
+        ? 0
+        : currentSize.price,
+
       no_discount: isCustomSize
         ? undefined
         : currentSize.no_discount,
+
       image: imageSrc,
       quantity: 1,
     });
@@ -394,12 +352,14 @@ export default function ProductClient({
         {/* Cabeçalho */}
         <div className="mb-8 flex items-center justify-between gap-4">
           <a
-          href="/#produtos"
+            href="/#produtos"
             className="group flex cursor-pointer items-center gap-2 rounded-full px-3 py-2 text-sm font-medium text-muted transition-colors hover:bg-muted/10 hover:text-primary"
           >
             <FaArrowLeft className="text-xs transition-transform duration-300 group-hover:-translate-x-1" />
 
-            <span>Voltar para Produtos</span>
+            <span>
+              Voltar para Produtos
+            </span>
           </a>
 
           <Share
@@ -428,8 +388,8 @@ export default function ProductClient({
               originalPrice={
                 currentSize.no_discount
                   ? Number(
-                    currentSize.no_discount,
-                  )
+                      currentSize.no_discount,
+                    )
                   : undefined
               }
               onPreviousImage={
@@ -441,7 +401,8 @@ export default function ProductClient({
               }
             />
 
-            {/* Aviso para combinações personalizadas de cores */}
+            {/* Aviso para combinações
+                personalizadas de cores */}
             {isOtherColor && (
               <div className="mt-4 flex items-start gap-3 rounded-2xl border border-primary/15 bg-primary/5 px-4 py-3.5">
                 <div className="mt-0.5 shrink-0 text-primary">
@@ -466,12 +427,12 @@ export default function ProductClient({
                   <span className="font-semibold text-foreground">
                     A imagem é ilustrativa.
                   </span>{" "}
-                  A peça será produzida nas cores escolhidas.
+                  A peça será produzida nas
+                  cores escolhidas.
                 </p>
               </div>
             )}
-          </div>  
-
+          </div>
 
           {/* Informações */}
           <ProductInfo
