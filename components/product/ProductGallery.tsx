@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import {
   FaChevronLeft,
   FaChevronRight,
@@ -33,32 +36,57 @@ export default function ProductGallery({
 }: ProductGalleryProps) {
   const hasMultipleImages = images.length > 1;
 
+  const [isLoading, setIsLoading] = useState(true);
+
   const discountPercentage =
     currentPrice !== undefined &&
-      originalPrice !== undefined &&
-      originalPrice > currentPrice
+    originalPrice !== undefined &&
+    originalPrice > currentPrice
       ? Math.round((1 - currentPrice / originalPrice) * 100)
       : 0;
 
+  // Sempre que a imagem selecionada mudar,
+  // volta para o estado de loading.
+  useEffect(() => {
+    setIsLoading(true);
+  }, [selectedImage, imageSrc]);
+
   return (
     <div className="relative mx-auto w-full max-w-120">
-      <div className="relative aspect-9/12 w-full overflow-hidden rounded-4xl border border-border/70 bg-muted shadow-sm">        {imageSrc ? (
-        <Image
-          src={imageSrc}
-          alt={`${productName} - imagem ${selectedImage + 1}`}
-          fill
-          priority
-          sizes="(max-width: 768px) 100vw, 50vw"
-          className="object-cover transition-transform duration-700"
-        />
-      ) : (
-        <div
-          className="absolute inset-0 flex items-center justify-center"
-          aria-label="Carregando imagem do produto"
-        >
-          <span className="h-8 w-8 animate-spin rounded-full border-2 border-border border-t-primary" />
-        </div>
-      )}
+      <div className="relative aspect-9/12 w-full overflow-hidden rounded-4xl border border-border/20 bg-muted/20 shadow-sm">
+        {imageSrc ? (
+          <>
+            {/* Loading */}
+            {isLoading && (
+              <div
+                className="absolute inset-0 z-10 flex items-center justify-center"
+                aria-label="Carregando imagem do produto"
+              >
+                <span className="h-8 w-8 animate-spin rounded-full border-2 border-border border-t-primary" />
+              </div>
+            )}
+
+            <Image
+              key={imageSrc}
+              src={imageSrc}
+              alt={`${productName} - imagem ${selectedImage + 1}`}
+              fill
+              priority={selectedImage === 0}
+              sizes="(max-width: 768px) 100vw, 50vw"
+              onLoad={() => setIsLoading(false)}
+              className={`object-cover transition-opacity duration-300 ${
+                isLoading ? "opacity-0" : "opacity-100"
+              }`}
+            />
+          </>
+        ) : (
+          <div
+            className="absolute inset-0 flex items-center justify-center"
+            aria-label="Carregando imagem do produto"
+          >
+            <span className="h-8 w-8 animate-spin rounded-full border-2 border-border border-t-primary" />
+          </div>
+        )}
 
         {totalSales > 0 && (
           <div className="absolute left-4 top-4 rounded-full bg-background/90 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-primary shadow-sm backdrop-blur-md">
@@ -119,10 +147,11 @@ export default function ProductGallery({
               aria-current={
                 selectedImage === index ? "true" : undefined
               }
-              className={`cursor-pointer rounded-full transition-all duration-300 ${selectedImage === index
+              className={`cursor-pointer rounded-full transition-all duration-300 ${
+                selectedImage === index
                   ? "h-2 w-7 bg-primary"
                   : "h-2 w-2 bg-border hover:bg-primary/50"
-                }`}
+              }`}
             />
           ))}
         </div>
