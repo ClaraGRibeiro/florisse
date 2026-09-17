@@ -1,8 +1,7 @@
 import tapetes from "./tapetes";
 import mesaPosta from "./mesaposta";
 import bolsas from "./bolsa";
-
-export const DISCOUNT = 0.9;
+import { DISCOUNT } from "./config";
 
 const products = [
   ...tapetes,

@@ -1,4 +1,4 @@
-import { DISCOUNT } from "./products";
+import { DISCOUNT } from "./config";
 
 const mesaposta = [
     {

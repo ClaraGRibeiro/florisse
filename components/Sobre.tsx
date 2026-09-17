@@ -92,6 +92,25 @@ export default function Sobre() {
               pensamentos em algo bonito, leve e cheio de energia boa.
             </p>
 
+            {/* Ponte de valor */}
+            <div className="py-2">
+              <h3 className="font-serif text-2xl font-semibold text-foreground sm:text-3xl">
+                Cada peça leva tempo.
+              </h3>
+
+              <p className="mt-3">
+                São horas escolhendo cores, contando pontos e trabalhando em
+                cada detalhe para que tudo fique exatamente como deve ser.
+              </p>
+            </div>
+
+            <p>
+              Por isso, quando você escolhe a Florisse, escolhe uma peça que não
+              saiu de uma linha de produção. É uma peça feita à mão, com tempo,
+              atenção e a possibilidade de ganhar as cores e os detalhes que
+              combinam com o seu espaço.
+            </p>
+
             <p>
               Quando você recebe uma peça, não está levando só crochê. Está
               levando um pouco dessa calma, desse cuidado e dessa intenção de
