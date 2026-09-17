@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
 import { useCart } from "@/hooks/useCart";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import {
   FaBars,
   FaCartPlus,
@@ -12,12 +12,12 @@ import {
 } from "react-icons/fa";
 
 const navItems = [
-  "Início",
-  "Produtos",
-  "Cores",
-  "Por que Florisse?",
-  "Cuidados",
-  "Sobre",
+  { label: "Início", href: "/#inicio" },
+  { label: "Produtos", href: "/#produtos" },
+  { label: "Cores", href: "/#cores" },
+  { label: "Por que Florisse?", href: "/#por-que-florisse" },
+  { label: "Cuidados", href: "/#cuidados" },
+  { label: "Sobre", href: "/#sobre" },
 ];
 
 export default function Header() {
@@ -70,11 +70,12 @@ export default function Header() {
           <nav className="hidden items-center gap-4 lg:flex">
             {navItems.map((item) => (
               <a
-                key={item}
-                href={`/#${item.toLowerCase()}`}
+                key={item.label}
+                href={item.href}
                 className="relative text-sm font-medium text-foreground-soft transition-colors hover:text-primary after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all hover:after:w-full"
+
               >
-                {item}
+                {item.label}
               </a>
             ))}
 
@@ -199,12 +200,12 @@ export default function Header() {
         <nav className="flex flex-col px-5 py-6">
           {navItems.map((item) => (
             <a
-              key={item}
-              href={`/#${item.toLowerCase()}`}
+              key={item.label}
+              href={item.href}
               onClick={closeMenu}
               className="border-b border-border py-4 text-base font-medium text-foreground transition-colors hover:text-primary"
             >
-              {item}
+              {item.label}
             </a>
           ))}
         </nav>

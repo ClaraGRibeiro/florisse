@@ -27,7 +27,7 @@ const benefits = [
 export default function PorQueFlorisse() {
   return (
     <motion.section
-      id="por que florisse?"
+      id="por-que-florisse"
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
