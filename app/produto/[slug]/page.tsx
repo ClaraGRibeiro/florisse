@@ -32,15 +32,11 @@ export async function generateMetadata({
     };
   }
 
-  const color = product.colors?.[0];
-
-  const image = color
-    ? `${siteUrl}/products/${formatPath(
-      product.category,
-    )}/${formatPath(
-      product.name,
-    )}/${color}.jpg`
-    : `${siteUrl}/logo.jpg`;
+  const image = `${siteUrl}/products/${formatPath(
+    product.category,
+  )}/${formatPath(
+    product.name,
+  )}/image.jpg`;
 
   const title = product.name;
 
@@ -68,13 +64,14 @@ export async function generateMetadata({
       images: [
         {
           url: image,
-          width: 1200,
-          height: 1200,
+          width: 800,
+          height: 800,
           alt: product.name,
           type: "image/jpeg",
         },
       ],
     },
+
     twitter: {
       card: "summary_large_image",
       title,

@@ -93,8 +93,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: "/og-image.jpg",
-        width: 1200,
-        height: 630,
+        width: 800,
+        height: 800,
         alt: "Florisse Crochê — Onde o crochê vira paz.",
       },
     ],
