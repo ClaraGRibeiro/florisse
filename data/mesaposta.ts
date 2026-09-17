@@ -1,4 +1,4 @@
-const discount = 0.9;
+import { DISCOUNT } from "./products";
 
 const mesaposta = [
     {
@@ -12,7 +12,7 @@ const mesaposta = [
             },
             {
                 label: "6 (37cm) + 1 (100x25cm)",
-                price: (27+27+27+27+27+27+65) * discount,
+                price: (27+27+27+27+27+27+65) * DISCOUNT,
                 no_discount: (27+27+27+27+27+27+65),
             },
         ],
@@ -41,7 +41,7 @@ const mesaposta = [
             },
             {
                 label: "6 (37cm)",
-                price: (27+27+27+27+27+27) * discount,
+                price: (27+27+27+27+27+27) * DISCOUNT,
                 no_discount: (27+27+27+27+27+27),
             },
         ],

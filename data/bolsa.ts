@@ -1,5 +1,3 @@
-const discount = 0.9;
-
 const bolsa = [
     {
         name: "Bolsa Redinha",
