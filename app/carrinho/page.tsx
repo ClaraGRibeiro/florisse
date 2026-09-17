@@ -660,48 +660,49 @@ export default function Carrinho() {
     }
 
     const items = cart
-      .map(
-        (item, index) => {
-          const customSize =
-            item.customLength &&
-              item.customWidth
-              ? ` (${item.customLength} × ${item.customWidth} cm)`
-              : "";
+      .map((item) => {
+        const customSize =
+          item.customLength && item.customWidth
+            ? ` (${item.customLength} × ${item.customWidth} cm)`
+            : "";
 
-          const value =
-            item.type === "custom-order"
-              ? "Sob consulta"
-              : `R$ ${(item.price * item.quantity).toFixed(2)}`;
+        const value =
+          item.type === "custom-order"
+            ? "Sob consulta"
+            : `R$ ${(item.price * item.quantity).toFixed(2).replace(".", ",")}`;
 
-          return `
-${index + 1}. ${item.name}
-• Cor: ${formatColor(item.color)}
+        return `🧶 ${item.name}
 • Tamanho: ${item.size}${customSize}
+• Cor: ${formatColor(item.color)}
 • Quantidade: ${item.quantity}
-• Valor: ${value}
-`;
-        },
-      )
-      .join("\n");
+• Valor: ${value}`;
+      })
+      .join("\n\n");
 
-    const text = `
-Olá, Florisse Crochê!
+    const totalText = `R$ ${total.toFixed(2).replace(".", ",")}`;
 
-Quero fazer o seguinte pedido:
+    const text = `Olá! 💛
+
+Gostaria de fazer um pedido na Florisse:
 
 ${items}
 
-${hasCustomOrders ? `Subtotal dos itens com preço definido: R$ ${total.toFixed(2)}\n` : `Total do pedido: R$ ${total.toFixed(2)}\n`}
-${hasCustomOrders ? "Há itens personalizados com valor sob consulta. O valor final será confirmado pela Florisse." : ""}
-`;
+──────────────
+${hasCustomOrders
+        ? `Subtotal dos itens com preço definido: ${totalText}
+
+Alguns itens são personalizados e estão com valor sob consulta. O valor final será confirmado pela Florisse.`
+        : `Total: ${totalText}`
+      }
+
+Gostaria de confirmar a disponibilidade e combinar a entrega. 😊`;
 
     window.open(
-      `https://wa.me/5538992030710?text=${encodeURIComponent(
-        text,
-      )}`,
+      `https://wa.me/5538992030710?text=${encodeURIComponent(text)}`,
       "_blank",
     );
   };
+
 
   // ============================================================
   // LIMPA O EDITOR SE O ITEM FOR REMOVIDO

@@ -27,7 +27,7 @@ const tapetes = [
         no_discount: 100 + 100,
       },
       {
-        label: "2 (65x45cm) e 1 (120 × 45 cm)",
+        label: "2 (65 × 45 cm) e 1 (120 × 45 cm)",
         price: (30 + 30 + 120) * DISCOUNT,
         no_discount: 30 + 30 + 120,
       },
@@ -68,7 +68,7 @@ const tapetes = [
         no_discount: 100 + 100,
       },
       {
-        label: "2 (65x45cm) e 1 (120 × 45 cm)",
+        label: "2 (65 × 45 cm) e 1 (120 × 45 cm)",
         price: (30 + 30 + 120) * DISCOUNT,
         no_discount: 30 + 30 + 120,
       },
@@ -109,7 +109,7 @@ const tapetes = [
         no_discount: 110 + 110,
       },
       {
-        label: "2 (65x45cm) e 1 (120 × 45 cm)",
+        label: "2 (65 × 45 cm) e 1 (120 × 45 cm)",
         price: (35 + 35 + 130) * DISCOUNT,
         no_discount: 35 + 35 + 130,
       },
@@ -150,7 +150,7 @@ const tapetes = [
         no_discount: 110 + 110,
       },
       {
-        label: "2 (65x45cm) e 1 (120 × 45 cm)",
+        label: "2 (65 × 45 cm) e 1 (120 × 45 cm)",
         price: (35 + 35 + 130) * DISCOUNT,
         no_discount: 35 + 35 + 130,
       },
@@ -191,7 +191,7 @@ const tapetes = [
         no_discount: 115 + 115,
       },
       {
-        label: "2 (70x50cm) e 1 (120 × 50 cm)",
+        label: "2 (70 × 50 cm) e 1 (120 × 50 cm)",
         price: (50 + 50 + 145) * DISCOUNT,
         no_discount: 50 + 50 + 145,
       },
@@ -259,7 +259,7 @@ const tapetes = [
         no_discount: 125 + 125,
       },
       {
-        label: "2 (70x50cm) e 1 (120 × 50 cm)",
+        label: "2 (70 × 50 cm) e 1 (120 × 50 cm)",
         price: (60 + 60 + 155) * DISCOUNT,
         no_discount: 60 + 60 + 155,
       },
@@ -301,7 +301,7 @@ const tapetes = [
         no_discount: 125 + 125,
       },
       {
-        label: "2 (70x50cm) e 1 (120 × 50 cm)",
+        label: "2 (70 × 50 cm) e 1 (120 × 50 cm)",
         price: (60 + 60 + 155) * DISCOUNT,
         no_discount: 60 + 60 + 155,
       },
@@ -342,7 +342,7 @@ const tapetes = [
         no_discount: 125 + 125,
       },
       {
-        label: "2 (70x50cm) e 1 (120 × 50 cm)",
+        label: "2 (70 × 50 cm) e 1 (120 × 50 cm)",
         price: (60 + 60 + 155) * DISCOUNT,
         no_discount: 60 + 60 + 155,
       },
@@ -384,7 +384,7 @@ const tapetes = [
         no_discount: 125 + 125,
       },
       {
-        label: "2 (70x50cm) e 1 (120 × 50 cm)",
+        label: "2 (70 × 50 cm) e 1 (120 × 50 cm)",
         price: (60 + 60 + 155) * DISCOUNT,
         no_discount: 60 + 60 + 155,
       },
@@ -426,7 +426,7 @@ const tapetes = [
         no_discount: 140 + 140,
       },
       {
-        label: "2 (70x50cm) e 1 (120 × 50 cm)",
+        label: "2 (70 × 50 cm) e 1 (120 × 50 cm)",
         price: (75 + 75 + 170) * DISCOUNT,
         no_discount: 75 + 75 + 170,
       },

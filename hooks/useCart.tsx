@@ -4,182 +4,368 @@ import {
   createContext,
   useContext,
   useEffect,
+  useMemo,
   useState,
   type ReactNode,
 } from "react";
 
-export type CartItem = {
+type CartItem = {
   id: string;
   name: string;
-
-  /**
-   * Produto com preço definido ou pedido personalizado
-   * que precisa ter o valor confirmado pelo WhatsApp.
-   */
   type: "product" | "custom-order";
-
-  // Cor cadastrada ou cores personalizadas separadas por "/"
   color: string;
-
-  // Tamanho exibido no carrinho
   size: string;
-
-  // Para tamanho personalizado
   customLength?: string;
   customWidth?: string;
-
   price: number;
   no_discount?: number;
-
   image: string;
   quantity: number;
 };
 
 type CartContextType = {
   cart: CartItem[];
-
+  totalItems: number;
   addToCart: (item: CartItem) => void;
-
   removeFromCart: (id: string) => void;
-
   updateQuantity: (
     id: string,
     quantity: number,
   ) => void;
-
   updateItem: (
     id: string,
     updates: Partial<CartItem>,
   ) => void;
-
   clearCart: () => void;
-
-  totalItems: number;
-  totalPrice: number;
 };
 
 const CartContext =
-  createContext<CartContextType | undefined>(undefined);
+  createContext<CartContextType | undefined>(
+    undefined,
+  );
 
-const CART_STORAGE_KEY = "florisse-cart";
+const STORAGE_KEY = "florisse-cart";
+
+/*
+ * Verifica se o valor é um objeto válido.
+ */
+function isRecord(
+  value: unknown,
+): value is Record<string, unknown> {
+  return (
+    typeof value === "object" &&
+    value !== null &&
+    !Array.isArray(value)
+  );
+}
+
+/*
+ * Valida um item recuperado do localStorage.
+ *
+ * Somente itens que possuem todos os campos
+ * obrigatórios e tipos corretos entram no carrinho.
+ */
+function isValidCartItem(
+  value: unknown,
+): value is CartItem {
+  if (!isRecord(value)) {
+    return false;
+  }
+
+  /*
+   * ID
+   */
+  if (
+    typeof value.id !== "string" ||
+    value.id.trim() === ""
+  ) {
+    return false;
+  }
+
+  /*
+   * Nome
+   */
+  if (
+    typeof value.name !== "string" ||
+    value.name.trim() === ""
+  ) {
+    return false;
+  }
+
+  /*
+   * Tipo
+   */
+  if (
+    value.type !== "product" &&
+    value.type !== "custom-order"
+  ) {
+    return false;
+  }
+
+  /*
+   * Cor
+   */
+  if (
+    typeof value.color !== "string" ||
+    value.color.trim() === ""
+  ) {
+    return false;
+  }
+
+  /*
+   * Tamanho
+   */
+  if (
+    typeof value.size !== "string" ||
+    value.size.trim() === ""
+  ) {
+    return false;
+  }
+
+  /*
+   * Preço
+   */
+  if (
+    typeof value.price !== "number" ||
+    !Number.isFinite(value.price) ||
+    value.price < 0
+  ) {
+    return false;
+  }
+
+  /*
+   * Quantidade
+   */
+  if (
+    typeof value.quantity !== "number" ||
+    !Number.isFinite(value.quantity) ||
+    !Number.isInteger(value.quantity) ||
+    value.quantity <= 0
+  ) {
+    return false;
+  }
+
+  /*
+   * Imagem
+   */
+  if (
+    typeof value.image !== "string" ||
+    value.image.trim() === ""
+  ) {
+    return false;
+  }
+
+  /*
+   * Campos opcionais
+   */
+  if (
+    value.customLength !== undefined &&
+    typeof value.customLength !== "string"
+  ) {
+    return false;
+  }
+
+  if (
+    value.customWidth !== undefined &&
+    typeof value.customWidth !== "string"
+  ) {
+    return false;
+  }
+
+  if (
+    value.no_discount !== undefined &&
+    (
+      typeof value.no_discount !== "number" ||
+      !Number.isFinite(value.no_discount) ||
+      value.no_discount < 0
+    )
+  ) {
+    return false;
+  }
+
+  return true;
+}
+
+/*
+ * Converte o conteúdo salvo no localStorage
+ * em um carrinho validado.
+ */
+function parseStoredCart(
+  savedCart: string,
+): CartItem[] {
+  try {
+    const parsed: unknown =
+      JSON.parse(savedCart);
+
+    if (!Array.isArray(parsed)) {
+      return [];
+    }
+
+    return parsed.filter(isValidCartItem);
+  } catch {
+    return [];
+  }
+}
 
 export function CartProvider({
   children,
 }: {
   children: ReactNode;
 }) {
-  const [cart, setCart] = useState<CartItem[]>([]);
+  const [cart, setCart] = useState<CartItem[]>(
+    [],
+  );
 
-  // ============================================================
-  // CARREGA O CARRINHO
-  // ============================================================
+  const [isLoaded, setIsLoaded] =
+    useState(false);
 
+  /*
+   * Recupera o carrinho do localStorage.
+   *
+   * Os dados passam pela validação antes
+   * de serem colocados no estado.
+   */
   useEffect(() => {
-    const savedCart =
-      localStorage.getItem(CART_STORAGE_KEY);
+    try {
+      const savedCart =
+        localStorage.getItem(
+          STORAGE_KEY,
+        );
 
-    if (!savedCart) {
+      if (savedCart) {
+        const validCart =
+          parseStoredCart(savedCart);
+
+        setCart(validCart);
+
+        /*
+         * Remove do localStorage qualquer
+         * item inválido ou incompatível.
+         */
+        try {
+          localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify(validCart),
+          );
+        } catch {
+          // Ignora erro de gravação.
+        }
+      }
+    } catch {
+      /*
+       * Se o localStorage estiver indisponível,
+       * inicia com carrinho vazio.
+       */
+      setCart([]);
+    } finally {
+      setIsLoaded(true);
+    }
+  }, []);
+
+  /*
+   * Persiste o carrinho depois da
+   * recuperação inicial.
+   */
+  useEffect(() => {
+    if (!isLoaded) {
       return;
     }
 
     try {
-      const parsed = JSON.parse(savedCart);
-
-      if (!Array.isArray(parsed)) {
-        throw new Error("Carrinho inválido");
-      }
-
-      // Compatibilidade com carrinhos salvos antes da existência de `type`.
-      const normalized: CartItem[] = parsed
-        .filter((item) => item && typeof item === "object")
-        .map((item) => ({
-          ...item,
-          type:
-            item.type === "custom-order" ||
-            (item.customLength && item.customWidth)
-              ? "custom-order"
-              : "product",
-          price:
-            typeof item.price === "number" ? item.price : 0,
-          quantity:
-            typeof item.quantity === "number" && item.quantity > 0
-              ? item.quantity
-              : 1,
-        }));
-
-      setCart(normalized);
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(cart),
+      );
     } catch {
-      localStorage.removeItem(CART_STORAGE_KEY);
+      // Ignora erro de gravação.
     }
-  }, []);
+  }, [cart, isLoaded]);
 
-  // ============================================================
-  // SALVA O CARRINHO
-  // ============================================================
-
-  useEffect(() => {
-    localStorage.setItem(
-      CART_STORAGE_KEY,
-      JSON.stringify(cart),
+  /*
+   * Quantidade total de itens no carrinho.
+   *
+   * Exemplo:
+   *
+   * Tapete × 2
+   * Bolsa × 1
+   *
+   * totalItems = 3
+   */
+  const totalItems = useMemo(() => {
+    return cart.reduce(
+      (total, item) =>
+        total + item.quantity,
+      0,
     );
   }, [cart]);
 
-  // ============================================================
-  // ADICIONAR
-  // ============================================================
-
+  /*
+   * Adiciona um item ao carrinho.
+   *
+   * Se já existir um item com a mesma configuração,
+   * aumenta a quantidade em vez de criar uma nova linha.
+   *
+   * Itens com configurações diferentes continuam
+   * sendo adicionados separadamente.
+   */
   function addToCart(item: CartItem) {
-    setCart((prev) => {
-      const existing = prev.find(
-        (p) =>
-          p.name === item.name &&
-          p.color === item.color &&
-          p.size === item.size &&
-          p.customLength === item.customLength &&
-          p.customWidth === item.customWidth,
+    setCart((currentCart) => {
+      const existingItem = currentCart.find(
+        (currentItem) =>
+          currentItem.name === item.name &&
+          currentItem.type === item.type &&
+          currentItem.color === item.color &&
+          currentItem.size === item.size &&
+          currentItem.customLength === item.customLength &&
+          currentItem.customWidth === item.customWidth &&
+          currentItem.price === item.price &&
+          currentItem.no_discount === item.no_discount,
       );
 
-      if (existing) {
-        return prev.map((p) =>
-          p.id === existing.id
-            ? {
-              ...p,
-              quantity:
-                p.quantity + item.quantity,
-            }
-            : p,
-        );
+      if (!existingItem) {
+        return [...currentCart, item];
       }
 
-      return [...prev, item];
+      return currentCart.map((currentItem) =>
+        currentItem.id === existingItem.id
+          ? {
+            ...currentItem,
+            quantity:
+              currentItem.quantity + item.quantity,
+          }
+          : currentItem,
+      );
     });
   }
 
-  // ============================================================
-  // REMOVER
-  // ============================================================
 
+  /*
+   * Remove um item.
+   */
   function removeFromCart(id: string) {
-    setCart((prev) =>
-      prev.filter((item) => item.id !== id),
+    setCart((currentCart) =>
+      currentCart.filter(
+        (item) => item.id !== id,
+      ),
     );
   }
 
-  // ============================================================
-  // ALTERAR QUANTIDADE
-  // ============================================================
-
+  /*
+   * Atualiza a quantidade.
+   */
   function updateQuantity(
     id: string,
     quantity: number,
   ) {
-    if (quantity <= 0) {
-      removeFromCart(id);
+    if (
+      !Number.isInteger(quantity) ||
+      quantity <= 0
+    ) {
       return;
     }
 
-    setCart((prev) =>
-      prev.map((item) =>
+    setCart((currentCart) =>
+      currentCart.map((item) =>
         item.id === id
           ? {
             ...item,
@@ -190,107 +376,42 @@ export function CartProvider({
     );
   }
 
-  // ============================================================
-  // ATUALIZAR ITEM
-  // ============================================================
-
+  /*
+   * Atualiza propriedades de um item.
+   */
   function updateItem(
     id: string,
     updates: Partial<CartItem>,
   ) {
-    setCart((prev) => {
-      const currentItem = prev.find(
-        (item) => item.id === id,
-      );
-
-      if (!currentItem) {
-        return prev;
-      }
-
-      const updatedItem = {
-        ...currentItem,
-        ...updates,
-      };
-
-      // Se a nova configuração já existe em outro item,
-      // junta as quantidades.
-      const duplicatedItem = prev.find(
-        (item) =>
-          item.id !== id &&
-          item.name === updatedItem.name &&
-          item.color === updatedItem.color &&
-          item.size === updatedItem.size &&
-          item.customLength ===
-          updatedItem.customLength &&
-          item.customWidth ===
-          updatedItem.customWidth,
-      );
-
-      if (duplicatedItem) {
-        return prev
-          .filter((item) => item.id !== id)
-          .map((item) =>
-            item.id === duplicatedItem.id
-              ? {
-                ...item,
-                quantity:
-                  item.quantity +
-                  updatedItem.quantity,
-                price: updatedItem.price,
-                no_discount:
-                  updatedItem.no_discount,
-                image: updatedItem.image,
-              }
-              : item,
-          );
-      }
-
-      return prev.map((item) =>
+    setCart((currentCart) =>
+      currentCart.map((item) =>
         item.id === id
-          ? updatedItem
+          ? {
+            ...item,
+            ...updates,
+          }
           : item,
-      );
-    });
+      ),
+    );
   }
 
-  // ============================================================
-  // LIMPAR
-  // ============================================================
-
+  /*
+   * Limpa o carrinho.
+   */
   function clearCart() {
     setCart([]);
-    localStorage.removeItem(CART_STORAGE_KEY);
   }
-
-  // ============================================================
-  // TOTAIS
-  // ============================================================
-
-  const totalItems = cart.reduce(
-    (total, item) =>
-      total + item.quantity,
-    0,
-  );
-
-  const totalPrice = cart.reduce(
-    (total, item) =>
-      item.type === "product"
-        ? total + item.price * item.quantity
-        : total,
-    0,
-  );
 
   return (
     <CartContext.Provider
       value={{
         cart,
+        totalItems,
         addToCart,
         removeFromCart,
         updateQuantity,
         updateItem,
         clearCart,
-        totalItems,
-        totalPrice,
       }}
     >
       {children}
@@ -299,11 +420,12 @@ export function CartProvider({
 }
 
 export function useCart() {
-  const context = useContext(CartContext);
+  const context =
+    useContext(CartContext);
 
   if (!context) {
     throw new Error(
-      "useCart deve ser usado dentro de CartProvider",
+      "useCart deve ser usado dentro de um CartProvider",
     );
   }
 
