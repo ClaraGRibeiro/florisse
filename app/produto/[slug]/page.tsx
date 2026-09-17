@@ -13,6 +13,8 @@ type ProductPageProps = {
 
 const products = productsData.products;
 
+const siteUrl = "https://florisse.vercel.app";
+
 export async function generateMetadata({
   params,
 }: ProductPageProps): Promise<Metadata> {
@@ -33,12 +35,12 @@ export async function generateMetadata({
   const color = product.colors?.[0];
 
   const image = color
-    ? `/products/${formatPath(
+    ? `${siteUrl}/products/${formatPath(
         product.category,
       )}/${formatPath(
         product.name,
       )}/${color}.webp`
-    : "/logo.webp";
+    : `${siteUrl}/logo.webp`;
 
   const title = product.name;
 
@@ -46,7 +48,7 @@ export async function generateMetadata({
     `Conheça o ${product.name}, uma peça artesanal feita à mão pela Florisse Crochê. ` +
     `Personalize cores e tamanhos para deixar seu cantinho ainda mais especial.`;
 
-  const url = `/produto/${slug}`;
+  const url = `${siteUrl}/produto/${slug}`;
 
   return {
     title,
