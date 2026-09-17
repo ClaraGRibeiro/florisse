@@ -36,11 +36,11 @@ export async function generateMetadata({
 
   const image = color
     ? `${siteUrl}/products/${formatPath(
-        product.category,
-      )}/${formatPath(
-        product.name,
-      )}/${color}.webp`
-    : `${siteUrl}/logo.webp`;
+      product.category,
+    )}/${formatPath(
+      product.name,
+    )}/${color}.jpg`
+    : `${siteUrl}/logo.jpg`;
 
   const title = product.name;
 
@@ -65,17 +65,16 @@ export async function generateMetadata({
       siteName: "Florisse Crochê",
       locale: "pt_BR",
       type: "website",
-
       images: [
         {
           url: image,
           width: 1200,
           height: 1200,
           alt: product.name,
+          type: "image/jpeg",
         },
       ],
     },
-
     twitter: {
       card: "summary_large_image",
       title,
