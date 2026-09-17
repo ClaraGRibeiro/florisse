@@ -52,20 +52,21 @@ export default function Home() {
 
       <Cores
         formatColor={formatColor} />
-      <PorQueFlorisse />
       <Cuidados />
       <Sobre />
+      <PorQueFlorisse />
       <Footer />
 
       {showTop && (
         <button
           title="Voltar para o início"
           onClick={scrollToTop}
-          className="cursor-pointer fixed bottom-6 right-6 flex h-12 w-12 items-center justify-center rounded-full bg-primary text-white shadow-lg transition hover:scale-105"
+          className="fixed bottom-6 right-6 hidden h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-primary text-white shadow-lg transition hover:scale-105 md:flex"
         >
           <FaArrowUp size={18} />
         </button>
       )}
+
 
       {showTop && (
         <button

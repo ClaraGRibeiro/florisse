@@ -5,7 +5,7 @@ import { Product } from "@/types/product";
 type ProductSizesProps = {
   product: Product;
 
-  selectedSize: number;
+  selectedSize: number | null;
 
   isCustomSize: boolean;
 
@@ -39,7 +39,9 @@ export default function ProductSizes({
   onCustomWidthChange,
 }: ProductSizesProps) {
   const selectedSizeLabel =
-    product.sizes[selectedSize]?.label;
+    selectedSize !== null
+      ? product.sizes[selectedSize]?.label
+      : undefined;
 
   return (
     <section className="mt-8">

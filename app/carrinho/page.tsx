@@ -890,7 +890,7 @@ ${hasCustomOrders ? "Há itens personalizados com valor sob consulta. O valor fi
               opacity: 1,
               y: 0,
             }}
-            className="flex min-h-[52vh] flex-col items-center justify-center rounded-[2rem] border border-border/70 bg-card/40 px-6 py-16 text-center"
+            className="flex min-h-[52vh] flex-col items-center justify-center rounded-4xl border border-border/70 bg-card/40 px-6 py-16 text-center"
           >
             <div className="mb-6 text-5xl">
               😿🧶
@@ -1171,7 +1171,7 @@ ${hasCustomOrders ? "Há itens personalizados com valor sob consulta. O valor fi
 
                     {isEditing &&
                       editingProduct && (
-                        <div className="mt-7 rounded-[1.5rem] border border-border/70 bg-muted/10 p-5 sm:p-6">
+                        <div className="mt-7 rounded-3xl border border-border/70 bg-muted/10 p-5 sm:p-6">
 
                           {/* ================================================= */}
                           {/* CORES */}

@@ -15,7 +15,6 @@ const navItems = [
   { label: "Início", href: "/#inicio" },
   { label: "Produtos", href: "/#produtos" },
   { label: "Cores", href: "/#cores" },
-  { label: "Por que Florisse?", href: "/#por-que-florisse" },
   { label: "Cuidados", href: "/#cuidados" },
   { label: "Sobre", href: "/#sobre" },
 ];

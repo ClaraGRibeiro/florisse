@@ -65,7 +65,7 @@ export function ProductCard({
           {/* CORES */}
           <div className="mt-5">
             <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-muted">
-              Cores disponíveis
+              {product.sizes.length} tamanhos disponíveis
             </p>
 
             <div className="flex items-center gap-2">

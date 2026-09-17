@@ -5,6 +5,14 @@ import ProductActions from "./ProductActions";
 import ProductColors from "./ProductColors";
 import ProductSizes from "./ProductSizes";
 
+import {
+  FaHeart,
+  FaRulerCombined,
+  FaPalette,
+  FaMapMarkerAlt,
+  FaWhatsapp,
+} from "react-icons/fa";
+
 type ProductInfoProps = {
   product: Product;
   colors: Color[];
@@ -90,6 +98,7 @@ export default function ProductInfo({
             <p className="font-serif text-3xl font-semibold text-primary">
               Sob consulta
             </p>
+
             <p className="mt-1 text-sm leading-relaxed text-muted">
               O valor será confirmado de acordo com as medidas escolhidas.
             </p>
@@ -107,6 +116,64 @@ export default function ProductInfo({
             )}
           </div>
         ) : null}
+      </div>
+
+      {/* Informações da peça */}
+      <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <div className="flex items-center gap-3">
+          <FaHeart
+            size={15}
+            className="shrink-0 text-primary"
+          />
+
+          <span className="text-sm text-foreground">
+            Feito à mão
+          </span>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <FaRulerCombined
+            size={15}
+            className="shrink-0 text-primary"
+          />
+
+          <span className="text-sm text-foreground">
+            Tamanhos à sua escolha
+          </span>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <FaPalette
+            size={15}
+            className="shrink-0 text-primary"
+          />
+
+          <span className="text-sm text-foreground">
+            Cores personalizáveis
+          </span>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <FaMapMarkerAlt
+            size={15}
+            className="shrink-0 text-primary"
+          />
+
+          <span className="text-sm text-foreground">
+            Produzido em Montes Claros
+          </span>
+        </div>
+
+        <div className="flex items-center gap-3 sm:col-span-2">
+          <FaWhatsapp
+            size={16}
+            className="shrink-0 text-primary"
+          />
+
+          <span className="text-sm text-foreground">
+            Pedido confirmado pelo WhatsApp
+          </span>
+        </div>
       </div>
 
       {/* Divisor */}
