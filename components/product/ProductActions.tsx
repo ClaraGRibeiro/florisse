@@ -32,11 +32,21 @@ export default function ProductActions({
         type="button"
         onClick={onAddToCart}
         disabled={!canAddToCart}
-        className={`mt-4 cursor-pointer flex h-14 w-full items-center justify-center gap-3 rounded-full px-6 text-sm font-semibold transition-all duration-300 ${buttonClassName}`}
+        aria-label={
+          added
+            ? isCustomSize
+              ? "Pedido personalizado adicionado"
+              : "Produto adicionado ao carrinho"
+            : isCustomSize
+              ? "Adicionar pedido personalizado ao carrinho"
+              : "Adicionar produto ao carrinho"
+        }
+        className={`mt-4 flex h-14 w-full cursor-pointer items-center justify-center gap-3 rounded-full px-6 text-sm font-semibold transition-all duration-300 disabled:cursor-not-allowed ${buttonClassName}`}
       >
         {added ? (
           <>
             <FaCheck className="text-sm" />
+
             {isCustomSize
               ? "Pedido adicionado"
               : "Adicionado ao carrinho"}
@@ -44,6 +54,7 @@ export default function ProductActions({
         ) : (
           <>
             <FaShoppingBag className="text-sm" />
+
             {isCustomSize
               ? "Adicionar pedido personalizado"
               : "Adicionar ao carrinho"}

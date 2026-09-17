@@ -15,16 +15,25 @@ import { useScrollTop } from "@/hooks/useScrollTop";
 
 import { Color } from "@/types/color";
 
+import MiniCart from "@/components/cart/MiniCart";
 import ProductGallery from "@/components/product/ProductGallery";
 import ProductInfo from "@/components/product/ProductInfo";
 import ProductRelated from "@/components/product/ProductRelated";
 import Share from "@/components/product/Share";
-import { formatPath } from "@/utils/format";
+
+import { formatColor, formatPath } from "@/utils/format";
 
 const colors = colorsData as Color[];
 
 type ProductClientProps = {
   slug: string;
+};
+
+type AddedItem = {
+  name: string;
+  image: string;
+  color: string;
+  size: string;
 };
 
 export default function ProductClient({
@@ -70,6 +79,15 @@ export default function ProductClient({
     setSelectedOtherColors,
   ] = useState<string[]>([]);
 
+  /*
+   * MiniCart
+   */
+  const [miniCartOpen, setMiniCartOpen] =
+    useState(false);
+
+  const [addedItem, setAddedItem] =
+    useState<AddedItem | null>(null);
+
   const addedTimeout =
     useRef<ReturnType<typeof setTimeout> | null>(
       null,
@@ -87,7 +105,7 @@ export default function ProductClient({
    *
    * colors: ["malva", "marrom"]
    *
-   * ou, dependendo do seu tipo Product:
+   * ou:
    *
    * colors: [{ name: "malva" }, { name: "marrom" }]
    */
@@ -99,6 +117,10 @@ export default function ProductClient({
       ? currentColor
       : currentColor?.name;
 
+  /*
+   * As imagens agora são definidas
+   * explicitamente no produto.
+   */
   const images: string[] =
     product && currentColorName
       ? product.images?.[currentColorName] ?? []
@@ -301,6 +323,19 @@ export default function ProductClient({
       return;
     }
 
+    /*
+     * Guarda os dados que serão mostrados
+     * no MiniCart antes de adicionar o item.
+     */
+    const miniCartItem: AddedItem = {
+      name: product.name,
+      image: imageSrc,
+      color: formatColor(cartColor),
+      size: isCustomSize
+        ? `${customLength} × ${customWidth} cm`
+        : currentSize.label,
+    };
+
     addToCart({
       id: crypto.randomUUID(),
       name: product.name,
@@ -330,6 +365,16 @@ export default function ProductClient({
       quantity: 1,
     });
 
+    /*
+     * Atualiza o conteúdo do MiniCart
+     * e abre o aviso.
+     */
+    setAddedItem(miniCartItem);
+    setMiniCartOpen(true);
+
+    /*
+     * Mantém o feedback visual do botão.
+     */
     setAdded(true);
 
     if (addedTimeout.current) {
@@ -348,6 +393,20 @@ export default function ProductClient({
   return (
     <main className="min-h-screen bg-background">
       <div className="mx-auto max-w-7xl px-4 pb-16 pt-6 sm:px-6 lg:px-8">
+
+        {/* MiniCart */}
+        {addedItem && (
+          <MiniCart
+            isOpen={miniCartOpen}
+            name={addedItem.name}
+            image={addedItem.image}
+            color={addedItem.color}
+            size={addedItem.size}
+            onClose={() =>
+              setMiniCartOpen(false)
+            }
+          />
+        )}
 
         {/* Cabeçalho */}
         <div className="mb-8 flex items-center justify-between gap-4">
@@ -388,8 +447,8 @@ export default function ProductClient({
               originalPrice={
                 currentSize.no_discount
                   ? Number(
-                      currentSize.no_discount,
-                    )
+                    currentSize.no_discount,
+                  )
                   : undefined
               }
               onPreviousImage={
