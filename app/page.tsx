@@ -13,6 +13,7 @@ import { useScrollTop } from "@/hooks/useScrollTop";
 import { useState } from "react";
 
 import Cores from "@/components/Cores";
+import PorQueFlorisse from "@/components/Porque";
 import { formatColor, formatPath } from "@/utils/format";
 import { FaArrowUp, FaWhatsapp } from "react-icons/fa";
 
@@ -39,7 +40,7 @@ export default function Home() {
         <Numbers rafflePrice={rafflePrice} setNumbersOpen={setNumbersOpen} />
       )}
       <Hero bestSelling={bestSelling} formatPath={formatPath} />
-     
+
       <Products
         products={products}
         bestSellingByCategory={bestSellingByCategory}
@@ -51,6 +52,7 @@ export default function Home() {
 
       <Cores
         formatColor={formatColor} />
+      <PorQueFlorisse />
       <Cuidados />
       <Sobre />
       <Footer />

@@ -11,7 +11,14 @@ import {
   FaTimes,
 } from "react-icons/fa";
 
-const navItems = ["Início", "Produtos", "Cores", "Cuidados", "Sobre"];
+const navItems = [
+  "Início",
+  "Produtos",
+  "Cores",
+  "Por que Florisse?",
+  "Cuidados",
+  "Sobre",
+];
 
 export default function Header() {
   const { cart } = useCart();
