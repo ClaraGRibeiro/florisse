@@ -28,8 +28,22 @@ export default function ProductRelated({
      * ---------------------------------------------------------
      */
 
-    // Extrai todas as palavras/cores presentes nas cores do produto.
-    const getProductColors = (item: Product): Set<string> => {
+    /*
+     * Extrai as cores de um produto.
+     *
+     * Exemplo:
+     * "cru/militar/alecrim"
+     *
+     * vira:
+     * Set {
+     *   "cru",
+     *   "militar",
+     *   "alecrim"
+     * }
+     */
+    const getProductColors = (
+      item: Product,
+    ): Set<string> => {
       const colorSet = new Set<string>();
 
       if (!item.colors) {
@@ -41,7 +55,9 @@ export default function ProductRelated({
 
         formatted
           .split(/[-/,+]/)
-          .map((part) => part.trim().toLowerCase())
+          .map((part) =>
+            part.trim().toLowerCase(),
+          )
           .filter(Boolean)
           .forEach((part) => {
             colorSet.add(part);
@@ -51,17 +67,30 @@ export default function ProductRelated({
       return colorSet;
     };
 
-    // Obtém o menor preço disponível do produto.
-    const getLowestPrice = (item: Product): number => {
-      if (!item.sizes || item.sizes.length === 0) {
+    /*
+     * Obtém o menor preço disponível do produto.
+     */
+    const getLowestPrice = (
+      item: Product,
+    ): number => {
+      if (
+        !item.sizes ||
+        item.sizes.length === 0
+      ) {
         return Infinity;
       }
 
-      return Math.min(
-        ...item.sizes
-          .map((size) => Number(size.price))
-          .filter((price) => Number.isFinite(price)),
-      );
+      const prices = item.sizes
+        .map((size) => Number(size.price))
+        .filter((price) =>
+          Number.isFinite(price),
+        );
+
+      if (prices.length === 0) {
+        return Infinity;
+      }
+
+      return Math.min(...prices);
     };
 
     /*
@@ -70,20 +99,34 @@ export default function ProductRelated({
      * ---------------------------------------------------------
      */
 
-    const currentColors = getProductColors(product);
-    const currentPrice = getLowestPrice(product);
+    const currentColors =
+      getProductColors(product);
+
+    const currentPrice =
+      getLowestPrice(product);
 
     /*
      * ---------------------------------------------------------
-     * CALCULA A PONTUAÇÃO DE CADA PRODUTO
+     * CALCULA A PONTUAÇÃO DOS PRODUTOS
      * ---------------------------------------------------------
      *
-     * Quanto maior a pontuação, mais relacionado o produto é.
+     * Quanto maior a pontuação, mais relacionado
+     * o produto é ao produto atual.
      *
-     * Categoria:       +100
-     * Cor semelhante:   +30 por cor em comum
-     * Preço próximo:    +20
-     * Mais vendido:     usado como desempate
+     * MESMA CATEGORIA
+     * +100 pontos
+     *
+     * CADA COR EM COMUM
+     * +30 pontos
+     *
+     * PREÇO ATÉ 20% DE DIFERENÇA
+     * +20 pontos
+     *
+     * PREÇO ATÉ 40% DE DIFERENÇA
+     * +10 pontos
+     *
+     * VENDAS
+     * usadas somente como desempate
      */
 
     const scoredProducts = products
@@ -91,24 +134,15 @@ export default function ProductRelated({
         (candidate) =>
           candidate.name !== product.name,
       )
-      .map((candidate) => {
+      .map((candidate, originalIndex) => {
         let score = 0;
 
         /*
-         * 1. MESMA CATEGORIA
-         */
-        if (
-          candidate.category &&
-          product.category &&
-          candidate.category.toLowerCase() ===
-            product.category.toLowerCase()
-        ) {
-          score += 100;
-        }
-
-        /*
+         * -----------------------------------------------------
          * 2. CORES SEMELHANTES
+         * -----------------------------------------------------
          */
+
         const candidateColors =
           getProductColors(candidate);
 
@@ -123,8 +157,11 @@ export default function ProductRelated({
         score += sharedColors * 30;
 
         /*
+         * -----------------------------------------------------
          * 3. FAIXA DE PREÇO SEMELHANTE
+         * -----------------------------------------------------
          */
+
         const candidatePrice =
           getLowestPrice(candidate);
 
@@ -141,24 +178,31 @@ export default function ProductRelated({
           /*
            * Até 20% de diferença:
            * +20 pontos
-           *
-           * Até 40%:
-           * +10 pontos
            */
           if (priceDifference <= 0.2) {
             score += 20;
-          } else if (priceDifference <= 0.4) {
+          }
+
+          /*
+           * Entre 20% e 40%:
+           * +10 pontos
+           */
+          else if (priceDifference <= 0.4) {
             score += 10;
           }
         }
 
         /*
+         * -----------------------------------------------------
          * 4. VENDAS
+         * -----------------------------------------------------
          *
-         * Não usamos vendas como principal critério.
-         * Elas servem apenas para desempatar produtos
-         * que já possuem características semelhantes.
+         * Não entram diretamente no score.
+         *
+         * Servem apenas para desempatar produtos
+         * que já possuem o mesmo nível de relação.
          */
+
         const totalSales =
           candidate.total_sales ?? 0;
 
@@ -166,16 +210,26 @@ export default function ProductRelated({
           product: candidate,
           score,
           totalSales,
+          originalIndex,
         };
       });
 
     /*
      * ---------------------------------------------------------
-     * ORDENAÇÃO
+     * ORDENAÇÃO POR RELEVÂNCIA
      * ---------------------------------------------------------
      *
-     * Primeiro pela relevância.
-     * Em caso de empate, pelo número de vendas.
+     * Primeiro:
+     * maior pontuação
+     *
+     * Depois:
+     * maior número de vendas
+     *
+     * Por último:
+     * ordem original do array
+     *
+     * Assim, a posição no array deixa de determinar
+     * quais produtos aparecem como relacionados.
      */
 
     scoredProducts.sort((a, b) => {
@@ -183,7 +237,14 @@ export default function ProductRelated({
         return b.score - a.score;
       }
 
-      return b.totalSales - a.totalSales;
+      if (b.totalSales !== a.totalSales) {
+        return b.totalSales - a.totalSales;
+      }
+
+      return (
+        a.originalIndex -
+        b.originalIndex
+      );
     });
 
     /*
@@ -191,7 +252,7 @@ export default function ProductRelated({
      * SELEÇÃO PRINCIPAL
      * ---------------------------------------------------------
      *
-     * Pegamos os 4 produtos mais relacionados.
+     * Pegamos os 4 produtos com maior relevância.
      */
 
     const selected = scoredProducts
@@ -203,30 +264,31 @@ export default function ProductRelated({
      * FALLBACK
      * ---------------------------------------------------------
      *
-     * Se houver menos de 4 produtos relacionados,
+     * Caso existam menos de 4 produtos disponíveis,
      * completamos com outros produtos.
      */
 
     if (selected.length < 4) {
       const selectedNames = new Set(
-        selected.map((item) => item.name),
+        selected.map(
+          (item) => item.name,
+        ),
       );
 
-      const fallbackProducts = products.filter(
-        (candidate) =>
-          candidate.name !== product.name &&
-          !selectedNames.has(candidate.name),
-      );
-
-      /*
-       * Produtos de fallback também priorizam
-       * os mais vendidos.
-       */
-      fallbackProducts.sort(
-        (a, b) =>
-          (b.total_sales ?? 0) -
-          (a.total_sales ?? 0),
-      );
+      const fallbackProducts = products
+        .filter(
+          (candidate) =>
+            candidate.name !==
+              product.name &&
+            !selectedNames.has(
+              candidate.name,
+            ),
+        )
+        .sort(
+          (a, b) =>
+            (b.total_sales ?? 0) -
+            (a.total_sales ?? 0),
+        );
 
       for (const candidate of fallbackProducts) {
         if (selected.length >= 4) {
@@ -238,47 +300,58 @@ export default function ProductRelated({
     }
 
     /*
-     * ---------------------------------------------------------
-     * EMBARALHAMENTO
-     * ---------------------------------------------------------
+     * Não embaralhamos os produtos.
      *
-     * Depois de escolher os produtos relevantes,
-     * embaralhamos somente os 4 selecionados.
-     *
-     * Isso evita que a seção fique sempre exatamente
-     * na mesma ordem.
+     * A ordem agora representa a relevância:
+     * primeiro = mais relacionado
+     * último = menos relacionado
      */
 
-    return [...selected].sort(
-      () => Math.random() - 0.5,
-    );
+    return selected;
   }, [product, products]);
+
+  /*
+   * -----------------------------------------------------------
+   * SE NÃO HOUVER PRODUTOS RELACIONADOS
+   * -----------------------------------------------------------
+   */
 
   if (relatedProducts.length === 0) {
     return null;
   }
 
   /*
-   * Produto mais vendido dentro de cada categoria.
-   * Usado pelo ProductCard para o selo "Mais vendido".
+   * -----------------------------------------------------------
+   * PRODUTO MAIS VENDIDO POR CATEGORIA
+   * -----------------------------------------------------------
+   *
+   * Usado pelo ProductCard para determinar qual produto
+   * recebe o selo "Mais vendido".
    */
+
   const bestSellingByCategory =
-    products.reduce<Record<string, Product>>(
-      (acc, item) => {
-        const currentBest = acc[item.category];
+    products.reduce<
+      Record<string, Product>
+    >((acc, item) => {
+      const currentBest =
+        acc[item.category];
 
-        if (
-          !currentBest ||
-          (item.total_sales ?? 0) >
-            (currentBest.total_sales ?? 0)
-        ) {
-          acc[item.category] = item;
-        }
+      if (
+        !currentBest ||
+        (item.total_sales ?? 0) >
+          (currentBest.total_sales ?? 0)
+      ) {
+        acc[item.category] = item;
+      }
 
-        return acc;
-      },
-      {},
-    );
+      return acc;
+    }, {});
+
+  /*
+   * -----------------------------------------------------------
+   * RENDER
+   * -----------------------------------------------------------
+   */
 
   return (
     <section className="mt-16 border-t border-border pt-16">
