@@ -6,27 +6,27 @@ const tapetes = [
         category: "Tapetes",
         sizes: [
             {
-                label: "65x45cm",
+                label: "65 × 45 cm",
                 price: 30,
                 sales: 0,
             },
             {
-                label: "100x45cm",
+                label: "100 × 45 cm",
                 price: 100,
                 sales: 0,
             },
             {
-                label: "120x45cm",
+                label: "120 × 45 cm",
                 price: 120,
                 sales: 0,
             },
             {
-                label: "2 (100x45cm)",
+                label: "2 (100 × 45 cm)",
                 price: (100 + 100) * DISCOUNT,
                 no_discount: (100 + 100),
             },
             {
-                label: "2 (65x45cm) e 1 (120x45cm)",
+                label: "2 (65x45cm) e 1 (120 × 45 cm)",
                 price: (30 + 30 + 120) * DISCOUNT,
                 no_discount: (30 + 30 + 120),
             },
@@ -38,27 +38,27 @@ const tapetes = [
         category: "Tapetes",
         sizes: [
             {
-                label: "65x45cm",
+                label: "65 × 45 cm",
                 price: 30,
                 sales: 0,
             },
             {
-                label: "100x45cm",
+                label: "100 × 45 cm",
                 price: 100,
                 sales: 0,
             },
             {
-                label: "120x45cm",
+                label: "120 × 45 cm",
                 price: 120,
                 sales: 0,
             },
             {
-                label: "2 (100x45cm)",
+                label: "2 (100 × 45 cm)",
                 price: (100 + 100) * DISCOUNT,
                 no_discount: (100 + 100),
             },
             {
-                label: "2 (65x45cm) e 1 (120x45cm)",
+                label: "2 (65x45cm) e 1 (120 × 45 cm)",
                 price: (30 + 30 + 120) * DISCOUNT,
                 no_discount: (30 + 30 + 120),
             },
@@ -70,27 +70,27 @@ const tapetes = [
         category: "Tapetes",
         sizes: [
             {
-                label: "65x45cm",
+                label: "65 × 45 cm",
                 price: 35,
                 sales: 0,
             },
             {
-                label: "100x45cm",
+                label: "100 × 45 cm",
                 price: 110,
                 sales: 0,
             },
             {
-                label: "120x45cm",
+                label: "120 × 45 cm",
                 price: 130,
                 sales: 0,
             },
             {
-                label: "2 (100x45cm)",
+                label: "2 (100 × 45 cm)",
                 price: (110 + 110) * DISCOUNT,
                 no_discount: (110 + 110),
             },
             {
-                label: "2 (65x45cm) e 1 (120x45cm)",
+                label: "2 (65x45cm) e 1 (120 × 45 cm)",
                 price: (35 + 35 + 130) * DISCOUNT,
                 no_discount: (35 + 35 + 130),
             },
@@ -102,27 +102,27 @@ const tapetes = [
         category: "Tapetes",
         sizes: [
             {
-                label: "65x45cm",
+                label: "65 × 45 cm",
                 price: 35,
                 sales: 1,
             },
             {
-                label: "100x45cm",
+                label: "100 × 45 cm",
                 price: 110,
                 sales: 0,
             },
             {
-                label: "120x45cm",
+                label: "120 × 45 cm",
                 price: 130,
                 sales: 0,
             },
             {
-                label: "2 (100x45cm)",
+                label: "2 (100 × 45 cm)",
                 price: (110 + 110) * DISCOUNT,
                 no_discount: (110 + 110),
             },
             {
-                label: "2 (65x45cm) e 1 (120x45cm)",
+                label: "2 (65x45cm) e 1 (120 × 45 cm)",
                 price: (35 + 35 + 130) * DISCOUNT,
                 no_discount: (35 + 35 + 130),
             },
@@ -134,27 +134,27 @@ const tapetes = [
         category: "Tapetes",
         sizes: [
             {
-                label: "70x50cm",
+                label: "70 × 50 cm",
                 price: 50,
                 sales: 6,
             },
             {
-                label: "100x50cm",
+                label: "100 × 50 cm",
                 price: 115,
                 sales: 5,
             },
             {
-                label: "120x50cm",
+                label: "120 × 50 cm",
                 price: 145,
                 sales: 1,
             },
             {
-                label: "2 (100x50cm)",
+                label: "2 (100 × 50 cm)",
                 price: (115 + 115) * DISCOUNT,
                 no_discount: (115 + 115),
             },
             {
-                label: "2 (70x50cm) e 1 (120x50cm)",
+                label: "2 (70x50cm) e 1 (120 × 50 cm)",
                 price: (50 + 50 + 145) * DISCOUNT,
                 no_discount: (50 + 50 + 145),
             },
@@ -166,27 +166,27 @@ const tapetes = [
         category: "Tapetes",
         sizes: [
             {
-                label: "70x50cm",
+                label: "70 × 50 cm",
                 price: 60,
                 sales: 0,
             },
             {
-                label: "100x50cm",
+                label: "100 × 50 cm",
                 price: 125,
                 sales: 0,
             },
             {
-                label: "120x50cm",
+                label: "120 × 50 cm",
                 price: 155,
                 sales: 0,
             },
             {
-                label: "2 (100x50cm)",
+                label: "2 (100 × 50 cm)",
                 price: (125 + 125) * DISCOUNT,
                 no_discount: (125 + 125),
             },
             {
-                label: "2 (70x50cm) e 1 (120x50cm)",
+                label: "2 (70x50cm) e 1 (120 × 50 cm)",
                 price: (60 + 60 + 155) * DISCOUNT,
                 no_discount: (60 + 60 + 155),
             },
@@ -198,27 +198,27 @@ const tapetes = [
         category: "Tapetes",
         sizes: [
             {
-                label: "70x50cm",
+                label: "70 × 50 cm",
                 price: 60,
                 sales: 0,
             },
             {
-                label: "100x50cm",
+                label: "100 × 50 cm",
                 price: 125,
                 sales: 0,
             },
             {
-                label: "120x50cm",
+                label: "120 × 50 cm",
                 price: 155,
                 sales: 1,
             },
             {
-                label: "2 (100x50cm)",
+                label: "2 (100 × 50 cm)",
                 price: (125 + 125) * DISCOUNT,
                 no_discount: (125 + 125),
             },
             {
-                label: "2 (70x50cm) e 1 (120x50cm)",
+                label: "2 (70x50cm) e 1 (120 × 50 cm)",
                 price: (60 + 60 + 155) * DISCOUNT,
                 no_discount: (60 + 60 + 155),
             },
@@ -230,27 +230,27 @@ const tapetes = [
         category: "Tapetes",
         sizes: [
             {
-                label: "70x50cm",
+                label: "70 × 50 cm",
                 price: 60,
                 sales: 0,
             },
             {
-                label: "100x50cm",
+                label: "100 × 50 cm",
                 price: 125,
                 sales: 0,
             },
             {
-                label: "120x50cm",
+                label: "120 × 50 cm",
                 price: 155,
                 sales: 1,
             },
             {
-                label: "2 (100x50cm)",
+                label: "2 (100 × 50 cm)",
                 price: (125 + 125) * DISCOUNT,
                 no_discount: (125 + 125),
             },
             {
-                label: "2 (70x50cm) e 1 (120x50cm)",
+                label: "2 (70x50cm) e 1 (120 × 50 cm)",
                 price: (60 + 60 + 155) * DISCOUNT,
                 no_discount: (60 + 60 + 155),
             },
@@ -262,27 +262,27 @@ const tapetes = [
         category: "Tapetes",
         sizes: [
             {
-                label: "70x50cm",
+                label: "70 × 50 cm",
                 price: 60,
                 sales: 0,
             },
             {
-                label: "100x50cm",
+                label: "100 × 50 cm",
                 price: 125,
                 sales: 2,
             },
             {
-                label: "120x50cm",
+                label: "120 × 50 cm",
                 price: 155,
                 sales: 0,
             },
             {
-                label: "2 (100x50cm)",
+                label: "2 (100 × 50 cm)",
                 price: (125 + 125) * DISCOUNT,
                 no_discount: (125 + 125),
             },
             {
-                label: "2 (70x50cm) e 1 (120x50cm)",
+                label: "2 (70x50cm) e 1 (120 × 50 cm)",
                 price: (60 + 60 + 155) * DISCOUNT,
                 no_discount: (60 + 60 + 155),
             },
@@ -294,27 +294,27 @@ const tapetes = [
         category: "Tapetes",
         sizes: [
             {
-                label: "70x50cm",
+                label: "70 × 50 cm",
                 price: 75,
                 sales: 0,
             },
             {
-                label: "100x50cm",
+                label: "100 × 50 cm",
                 price: 140,
                 sales: 0,
             },
             {
-                label: "120x50cm",
+                label: "120 × 50 cm",
                 price: 170,
                 sales: 1,
             },
             {
-                label: "2 (100x50cm)",
+                label: "2 (100 × 50 cm)",
                 price: (140 + 140) * DISCOUNT,
                 no_discount: (140 + 140),
             },
             {
-                label: "2 (70x50cm) e 1 (120x50cm)",
+                label: "2 (70x50cm) e 1 (120 × 50 cm)",
                 price: (75 + 75 + 170) * DISCOUNT,
                 no_discount: (75 + 75 + 170),
             },
@@ -326,12 +326,12 @@ const tapetes = [
         category: "Tapetes",
         sizes: [
             {
-                label: "100cm",
+                label: " × 00 cm",
                 price: 250,
                 sales: 1,
             },
             {
-                label: "150cm",
+                label: " × 50 cm",
                 price: 370,
                 sales: 0,
             },
@@ -343,12 +343,12 @@ const tapetes = [
     //   category: "Tapetes",
     //   sizes: [
     //     {
-    //       label: "100cm",
+    //       label: " × 00 cm",
     //       price: 300,
     //       sales: 0,
     //     },
     //     {
-    //       label: "150cm",
+    //       label: " × 50 cm",
     //       price: 420,
     //       sales: 0,
     //     },

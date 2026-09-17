@@ -14,7 +14,7 @@ type ProductInfoProps = {
   colorSearch: string;
   selectedOtherColors: string[];
 
-  selectedSize: number;
+  selectedSize: number | null;
   isCustomSize: boolean;
   customLength: string;
   customWidth: string;
@@ -66,11 +66,10 @@ export default function ProductInfo({
 
   onAddToCart,
 }: ProductInfoProps) {
-  const currentSize = product.sizes[selectedSize];
-
-  if (!currentSize) {
-    return null;
-  }
+  const currentSize =
+    selectedSize !== null
+      ? product.sizes[selectedSize]
+      : undefined;
 
   return (
     <div className="flex flex-col">
@@ -85,16 +84,29 @@ export default function ProductInfo({
       </h1>
 
       {/* Preço */}
-      <div className="mt-6 flex items-end gap-3">
-        <span className="font-serif text-3xl font-semibold text-primary">
-          R$ {currentSize.price.toFixed(2)}
-        </span>
+      <div className="mt-6">
+        {isCustomSize ? (
+          <>
+            <p className="font-serif text-3xl font-semibold text-primary">
+              Sob consulta
+            </p>
+            <p className="mt-1 text-sm leading-relaxed text-muted">
+              O valor será confirmado de acordo com as medidas escolhidas.
+            </p>
+          </>
+        ) : currentSize ? (
+          <div className="flex items-end gap-3">
+            <span className="font-serif text-3xl font-semibold text-primary">
+              R$ {currentSize.price.toFixed(2)}
+            </span>
 
-        {currentSize.no_discount && (
-          <span className="pb-1 text-sm text-muted line-through">
-            R$ {currentSize.no_discount}
-          </span>
-        )}
+            {currentSize.no_discount && (
+              <span className="pb-1 text-sm text-muted line-through">
+                R$ {currentSize.no_discount}
+              </span>
+            )}
+          </div>
+        ) : null}
       </div>
 
       {/* Divisor */}
@@ -132,6 +144,7 @@ export default function ProductInfo({
       <ProductActions
         canAddToCart={canAddToCart}
         added={added}
+        isCustomSize={isCustomSize}
         onAddToCart={onAddToCart}
       />
     </div>

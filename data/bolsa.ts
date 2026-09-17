@@ -4,7 +4,7 @@ const bolsa = [
         category: "Bolsas",
         sizes: [
             {
-                label: "30x30x10cm",
+                label: "30 × 30 × 10 cm",
                 price: 80,
                 sales: 1,
             },

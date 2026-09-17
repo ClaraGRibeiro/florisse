@@ -3,12 +3,14 @@ import { FaCheck, FaShoppingBag } from "react-icons/fa";
 type ProductActionsProps = {
   canAddToCart: boolean;
   added: boolean;
+  isCustomSize: boolean;
   onAddToCart: () => void;
 };
 
 export default function ProductActions({
   canAddToCart,
   added,
+  isCustomSize,
   onAddToCart,
 }: ProductActionsProps) {
   const buttonClassName = added
@@ -35,12 +37,16 @@ export default function ProductActions({
         {added ? (
           <>
             <FaCheck className="text-sm" />
-            Adicionado ao carrinho
+            {isCustomSize
+              ? "Pedido adicionado"
+              : "Adicionado ao carrinho"}
           </>
         ) : (
           <>
             <FaShoppingBag className="text-sm" />
-            Adicionar ao carrinho
+            {isCustomSize
+              ? "Adicionar pedido personalizado"
+              : "Adicionar ao carrinho"}
           </>
         )}
       </button>

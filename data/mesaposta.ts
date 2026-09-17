@@ -6,12 +6,12 @@ const mesaposta = [
         category: "Mesa Posta",
         sizes: [
             {
-                label: "37cm",
+                label: "37 cm",
                 price: 27,
                 sales: 2,
             },
             {
-                label: "6 (37cm) + 1 (100x25cm)",
+                label: "6 (37 cm) + 1 (100 × 25 cm)",
                 price: (27+27+27+27+27+27+65) * DISCOUNT,
                 no_discount: (27+27+27+27+27+27+65),
             },
@@ -23,7 +23,7 @@ const mesaposta = [
         category: "Mesa Posta",
         sizes: [
             {
-                label: "100x25cm",
+                label: "100 × 25 cm",
                 price: 65,
                 sales: 0,
             },
@@ -35,12 +35,12 @@ const mesaposta = [
         category: "Mesa Posta",
         sizes: [
             {
-                label: "37cm",
+                label: "37 cm",
                 price: 27,
                 sales: 0,
             },
             {
-                label: "6 (37cm)",
+                label: "6 (37 cm)",
                 price: (27+27+27+27+27+27) * DISCOUNT,
                 no_discount: (27+27+27+27+27+27),
             },
@@ -52,7 +52,7 @@ const mesaposta = [
         category: "Mesa Posta",
         sizes: [
             {
-                label: "120x35cm",
+                label: "120 × 35 cm",
                 price: 85,
                 sales: 0,
             },
@@ -64,7 +64,7 @@ const mesaposta = [
         category: "Mesa Posta",
         sizes: [
             {
-                label: "110x40cm",
+                label: "110 × 40 cm",
                 price: 135,
                 sales: 1,
             },

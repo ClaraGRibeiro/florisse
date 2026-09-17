@@ -220,7 +220,7 @@ export default function ProductClient({
     images[selectedImage];
 
   const cartSize = isCustomSize
-    ? `${customLength}x${customWidth}cm`
+    ? "Outro"
     : currentSize.label;
 
   const cartColor = isOtherColor
@@ -358,11 +358,16 @@ export default function ProductClient({
     addToCart({
       id: crypto.randomUUID(),
       name: product.name,
+      type: isCustomSize ? "custom-order" : "product",
       color: cartColor,
       size: cartSize,
-      price: currentSize.price,
-      no_discount:
-        currentSize.no_discount,
+      customLength: isCustomSize ? customLength : undefined,
+      customWidth: isCustomSize ? customWidth : undefined,
+      // Pedido personalizado não tem preço definido no site.
+      price: isCustomSize ? 0 : currentSize.price,
+      no_discount: isCustomSize
+        ? undefined
+        : currentSize.no_discount,
       image: imageSrc,
       quantity: 1,
     });

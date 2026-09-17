@@ -538,10 +538,10 @@ export default function Carrinho() {
     let newNoDiscount =
       editingItem.no_discount;
 
-    if (
-      !isCustomSize &&
-      selectedSize !== null
-    ) {
+    if (isCustomSize) {
+      newPrice = 0;
+      newNoDiscount = undefined;
+    } else if (selectedSize !== null) {
       const size =
         editingProduct.sizes[
         selectedSize
@@ -604,6 +604,8 @@ export default function Carrinho() {
     updateItem(
       editingItem.id,
       {
+        type: isCustomSize ? "custom-order" : "product",
+
         color: newColor,
 
         size: newSize,
@@ -632,10 +634,14 @@ export default function Carrinho() {
 
   const total = cart.reduce(
     (acc, item) =>
-      acc +
-      item.price *
-      item.quantity,
+      item.type === "product"
+        ? acc + item.price * item.quantity
+        : acc,
     0,
+  );
+
+  const hasCustomOrders = cart.some(
+    (item) => item.type === "custom-order",
   );
 
   const totalItems = cart.reduce(
@@ -662,12 +668,17 @@ export default function Carrinho() {
               ? ` (${item.customLength} × ${item.customWidth} cm)`
               : "";
 
+          const value =
+            item.type === "custom-order"
+              ? "Sob consulta"
+              : `R$ ${(item.price * item.quantity).toFixed(2)}`;
+
           return `
 ${index + 1}. ${item.name}
 • Cor: ${formatColor(item.color)}
 • Tamanho: ${item.size}${customSize}
 • Quantidade: ${item.quantity}
-• Valor: R$ ${(item.price * item.quantity).toFixed(2)}
+• Valor: ${value}
 `;
         },
       )
@@ -680,7 +691,8 @@ Quero fazer o seguinte pedido:
 
 ${items}
 
-Total do pedido: R$ ${total.toFixed(2)}
+${hasCustomOrders ? `Subtotal dos itens com preço definido: R$ ${total.toFixed(2)}\n` : `Total do pedido: R$ ${total.toFixed(2)}\n`}
+${hasCustomOrders ? "Há itens personalizados com valor sob consulta. O valor final será confirmado pela Florisse." : ""}
 `;
 
     window.open(
@@ -1010,29 +1022,43 @@ Total do pedido: R$ ${total.toFixed(2)}
                               </p>
 
                             </div>
+
+                            {item.type === "custom-order" && (
+                              <div className="mt-3 inline-flex rounded-full bg-primary/10 px-3 py-1.5 text-xs font-semibold text-primary">
+                                Pedido personalizado · valor sob consulta
+                              </div>
+                            )}
                           </div>
 
                           {/* PREÇO */}
 
                           <div className="text-right">
 
-                            <p className="font-serif text-xl font-semibold text-primary">
-                              R${" "}
-                              {subtotal.toFixed(
-                                2,
-                              )}
-                            </p>
-
-                            {item.no_discount && (
-                              <p className="whitespace-nowrap text-sm font-medium text-muted line-through">
-                                R${" "}
-                                {(
-                                  item.no_discount *
-                                  item.quantity
-                                ).toFixed(
-                                  2,
-                                )}
+                            {item.type === "custom-order" ? (
+                              <p className="font-serif text-xl font-semibold text-primary">
+                                Sob consulta
                               </p>
+                            ) : (
+                              <>
+                                <p className="font-serif text-xl font-semibold text-primary">
+                                  R${" "}
+                                  {subtotal.toFixed(
+                                    2,
+                                  )}
+                                </p>
+
+                                {item.no_discount && (
+                                  <p className="whitespace-nowrap text-sm font-medium text-muted line-through">
+                                    R${" "}
+                                    {(
+                                      item.no_discount *
+                                      item.quantity
+                                    ).toFixed(
+                                      2,
+                                    )}
+                                  </p>
+                                )}
+                              </>
                             )}
 
                           </div>
@@ -1665,8 +1691,7 @@ Total do pedido: R$ ${total.toFixed(2)}
             {/* ================================================== */}
 
             <p className="mt-4 text-sm leading-relaxed text-muted">
-              Personalizações de cor ou tamanho
-              podem alterar o valor do produto.
+              Pedidos com tamanho personalizado têm valor sob consulta. A Florisse confirma o preço final pelo WhatsApp antes da produção.
             </p>
 
             {/* ================================================== */}
@@ -1683,8 +1708,16 @@ Total do pedido: R$ ${total.toFixed(2)}
                   </p>
 
                   <h2 className="mt-1 font-serif text-3xl font-semibold text-primary">
-                    R$ {total.toFixed(2)}
+                    {hasCustomOrders && total === 0
+                      ? "Sob consulta"
+                      : `R$ ${total.toFixed(2)}`}
                   </h2>
+
+                  {hasCustomOrders && (
+                    <p className="mt-1 max-w-md text-xs leading-relaxed text-muted">
+                      Subtotal dos itens com preço definido. Os itens personalizados serão confirmados pelo WhatsApp.
+                    </p>
+                  )}
                 </div>
 
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center">

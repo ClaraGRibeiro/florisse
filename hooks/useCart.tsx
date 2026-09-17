@@ -12,6 +12,12 @@ export type CartItem = {
   id: string;
   name: string;
 
+  /**
+   * Produto com preço definido ou pedido personalizado
+   * que precisa ter o valor confirmado pelo WhatsApp.
+   */
+  type: "product" | "custom-order";
+
   // Cor cadastrada ou cores personalizadas separadas por "/"
   color: string;
 
@@ -77,7 +83,31 @@ export function CartProvider({
     }
 
     try {
-      setCart(JSON.parse(savedCart));
+      const parsed = JSON.parse(savedCart);
+
+      if (!Array.isArray(parsed)) {
+        throw new Error("Carrinho inválido");
+      }
+
+      // Compatibilidade com carrinhos salvos antes da existência de `type`.
+      const normalized: CartItem[] = parsed
+        .filter((item) => item && typeof item === "object")
+        .map((item) => ({
+          ...item,
+          type:
+            item.type === "custom-order" ||
+            (item.customLength && item.customWidth)
+              ? "custom-order"
+              : "product",
+          price:
+            typeof item.price === "number" ? item.price : 0,
+          quantity:
+            typeof item.quantity === "number" && item.quantity > 0
+              ? item.quantity
+              : 1,
+        }));
+
+      setCart(normalized);
     } catch {
       localStorage.removeItem(CART_STORAGE_KEY);
     }
@@ -244,8 +274,9 @@ export function CartProvider({
 
   const totalPrice = cart.reduce(
     (total, item) =>
-      total +
-      item.price * item.quantity,
+      item.type === "product"
+        ? total + item.price * item.quantity
+        : total,
     0,
   );
 
