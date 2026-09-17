@@ -414,34 +414,67 @@ export default function ProductClient({
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(380px,0.95fr)] lg:gap-16 xl:gap-20">
 
           {/* Galeria */}
-          <ProductGallery
-            productName={product.name}
-            imageSrc={imageSrc}
-            images={images}
-            selectedImage={
-              selectedImage
-            }
-            totalSales={
-              product.total_sales ?? 0
-            }
-            currentPrice={
-              currentSize.price
-            }
-            originalPrice={
-              currentSize.no_discount
-                ? Number(
+          <div>
+            <ProductGallery
+              productName={product.name}
+              imageSrc={imageSrc}
+              images={images}
+              selectedImage={
+                selectedImage
+              }
+              totalSales={
+                product.total_sales ?? 0
+              }
+              currentPrice={
+                currentSize.price
+              }
+              originalPrice={
+                currentSize.no_discount
+                  ? Number(
                     currentSize.no_discount,
                   )
-                : undefined
-            }
-            onPreviousImage={
-              previousImage
-            }
-            onNextImage={nextImage}
-            onSelectImage={
-              setSelectedImage
-            }
-          />
+                  : undefined
+              }
+              onPreviousImage={
+                previousImage
+              }
+              onNextImage={nextImage}
+              onSelectImage={
+                setSelectedImage
+              }
+            />
+
+            {/* Aviso para combinações personalizadas de cores */}
+            {isOtherColor && (
+              <div className="mt-4 flex items-start gap-3 rounded-2xl border border-primary/15 bg-primary/5 px-4 py-3.5">
+                <div className="mt-0.5 shrink-0 text-primary">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    className="h-5 w-5"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M12 9v4m0 4h.01M10.29 3.86l-8.1 14a2 2 0 001.73 2.64h16.16a2 2 0 001.73-2.64l-8.1-14a2 2 0 00-3.42 0z"
+                    />
+                  </svg>
+                </div>
+
+                <p className="text-sm leading-relaxed text-muted">
+                  <span className="font-semibold text-foreground">
+                    A imagem é ilustrativa.
+                  </span>{" "}
+                  A peça será produzida nas cores escolhidas.
+                </p>
+              </div>
+            )}
+          </div>
+
 
           {/* Informações */}
           <ProductInfo
