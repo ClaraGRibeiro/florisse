@@ -13,6 +13,11 @@ export function useProducts() {
     return {
       ...product,
       total_sales,
+      images: Object.fromEntries(
+        Object.entries(product.images).filter(
+          ([, images]) => Array.isArray(images),
+        ),
+      ),
       colors: product.colors.map((color) => {
         const hex = color
           .split("-")
