@@ -410,16 +410,17 @@ export default function ProductClient({
 
         {/* Cabeçalho */}
         <div className="mb-8 flex items-center justify-between gap-4">
-          <a
-            href="/#produtos"
+          <button
+            type="button"
+            onClick={() => window.history.back()}
             className="group flex cursor-pointer items-center gap-2 rounded-full px-3 py-2 text-sm font-medium text-muted transition-colors hover:bg-muted/10 hover:text-primary"
           >
             <FaArrowLeft className="text-xs transition-transform duration-300 group-hover:-translate-x-1" />
 
             <span>
-              Voltar para Produtos
+              Voltar
             </span>
-          </a>
+          </button>
 
           <Share
             product={product}

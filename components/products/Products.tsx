@@ -1,5 +1,5 @@
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { useState } from "react";
 
 import { Product } from "@/types/product";
 import { ReadyProduct } from "@/hooks/useProducts";
@@ -26,8 +26,32 @@ export default function Products({
   filters,
   categoryCounts,
 }: ProductsProps) {
-  const [category, setCategory] =
-    useState("Tapetes");
+  const handleCategoryChange = (newCategory: string) => {
+    setCategory(newCategory);
+
+    const url = new URL(window.location.href);
+
+    if (newCategory === "Tapetes") {
+      url.searchParams.delete("categoria");
+    } else {
+      url.searchParams.set("categoria", newCategory);
+    }
+
+    window.history.pushState({}, "", url);
+  };
+  const [category, setCategory] = useState("Tapetes");
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const categoryFromUrl = params.get("categoria");
+
+    if (
+      categoryFromUrl &&
+      filters.includes(categoryFromUrl)
+    ) {
+      setCategory(categoryFromUrl);
+    }
+  }, [filters]);
 
   const filteredProducts =
     category === "Pronta entrega"
@@ -69,7 +93,7 @@ export default function Products({
       {/* FILTROS */}
       <ProductFilters
         category={category}
-        setCategory={setCategory}
+        setCategory={handleCategoryChange}
         filters={filters}
         categoryCounts={categoryCounts}
       />
