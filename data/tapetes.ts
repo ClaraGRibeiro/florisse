@@ -38,6 +38,7 @@ const tapetes = [
     images: {
       militar: [
         "/products/tapetes/tapete-sara/militar.webp",
+        "/products/tapetes/tapete-sara/militar-2.webp",
       ],
     },
   },
@@ -79,6 +80,7 @@ const tapetes = [
     images: {
       malva: [
         "/products/tapetes/tapete-cleo/malva.webp",
+        "/products/tapetes/tapete-cleo/malva-2.webp",
       ],
     },
   },
@@ -120,6 +122,7 @@ const tapetes = [
     images: {
       bordo: [
         "/products/tapetes/tapete-cris/bordo.webp",
+        "/products/tapetes/tapete-cris/bordo-2.webp",
       ],
     },
   },
@@ -161,6 +164,7 @@ const tapetes = [
     images: {
       vermelho: [
         "/products/tapetes/tapete-nina/vermelho.webp",
+        "/products/tapetes/tapete-nina/vermelho-2.webp",
       ],
     },
   },
@@ -219,6 +223,7 @@ const tapetes = [
 
       "limao-cru": [
         "/products/tapetes/tapete-janine/limao-cru.webp",
+        "/products/tapetes/tapete-janine/limao-cru-2.webp",
       ],
 
       "cru-militar-alecrim": [
