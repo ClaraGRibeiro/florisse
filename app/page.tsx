@@ -24,7 +24,14 @@ export default function Home() {
   const [numbersOpen, setNumbersOpen] = useState(false);
   const [raffleOpen, setRaffleOpen] = useState(true);
 
-  const { products, bestSelling, bestSellingByCategory, categories, categoryCounts, productsFromCategory } = useProducts();
+  const {
+    products,
+    readyProducts,
+    bestSelling,
+    bestSellingByCategory,
+    categories,
+    categoryCounts,
+  } = useProducts();
   const { showTop, scrollToTop } = useScrollTop();
 
   return (
@@ -43,6 +50,7 @@ export default function Home() {
 
       <Products
         products={products}
+        readyProducts={readyProducts}
         bestSellingByCategory={bestSellingByCategory}
         filters={categories}
         formatColor={formatColor}

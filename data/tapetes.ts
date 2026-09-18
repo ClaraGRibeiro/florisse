@@ -478,12 +478,12 @@ const tapetes = [
   //   category: "Tapetes",
   //   sizes: [
   //     {
-  //       label: " × 00 cm",
+  //       label: "100 cm",
   //       price: 300,
   //       sales: 0,
   //     },
   //     {
-  //       label: " × 50 cm",
+  //       label: "150 cm",
   //       price: 420,
   //       sales: 0,
   //     },
