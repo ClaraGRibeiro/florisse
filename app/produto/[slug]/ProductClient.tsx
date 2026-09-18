@@ -391,8 +391,8 @@ export default function ProductClient({
   };
 
   return (
-    <main className="min-h-screen bg-background">
-      <div className="mx-auto max-w-7xl px-4 pb-16 pt-6 sm:px-6 lg:px-8">
+    <main className="scroll-mt-20 min-h-screen bg-background">
+      <div className="mx-auto max-w-7xl px-4 pb-16 pt-2 sm:px-6 lg:px-8">
 
         {/* MiniCart */}
         {addedItem && (
@@ -409,7 +409,7 @@ export default function ProductClient({
         )}
 
         {/* Cabeçalho */}
-        <div className="mb-8 flex items-center justify-between gap-4">
+        <div className="mb-2 flex items-center justify-between gap-4">
           <button
             type="button"
             onClick={() => window.history.back()}
