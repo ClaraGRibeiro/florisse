@@ -12,6 +12,7 @@ import {
   FaMapMarkerAlt,
   FaWhatsapp,
 } from "react-icons/fa";
+import { CITY } from "@/data/config";
 
 type ProductInfoProps = {
   product: Product;
@@ -160,7 +161,7 @@ export default function ProductInfo({
           />
 
           <span className="text-sm text-foreground">
-            Produzido em Montes Claros
+            Produzido em {CITY}
           </span>
         </div>
 

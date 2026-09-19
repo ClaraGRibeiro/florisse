@@ -1,3 +1,4 @@
+import { BRAND, CITY, SITE } from "@/data/config";
 import { useModalAccessibility } from "@/hooks/useModalAccessibility";
 import Image from "next/image";
 
@@ -29,10 +30,8 @@ export default function Raffle({
 }: RaffleProps) {
   const closeModal = () => setRaffleOpen(false);
 
-  const shareUrl = "https://florisse.vercel.app/";
-
   const whatsappText = encodeURIComponent(
-    `RIFA FLORISSE
+    `RIFA ` + BRAND.toUpperCase() + `
 
 Prêmio incrível:
 • ${raffleItems[0].title}
@@ -46,7 +45,7 @@ Apenas R$ ${rafflePrice},00 por número
 Sorteio pela Loteria Federal
 
 Participe aqui:
-${shareUrl}
+${SITE}
 
 Não perca essa chance!`,
   );
@@ -88,7 +87,7 @@ Não perca essa chance!`,
           <div className="flex min-h-80 flex-col justify-between bg-card-soft p-5 sm:p-8">
             <div>
               <div className="text-center sm:text-left inline-flex items-center rounded-full border border-primary/20 bg-primary/10 px-4 py-1 text-xs font-medium text-primary">
-                🍀 RIFA FLORISSE 🍀
+                🍀 RIFA {BRAND.toUpperCase()} 🍀
               </div>
 
               <h2
@@ -111,7 +110,7 @@ Não perca essa chance!`,
 
                 <div>
                   <p className="text-sm font-semibold">
-                    Entrega disponível somente em Montes Claros - MG
+                    Entrega disponível somente em {CITY}
                   </p>
 
                   <p className="mt-1 text-xs text-muted">

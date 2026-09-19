@@ -16,12 +16,9 @@ import Cores from "@/components/Cores";
 import PorQueFlorisse from "@/components/Porque";
 import { formatColor, formatPath } from "@/utils/format";
 import { FaArrowUp, FaWhatsapp } from "react-icons/fa";
-import { WHATSAPP } from "@/data/config";
+import { RAFFLE, RAFFLEPRICE, WHATSAPP } from "@/data/config";
 
 export default function Home() {
-  const rafflePrice = 5;
-  const raffleIsOn = false;
-
   const [numbersOpen, setNumbersOpen] = useState(false);
   const [raffleOpen, setRaffleOpen] = useState(true);
 
@@ -37,15 +34,15 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      {raffleIsOn && raffleOpen && (
+      {RAFFLE && raffleOpen && (
         <Raffle
           setRaffleOpen={setRaffleOpen}
-          rafflePrice={rafflePrice}
+          rafflePrice={RAFFLEPRICE}
           setNumbersOpen={setNumbersOpen}
         />
       )}
-      {raffleIsOn && numbersOpen && (
-        <Numbers rafflePrice={rafflePrice} setNumbersOpen={setNumbersOpen} />
+      {RAFFLE && numbersOpen && (
+        <Numbers rafflePrice={RAFFLEPRICE} setNumbersOpen={setNumbersOpen} />
       )}
       <Hero bestSelling={bestSelling} formatPath={formatPath} />
 

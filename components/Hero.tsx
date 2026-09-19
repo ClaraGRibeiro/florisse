@@ -1,4 +1,4 @@
-import { WHATSAPP } from "@/data/config";
+import { BRAND, CITY, WHATSAPP } from "@/data/config";
 import { Product } from "@/types/product";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -73,7 +73,7 @@ export default function Hero({ bestSelling, formatPath }: HeroProps) {
           >
             <span>✦ Cores personalizáveis</span>
             <span>✦ Tamanhos sob medida</span>
-            <span>✦ Montes Claros — MG</span>
+            <span>✦ {CITY}</span>
           </motion.div>
 
           {/* AÇÕES */}
@@ -125,7 +125,7 @@ export default function Hero({ bestSelling, formatPath }: HeroProps) {
               >
                 <Image
                   src={imageSrc}
-                  alt={`${bestSelling.name} — Florisse Crochê`}
+                  alt={`${bestSelling.name} — ` + BRAND}
                   fill
                   priority
                   sizes="(max-width: 768px) 100vw, 500px"

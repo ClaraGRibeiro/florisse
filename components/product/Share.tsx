@@ -4,6 +4,7 @@ import { useState } from "react";
 import { FaShareFromSquare } from "react-icons/fa6";
 
 import { Product } from "@/types/product";
+import { BRAND } from "@/data/config";
 
 type ShareProps = {
   product: Product;
@@ -36,7 +37,7 @@ export default function Share({ product }: ShareProps) {
     try {
       await navigator.share({
         title: product.name,
-        text: "Olha essa peça linda da Florisse! 🧶✨",
+        text: "Olha essa peça linda da " + BRAND + "! 🧶✨",
         url,
       });
     } catch {

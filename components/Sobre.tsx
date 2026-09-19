@@ -1,3 +1,4 @@
+import { BRAND, SLOGAN } from "@/data/config";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { FaHeart, FaLeaf } from "react-icons/fa";
@@ -33,7 +34,7 @@ export default function Sobre() {
           <h2 className="mt-4 font-serif text-4xl font-medium leading-[1.1] text-foreground sm:text-5xl lg:text-6xl">
             Sobre a{" "}
             <span className="italic text-primary">
-              Florisse Crochê
+              {BRAND}
             </span>
           </h2>
 
@@ -101,7 +102,7 @@ export default function Sobre() {
           >
             <div className="space-y-6 text-base leading-relaxed text-muted sm:text-lg">
               <p>
-                A Florisse Crochê nasceu do crochê como um refúgio pra mim. É
+                A {BRAND} nasceu do crochê como um refúgio pra mim. É
                 onde eu desacelero, coloco a mente em ordem e encontro paz em
                 cada ponto.
               </p>
@@ -129,7 +130,7 @@ export default function Sobre() {
               </div>
 
               <p>
-                Por isso, quando você escolhe a Florisse, escolhe uma peça que
+                Por isso, quando você escolhe a {BRAND}, escolhe uma peça que
                 não saiu de uma linha de produção. É uma peça feita à mão, com
                 tempo, atenção e a possibilidade de ganhar as cores e os
                 detalhes que combinam com o seu espaço.
@@ -147,7 +148,7 @@ export default function Sobre() {
               <div className="h-px w-10 bg-border" />
 
               <span className="font-serif text-sm italic text-muted">
-                Onde o crochê vira paz.
+                {SLOGAN}
               </span>
             </div>
           </motion.div>

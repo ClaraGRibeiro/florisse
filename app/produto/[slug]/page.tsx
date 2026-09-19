@@ -4,6 +4,7 @@ import productsData from "@/data/products";
 import { formatPath } from "@/utils/format";
 
 import ProductClient from "./ProductClient";
+import { BRAND, SITE } from "@/data/config";
 
 type ProductPageProps = {
   params: Promise<{
@@ -12,8 +13,6 @@ type ProductPageProps = {
 };
 
 const products = productsData.products;
-
-const siteUrl = "https://florisse.vercel.app";
 
 export async function generateMetadata({
   params,
@@ -28,11 +27,11 @@ export async function generateMetadata({
     return {
       title: "Peça não encontrada",
       description:
-        "Essa peça não está disponível na Florisse Crochê.",
+        "Essa peça não está disponível na " + BRAND + ".",
     };
   }
 
-  const image = `${siteUrl}/products/${formatPath(
+  const image = `${SITE}/products/${formatPath(
     product.category,
   )}/${formatPath(
     product.name,
@@ -41,10 +40,10 @@ export async function generateMetadata({
   const title = product.name;
 
   const description =
-    `${product.name}, uma peça artesanal feita à mão pela Florisse Crochê. ` +
+    `${product.name}, uma peça artesanal feita à mão pela ` + BRAND + `. ` +
     `Personalize cores e tamanhos para deixar seu cantinho ainda mais especial.`;
 
-  const url = `${siteUrl}/produto/${slug}`;
+  const url = `${SITE}/produto/${slug}`;
 
   return {
     title,
@@ -58,7 +57,7 @@ export async function generateMetadata({
       title,
       description,
       url,
-      siteName: "Florisse Crochê",
+      siteName: BRAND,
       locale: "pt_BR",
       type: "website",
       images: [

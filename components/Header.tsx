@@ -1,6 +1,6 @@
 "use client";
 
-import { INSTAGRAM } from "@/data/config";
+import { BRAND, INSTAGRAM, SLOGAN } from "@/data/config";
 import { useCart } from "@/hooks/useCart";
 import { useModalAccessibility } from "@/hooks/useModalAccessibility";
 import Image from "next/image";
@@ -43,7 +43,7 @@ export default function Header() {
               <div className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-full bg-primary/15 shadow-sm">
                 <Image
                   src="/logo.webp"
-                  alt="Florisse Crochê"
+                  alt={BRAND}
                   width={80}
                   height={80}
                   priority
@@ -52,20 +52,12 @@ export default function Header() {
               </div>
 
               <div className="min-w-0">
-                <h1 className="font-serif text-base font-semibold leading-tight tracking-tight sm:text-2xl">
-                  <span className="sm:hidden">
-                    Florisse
-                    <br />
-                    Crochê
-                  </span>
-
-                  <span className="hidden sm:inline">
-                    Florisse Crochê
-                  </span>
+                <h1 className="max-w-22.5 font-serif text-base font-semibold leading-tight tracking-tight wrap-break-word sm:max-w-none sm:text-2xl">
+                  {BRAND}
                 </h1>
 
                 <p className="hidden text-xs text-muted sm:block">
-                  Onde o crochê vira paz.
+                  {SLOGAN}
                 </p>
               </div>
             </div>
@@ -191,11 +183,11 @@ export default function Header() {
               id="mobile-menu-title"
               className="font-serif text-xl font-semibold"
             >
-              Florisse Crochê
+              {BRAND}
             </p>
 
             <p className="mt-0.5 text-xs text-muted">
-              Onde o crochê vira paz.
+              {SLOGAN}
             </p>
           </div>
 

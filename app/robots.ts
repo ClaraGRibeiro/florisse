@@ -1,6 +1,5 @@
+import { SITE } from "@/data/config";
 import type { MetadataRoute } from "next";
-
-const BASE_URL = "https://florisse.vercel.app";
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -9,6 +8,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: "/carrinho",
     },
-    sitemap: `${BASE_URL}/sitemap.xml`,
+    sitemap: `${SITE}/sitemap.xml`,
   };
 }

@@ -4,6 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/hooks/useCart";
 import Header from "@/components/Header";
+import { BRAND, CITY, SITE, SLOGAN } from "@/data/config";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,41 +16,39 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const siteUrl = "https://florisse.vercel.app";
-
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(SITE),
 
   title: {
-    default: "Florisse Crochê | Tapetes e peças artesanais em crochê",
-    template: "%s | Florisse Crochê",
+    default: BRAND + " | Tapetes e peças artesanais em crochê",
+    template: "%s | " + BRAND,
   },
 
   description:
     "Tapetes e peças artesanais em crochê feitos à mão. Escolha suas cores, personalize sua peça e encomende pelo WhatsApp.",
 
   keywords: [
-    "Florisse Crochê",
+    BRAND,
     "crochê",
     "tapetes de crochê",
     "tapete artesanal",
     "tapetes personalizados",
     "peças de crochê",
     "mesa posta",
-    "crochê Montes Claros",
-    "artesanato Montes Claros",
+    "crochê " + CITY,
+    "artesanato " + CITY,
   ],
 
   authors: [
     {
-      name: "Florisse Crochê",
+      name: BRAND,
     },
   ],
 
-  creator: "Florisse Crochê",
-  publisher: "Florisse Crochê",
+  creator: BRAND,
+  publisher: BRAND,
 
-  applicationName: "Florisse Crochê",
+  applicationName: BRAND,
 
   alternates: {
     canonical: "./",
@@ -81,11 +80,11 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "pt_BR",
-    url: siteUrl,
+    url: SITE,
 
-    siteName: "Florisse Crochê",
+    siteName: BRAND,
 
-    title: "Florisse Crochê | Tapetes e peças artesanais em crochê",
+    title: BRAND + " | Tapetes e peças artesanais em crochê",
 
     description:
       "Tapetes e peças artesanais em crochê feitos à mão. Escolha suas cores, personalize sua peça e encomende pelo WhatsApp.",
@@ -95,7 +94,7 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 800,
         height: 800,
-        alt: "Florisse Crochê — Onde o crochê vira paz.",
+        alt: BRAND + " — " + SLOGAN,
       },
     ],
   },
@@ -103,7 +102,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
 
-    title: "Florisse Crochê | Tapetes e peças artesanais em crochê",
+    title: BRAND + " | Tapetes e peças artesanais em crochê",
 
     description:
       "Tapetes e peças artesanais em crochê feitos à mão. Escolha suas cores, personalize sua peça e encomende pelo WhatsApp.",

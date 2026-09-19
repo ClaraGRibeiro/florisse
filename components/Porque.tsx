@@ -1,5 +1,6 @@
 import { FaHeart, FaPalette, FaLocationDot, FaWhatsapp } from "react-icons/fa6";
 import { motion } from "framer-motion";
+import { CITY } from "@/data/config";
 
 const benefits = [
   {
@@ -14,7 +15,7 @@ const benefits = [
   },
   {
     icon: FaLocationDot,
-    title: "Feito em Montes Claros",
+    title: "Feito em " + CITY,
     description: "Produção local e atendimento próximo.",
   },
   {

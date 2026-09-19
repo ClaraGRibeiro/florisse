@@ -1,4 +1,4 @@
-import { INSTAGRAM, WHATSAPP } from "@/data/config";
+import { BRAND, CITY, INSTAGRAM, SLOGAN, WHATSAPP } from "@/data/config";
 import Link from "next/link";
 import { FaInstagram, FaWhatsapp } from "react-icons/fa";
 
@@ -15,11 +15,11 @@ export default function Footer() {
               href="/"
               className="inline-block font-serif text-2xl font-semibold tracking-tight text-foreground transition-colors hover:text-primary"
             >
-              Florisse Crochê
+              {BRAND}
             </Link>
 
             <p className="mt-2 font-serif text-sm italic text-muted">
-              Onde o crochê vira paz.
+              {SLOGAN}
             </p>
 
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-muted">
@@ -99,7 +99,7 @@ export default function Footer() {
               </a>
 
               <span className="text-sm text-muted">
-                Montes Claros – MG
+                {CITY}
               </span>
             </div>
           </div>
@@ -111,7 +111,7 @@ export default function Footer() {
         {/* Copyright */}
         <div className="flex flex-col items-center justify-between gap-3 text-center sm:flex-row sm:text-left">
           <p className="text-xs text-muted">
-            © {year} Florisse Crochê
+            © {year} {BRAND}
           </p>
 
           <p className="font-serif text-xs italic text-muted">
