@@ -5,6 +5,7 @@ import { Product } from "@/types/product";
 import { getGradient } from "@/utils/gradient";
 
 import ProductImage from "./ProductImage";
+import { WHATSAPP } from "@/data/config";
 export function ProductCard({
   product,
   bestSellingByCategory,
@@ -63,7 +64,7 @@ Valor: R$ ${readyPrice?.toFixed(2).replace(".", ",")}`,
     );
 
     window.open(
-      `https://wa.me/5538992030710?text=${message}`,
+      WHATSAPP+`?text=${message}`,
       "_blank",
       "noopener,noreferrer",
     );

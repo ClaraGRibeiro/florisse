@@ -1,3 +1,4 @@
+import { INSTAGRAM, WHATSAPP } from "@/data/config";
 import Link from "next/link";
 import { FaInstagram, FaWhatsapp } from "react-icons/fa";
 
@@ -78,7 +79,7 @@ export default function Footer() {
 
             <div className="mt-4 flex flex-col gap-3">
               <a
-                href="https://wa.me/5538992030710"
+                href={WHATSAPP}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex w-fit items-center gap-2 text-sm text-muted transition-colors hover:text-primary"
@@ -88,7 +89,7 @@ export default function Footer() {
               </a>
 
               <a
-                href="https://instagram.com/florisse_croche"
+                href={INSTAGRAM}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex w-fit items-center gap-2 text-sm text-muted transition-colors hover:text-primary"

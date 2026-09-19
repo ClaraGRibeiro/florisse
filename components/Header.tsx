@@ -1,5 +1,6 @@
 "use client";
 
+import { INSTAGRAM } from "@/data/config";
 import { useCart } from "@/hooks/useCart";
 import { useModalAccessibility } from "@/hooks/useModalAccessibility";
 import Image from "next/image";
@@ -102,7 +103,7 @@ export default function Header() {
               type="button"
               onClick={() =>
                 window.open(
-                  "https://instagram.com/florisse_croche",
+                  INSTAGRAM,
                   "_blank",
                   "noopener,noreferrer"
                 )
@@ -137,7 +138,7 @@ export default function Header() {
                 closeMenu();
 
                 window.open(
-                  "https://instagram.com/florisse_croche",
+                  INSTAGRAM,
                   "_blank",
                   "noopener,noreferrer"
                 );
@@ -250,7 +251,7 @@ export default function Header() {
               closeMenu();
 
               window.open(
-                "https://instagram.com/florisse_croche",
+                INSTAGRAM,
                 "_blank",
                 "noopener,noreferrer"
               );

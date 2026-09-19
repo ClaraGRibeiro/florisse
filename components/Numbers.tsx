@@ -1,5 +1,6 @@
 "use client";
 
+import { WHATSAPP } from "@/data/config";
 import { useModalAccessibility } from "@/hooks/useModalAccessibility";
 import { useEffect, useMemo, useState } from "react";
 
@@ -14,8 +15,6 @@ type RaffleNumber = {
   WHATSAPP?: string;
   SORTEADO?: string;
 };
-
-const WHATSAPP = "5538992030710";
 
 export default function Numbers({ rafflePrice, setNumbersOpen }: NumbersProps) {
   const closeModal = () =>

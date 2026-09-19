@@ -1,3 +1,4 @@
+import { WHATSAPP } from "@/data/config";
 import { motion } from "framer-motion";
 import {
   FaBoxOpen,
@@ -107,7 +108,7 @@ export default function Cuidados() {
           </p>
 
           <a
-            href="https://wa.me/5538992030710"
+            href={WHATSAPP}
             target="_blank"
             rel="noopener noreferrer"
             className="mt-1 inline-block text-sm font-medium text-primary transition-colors hover:text-primary/70"

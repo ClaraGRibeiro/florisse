@@ -16,6 +16,7 @@ import Cores from "@/components/Cores";
 import PorQueFlorisse from "@/components/Porque";
 import { formatColor, formatPath } from "@/utils/format";
 import { FaArrowUp, FaWhatsapp } from "react-icons/fa";
+import { WHATSAPP } from "@/data/config";
 
 export default function Home() {
   const rafflePrice = 5;
@@ -79,7 +80,7 @@ export default function Home() {
       {showTop && (
         <button
           title="Contatar pelo WhatsApp"
-          onClick={() => window.open(`https://wa.me/5538992030710`, "_blank")}
+          onClick={() => window.open(WHATSAPP, "_blank")}
           className="cursor-pointer fixed bottom-6 left-6 flex h-12 w-12 items-center justify-center rounded-full bg-primary text-white shadow-lg transition hover:scale-105"
         >
           <FaWhatsapp size={18} />

@@ -15,6 +15,7 @@ import EmptyCart from "@/components/cart/EmptyCart";
 import RemoveConfirmationModal, {
   type Confirmation,
 } from "@/components/cart/RemoveConfirmationModal";
+import { WHATSAPP } from "@/data/config";
 
 export default function Carrinho() {
   const {
@@ -130,7 +131,7 @@ Alguns itens são personalizados e estão com valor sob consulta. O valor final 
 Gostaria de confirmar a disponibilidade e combinar a entrega. 😊`;
 
     window.open(
-      `https://wa.me/5538992030710?text=${encodeURIComponent(text)}`,
+      WHATSAPP+`?text=${encodeURIComponent(text)}`,
       "_blank",
     );
   }

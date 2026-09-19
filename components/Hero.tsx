@@ -1,3 +1,4 @@
+import { WHATSAPP } from "@/data/config";
 import { Product } from "@/types/product";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -93,7 +94,7 @@ export default function Hero({ bestSelling, formatPath }: HeroProps) {
             <button
               type="button"
               onClick={() =>
-                window.open("https://wa.me/5538992030710", "_blank")
+                window.open(WHATSAPP, "_blank")
               }
               className="w-full cursor-pointer rounded-full border border-border bg-background/70 px-7 py-3.5 font-semibold text-foreground transition-all hover:-translate-y-0.5 hover:bg-background sm:w-auto"
             >
