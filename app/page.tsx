@@ -75,13 +75,16 @@ export default function Home() {
 
 
       {showTop && (
-        <button
+        <a
+          href={WHATSAPP}
+          target="_blank"
+          rel="noopener noreferrer"
           title="Contatar pelo WhatsApp"
-          onClick={() => window.open(WHATSAPP, "_blank")}
-          className="cursor-pointer fixed bottom-6 left-6 flex h-12 w-12 items-center justify-center rounded-full bg-primary text-white shadow-lg transition hover:scale-105"
+          aria-label="Contatar pelo WhatsApp"
+          className="fixed bottom-6 left-6 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-primary text-white shadow-lg transition hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
         >
           <FaWhatsapp size={18} />
-        </button>
+        </a>
       )}
     </div>
   );

@@ -91,15 +91,14 @@ export default function Hero({ bestSelling, formatPath }: HeroProps) {
               Ver peças
             </a>
 
-            <button
-              type="button"
-              onClick={() =>
-                window.open(WHATSAPP, "_blank")
-              }
-              className="w-full cursor-pointer rounded-full border border-border bg-background/70 px-7 py-3.5 font-semibold text-foreground transition-all hover:-translate-y-0.5 hover:bg-background sm:w-auto"
+            <a
+              href={WHATSAPP}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full cursor-pointer rounded-full border border-border bg-background/70 px-7 py-3.5 text-center font-semibold text-foreground transition-all hover:-translate-y-0.5 hover:bg-background sm:w-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             >
               Falar pelo WhatsApp
-            </button>
+            </a>
           </motion.div>
         </div>
 

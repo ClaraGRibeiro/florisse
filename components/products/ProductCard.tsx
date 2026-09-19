@@ -64,7 +64,7 @@ Valor: R$ ${readyPrice?.toFixed(2).replace(".", ",")}`,
     );
 
     window.open(
-      WHATSAPP+`?text=${message}`,
+      WHATSAPP + `?text=${message}`,
       "_blank",
       "noopener,noreferrer",
     );

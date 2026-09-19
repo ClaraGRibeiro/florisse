@@ -91,20 +91,16 @@ export default function Header() {
             </Link>
 
             {/* INSTAGRAM */}
-            <button
-              type="button"
-              onClick={() =>
-                window.open(
-                  INSTAGRAM,
-                  "_blank",
-                  "noopener,noreferrer"
-                )
-              }
-              className="flex cursor-pointer items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-medium text-primary shadow-md transition-all hover:scale-[1.03]"
+            <a
+              href={INSTAGRAM}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram da Florisse Crochê"
+              className="flex cursor-pointer items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-medium text-primary shadow-md transition-all hover:scale-[1.03] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             >
               <FaInstagram size={16} />
               <span>Instagram</span>
-            </button>
+            </a>
           </nav>
 
           {/* MOBILE */}
@@ -124,21 +120,16 @@ export default function Header() {
                 )}
               </button>
             </Link>
-            <button
-              type="button"
-              onClick={() => {
-                closeMenu();
-
-                window.open(
-                  INSTAGRAM,
-                  "_blank",
-                  "noopener,noreferrer"
-                );
-              }}
-              className="relative flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-border bg-white text-primary shadow-md transition hover:scale-105"
+            <a
+              href={INSTAGRAM}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={closeMenu}
+              aria-label="Instagram da Florisse Crochê"
+              className="relative flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-border bg-white text-primary shadow-md transition hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             >
               <FaInstagram size={16} />
-            </button>
+            </a>
 
             {/* MENU */}
             <button
@@ -237,23 +228,18 @@ export default function Header() {
             </span>
           </Link>
 
-          <button
-            type="button"
-            onClick={() => {
-              closeMenu();
-
-              window.open(
-                INSTAGRAM,
-                "_blank",
-                "noopener,noreferrer"
-              );
-            }}
-            className="mt-3 flex w-full cursor-pointer items-center justify-center gap-2 rounded-full border border-border bg-white px-5 py-3 text-sm font-medium text-primary shadow-sm transition hover:bg-muted"
+          <a
+            href={INSTAGRAM}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={closeMenu}
+            aria-label="Instagram da Florisse Crochê"
+            className="mt-3 flex w-full cursor-pointer items-center justify-center gap-2 rounded-full border border-border bg-white px-5 py-3 text-sm font-medium text-primary shadow-sm transition hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             <FaInstagram size={16} />
 
             <span>Instagram</span>
-          </button>
+          </a>
         </div>
       </aside>
     </>
