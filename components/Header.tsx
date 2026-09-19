@@ -78,19 +78,17 @@ export default function Header() {
             ))}
 
             {/* CARRINHO */}
-            <Link href="/carrinho" className="block">
-              <button
-                type="button"
-                className="flex cursor-pointer items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground shadow-md transition-all hover:scale-[1.03] hover:bg-primary-hover"
-              >
-                <FaCartPlus size={16} />
+            <Link
+              href="/carrinho"
+              className="flex cursor-pointer items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground shadow-md transition-all hover:scale-[1.03] hover:bg-primary-hover"
+            >
+              <FaCartPlus size={16} />
 
-                <span>Carrinho</span>
+              <span>Carrinho</span>
 
-                <span className="rounded-full bg-white/20 px-2 py-0.5 text-xs">
-                  {totalItems}
-                </span>
-              </button>
+              <span className="rounded-full bg-white/20 px-2 py-0.5 text-xs">
+                {totalItems}
+              </span>
             </Link>
 
             {/* INSTAGRAM */}

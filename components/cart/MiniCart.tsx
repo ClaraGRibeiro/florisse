@@ -134,24 +134,7 @@ export default function MiniCart({
             <Link
               href="/carrinho"
               onClick={onClose}
-              className="
-                mt-4
-                flex
-                items-center
-                justify-center
-                rounded-full
-                bg-primary
-                px-4
-                py-3
-                text-sm
-                font-semibold
-                text-primary-foreground
-                shadow-md
-                transition-all
-                duration-300
-                hover:-translate-y-0.5
-                hover:bg-primary-hover
-              "
+              className="mt-4 flex items-center justify-center rounded-full bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary-hover"
             >
               Ver carrinho
             </Link>
