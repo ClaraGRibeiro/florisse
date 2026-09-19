@@ -7,13 +7,13 @@ import Numbers from "@/components/Numbers";
 import Products from "@/components/products/Products";
 import Raffle from "@/components/Raffle";
 import Sobre from "@/components/Sobre";
+import Cores from "@/components/Cores";
+import PorQueFlorisse from "@/components/Porque";
 
-import { useProducts } from "@/hooks/useProducts";
+import { getBestSelling, getBestSellingByCategory, getCatalogCategories, getCategoryCounts, getProducts, getReadyProducts } from "@/lib/products";
 import { useScrollTop } from "@/hooks/useScrollTop";
 import { useState } from "react";
 
-import Cores from "@/components/Cores";
-import PorQueFlorisse from "@/components/Porque";
 import { formatColor, formatPath } from "@/utils/format";
 import { FaArrowUp, FaWhatsapp } from "react-icons/fa";
 import { RAFFLE, RAFFLEPRICE, WHATSAPP } from "@/data/config";
@@ -22,14 +22,13 @@ export default function Home() {
   const [numbersOpen, setNumbersOpen] = useState(false);
   const [raffleOpen, setRaffleOpen] = useState(true);
 
-  const {
-    products,
-    readyProducts,
-    bestSelling,
-    bestSellingByCategory,
-    categories,
-    categoryCounts,
-  } = useProducts();
+  const products = getProducts();
+  const readyProducts = getReadyProducts();
+  const bestSelling = getBestSelling();
+  const bestSellingByCategory = getBestSellingByCategory();
+  const categories = getCatalogCategories();
+  const categoryCounts = getCategoryCounts();
+
   const { showTop, scrollToTop } = useScrollTop();
 
   return (
@@ -56,8 +55,7 @@ export default function Home() {
         categoryCounts={categoryCounts}
       />
 
-      <Cores
-        formatColor={formatColor} />
+      <Cores formatColor={formatColor} />
       <Cuidados />
       <Sobre />
       <PorQueFlorisse />
@@ -72,7 +70,6 @@ export default function Home() {
           <FaArrowUp size={18} />
         </button>
       )}
-
 
       {showTop && (
         <a

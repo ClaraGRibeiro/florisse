@@ -4,6 +4,9 @@ import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 
 import { Product } from "@/types/product";
+import { getProductColors } from "@/lib/colors";
+import { getProductPrice } from "@/lib/pricing";
+import { getBestSellingByCategory } from "@/lib/products";
 import { formatColor, formatPath } from "@/utils/format";
 
 import { ProductCard } from "../products/ProductCard";
@@ -126,98 +129,6 @@ export default function ProductRelated({
 
     /*
      * =======================================================
-     * FUNÇÕES AUXILIARES
-     * =======================================================
-     */
-
-    /*
-     * -------------------------------------------------------
-     * Obtém as cores individuais do produto.
-     * -------------------------------------------------------
-     *
-     * Exemplo:
-     *
-     * "cru-militar-alecrim"
-     *
-     * vira:
-     *
-     * Set {
-     *   "cru",
-     *   "militar",
-     *   "alecrim"
-     * }
-     */
-    const getProductColors = (
-      item: Product,
-    ): Set<string> => {
-      const colorSet = new Set<string>();
-
-      if (
-        !item.colors ||
-        !Array.isArray(item.colors)
-      ) {
-        return colorSet;
-      }
-
-      item.colors.forEach((color) => {
-        /*
-         * colors é string[].
-         *
-         * Portanto é:
-         *
-         * formatColor(color)
-         *
-         * e não:
-         *
-         * formatColor(color.name)
-         */
-        const formatted =
-          formatColor(color.name);
-
-        formatted
-          .split(/[-/,+]/)
-          .map((part) =>
-            part.trim().toLowerCase(),
-          )
-          .filter(Boolean)
-          .forEach((part) => {
-            colorSet.add(part);
-          });
-      });
-
-      return colorSet;
-    };
-
-    /*
-     * -------------------------------------------------------
-     * Obtém o menor preço do produto.
-     * -------------------------------------------------------
-     */
-    const getLowestPrice = (
-      item: Product,
-    ): number => {
-      if (
-        !item.sizes ||
-        item.sizes.length === 0
-      ) {
-        return Infinity;
-      }
-
-      const prices = item.sizes
-        .map((size) => Number(size.price))
-        .filter((price) =>
-          Number.isFinite(price),
-        );
-
-      if (prices.length === 0) {
-        return Infinity;
-      }
-
-      return Math.min(...prices);
-    };
-
-    /*
-     * =======================================================
      * DADOS DO PRODUTO ATUAL
      * =======================================================
      */
@@ -225,8 +136,7 @@ export default function ProductRelated({
     const currentColors =
       getProductColors(product);
 
-    const currentPrice =
-      getLowestPrice(product);
+    const currentPrice = getProductPrice(product);
 
     /*
      * =======================================================
@@ -328,7 +238,7 @@ export default function ProductRelated({
            */
 
           const candidatePrice =
-            getLowestPrice(candidate);
+            getProductPrice(candidate);
 
           if (
             Number.isFinite(
@@ -667,46 +577,7 @@ export default function ProductRelated({
     return null;
   }
 
-  /*
-   * =========================================================
-   * MAIS VENDIDO POR CATEGORIA
-   * =========================================================
-   *
-   * ATENÇÃO:
-   *
-   * total_sales aparece SOMENTE aqui.
-   *
-   * Ele NÃO influencia:
-   *
-   * - score;
-   * - ordenação;
-   * - escolha;
-   * - diversidade;
-   * - prioridade;
-   * - fallback.
-   *
-   * Ele serve exclusivamente para o ProductCard
-   * saber qual produto deve receber o selo visual
-   * "Mais vendido".
-   */
-
-  const bestSellingByCategory =
-    products.reduce<
-      Record<string, Product>
-    >((acc, item) => {
-      const currentBest =
-        acc[item.category];
-
-      if (
-        !currentBest ||
-        (item.total_sales ?? 0) >
-          (currentBest.total_sales ?? 0)
-      ) {
-        acc[item.category] = item;
-      }
-
-      return acc;
-    }, {});
+  const bestSellingByCategory = getBestSellingByCategory();
 
   /*
    * =========================================================

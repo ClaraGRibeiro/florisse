@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 import { Product } from "@/types/product";
-import { ReadyProduct } from "@/hooks/useProducts";
+import { ReadyProduct } from "@/types/product";
 
 import { ProductCard } from "./ProductCard";
 import ProductFilters from "./ProductFilters";

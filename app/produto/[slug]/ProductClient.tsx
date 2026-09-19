@@ -10,7 +10,7 @@ import {
 import { FaArrowLeft, FaArrowUp } from "react-icons/fa";
 
 import { useCart } from "@/hooks/useCart";
-import { useProducts } from "@/hooks/useProducts";
+import { getProductBySlug, getProducts } from "@/lib/products";
 import { useScrollTop } from "@/hooks/useScrollTop";
 
 import { Color } from "@/types/color";
@@ -21,7 +21,7 @@ import ProductInfo from "@/components/product/ProductInfo";
 import ProductRelated from "@/components/product/ProductRelated";
 import Share from "@/components/product/Share";
 
-import { formatColor, formatPath } from "@/utils/format";
+import { formatColor } from "@/utils/format";
 
 const colors = colorsData as Color[];
 
@@ -44,7 +44,7 @@ export default function ProductClient({
   const { showTop, scrollToTop } =
     useScrollTop();
 
-  const { products } = useProducts();
+  const products = getProducts();
   const { addToCart } = useCart();
 
   const [selectedColor, setSelectedColor] =
@@ -93,10 +93,7 @@ export default function ProductClient({
       null,
     );
 
-  const product = products.find(
-    (item) =>
-      formatPath(item.name) === slug,
-  );
+  const product = getProductBySlug(slug);
 
   /*
    * Cor atual selecionada.

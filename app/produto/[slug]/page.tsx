@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
-import productsData from "@/data/products";
-import { formatPath } from "@/utils/format";
+import { getProductBySlug } from "@/lib/products";
+import { getProductOgImage } from "@/lib/images";
 
 import ProductClient from "./ProductClient";
 import { BRAND, SITE } from "@/data/config";
@@ -12,16 +12,12 @@ type ProductPageProps = {
   }>;
 };
 
-const products = productsData.products;
-
 export async function generateMetadata({
   params,
 }: ProductPageProps): Promise<Metadata> {
   const { slug } = await params;
 
-  const product = products.find(
-    (item) => formatPath(item.name) === slug,
-  );
+  const product = getProductBySlug(slug);
 
   if (!product) {
     return {
@@ -31,11 +27,7 @@ export async function generateMetadata({
     };
   }
 
-  const image = `${SITE}/products/${formatPath(
-    product.category,
-  )}/${formatPath(
-    product.name,
-  )}/image.jpg`;
+  const image = `${SITE}${getProductOgImage(product)}`;
 
   const title = product.name;
 

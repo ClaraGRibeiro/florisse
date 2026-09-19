@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useCart } from "@/hooks/useCart";
 
 type CartItem = ReturnType<typeof useCart>["cart"][number];
-import { useProducts } from "@/hooks/useProducts";
+import { getProductByName } from "@/lib/products";
 import { formatColor } from "@/utils/format";
 
 import CartHeader from "@/components/cart/CartHeader";
@@ -26,8 +26,6 @@ export default function Carrinho() {
     updateItem,
     totalItems,
   } = useCart();
-
-  const { products } = useProducts();
 
   const [confirmationModal, setConfirmationModal] =
     useState<Confirmation | null>(null);
@@ -158,11 +156,7 @@ Gostaria de confirmar a disponibilidade e combinar a entrega. 😊`;
 
             <div className="space-y-4">
               {cart.map((item) => {
-                const product =
-                  products.find(
-                    (currentProduct) =>
-                      currentProduct.name === item.name,
-                  ) ?? null;
+                const product = getProductByName(item.name) ?? null;
 
                 return (
                   <CartItem

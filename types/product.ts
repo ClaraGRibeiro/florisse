@@ -19,3 +19,9 @@ export interface Product {
   images: Record<string, string[]>;
   sizes: ProductSize[];
 }
+export type ReadyProduct = Product & {
+  readyColor: string;
+  readySize: string;
+  readyPrice: number;
+  readyQuantity: number;
+};
