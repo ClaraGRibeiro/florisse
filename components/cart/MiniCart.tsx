@@ -5,6 +5,7 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect } from "react";
 import { FaCheck, FaTimes } from "react-icons/fa";
+import { useModalAccessibility } from "@/hooks/useModalAccessibility";
 
 type MiniCartProps = {
   isOpen: boolean;
@@ -23,6 +24,11 @@ export default function MiniCart({
   size,
   onClose,
 }: MiniCartProps) {
+  const { dialogRef } =
+    useModalAccessibility({
+      isOpen,
+      onClose,
+    });
   /*
    * Fecha automaticamente após 2 segundos.
    */
@@ -47,6 +53,12 @@ export default function MiniCart({
           {/* Overlay somente no mobile */}
 
           <motion.div
+            ref={dialogRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="mini-cart-title"
+            aria-describedby="mini-cart-description"
+            tabIndex={-1}
             initial={{
               opacity: 0,
               y: -16,
@@ -66,24 +78,7 @@ export default function MiniCart({
               duration: 0.25,
               ease: "easeOut",
             }}
-            className="
-              fixed
-              right-4
-              top-4
-              z-100
-              w-[calc(100%-2rem)]
-              max-w-sm
-              rounded-3xl
-              border
-              border-border/80
-              bg-background
-              p-4
-              shadow-2xl
-              sm:right-6
-              sm:top-6
-            "
-            role="dialog"
-            aria-label="Produto adicionado ao carrinho"
+            className="fixed right-4 top-4 z-100 w-[calc(100%-2rem)] max-w-sm rounded-3xl border border-border/80 bg-background p-4 shadow-2xl focus:outline-none sm:right-6 sm:top-6"
           >
             {/* CABEÇALHO */}
             <div className="flex items-center justify-between">
@@ -92,7 +87,10 @@ export default function MiniCart({
                   <FaCheck size={11} />
                 </span>
 
-                <p className="text-sm font-semibold">
+                <p
+                  id="mini-cart-title"
+                  className="text-sm font-semibold"
+                >
                   Adicionado ao carrinho
                 </p>
               </div>
@@ -108,7 +106,10 @@ export default function MiniCart({
             </div>
 
             {/* PRODUTO */}
-            <div className="mt-4 flex gap-3 rounded-2xl border border-muted/40 p-3">
+            <div
+              id="mini-cart-description"
+              className="mt-4 flex gap-3 rounded-2xl border border-muted/40 p-3"
+            >
               <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-muted">
                 <Image
                   src={image}

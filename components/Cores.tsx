@@ -10,6 +10,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { FaArrowRight, FaPalette } from "react-icons/fa";
 
+import { useModalAccessibility } from "@/hooks/useModalAccessibility";
 import { formatPath } from "@/utils/format";
 
 interface Color {
@@ -19,7 +20,6 @@ interface Color {
 
 const colors = colorsData as Color[];
 const products = productsData.products;
-
 
 type Palette = {
   category: string;
@@ -44,6 +44,7 @@ export default function Cores({
 
   const colorsByPalette =
     colorPaletaData as Palette[];
+
   const activeColorData = colors.find(
     (color) =>
       color.name === selectedColorName,
@@ -52,6 +53,35 @@ export default function Cores({
   const activeCombinations = selectedColorName
     ? colorCombinations[selectedColorName]
     : [];
+
+  /*
+   * Acessibilidade do modal de paletas.
+   *
+   * Controla:
+   * - foco inicial;
+   * - foco preso dentro do modal;
+   * - tecla Escape;
+   * - retorno do foco ao botão que abriu o modal.
+   */
+  const paletteAccessibility =
+    useModalAccessibility({
+      isOpen: openPalette,
+      onClose: () =>
+        setOpenPalette(false),
+    });
+
+  /*
+   * Acessibilidade do modal da cor selecionada.
+   */
+  const colorAccessibility =
+    useModalAccessibility({
+      isOpen:
+        Boolean(
+          selectedColorName,
+        ) && Boolean(activeColorData),
+      onClose: () =>
+        setSelectedColorName(null),
+    });
 
   /*
    * Encontra produtos cujo nome contém a cor selecionada.
@@ -68,11 +98,16 @@ export default function Cores({
     ? products.flatMap((product) =>
       product.colors
         .filter((productColor) => {
-          const normalize = (value: string) =>
+          const normalize = (
+            value: string,
+          ) =>
             value
               .toLowerCase()
               .normalize("NFD")
-              .replace(/[\u0300-\u036f]/g, "")
+              .replace(
+                /[\u0300-\u036f]/g,
+                "",
+              )
               .trim();
 
           const normalizedProductColor =
@@ -224,8 +259,8 @@ export default function Cores({
               >
                 <div
                   className={`relative h-14 w-14 overflow-hidden rounded-full shadow-sm transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg sm:h-16 sm:w-16 ${isLight
-                    ? "border border-border"
-                    : ""
+                      ? "border border-border"
+                      : ""
                     }`}
                   style={{
                     backgroundColor:
@@ -250,10 +285,14 @@ export default function Cores({
             onClick={() =>
               setOpenPalette(true)
             }
+            aria-label="Abrir ideias de paletas"
             className="group flex cursor-pointer flex-col items-center rounded-2xl p-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             <div className="relative flex h-14 w-14 items-center justify-center overflow-hidden rounded-full border border-primary/20 bg-primary/10 text-primary shadow-sm transition-all duration-300 group-hover:-translate-y-1 group-hover:scale-110 group-hover:bg-primary group-hover:text-primary-foreground group-hover:shadow-lg sm:h-16 sm:w-16">
-              <FaPalette size={20} />
+              <FaPalette
+                size={20}
+                aria-hidden="true"
+              />
 
               <div className="absolute inset-0 bg-white/10 opacity-0 transition-opacity group-hover:opacity-100" />
             </div>
@@ -281,6 +320,7 @@ export default function Cores({
       <AnimatePresence>
         {openPalette && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6">
+            {/* OVERLAY */}
             <motion.div
               initial={{
                 opacity: 0,
@@ -295,9 +335,19 @@ export default function Cores({
               onClick={() =>
                 setOpenPalette(false)
               }
+              aria-hidden="true"
             />
 
+            {/* DIÁLOGO */}
             <motion.div
+              ref={
+                paletteAccessibility.dialogRef
+              }
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="palette-modal-title"
+              aria-describedby="palette-modal-description"
+              tabIndex={-1}
               initial={{
                 opacity: 0,
                 scale: 0.96,
@@ -317,7 +367,7 @@ export default function Cores({
                 duration: 0.3,
                 ease: "easeOut",
               }}
-              className="relative z-10 flex h-[92vh] w-full max-w-5xl flex-col overflow-hidden rounded-4xl bg-card shadow-2xl"
+              className="relative z-10 flex h-[92vh] w-full max-w-5xl flex-col overflow-hidden rounded-4xl bg-card shadow-2xl focus:outline-none"
             >
               {/* HEADER */}
               <div className="border-b border-border px-5 py-6 pr-16 sm:px-8 sm:py-7">
@@ -326,21 +376,29 @@ export default function Cores({
                   onClick={() =>
                     setOpenPalette(false)
                   }
-                  aria-label="Fechar"
-                  className="absolute right-5 top-5 z-20 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-background text-base text-foreground shadow-sm transition-all hover:scale-105 hover:bg-input"
+                  aria-label="Fechar ideias de paletas"
+                  className="absolute right-5 top-5 z-20 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-background text-base text-foreground shadow-sm transition-all hover:scale-105 hover:bg-input focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                 >
-                  ✕
+                  <span aria-hidden="true">
+                    ✕
+                  </span>
                 </button>
 
                 <span className="text-xs font-semibold uppercase tracking-[0.3em] text-primary">
                   Inspirações
                 </span>
 
-                <h2 className="mt-2 font-serif text-3xl font-semibold sm:text-4xl">
+                <h2
+                  id="palette-modal-title"
+                  className="mt-2 font-serif text-3xl font-semibold sm:text-4xl"
+                >
                   Ideias de Paletas
                 </h2>
 
-                <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
+                <p
+                  id="palette-modal-description"
+                  className="mt-2 max-w-2xl text-sm leading-relaxed text-muted"
+                >
                   Combinações pensadas para
                   diferentes estilos, momentos
                   e estações do ano.
@@ -375,7 +433,7 @@ export default function Cores({
                         }}
                         className="group rounded-3xl border border-border bg-background/50 p-5 transition-all duration-300 hover:border-primary/20 hover:shadow-md"
                       >
-                        {/* TITULO */}
+                        {/* TÍTULO */}
                         <div className="mb-4 flex items-center justify-between">
                           <h3 className="font-serif text-xl font-semibold">
                             {
@@ -385,6 +443,7 @@ export default function Cores({
 
                           <FaArrowRight
                             size={13}
+                            aria-hidden="true"
                             className="text-muted transition-transform duration-300 group-hover:translate-x-1 group-hover:text-primary"
                           />
                         </div>
@@ -424,6 +483,9 @@ export default function Cores({
                                   title={formatColor(
                                     foundColor.name,
                                   )}
+                                  aria-label={`Ver combinações com ${formatColor(
+                                    foundColor.name,
+                                  )}`}
                                   className="group/color cursor-pointer text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                                 >
                                   <div
@@ -461,6 +523,7 @@ export default function Cores({
         {selectedColorName &&
           activeColorData && (
             <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6">
+              {/* OVERLAY */}
               <motion.div
                 initial={{
                   opacity: 0,
@@ -477,9 +540,19 @@ export default function Cores({
                     null,
                   )
                 }
+                aria-hidden="true"
               />
 
+              {/* DIÁLOGO */}
               <motion.div
+                ref={
+                  colorAccessibility.dialogRef
+                }
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="color-modal-title"
+                aria-describedby="color-modal-description"
+                tabIndex={-1}
                 initial={{
                   opacity: 0,
                   scale: 0.96,
@@ -499,7 +572,7 @@ export default function Cores({
                   duration: 0.3,
                   ease: "easeOut",
                 }}
-                className="relative z-10 flex max-h-[92vh] w-full max-w-4xl flex-col overflow-hidden rounded-4xl bg-card shadow-2xl"
+                className="relative z-10 flex max-h-[92vh] w-full max-w-4xl flex-col overflow-hidden rounded-4xl bg-card shadow-2xl focus:outline-none"
               >
                 {/* HEADER */}
                 <div className="border-b border-border px-6 py-6 pr-16 sm:px-7">
@@ -510,10 +583,14 @@ export default function Cores({
                         null,
                       )
                     }
-                    aria-label="Fechar"
-                    className="absolute right-5 top-5 z-20 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-background text-base text-foreground shadow-sm transition-all hover:scale-105 hover:bg-input"
+                    aria-label={`Fechar peças na cor ${formatColor(
+                      activeColorData.name,
+                    )}`}
+                    className="absolute right-5 top-5 z-20 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-background text-base text-foreground shadow-sm transition-all hover:scale-105 hover:bg-input focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                   >
-                    ✕
+                    <span aria-hidden="true">
+                      ✕
+                    </span>
                   </button>
 
                   <div className="flex items-center gap-4">
@@ -523,6 +600,7 @@ export default function Cores({
                         backgroundColor:
                           activeColorData.hex,
                       }}
+                      aria-hidden="true"
                     />
 
                     <div>
@@ -530,7 +608,10 @@ export default function Cores({
                         Cor selecionada
                       </span>
 
-                      <h2 className="mt-0.5 font-serif text-2xl font-semibold leading-tight sm:text-3xl">
+                      <h2
+                        id="color-modal-title"
+                        className="mt-0.5 font-serif text-2xl font-semibold leading-tight sm:text-3xl"
+                      >
                         {formatColor(
                           activeColorData.name,
                         )}
@@ -538,7 +619,10 @@ export default function Cores({
                     </div>
                   </div>
 
-                  <p className="mt-4 text-sm leading-relaxed text-muted">
+                  <p
+                    id="color-modal-description"
+                    className="mt-4 text-sm leading-relaxed text-muted"
+                  >
                     Veja algumas combinações
                     que podem funcionar com
                     essa cor.
@@ -630,6 +714,9 @@ export default function Cores({
                                           title={`Ver combinações com ${formatColor(
                                             foundColor.name,
                                           )}`}
+                                          aria-label={`Ver combinações com ${formatColor(
+                                            foundColor.name,
+                                          )}`}
                                           className="group cursor-pointer text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                                         >
                                           <div
@@ -660,161 +747,155 @@ export default function Cores({
                     )}
 
                   {/* PRODUTOS DA COR */}
-                  {productsWithColor.length > 0 &&
-                    <div>
-                      <div className="mb-4 flex items-end justify-between gap-4">
-                        <div>
-                          <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-primary">
-                            Feito para você
-                          </span>
+                  {productsWithColor.length >
+                    0 && (
+                      <div>
+                        <div className="mb-4 flex items-end justify-between gap-4">
+                          <div>
+                            <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-primary">
+                              Feito para você
+                            </span>
 
-                          <h3 className="mt-1 font-serif text-2xl font-semibold leading-tight">
-                            Gostou dessa cor?
-                          </h3>
+                            <h3 className="mt-1 font-serif text-2xl font-semibold leading-tight">
+                              Gostou dessa cor?
+                            </h3>
 
-                          <p className="mt-1 text-sm text-muted">
-                            Veja peças que podem
-                            ganhar esse tom.
-                          </p>
+                            <p className="mt-1 text-sm text-muted">
+                              Veja peças que podem
+                              ganhar esse tom.
+                            </p>
+                          </div>
+
+                          {productsWithColor.length >
+                            0 && (
+                              <span className="shrink-0 text-xs font-medium text-muted">
+                                {
+                                  productsWithColor.length
+                                }{" "}
+                                {productsWithColor.length ===
+                                  1
+                                  ? "peça"
+                                  : "peças"}
+                              </span>
+                            )}
                         </div>
 
                         {productsWithColor.length >
                           0 && (
-                            <span className="shrink-0 text-xs font-medium text-muted">
-                              {
-                                productsWithColor.length
-                              }{" "}
-                              {productsWithColor.length ===
-                                1
-                                ? "peça"
-                                : "peças"}
-                            </span>
-                          )}
-                      </div>
-
-                      {productsWithColor.length >
-                        0 ? (
-                        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-                          {productsWithColor.map(
-                            (
-                              item,
-                              index,
-                            ) => {
-                              const { product, color } =
-                                item;
-
-                              const image =
-                                getProductImage(
+                          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+                            {productsWithColor.map(
+                              (
+                                item,
+                                index,
+                              ) => {
+                                const {
                                   product,
                                   color,
-                                );
+                                } = item;
 
-                              const price =
-                                getProductPrice(
-                                  product,
-                                );
+                                const image =
+                                  getProductImage(
+                                    product,
+                                    color,
+                                  );
 
-                              return (
-                                <motion.div
-                                  key={`${product.name}-${color}`}
-                                  initial={{
-                                    opacity: 0,
-                                    y: 12,
-                                  }}
-                                  animate={{
-                                    opacity: 1,
-                                    y: 0,
-                                  }}
-                                  transition={{
-                                    duration: 0.3,
-                                    delay:
-                                      index *
-                                      0.05,
-                                  }}
-                                >
-                                  <Link
-                                    href={`/produto/${formatPath(
-                                      product.name,
-                                    )}`}
-                                    onClick={() =>
-                                      setSelectedColorName(
-                                        null,
-                                      )
-                                    }
-                                    className="group block overflow-hidden rounded-2xl border border-border bg-background transition-all duration-300 hover:-translate-y-1 hover:border-primary/20 hover:shadow-lg"
+                                const price =
+                                  getProductPrice(
+                                    product,
+                                  );
+
+                                return (
+                                  <motion.div
+                                    key={`${product.name}-${color}`}
+                                    initial={{
+                                      opacity: 0,
+                                      y: 12,
+                                    }}
+                                    animate={{
+                                      opacity: 1,
+                                      y: 0,
+                                    }}
+                                    transition={{
+                                      duration: 0.3,
+                                      delay:
+                                        index *
+                                        0.05,
+                                    }}
                                   >
-                                    {/* IMAGEM */}
-                                    <div className="relative aspect-square overflow-hidden bg-muted/10">
-                                      <Image
-                                        src={
-                                          image
-                                        }
-                                        alt={
-                                          product.name
-                                        }
-                                        fill
-                                        sizes="(max-width: 640px) 45vw, 30vw"
-                                        className="object-cover transition-transform duration-500 group-hover:scale-105"
-                                      />
+                                    <Link
+                                      href={`/produto/${formatPath(
+                                        product.name,
+                                      )}`}
+                                      onClick={() =>
+                                        setSelectedColorName(
+                                          null,
+                                        )
+                                      }
+                                      className="group block overflow-hidden rounded-2xl border border-border bg-background transition-all duration-300 hover:-translate-y-1 hover:border-primary/20 hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                                    >
+                                      {/* IMAGEM */}
+                                      <div className="relative aspect-square overflow-hidden bg-muted/10">
+                                        <Image
+                                          src={
+                                            image
+                                          }
+                                          alt={
+                                            product.name
+                                          }
+                                          fill
+                                          sizes="(max-width: 640px) 45vw, 30vw"
+                                          className="object-cover transition-transform duration-500 group-hover:scale-105"
+                                        />
 
-                                      <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
-                                      <span className="absolute bottom-2 left-2 rounded-full bg-card/90 px-2.5 py-1 text-[9px] font-semibold uppercase tracking-wide text-foreground opacity-0 shadow-sm backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100">
-                                        Ver peça
-                                      </span>
-                                    </div>
+                                        <span className="absolute bottom-2 left-2 rounded-full bg-card/90 px-2.5 py-1 text-[9px] font-semibold uppercase tracking-wide text-foreground opacity-0 shadow-sm backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100">
+                                          Ver peça
+                                        </span>
+                                      </div>
 
-                                    {/* INFORMAÇÕES */}
-                                    <div className="p-3">
-  <h4 className="truncate font-serif text-sm font-semibold text-foreground sm:text-base">
-    {product.name}
-  </h4>
+                                      {/* INFORMAÇÕES */}
+                                      <div className="p-3">
+                                        <h4 className="truncate font-serif text-sm font-semibold text-foreground sm:text-base">
+                                          {
+                                            product.name
+                                          }
+                                        </h4>
 
-  <p className="mt-1 truncate text-[10px] text-muted sm:text-xs">
-    {color
-      .split("-")
-      .map(formatColor)
-      .join(" · ")}
-  </p>
+                                        <p className="mt-1 truncate text-[10px] text-muted sm:text-xs">
+                                          {color
+                                            .split(
+                                              "-",
+                                            )
+                                            .map(
+                                              formatColor,
+                                            )
+                                            .join(
+                                              " · ",
+                                            )}
+                                        </p>
 
-  {price && (
-    <p className="mt-1 text-xs text-muted sm:text-sm">
-      A partir de{" "}
-      <span className="font-semibold text-foreground">
-        {price}
-      </span>
-    </p>
-  )}
-</div>
-                                  </Link>
-                                </motion.div>
-                              );
-                            },
-                          )}
-                        </div>
-                      ) : (
-                        <div className="rounded-2xl border border-dashed border-border bg-background/40 px-5 py-8 text-center">
-                          <div
-                            className="mx-auto mb-3 h-10 w-10 rounded-full border border-border shadow-sm"
-                            style={{
-                              backgroundColor:
-                                activeColorData.hex,
-                            }}
-                          />
-
-                          <p className="font-serif text-base font-semibold">
-                            Ainda não temos uma
-                            peça com essa cor
-                          </p>
-
-                          <p className="mt-1 text-xs leading-relaxed text-muted">
-                            Mas você pode
-                            personalizar uma peça
-                            escolhendo essa cor.
-                          </p>
-                        </div>
-                      )}
-                    </div>}
+                                        {price && (
+                                          <p className="mt-1 text-xs text-muted sm:text-sm">
+                                            A partir{" "}
+                                            de{" "}
+                                            <span className="font-semibold text-foreground">
+                                              {
+                                                price
+                                              }
+                                            </span>
+                                          </p>
+                                        )}
+                                      </div>
+                                    </Link>
+                                  </motion.div>
+                                );
+                              },
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    )}
                 </div>
 
                 {/* RODAPÉ */}

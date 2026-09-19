@@ -1,3 +1,4 @@
+import { useModalAccessibility } from "@/hooks/useModalAccessibility";
 import Image from "next/image";
 
 type RaffleProps = {
@@ -49,16 +50,26 @@ ${shareUrl}
 
 Não perca essa chance!`,
   );
-
+  const { dialogRef } =
+    useModalAccessibility({
+      isOpen: true,
+      onClose: closeModal,
+    });
   const whatsappLink = `https://wa.me/?text=${whatsappText}`;
   return (
     <div
-      onClick={closeModal}
       className="fixed inset-0 z-999 flex items-center justify-center bg-black/60 p-4 backdrop-blur-md"
+      onClick={closeModal}
     >
       <div
-        onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-5xl max-h-[90vh] overflow-y-auto overflow-x-hidden rounded-[2.5rem] border border-border bg-background shadow-2xl animate-in fade-in zoom-in duration-300"
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="raffle-title"
+        aria-describedby="raffle-description"
+        tabIndex={-1}
+        onClick={(event) => event.stopPropagation()}
+        className="relative max-h-[90vh] w-full max-w-5xl overflow-y-auto overflow-x-hidden rounded-[2.5rem] border border-border bg-background shadow-2xl focus:outline-none"
       >
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute -left-24 top-0 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
@@ -80,12 +91,18 @@ Não perca essa chance!`,
                 🍀 RIFA FLORISSE 🍀
               </div>
 
-              <h2 className="text-center sm:text-left mt-5 text-3xl sm:text-4xl lg:text-5xl font-black leading-tight">
+              <h2
+                id="raffle-title"
+                className="text-center sm:text-left mt-5 text-3xl sm:text-4xl lg:text-5xl font-black leading-tight"
+              >
                 Kit de cozinha
                 <span className="block text-primary">artesanal completo</span>
               </h2>
 
-              <p className="text-center sm:text-left mt-4 max-w-md text-sm sm:text-base text-muted">
+              <p
+                id="raffle-description"
+                className="text-center sm:text-left mt-4 max-w-md text-sm sm:text-base text-muted"
+              >
                 Concorra a um kit exclusivo feito à mão com tapetes, passadeira,
                 sousplats e trilho de mesa 💖
               </p>
@@ -219,10 +236,12 @@ Não perca essa chance!`,
             </div>
 
             <button
+              type="button"
               onClick={closeModal}
-              className="mt-3 text-sm text-muted hover:text-foreground"
+              aria-label="Fechar rifa"
+              className="absolute right-5 top-5 z-30 flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-background/90 text-lg shadow-lg backdrop-blur transition-all hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             >
-              Continuar navegando
+              <span aria-hidden="true">✕</span>
             </button>
           </div>
         </div>

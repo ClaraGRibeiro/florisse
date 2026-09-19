@@ -1,6 +1,7 @@
 "use client";
 
 import { useCart } from "@/hooks/useCart";
+import { useModalAccessibility } from "@/hooks/useModalAccessibility";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -25,6 +26,11 @@ export default function Header() {
   const closeMenu = () => {
     setMenuOpen(false);
   };
+  const { dialogRef: mobileMenuRef } =
+    useModalAccessibility({
+      isOpen: menuOpen,
+      onClose: closeMenu,
+    });
 
   return (
     <>
@@ -166,14 +172,24 @@ export default function Header() {
 
       {/* MENU LATERAL MOBILE */}
       <aside
-        className={`fixed right-0 top-0 z-50 flex h-full w-[min(85vw,360px)] flex-col border-l border-border bg-background shadow-2xl transition-transform duration-300 lg:hidden ${menuOpen ? "translate-x-0" : "translate-x-full"
+        ref={mobileMenuRef}
+        className={`fixed right-0 top-0 z-50 flex h-full w-[min(85vw,360px)] flex-col border-l border-border bg-background shadow-2xl transition-transform duration-300 lg:hidden ${menuOpen
+          ? "translate-x-0"
+          : "translate-x-full"
           }`}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="mobile-menu-title"
+        tabIndex={-1}
         aria-hidden={!menuOpen}
       >
         {/* CABEÇALHO DO MENU */}
         <div className="flex items-center justify-between border-b border-border px-5 py-5">
           <div>
-            <p className="font-serif text-xl font-semibold">
+            <p
+              id="mobile-menu-title"
+              className="font-serif text-xl font-semibold"
+            >
               Florisse Crochê
             </p>
 
@@ -186,9 +202,12 @@ export default function Header() {
             type="button"
             onClick={closeMenu}
             aria-label="Fechar menu"
-            className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-border text-foreground transition hover:bg-muted"
+            className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-border text-foreground transition hover:bg-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
-            <FaTimes size={18} />
+            <FaTimes
+              size={18}
+              aria-hidden="true"
+            />
           </button>
         </div>
 
@@ -208,19 +227,21 @@ export default function Header() {
 
         {/* AÇÕES */}
         <div className="mt-auto border-t border-border p-5">
-          <Link href="/carrinho" onClick={closeMenu}>
-            <button
-              type="button"
-              className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-medium text-primary-foreground shadow-md transition hover:bg-primary-hover"
-            >
-              <FaCartPlus size={16} />
+          <Link
+            href="/carrinho"
+            onClick={closeMenu}
+            className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-medium text-primary-foreground shadow-md transition hover:bg-primary-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          >
+            <FaCartPlus
+              size={16}
+              aria-hidden="true"
+            />
 
-              <span>Meu carrinho</span>
+            <span>Meu carrinho</span>
 
-              <span className="rounded-full bg-white/20 px-2 py-0.5 text-xs">
-                {totalItems}
-              </span>
-            </button>
+            <span className="rounded-full bg-white/20 px-2 py-0.5 text-xs">
+              {totalItems}
+            </span>
           </Link>
 
           <button

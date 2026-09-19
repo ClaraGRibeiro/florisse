@@ -1,5 +1,6 @@
 "use client";
 
+import { useModalAccessibility } from "@/hooks/useModalAccessibility";
 import { useEffect, useMemo, useState } from "react";
 
 type NumbersProps = {
@@ -17,6 +18,14 @@ type RaffleNumber = {
 const WHATSAPP = "5538992030710";
 
 export default function Numbers({ rafflePrice, setNumbersOpen }: NumbersProps) {
+  const closeModal = () =>
+    setNumbersOpen(false);
+
+  const { dialogRef } =
+    useModalAccessibility({
+      isOpen: true,
+      onClose: closeModal,
+    });
   const [selectedNumbers, setSelectedNumbers] = useState<string[]>([]);
   const [raffleNumbers, setRaffleNumbers] = useState<RaffleNumber[]>([]);
   const [winner, setWinner] = useState<String>("");
@@ -97,12 +106,20 @@ export default function Numbers({ rafflePrice, setNumbersOpen }: NumbersProps) {
 
   return (
     <div
-      onClick={() => setNumbersOpen(false)}
-      className="fixed inset-0 z-1000 flex items-center justify-center bg-black/60 p-3 sm:p-4 backdrop-blur-md"
+      onClick={closeModal}
+      className="fixed inset-0 z-1000 flex items-center justify-center bg-black/60 p-3 backdrop-blur-md sm:p-4"
     >
       <div
-        onClick={(e) => e.stopPropagation()}
-        className="w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-3xl sm:rounded-4xl border border-border bg-background p-4 sm:p-6 shadow-2xl"
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="numbers-title"
+        aria-describedby="numbers-description"
+        tabIndex={-1}
+        onClick={(event) =>
+          event.stopPropagation()
+        }
+        className="max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-3xl border border-border bg-background p-4 shadow-2xl focus:outline-none sm:rounded-4xl sm:p-6"
       >
         {/* HEADER */}
         <header className="flex items-start justify-between gap-4 border-b border-border pb-4">
@@ -126,7 +143,10 @@ export default function Numbers({ rafflePrice, setNumbersOpen }: NumbersProps) {
               </span>
             </div>
 
-            <h2 className="mt-2 text-2xl sm:text-3xl md:text-4xl font-black leading-tight">
+            <h2
+              id="numbers-title"
+              className="mt-2 text-2xl font-black leading-tight sm:text-3xl md:text-4xl"
+            >
               {!allNumbersFilled
                 ? "🎟️ Escolha seu número"
                 : winner === "" && winNumber === ""
@@ -134,7 +154,10 @@ export default function Numbers({ rafflePrice, setNumbersOpen }: NumbersProps) {
                   : "🏆 Resultado da Rifa"}
             </h2>
 
-            <p className="mt-3 max-w-2xl text-sm sm:text-base leading-relaxed text-muted">
+            <p
+              id="numbers-description"
+              className="mt-3 max-w-2xl text-sm leading-relaxed text-muted sm:text-base"
+            >
               {!allNumbersFilled ? (
                 <>
                   Os números em <span className="font-semibold text-secondary">verde</span> estão disponíveis para escolha.
@@ -180,10 +203,12 @@ export default function Numbers({ rafflePrice, setNumbersOpen }: NumbersProps) {
             </button>
 
             <button
-              onClick={() => setNumbersOpen(false)}
-              className="cursor-pointer flex h-10 w-10 items-center justify-center rounded-full border border-border bg-card-soft text-lg transition-all hover:scale-105 hover:bg-card"
+              type="button"
+              onClick={closeModal}
+              aria-label="Fechar escolha de número"
+              className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-border bg-card-soft text-lg transition-all hover:scale-105 hover:bg-card focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             >
-              ✕
+              <span aria-hidden="true">✕</span>
             </button>
           </div>
         </header>

@@ -228,7 +228,7 @@ export default function CartItemEditor({
               key={color.name}
               type="button"
               onClick={() => handleColorChange(index)}
-              className={`flex cursor-pointer items-center gap-2 rounded-full border px-3 py-2 text-sm transition-all ${
+              className={`flex cursor-pointer items-center gap-2 rounded-full border px-3 py-2 text-sm transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
                 !isOtherColor && selectedColor === index
                   ? "border-primary bg-primary text-white shadow-md"
                   : "border-border bg-background hover:border-primary/40"
@@ -245,7 +245,7 @@ export default function CartItemEditor({
           <button
             type="button"
             onClick={handleOtherColorClick}
-            className={`flex cursor-pointer items-center gap-2 rounded-full border px-3 py-2 text-sm transition-all ${
+            className={`flex cursor-pointer items-center gap-2 rounded-full border px-3 py-2 text-sm transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
               isOtherColor
                 ? "border-primary bg-primary text-white shadow-md"
                 : "border-border bg-background hover:border-primary/40"
