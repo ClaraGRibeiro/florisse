@@ -204,11 +204,8 @@ Números escolhidos: ${sortedNumbers.join(", ")}
 Total: R$ ${total.toFixed(2)}`,
     );
 
-    const whatsappNumber =
-      WHATSAPP.replace(/\D/g, "");
-
     window.open(
-      `https://wa.me/${whatsappNumber}?text=${message}`,
+      `${WHATSAPP}?text=${message}`,
       "_blank",
       "noopener,noreferrer",
     );

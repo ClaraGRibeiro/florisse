@@ -82,7 +82,7 @@ export default function Header() {
               </a>
             ))}
 
-            {/* {RAFFLE && (
+            {RAFFLE && (
               <Link
                 href="/rifa"
                 className="flex cursor-pointer items-center gap-2 rounded-full border border-secondary/20 bg-secondary/10 px-4 py-2.5 text-sm font-semibold text-secondary shadow-sm transition-all hover:scale-[1.03] hover:bg-secondary/15"
@@ -94,7 +94,7 @@ export default function Header() {
 
                 <span>Rifa</span>
               </Link>
-            )} */}
+            )}
 
             <Link
               href="/carrinho"
@@ -198,11 +198,10 @@ export default function Header() {
 
       <aside
         ref={mobileMenuRef}
-        className={`fixed right-0 top-0 z-50 flex h-full w-[min(85vw,360px)] flex-col border-l border-border bg-background shadow-2xl transition-transform duration-300 lg:hidden ${
-          menuOpen
+        className={`fixed right-0 top-0 z-50 flex h-full w-[min(85vw,360px)] flex-col border-l border-border bg-background shadow-2xl transition-transform duration-300 lg:hidden ${menuOpen
             ? "translate-x-0"
             : "translate-x-full"
-        }`}
+          }`}
         role="dialog"
         aria-modal="true"
         aria-labelledby="mobile-menu-title"
@@ -252,7 +251,7 @@ export default function Header() {
             <Link
               href="/rifa"
               onClick={closeMenu}
-              className="flex items-center gap-3 border-b border-border py-4 text-base font-semibold text-primary transition-colors hover:text-primary-hover"
+              className="flex items-center gap-3 border-b border-border py-4 text-base font-semibold text-secondary transition-colors hover:text-secondary-hover"
             >
               <FaClover
                 size={16}
@@ -261,8 +260,8 @@ export default function Header() {
 
               <span>Rifa</span>
 
-              <span className="ml-auto rounded-full bg-primary/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-primary">
-                Ativa
+              <span className="ml-auto rounded-full bg-secondary/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-secondary">
+                Concorra!
               </span>
             </Link>
           )}
