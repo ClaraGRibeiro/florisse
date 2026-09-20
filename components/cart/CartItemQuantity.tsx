@@ -1,6 +1,5 @@
 import { FaMinus, FaPlus } from "react-icons/fa";
 
-import { useCart } from "@/hooks/useCart";
 
 import type { CartItemType } from "@/components/cart/types";
 

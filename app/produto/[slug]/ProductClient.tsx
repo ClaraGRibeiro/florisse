@@ -10,8 +10,8 @@ import {
 import { FaArrowLeft, FaArrowUp } from "react-icons/fa";
 
 import { useCart } from "@/hooks/useCart";
-import { getProductBySlug, getProducts } from "@/lib/products";
 import { useScrollTop } from "@/hooks/useScrollTop";
+import { getProductBySlug, getProducts } from "@/lib/products";
 
 import { Color } from "@/types/color";
 
@@ -104,10 +104,6 @@ export default function ProductClient({
     product && currentColorName
       ? product.images?.[currentColorName] ?? []
       : [];
-
-  useEffect(() => {
-    setSelectedImage(0);
-  }, [currentColorName]);
 
   useEffect(() => {
     return () => {
@@ -204,15 +200,6 @@ export default function ProductClient({
 
     setSelectedImage(0);
   };
-
-  const filteredColors =
-    colors.filter((color) =>
-      color.name
-        .toLowerCase()
-        .includes(
-          colorSearch.toLowerCase(),
-        ),
-    );
 
   const handleOtherColorChange = (
     colorName: string,

@@ -1,11 +1,10 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
+import { useModalAccessibility } from "@/hooks/useModalAccessibility";
 import { AnimatePresence, motion } from "framer-motion";
+import Link from "next/link";
 import { useEffect } from "react";
 import { FaCheck, FaTimes } from "react-icons/fa";
-import { useModalAccessibility } from "@/hooks/useModalAccessibility";
 import ImageWithFallback from "../ui/ImageWithFallback";
 
 type MiniCartProps = {

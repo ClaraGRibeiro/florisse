@@ -1,4 +1,3 @@
-import { useCart } from "@/hooks/useCart";
 
 import type { CartItemType } from "@/components/cart/types";
 import { formatColor } from "@/utils/format";

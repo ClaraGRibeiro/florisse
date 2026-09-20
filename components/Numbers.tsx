@@ -2,7 +2,7 @@
 
 import { BRAND, WHATSAPP } from "@/data/config";
 import { useModalAccessibility } from "@/hooks/useModalAccessibility";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 type NumbersProps = {
   rafflePrice: number;
@@ -31,43 +31,70 @@ export default function Numbers({ rafflePrice, setNumbersOpen }: NumbersProps) {
   const [winNumber, setWinNumber] = useState<string>("");
   const [loading, setLoading] = useState(false);
 
-  const loadSheet = async () => {
+const loadSheet = useCallback(
+  async () => {
     try {
       setLoading(true);
+
       const response = await fetch(
         "https://opensheet.elk.sh/1G_-cEKzvojtO6-zR86oalbrp5JvQvIEat8rShhCsaP8/Rifa-Florisse?raw=true",
         {
           cache: "no-store",
-        }
-      );
-      const data = await response.json();
-      const formattedData = data.map((item: RaffleNumber) => ({
-        NUMERO: String(item.NUMERO).padStart(2, "0"),
-        PAGO: String(item.PAGO),
-        WHATSAPP: String(item.WHATSAPP || ""),
-        SORTEADO: String(item.SORTEADO || "0"),
-      }));
-
-      setRaffleNumbers(formattedData);
-      setRaffleNumbers(data);
-      const winnerData = raffleNumbers.find(
-        (item) => Number(item.SORTEADO) === 1
+        },
       );
 
-      setWinNumber(winnerData?.NUMERO || "");
+      const data =
+        await response.json();
 
-      setWinner(winnerData?.WHATSAPP
-        ? winnerData.WHATSAPP.slice(-4)
-        : "");
+      const formattedData =
+        data.map(
+          (item: RaffleNumber) => ({
+            NUMERO: String(
+              item.NUMERO,
+            ).padStart(2, "0"),
+            PAGO: String(item.PAGO),
+            WHATSAPP: String(
+              item.WHATSAPP || "",
+            ),
+            SORTEADO: String(
+              item.SORTEADO || "0",
+            ),
+          }),
+        );
+
+      setRaffleNumbers(
+        formattedData,
+      );
+
+      const winnerData =
+        formattedData.find(
+          (item: RaffleNumber) =>
+            Number(item.SORTEADO) === 1,
+        );
+
+      setWinNumber(
+        winnerData?.NUMERO || "",
+      );
+
+      setWinner(
+        winnerData?.WHATSAPP
+          ? winnerData.WHATSAPP.slice(-4)
+          : "",
+      );
     } catch (error) {
-      console.error("Erro ao carregar rifa:", error);
+      console.error(
+        "Erro ao carregar rifa:",
+        error,
+      );
     } finally {
       setLoading(false);
     }
-  };
+  },
+  [],
+);
 
   useEffect(() => {
-    loadSheet();
+    void loadSheet();
   }, []);
 
   const toggleNumber = (number: string) => {

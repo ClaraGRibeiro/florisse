@@ -1,6 +1,5 @@
 "use client";
 
-import { useCart } from "@/hooks/useCart";
 
 import type { CartItemType } from "@/components/cart/types";
 

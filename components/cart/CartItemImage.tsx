@@ -1,7 +1,6 @@
 import Link from "next/link";
 
 import ImageWithFallback from "@/components/ui/ImageWithFallback";
-import { useCart } from "@/hooks/useCart";
 import { formatPath } from "@/utils/format";
 
 import type { CartItemType } from "@/components/cart/types";

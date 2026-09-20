@@ -1,6 +1,10 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import {
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { motion } from "framer-motion";
 
 import { Product } from "@/types/product";
@@ -54,8 +58,26 @@ export default function ProductRelated({
     }
   };
 
-  const [visitedProducts, setVisitedProducts] =
-    useState<Set<string>>(getVisitedProducts);
+  const [visitedProducts] =
+    useState<Set<string>>(
+      getVisitedProducts,
+    );
+
+  const effectiveVisitedProducts =
+    useMemo(() => {
+      const updated = new Set(
+        visitedProducts,
+      );
+
+      if (product?.name) {
+        updated.add(product.name);
+      }
+
+      return updated;
+    }, [
+      visitedProducts,
+      product?.name,
+    ]);
 
   useEffect(() => {
     if (
@@ -65,29 +87,21 @@ export default function ProductRelated({
       return;
     }
 
-    setVisitedProducts((previous) => {
-      if (previous.has(product.name)) {
-        return previous;
-      }
-
-      const updated = new Set(previous);
-
-      updated.add(product.name);
-
-      try {
-        sessionStorage.setItem(
-          VISITED_PRODUCTS_KEY,
-          JSON.stringify(
-            Array.from(updated),
+    try {
+      sessionStorage.setItem(
+        VISITED_PRODUCTS_KEY,
+        JSON.stringify(
+          Array.from(
+            effectiveVisitedProducts,
           ),
-        );
-      } catch {
-      }
-
-      return updated;
-    });
-  }, [product]);
-
+        ),
+      );
+    } catch {
+    }
+  }, [
+    effectiveVisitedProducts,
+    product?.name,
+  ]);
 
   const relatedProducts = useMemo(() => {
     if (
@@ -97,12 +111,11 @@ export default function ProductRelated({
       return [];
     }
 
-
     const currentColors =
       getProductColors(product);
 
-    const currentPrice = getProductPrice(product);
-
+    const currentPrice =
+      getProductPrice(product);
 
     const scoredProducts = products
       .filter(
@@ -111,7 +124,10 @@ export default function ProductRelated({
           product.name,
       )
       .map(
-        (candidate, originalIndex) => {
+        (
+          candidate,
+          originalIndex,
+        ) => {
           let score = 0;
 
           if (
@@ -121,22 +137,24 @@ export default function ProductRelated({
             score += 100;
           }
 
-
           const candidateColors =
-            getProductColors(candidate);
+            getProductColors(
+              candidate,
+            );
 
           let sharedColors = 0;
 
           currentColors.forEach(
             (color) => {
               if (
-                candidateColors.has(color)
+                candidateColors.has(
+                  color,
+                )
               ) {
                 sharedColors += 1;
               }
             },
           );
-
 
           if (sharedColors > 0) {
             score += 30;
@@ -147,7 +165,9 @@ export default function ProductRelated({
           }
 
           const candidatePrice =
-            getProductPrice(candidate);
+            getProductPrice(
+              candidate,
+            );
 
           if (
             Number.isFinite(
@@ -161,16 +181,14 @@ export default function ProductRelated({
             const priceDifference =
               Math.abs(
                 candidatePrice -
-                currentPrice,
+                  currentPrice,
               ) / currentPrice;
 
             if (
               priceDifference <= 0.2
             ) {
               score += 20;
-            }
-
-            else if (
+            } else if (
               priceDifference <= 0.4
             ) {
               score += 10;
@@ -184,7 +202,7 @@ export default function ProductRelated({
             originalIndex,
 
             wasVisited:
-              visitedProducts.has(
+              effectiveVisitedProducts.has(
                 candidate.name,
               ),
           };
@@ -209,7 +227,6 @@ export default function ProductRelated({
       );
     });
 
-
     const freshProducts =
       scoredProducts.filter(
         (item) => !item.wasVisited,
@@ -227,9 +244,7 @@ export default function ProductRelated({
           item.sharedColors === 0,
       );
 
-
     const selected: Product[] = [];
-
 
     sameColorFresh
       .slice(0, 3)
@@ -241,11 +256,9 @@ export default function ProductRelated({
         }
       });
 
-
     if (
       selected.length < 4 &&
-      differentColorFresh.length >
-      0
+      differentColorFresh.length > 0
     ) {
       selected.push(
         differentColorFresh[0]
@@ -274,7 +287,6 @@ export default function ProductRelated({
           continue;
         }
 
-
         const candidateColors =
           getProductColors(
             item.product,
@@ -289,7 +301,8 @@ export default function ProductRelated({
                 );
 
               for (
-                const color of candidateColors
+                const color of
+                  candidateColors
               ) {
                 if (
                   selectedColors.has(
@@ -303,7 +316,6 @@ export default function ProductRelated({
               return false;
             },
           ).length;
-
 
         if (
           item.sharedColors > 0 &&
@@ -358,9 +370,8 @@ export default function ProductRelated({
   }, [
     product,
     products,
-    visitedProducts,
+    effectiveVisitedProducts,
   ]);
-
 
   if (
     relatedProducts.length === 0
@@ -368,8 +379,8 @@ export default function ProductRelated({
     return null;
   }
 
-  const bestSellingByCategory = getBestSellingByCategory();
-
+  const bestSellingByCategory =
+    getBestSellingByCategory();
 
   return (
     <section className="mt-16 border-t border-border pt-16">

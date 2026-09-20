@@ -1,11 +1,14 @@
 "use client";
 
 import Image, {
-  ImageProps,
+  type ImageProps,
 } from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-type ImageWithFallbackProps = Omit<ImageProps, "src"> & {
+type ImageWithFallbackProps = Omit<
+  ImageProps,
+  "src"
+> & {
   src?: string;
   fallbackMessage?: string;
   emptyMessage?: string;
@@ -14,6 +17,7 @@ type ImageWithFallbackProps = Omit<ImageProps, "src"> & {
 
 export default function ImageWithFallback({
   src,
+  alt,
   fallbackMessage = "Imagem indisponível",
   emptyMessage = "Imagem indisponível",
   showLoading = false,
@@ -21,22 +25,34 @@ export default function ImageWithFallback({
   onError,
   ...props
 }: ImageWithFallbackProps) {
-  const [hasError, setHasError] = useState(false);
-  const [isLoading, setIsLoading] = useState(Boolean(src));
+  const [failedSrc, setFailedSrc] =
+    useState<string | null>(null);
 
-  useEffect(() => {
-    setHasError(false);
-    setIsLoading(Boolean(src));
-  }, [src]);
+  const [loadedSrc, setLoadedSrc] =
+    useState<string | null>(null);
+
+  const hasError =
+    Boolean(src) && failedSrc === src;
+
+  const isLoading =
+    Boolean(src) &&
+    loadedSrc !== src &&
+    !hasError;
 
   if (!src || hasError) {
     return (
       <div
         className="absolute inset-0 flex items-center justify-center bg-muted/20 px-4 text-center text-sm text-muted"
         role="img"
-        aria-label={hasError ? fallbackMessage : emptyMessage}
+        aria-label={
+          hasError
+            ? fallbackMessage
+            : emptyMessage
+        }
       >
-        {hasError ? fallbackMessage : emptyMessage}
+        {hasError
+          ? fallbackMessage
+          : emptyMessage}
       </div>
     );
   }
@@ -45,7 +61,7 @@ export default function ImageWithFallback({
     <>
       {showLoading && isLoading && (
         <div
-          className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none"
+          className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center"
           aria-label="Carregando imagem"
         >
           <span className="h-8 w-8 animate-spin rounded-full border-2 border-border border-t-primary" />
@@ -55,13 +71,14 @@ export default function ImageWithFallback({
       <Image
         {...props}
         src={src}
+        alt={alt}
         onLoad={(event) => {
-          setIsLoading(false);
+          setLoadedSrc(src);
           onLoad?.(event);
         }}
         onError={(event) => {
-          setIsLoading(false);
-          setHasError(true);
+          setLoadedSrc(src);
+          setFailedSrc(src);
           onError?.(event);
         }}
       />

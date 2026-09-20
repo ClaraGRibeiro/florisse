@@ -8,11 +8,10 @@ import {
 } from "react-icons/fa";
 
 import colorsData from "@/data/colors.json";
-import { useCart } from "@/hooks/useCart";
 
 import type { CartItemType } from "@/components/cart/types";
 import type { Product } from "@/types/product";
-import { formatColor, formatPath } from "@/utils/format";
+import { formatColor } from "@/utils/format";
 import { getGradient } from "@/utils/gradient";
 import type { CartItemEditorValues } from "./types";
 
