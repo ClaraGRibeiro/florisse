@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
-import Image from "next/image";
 
+import ImageWithFallback from "@/components/ui/ImageWithFallback";
 import { getProductImage } from "@/lib/images";
 import { Product } from "@/types/product";
 
@@ -15,8 +15,10 @@ export default function ProductImage({
   selectedColor,
   formatColor,
 }: ProductImageProps) {
-  const imagePath = getProductImage(product, selectedColor.name)[0];
-
+  const imagePath = getProductImage(
+    product,
+    selectedColor.name,
+  )[0];
 
   return (
     <div className="relative aspect-9/12 w-full overflow-hidden bg-muted">
@@ -32,12 +34,14 @@ export default function ProductImage({
           }}
           className="absolute inset-0"
         >
-          <Image
+          <ImageWithFallback
             src={imagePath}
             alt={`${product.name} - ${formatColor(selectedColor.name)}`}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
             loading="lazy"
+            emptyMessage="Imagem indisponível para esta cor"
+            fallbackMessage="Não foi possível carregar a imagem"
             className="object-cover transition-transform duration-700 group-hover:scale-[1.025]"
           />
         </motion.div>

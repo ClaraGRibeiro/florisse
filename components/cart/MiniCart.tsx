@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useEffect } from "react";
 import { FaCheck, FaTimes } from "react-icons/fa";
 import { useModalAccessibility } from "@/hooks/useModalAccessibility";
+import ImageWithFallback from "../ui/ImageWithFallback";
 
 type MiniCartProps = {
   isOpen: boolean;
@@ -29,7 +30,7 @@ export default function MiniCart({
       isOpen,
       onClose,
     });
-    
+
   useEffect(() => {
     if (!isOpen) {
       return;
@@ -106,11 +107,12 @@ export default function MiniCart({
               className="mt-4 flex gap-3 rounded-2xl border border-muted/40 p-3"
             >
               <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-muted">
-                <Image
+                <ImageWithFallback
                   src={image}
                   alt={name}
                   fill
                   sizes="80px"
+                  fallbackMessage="Não foi possível carregar a imagem"
                   className="object-cover"
                 />
               </div>

@@ -1,11 +1,12 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import {
   FaChevronLeft,
   FaChevronRight,
 } from "react-icons/fa";
+
+import ImageWithFallback from "@/components/ui/ImageWithFallback";
 
 type ProductGalleryProps = {
   productName: string;
@@ -36,7 +37,7 @@ export default function ProductGallery({
 }: ProductGalleryProps) {
   const hasMultipleImages = images.length > 1;
 
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(Boolean(imageSrc));
 
   const discountPercentage =
     currentPrice !== undefined &&
@@ -48,43 +49,24 @@ export default function ProductGallery({
       : 0;
 
   useEffect(() => {
-    setIsLoading(true);
+    setIsLoading(Boolean(imageSrc));
   }, [imageSrc]);
 
   return (
     <div className="relative mx-auto w-full max-w-120">
       <div className="relative aspect-9/12 w-full overflow-hidden rounded-4xl border border-border/20 bg-muted/20 shadow-sm">
-        {imageSrc ? (
-          <>
-            {isLoading && (
-              <div
-                className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none"
-                aria-label="Carregando imagem do produto"
-              >
-                <span className="h-8 w-8 animate-spin rounded-full border-2 border-border border-t-primary" />
-              </div>
-            )}
-
-            <Image
-              key={imageSrc}
-              src={imageSrc}
-              alt={`${productName} - imagem ${selectedImage + 1}`}
-              fill
-              priority={selectedImage === 0}
-              sizes="(max-width: 768px) 100vw, 50vw"
-              onLoad={() => setIsLoading(false)}
-              onError={() => setIsLoading(false)}
-              className="object-cover"
-            />
-          </>
-        ) : (
-          <div
-            className="absolute inset-0 flex items-center justify-center"
-            aria-label="Carregando imagem do produto"
-          >
-            <span className="h-8 w-8 animate-spin rounded-full border-2 border-border border-t-primary" />
-          </div>
-        )}
+        <ImageWithFallback
+          key={imageSrc ?? "no-image"}
+          src={imageSrc}
+          alt={`${productName} - imagem ${selectedImage + 1}`}
+          fill
+          priority={selectedImage === 0}
+          sizes="(max-width: 768px) 100vw, 50vw"
+          showLoading={Boolean(imageSrc)}
+          emptyMessage="Imagem indisponível para esta seleção"
+          fallbackMessage="Não foi possível carregar a imagem"
+          onLoad={() => setIsLoading(false)}
+        />
 
         {totalSales > 0 && (
           <div className="absolute left-4 top-4 rounded-full bg-background/90 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-primary shadow-sm backdrop-blur-md">
