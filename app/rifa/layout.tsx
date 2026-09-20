@@ -8,9 +8,9 @@ import {
   SITE,
 } from "@/data/config";
 
+const ogImage = RAFFLE ? "image" : "disabled"
 export const metadata: Metadata = {
   title: `Rifa ${BRAND} | ${RAFFLEITEM.name}`,
-
   description:
     "Concorra a um conjunto de mesa posta feito à mão pela Florisse.",
 
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
 
     images: [
       {
-        url: `${SITE}/rifa/image.jpg`,
+        url: `${SITE}/rifa/${ogImage}.jpg`,
         width: 800,
         height: 800,
         alt: `Rifa ${BRAND} — ${RAFFLEITEM.name}`,
@@ -43,6 +43,7 @@ export const metadata: Metadata = {
     ],
   },
 
+  
   twitter: {
     card: "summary_large_image",
 
