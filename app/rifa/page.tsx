@@ -12,6 +12,7 @@ import {
   BRAND,
   CITY,
   RAFFLE,
+  RAFFLEITEM,
   RAFFLEPRICE,
   SITE,
 } from "@/data/config";
@@ -19,34 +20,51 @@ import {
 import RaffleGallery from "./RaffleGallery";
 import RaffleNumbers from "./RaffleNumbers";
 import FreightSimulator from "./FreightSimulator";
+import { Metadata } from "next";
+export async function generateMetadata(): Promise<Metadata> {
+  const image = `${SITE}${RAFFLEITEM.image[0]}`;
 
-const raffleItem = {
-  name: "Sousplats + Trilho",
+  const title = `Rifa ${BRAND} | ${RAFFLEITEM.name}`;
 
-  category: "Mesa posta",
+  const description =
+    "Concorra a um conjunto de mesa posta feito à mão pela Florisse.";
 
-  image: [
-    "/products/mesa-posta/trilho-tradicional/marrom-2.webp",
-    "/products/mesa-posta/trilho-tradicional/marrom.webp",
-    "/products/mesa-posta/sousplat-tradicional/marrom.webp",
-  ],
+  const url = `${SITE}/rifa`;
 
-  description:
-    "Um conjunto artesanal para deixar sua mesa ainda mais especial.",
+  return {
+    title,
+    description,
 
-  details: [
-    "6 sousplats · 37 cm",
-    "1 trilho · 100 × 25 cm",
-  ],
+    alternates: {
+      canonical: url,
+    },
 
-  frete: {
-    peso: 21.1,
-    largura: 37,
-    comprimento: 37,
-    altura: 30,
-    cep_origem: "39401262",
-  },
-};
+    openGraph: {
+      title,
+      description,
+      url,
+      siteName: BRAND,
+      locale: "pt_BR",
+      type: "website",
+      images: [
+        {
+          url: image,
+          width: 800,
+          height: 800,
+          alt: `Rifa ${BRAND} — ${RAFFLEITEM.name}`,
+          type: "image/webp",
+        },
+      ],
+    },
+
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [image],
+    },
+  };
+}
 
 export default function RafflePage() {
   if (!RAFFLE) {
@@ -57,9 +75,8 @@ export default function RafflePage() {
     encodeURIComponent(
       `RIFA ${BRAND.toUpperCase()}
 
-Prêmio:
-• ${raffleItem.name}
-• ${raffleItem.details.join("\n• ")}
+Prêmio: ${RAFFLEITEM.name}
+• ${RAFFLEITEM.details.join("\n• ")}
 
 Valor: R$ ${RAFFLEPRICE.toFixed(2).replace(".", ",")} por número
 100 números disponíveis
@@ -113,22 +130,22 @@ ${SITE}`,
           <div className="grid gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(380px,0.95fr)] lg:gap-16 xl:gap-20">
             {/* GALERIA */}
             <RaffleGallery
-              productName={raffleItem.name}
-              images={raffleItem.image}
+              productName={RAFFLEITEM.name}
+              images={RAFFLEITEM.image}
             />
 
             {/* INFORMAÇÕES */}
             <div className="flex flex-col lg:pt-1">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
-                {raffleItem.category}
+                {RAFFLEITEM.category}
               </p>
 
               <h2 className="mt-3 font-serif text-4xl font-semibold leading-tight tracking-tight text-foreground sm:text-5xl">
-                {raffleItem.name}
+                {RAFFLEITEM.name}
               </h2>
 
               <p className="mt-4 text-sm leading-7 text-muted">
-                {raffleItem.description}
+                {RAFFLEITEM.description}
               </p>
 
               {/* CARACTERÍSTICAS */}
@@ -151,7 +168,7 @@ ${SITE}`,
                   />
 
                   <span className="text-sm text-foreground">
-                    1 trilho · 100 × 25 cm
+                    1 trilho de mesa · 100 × 25 cm
                   </span>
                 </div>
 
@@ -201,7 +218,7 @@ ${SITE}`,
                     ,
                     {Math.round(
                       (RAFFLEPRICE % 1) *
-                        100,
+                      100,
                     )
                       .toString()
                       .padStart(2, "0")}
@@ -308,19 +325,19 @@ ${SITE}`,
         {/* FRETE */}
         <FreightSimulator
           originCep={
-            raffleItem.frete.cep_origem
+            RAFFLEITEM.frete.cep_origem
           }
           weight={
-            raffleItem.frete.peso
+            RAFFLEITEM.frete.peso
           }
           width={
-            raffleItem.frete.largura
+            RAFFLEITEM.frete.largura
           }
           length={
-            raffleItem.frete.comprimento
+            RAFFLEITEM.frete.comprimento
           }
           height={
-            raffleItem.frete.altura
+            RAFFLEITEM.frete.altura
           }
         />
 
@@ -364,7 +381,7 @@ ${SITE}`,
             </p>
 
             <Link
-              href="/"
+              href="/#produtos"
               className="text-xs font-medium text-primary transition-colors hover:underline"
             >
               Conheça a Florisse

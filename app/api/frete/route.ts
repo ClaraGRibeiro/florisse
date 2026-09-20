@@ -139,21 +139,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    /*
-     * A SuperFrete aceita:
-     *
-     * 1 = PAC
-     * 2 = Sedex
-     * 3 = Jadlog
-     * 33 = J&T
-     *
-     * O código 31 (Loggi) não precisa mais ser
-     * enviado; sua disponibilidade é controlada
-     * pela configuração do token da SuperFrete.
-     *
-     * O Mini Envios (17) não foi incluído porque
-     * o prêmio pesa 1,1 kg e o limite é 300 g.
-     */
     const superFreteBody = {
       from: {
         postal_code: from,
