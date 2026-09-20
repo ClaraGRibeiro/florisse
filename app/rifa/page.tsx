@@ -4,10 +4,9 @@ import {
   FaArrowLeft,
   FaHeart,
   FaMapMarkerAlt,
-  FaRulerCombined,
-  FaTruck,
   FaWhatsapp,
 } from "react-icons/fa";
+import { FaClover } from "react-icons/fa6";
 
 import {
   BRAND,
@@ -19,10 +18,11 @@ import {
 
 import RaffleGallery from "./RaffleGallery";
 import RaffleNumbers from "./RaffleNumbers";
-import { FaClover } from "react-icons/fa6";
+import FreightSimulator from "./FreightSimulator";
 
 const raffleItem = {
   name: "Sousplats + Trilho",
+
   category: "Mesa posta",
 
   image: [
@@ -38,6 +38,14 @@ const raffleItem = {
     "6 sousplats · 37 cm",
     "1 trilho · 100 × 25 cm",
   ],
+
+  frete: {
+    peso: 1.1,
+    largura: 37,
+    comprimento: 37,
+    altura: 30,
+    cep_origem: "39401262",
+  },
 };
 
 export default function RafflePage() {
@@ -45,22 +53,24 @@ export default function RafflePage() {
     redirect("/");
   }
 
-  const whatsappText = encodeURIComponent(
-    `RIFA ${BRAND.toUpperCase()}
+  const whatsappText =
+    encodeURIComponent(
+      `RIFA ${BRAND.toUpperCase()}
 
 Prêmio:
 • ${raffleItem.name}
 • ${raffleItem.details.join("\n• ")}
 
-Valor: R$ ${RAFFLEPRICE.toFixed(2)} por número
+Valor: R$ ${RAFFLEPRICE.toFixed(2).replace(".", ",")} por número
 100 números disponíveis
 Sorteio pela Loteria Federal
 
 Participe:
 ${SITE}`,
-  );
+    );
 
-  const whatsappLink = `https://wa.me/?text=${whatsappText}`;
+  const whatsappLink =
+    `https://wa.me/?text=${whatsappText}`;
 
   return (
     <main className="min-h-screen bg-background">
@@ -124,18 +134,7 @@ ${SITE}`,
               {/* CARACTERÍSTICAS */}
               <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
                 <div className="flex items-center gap-3">
-                  <FaHeart
-                    size={15}
-                    className="shrink-0 text-primary"
-                  />
-
-                  <span className="text-sm text-foreground">
-                    Feito à mão
-                  </span>
-                </div>
-
-                <div className="flex items-center gap-3">
-                  <FaRulerCombined
+                  <FaClover
                     size={15}
                     className="shrink-0 text-primary"
                   />
@@ -153,6 +152,17 @@ ${SITE}`,
 
                   <span className="text-sm text-foreground">
                     1 trilho · 100 × 25 cm
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <FaHeart
+                    size={15}
+                    className="shrink-0 text-primary"
+                  />
+
+                  <span className="text-sm text-foreground">
+                    Feito à mão
                   </span>
                 </div>
 
@@ -194,10 +204,7 @@ ${SITE}`,
                         100,
                     )
                       .toString()
-                      .padStart(
-                        2,
-                        "0",
-                      )}
+                      .padStart(2, "0")}
                   </span>
                 </div>
 
@@ -299,25 +306,23 @@ ${SITE}`,
         </section>
 
         {/* FRETE */}
-        <div className="mt-10 flex items-start gap-3 rounded-2xl border border-primary/15 bg-primary/5 px-4 py-3.5 lg:ml-0 lg:max-w-[50%]">
-          <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-background text-primary shadow-sm">
-            <FaTruck
-              size={13}
-              aria-hidden="true"
-            />
-          </div>
-
-          <div>
-            <p className="text-sm font-semibold text-foreground">
-              Frete por conta do participante
-            </p>
-
-            <p className="mt-0.5 text-xs leading-5 text-muted">
-              O valor será calculado conforme o
-              endereço de entrega.
-            </p>
-          </div>
-        </div>
+        <FreightSimulator
+          originCep={
+            raffleItem.frete.cep_origem
+          }
+          weight={
+            raffleItem.frete.peso
+          }
+          width={
+            raffleItem.frete.largura
+          }
+          length={
+            raffleItem.frete.comprimento
+          }
+          height={
+            raffleItem.frete.altura
+          }
+        />
 
         {/* DIVISOR */}
         <div className="my-14 h-px bg-border sm:my-16" />
@@ -337,9 +342,10 @@ ${SITE}`,
             </h2>
 
             <p className="mt-3 text-sm leading-7 text-muted">
-              Selecione um ou mais números disponíveis.
-              Depois, envie seu pedido pelo WhatsApp
-              para confirmar sua participação.
+              Selecione um ou mais números
+              disponíveis. Depois, envie seu pedido
+              pelo WhatsApp para confirmar sua
+              participação.
             </p>
           </div>
 
