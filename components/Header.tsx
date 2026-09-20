@@ -82,7 +82,7 @@ export default function Header() {
               </a>
             ))}
 
-            {RAFFLE && (
+            {/* {RAFFLE && (
               <Link
                 href="/rifa"
                 className="flex cursor-pointer items-center gap-2 rounded-full border border-secondary/20 bg-secondary/10 px-4 py-2.5 text-sm font-semibold text-secondary shadow-sm transition-all hover:scale-[1.03] hover:bg-secondary/15"
@@ -94,7 +94,7 @@ export default function Header() {
 
                 <span>Rifa</span>
               </Link>
-            )}
+            )} */}
 
             <Link
               href="/carrinho"

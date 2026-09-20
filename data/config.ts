@@ -6,7 +6,7 @@ export const INSTAGRAM = "https://instagram.com/florisse_croche";
 
 export const SITE = "https://florisse.vercel.app";
 
-export const RAFFLE = false; 
+export const RAFFLE = true; 
 
 export const RAFFLEPRICE = 2.5;
 
