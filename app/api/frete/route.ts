@@ -1,3 +1,4 @@
+import { BRAND } from "@/data/config";
 import { NextRequest, NextResponse } from "next/server";
 
 const SUPERFRETE_API_URL = "https://api.superfrete.com/api/v0/calculator";
@@ -173,7 +174,7 @@ export async function POST(request: NextRequest) {
         headers: {
           Authorization: `Bearer ${token}`,
           "User-Agent":
-            "Florisse-Croche (https://florisse.vercel.app)",
+            "Florisse-Croche ("+BRAND+")",
           Accept: "application/json",
           "Content-Type": "application/json",
         },

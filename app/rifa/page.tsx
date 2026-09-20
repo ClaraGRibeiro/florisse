@@ -83,7 +83,7 @@ Valor: R$ ${RAFFLEPRICE.toFixed(2).replace(".", ",")} por número
 Sorteio pela Loteria Federal
 
 Participe:
-${SITE}`,
+${SITE}/rifa`,
     );
 
   const whatsappLink =
