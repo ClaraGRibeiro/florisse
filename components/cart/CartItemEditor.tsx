@@ -125,30 +125,9 @@ export default function CartItemEditor({
     setSelectedSize(null);
   }
 
-  async function findColorImage(
-    colorName: string,
-    fallback: string,
-  ) {
-    const basePath = `/products/${formatPath(
-      product.category,
-    )}/${formatPath(product.name)}/${colorName}`;
-
-    for (const extension of [".webp", "-2.webp", "-3.webp"]) {
-      const imagePath = `${basePath}${extension}`;
-
-      try {
-        const response = await fetch(imagePath, {
-          method: "HEAD",
-        });
-
-        if (response.ok) return imagePath;
-      } catch {
-      }
-    }
-
-    return fallback;
+ function findColorImage(colorName: string, fallback: string) {
+    return product.images[colorName]?.[0] ?? fallback;
   }
-
   async function handleSave() {
     let newColor = item.color;
 

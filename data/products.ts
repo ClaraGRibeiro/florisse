@@ -11,8 +11,10 @@ const products = [
   ...bolsas,
 ];
 
-export default {
+const productsData = {
   products,
   prontaEntrega,
   DISCOUNT,
 };
+
+export default productsData;

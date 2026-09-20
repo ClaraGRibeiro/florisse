@@ -5,9 +5,11 @@ const colorMap = new Map(
 );
 
 export function getColorHex(color: string): string[] {
-  return color
-    .split("-")
-    .map((part) => colorMap.get(part) ?? "#000000");
+  return color.split("-").map((part) => {
+    const hex = colorMap.get(part);
+    if (!hex) console.warn(`Cor "${part}" não encontrada em colors.json.`);
+    return hex ?? "#000000";
+  });
 }
 
 export function getProductColors(

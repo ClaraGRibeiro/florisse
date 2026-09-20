@@ -62,7 +62,7 @@ function isValidCartItem(
   if (!isRecord(value)) {
     return false;
   }
-  
+
   if (
     typeof value.id !== "string" ||
     value.id.trim() === ""
@@ -97,7 +97,7 @@ function isValidCartItem(
   ) {
     return false;
   }
-  
+
   if (
     typeof value.price !== "number" ||
     !Number.isFinite(value.price) ||
@@ -228,7 +228,7 @@ export function CartProvider({
       0,
     );
   }, [cart]);
- 
+
   function addToCart(item: CartItem) {
     setCart((currentCart) => {
       const existingItem = currentCart.find(
@@ -258,14 +258,14 @@ export function CartProvider({
       );
     });
   }
- 
+
   function removeFromCart(id: string) {
     setCart((currentCart) =>
       currentCart.filter(
         (item) => item.id !== id,
       ),
     );
-  } 
+  }
   function updateQuantity(
     id: string,
     quantity: number,
@@ -288,23 +288,15 @@ export function CartProvider({
       ),
     );
   }
- 
-  function updateItem(
-    id: string,
-    updates: Partial<CartItem>,
-  ) {
+
+  function updateItem(id: string, updates: Partial<CartItem>) {
     setCart((currentCart) =>
       currentCart.map((item) =>
-        item.id === id
-          ? {
-            ...item,
-            ...updates,
-          }
-          : item,
+        item.id === id ? { ...item, ...updates } : item,
       ),
     );
   }
- 
+
   function clearCart() {
     setCart([]);
   }

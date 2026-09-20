@@ -39,12 +39,12 @@ function normalizeProduct(
     total_sales: getTotalSales(product),
   };
 }
- 
+
 const products: Product[] =
   productsData.products.map(
     normalizeProduct,
   );
- 
+
 
 export function getProducts(): Product[] {
   return products;
@@ -77,26 +77,6 @@ export function getProductsByCategory(
   );
 }
 
-export function getProductsByColor(
-  color: string,
-): Product[] {
-  const normalizedColor =
-    color.trim().toLowerCase();
-
-  return products.filter((product) =>
-    product.colors.some(
-      (productColor) =>
-        productColor.name
-          .split(/[-/,+]/)
-          .map((part) =>
-            part.trim().toLowerCase(),
-          )
-          .includes(normalizedColor),
-    ),
-  );
-}
- 
-
 export function getBestSelling(): Product {
   return products.reduce(
     (best, product) => {
@@ -124,7 +104,7 @@ export function getBestSellingByCategory():
     if (
       !current ||
       (product.total_sales ?? 0) >
-        (current.total_sales ?? 0)
+      (current.total_sales ?? 0)
     ) {
       acc[product.category] =
         product;
@@ -133,7 +113,7 @@ export function getBestSellingByCategory():
     return acc;
   }, {});
 }
- 
+
 
 export function getCategories(): string[] {
   return Array.from(
@@ -171,7 +151,7 @@ export function getCategoryCounts():
 
   return counts;
 }
- 
+
 
 export function getReadyProducts():
   ReadyProduct[] {
@@ -209,7 +189,7 @@ export function getReadyProducts():
         product !== null,
     );
 }
-  
+
 
 export function getProductsFromCategory(
   category: string,

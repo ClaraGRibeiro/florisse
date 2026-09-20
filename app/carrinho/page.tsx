@@ -98,8 +98,8 @@ export default function Carrinho() {
           item.type === "custom-order"
             ? "Sob consulta"
             : `R$ ${(item.price * item.quantity)
-                .toFixed(2)
-                .replace(".", ",")}`;
+              .toFixed(2)
+              .replace(".", ",")}`;
 
         return `🧶 ${item.name}
 • Tamanho: ${item.size}${customSize}
@@ -118,19 +118,19 @@ Gostaria de fazer um pedido na Florisse:
 ${items}
 
 ──────────────
-${
-      hasCustomOrders
+${hasCustomOrders
         ? `Subtotal dos itens com preço definido: ${totalText}
 
 Alguns itens são personalizados e estão com valor sob consulta. O valor final será confirmado pela Florisse.`
         : `Total: ${totalText}`
-    }
+      }
 
 Gostaria de confirmar a disponibilidade e combinar a entrega. 😊`;
 
     window.open(
-      WHATSAPP+`?text=${encodeURIComponent(text)}`,
+      WHATSAPP + `?text=${encodeURIComponent(text)}`,
       "_blank",
+      "noopener,noreferrer",
     );
   }
 

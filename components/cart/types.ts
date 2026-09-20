@@ -1,7 +1,7 @@
 import type { Product } from "@/types/product";
 import { useCart } from "@/hooks/useCart";
 
-type CartItem = ReturnType<typeof useCart>["cart"][number];
+export type CartItem = ReturnType<typeof useCart>["cart"][number];
 
 export type CartItemEditorValues = {
   type: CartItem["type"];

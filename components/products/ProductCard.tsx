@@ -80,7 +80,6 @@ Valor: R$ ${readyPrice?.toFixed(2).replace(".", ",")}`,
         <ProductImage
           product={product}
           selectedColor={selectedColor}
-          formatPath={formatPath}
           formatColor={formatColor}
         />
 

@@ -1,24 +1,22 @@
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 
+import { getProductImage } from "@/lib/images";
 import { Product } from "@/types/product";
 
 type ProductImageProps = {
   product: Product;
   selectedColor: Product["colors"][number];
-  formatPath: (name: string) => string;
   formatColor: (name: string) => string;
 };
 
 export default function ProductImage({
   product,
   selectedColor,
-  formatPath,
   formatColor,
 }: ProductImageProps) {
-  const imagePath = `/products/${formatPath(
-    product.category,
-  )}/${formatPath(product.name)}/${selectedColor.name}.webp`;
+  const imagePath = getProductImage(product, selectedColor.name)[0];
+
 
   return (
     <div className="relative aspect-9/12 w-full overflow-hidden bg-muted">
