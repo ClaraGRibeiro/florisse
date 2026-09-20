@@ -167,6 +167,22 @@ function parseStoredCart(
   }
 }
 
+function areSameCartConfiguration(
+  first: CartItem,
+  second: CartItem,
+): boolean {
+  return (
+    first.name === second.name &&
+    first.type === second.type &&
+    first.color === second.color &&
+    first.size === second.size &&
+    first.customLength === second.customLength &&
+    first.customWidth === second.customWidth &&
+    first.price === second.price &&
+    first.no_discount === second.no_discount
+  );
+}
+
 export function CartProvider({
   children,
 }: {
@@ -233,14 +249,10 @@ export function CartProvider({
     setCart((currentCart) => {
       const existingItem = currentCart.find(
         (currentItem) =>
-          currentItem.name === item.name &&
-          currentItem.type === item.type &&
-          currentItem.color === item.color &&
-          currentItem.size === item.size &&
-          currentItem.customLength === item.customLength &&
-          currentItem.customWidth === item.customWidth &&
-          currentItem.price === item.price &&
-          currentItem.no_discount === item.no_discount,
+          areSameCartConfiguration(
+            currentItem,
+            item,
+          ),
       );
 
       if (!existingItem) {
@@ -252,7 +264,8 @@ export function CartProvider({
           ? {
             ...currentItem,
             quantity:
-              currentItem.quantity + item.quantity,
+              currentItem.quantity +
+              item.quantity,
           }
           : currentItem,
       );
@@ -266,6 +279,7 @@ export function CartProvider({
       ),
     );
   }
+
   function updateQuantity(
     id: string,
     quantity: number,
@@ -289,12 +303,54 @@ export function CartProvider({
     );
   }
 
-  function updateItem(id: string, updates: Partial<CartItem>) {
-    setCart((currentCart) =>
-      currentCart.map((item) =>
-        item.id === id ? { ...item, ...updates } : item,
-      ),
-    );
+  function updateItem(
+    id: string,
+    updates: Partial<CartItem>,
+  ) {
+    setCart((currentCart) => {
+      const currentItem = currentCart.find(
+        (item) => item.id === id,
+      );
+
+      if (!currentItem) {
+        return currentCart;
+      }
+
+      const updatedItem: CartItem = {
+        ...currentItem,
+        ...updates,
+      };
+
+      const existingItem = currentCart.find(
+        (item) =>
+          item.id !== id &&
+          areSameCartConfiguration(
+            item,
+            updatedItem,
+          ),
+      );
+
+      if (!existingItem) {
+        return currentCart.map((item) =>
+          item.id === id
+            ? updatedItem
+            : item,
+        );
+      }
+
+      return currentCart
+        .filter((item) => item.id !== id)
+        .map((item) =>
+          item.id === existingItem.id
+            ? {
+              ...item,
+              quantity:
+                item.quantity +
+                updatedItem.quantity,
+            }
+            : item,
+        );
+    });
   }
 
   function clearCart() {
