@@ -1,10 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import {
-  useEffect,
-  useState,
-} from "react";
+import { useState } from "react";
 import {
   FaChevronLeft,
   FaChevronRight,
@@ -20,18 +17,16 @@ export default function RaffleGallery({
   productName,
   images,
 }: RaffleGalleryProps) {
-  const [selectedImage, setSelectedImage] =
-    useState(0);
+  const [selectedImage, setSelectedImage] = useState(0);
+  const [loadedImages, setLoadedImages] = useState<
+    Record<string, boolean>
+  >({});
 
-  const [isLoading, setIsLoading] =
-    useState(true);
+  const hasMultipleImages = images.length > 1;
+  const imageSrc = images[selectedImage];
 
-  const hasMultipleImages =
-    images.length > 1;
-
-  useEffect(() => {
-    setIsLoading(true);
-  }, [selectedImage]);
+  const isCurrentImageLoaded =
+    imageSrc ? loadedImages[imageSrc] : false;
 
   const goToPrevious = () => {
     setSelectedImage((current) =>
@@ -49,8 +44,14 @@ export default function RaffleGallery({
     );
   };
 
-  const imageSrc =
-    images[selectedImage];
+  const handleImageLoad = () => {
+    if (!imageSrc) return;
+
+    setLoadedImages((current) => ({
+      ...current,
+      [imageSrc]: true,
+    }));
+  };
 
   return (
     <div className="relative mx-auto w-full max-w-120">
@@ -58,9 +59,10 @@ export default function RaffleGallery({
       <div className="relative aspect-9/12 w-full overflow-hidden rounded-4xl border border-border/20 bg-muted/20 shadow-sm">
         {imageSrc ? (
           <>
-            {isLoading && (
+            {/* LOADING SOMENTE ENQUANTO A IMAGEM ATUAL NÃO FOI CARREGADA */}
+            {!isCurrentImageLoaded && (
               <div
-                className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center"
+                className="absolute inset-0 z-0 flex items-center justify-center bg-muted/20"
                 aria-label="Carregando imagem"
               >
                 <span className="h-8 w-8 animate-spin rounded-full border-2 border-border border-t-primary" />
@@ -76,12 +78,8 @@ export default function RaffleGallery({
               fill
               priority={selectedImage === 0}
               sizes="(max-width: 768px) 100vw, 50vw"
-              onLoad={() =>
-                setIsLoading(false)
-              }
-              onError={() =>
-                setIsLoading(false)
-              }
+              onLoad={handleImageLoad}
+              onError={handleImageLoad}
               className="object-cover"
             />
           </>
@@ -96,7 +94,7 @@ export default function RaffleGallery({
         )}
 
         {/* BADGE */}
-        <div className="absolute left-4 top-4 flex items-center gap-2 rounded-full bg-background/90 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-primary shadow-sm backdrop-blur-md">
+        <div className="absolute left-4 top-4 z-20 flex items-center gap-2 rounded-full bg-background/90 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-primary shadow-sm backdrop-blur-md">
           <FaClover
             size={10}
             aria-hidden="true"
@@ -108,19 +106,16 @@ export default function RaffleGallery({
         {hasMultipleImages && (
           <>
             {/* CONTADOR */}
-            <div className="absolute bottom-4 right-4 rounded-full bg-background/90 px-3 py-1.5 text-xs font-medium text-muted shadow-sm backdrop-blur-md">
-              {selectedImage + 1} /{" "}
-              {images.length}
+            <div className="absolute bottom-4 right-4 z-20 rounded-full bg-background/90 px-3 py-1.5 text-xs font-medium text-muted shadow-sm backdrop-blur-md">
+              {selectedImage + 1} / {images.length}
             </div>
 
             {/* ANTERIOR */}
             <button
               type="button"
-              onClick={
-                goToPrevious
-              }
+              onClick={goToPrevious}
               aria-label="Imagem anterior"
-              className="absolute left-4 top-1/2 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-border/70 bg-background/90 text-foreground shadow-md backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-background focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+              className="absolute left-4 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-border/70 bg-background/90 text-foreground shadow-md backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-background focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             >
               <FaChevronLeft
                 aria-hidden="true"
@@ -133,7 +128,7 @@ export default function RaffleGallery({
               type="button"
               onClick={goToNext}
               aria-label="Próxima imagem"
-              className="absolute right-4 top-1/2 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-border/70 bg-background/90 text-foreground shadow-md backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-background focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+              className="absolute right-4 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-border/70 bg-background/90 text-foreground shadow-md backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-background focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             >
               <FaChevronRight
                 aria-hidden="true"
@@ -150,34 +145,24 @@ export default function RaffleGallery({
           className="mt-5 flex items-center justify-center gap-2"
           aria-label="Selecionar imagem"
         >
-          {images.map(
-            (image, index) => (
-              <button
-                key={image}
-                type="button"
-                onClick={() =>
-                  setSelectedImage(
-                    index,
-                  )
-                }
-                aria-label={`Ver imagem ${
-                  index + 1
-                }`}
-                aria-current={
-                  selectedImage ===
-                  index
-                    ? "true"
-                    : undefined
-                }
-                className={`cursor-pointer rounded-full transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
-                  selectedImage ===
-                  index
-                    ? "h-2 w-7 bg-primary"
-                    : "h-2 w-2 bg-border hover:bg-primary/50"
-                }`}
-              />
-            ),
-          )}
+          {images.map((image, index) => (
+            <button
+              key={image}
+              type="button"
+              onClick={() => setSelectedImage(index)}
+              aria-label={`Ver imagem ${index + 1}`}
+              aria-current={
+                selectedImage === index
+                  ? "true"
+                  : undefined
+              }
+              className={`cursor-pointer rounded-full transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
+                selectedImage === index
+                  ? "h-2 w-7 bg-primary"
+                  : "h-2 w-2 bg-border hover:bg-primary/50"
+              }`}
+            />
+          ))}
         </div>
       )}
     </div>

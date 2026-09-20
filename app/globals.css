@@ -73,3 +73,23 @@ html {
   font-family: "Fraunces", serif;
   font-optical-sizing: auto;
 }
+@keyframes winner-confetti {
+  0% {
+    transform: translate3d(0, -20px, 0) rotate(0deg);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate3d(
+      calc((var(--random-x, 0) - 50) * 1px),
+      420px,
+      0
+    )
+    rotate(720deg);
+    opacity: 0;
+  }
+}

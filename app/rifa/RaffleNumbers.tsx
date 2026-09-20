@@ -6,6 +6,7 @@ import {
   useCallback,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from "react";
 
@@ -20,6 +21,20 @@ type RaffleNumber = {
   SORTEADO?: string;
 };
 
+const CONFETTI = Array.from(
+  { length: 42 },
+  (_, index) => ({
+    id: index,
+    left: `${(index * 47) % 100}%`,
+    delay: `${(index % 10) * 0.08}s`,
+    duration: `${2.5 + (index % 6) * 0.15}s`,
+    rotation: `${(index * 37) % 360}deg`,
+    width: `${5 + (index % 3) * 2}px`,
+    height: `${8 + (index % 4) * 3}px`,
+    drift: `${-80 + ((index * 53) % 160)}px`,
+  }),
+);
+
 export default function RaffleNumbers({
   rafflePrice,
 }: RaffleNumbersProps) {
@@ -32,6 +47,12 @@ export default function RaffleNumbers({
   const [winner, setWinner] = useState<string>("");
   const [winNumber, setWinNumber] = useState<string>("");
   const [loading, setLoading] = useState(false);
+
+  const winnerRef =
+    useRef<HTMLDivElement>(null);
+
+  const [celebrationStarted, setCelebrationStarted] =
+    useState(false);
 
   const loadSheet = useCallback(async () => {
     try {
@@ -131,6 +152,44 @@ export default function RaffleNumbers({
   const raffleHasWinner =
     winner !== "" && winNumber !== "";
 
+  /*
+   * Inicia a comemoração somente quando
+   * o card do vencedor entra na tela.
+   */
+  useEffect(() => {
+    if (
+      !raffleHasWinner ||
+      !winnerRef.current
+    ) {
+      return;
+    }
+
+    const element = winnerRef.current;
+
+    const observer =
+      new IntersectionObserver(
+        ([entry]) => {
+          if (
+            entry.isIntersecting &&
+            !celebrationStarted
+          ) {
+            setCelebrationStarted(true);
+            observer.disconnect();
+          }
+        },
+        {
+          threshold: 0.35,
+        },
+      );
+
+    observer.observe(element);
+
+    return () => observer.disconnect();
+  }, [
+    raffleHasWinner,
+    celebrationStarted,
+  ]);
+
   const finishOrder = () => {
     if (selectedNumbers.length === 0) {
       return;
@@ -171,40 +230,101 @@ Total: R$ ${total.toFixed(2)}`,
 
   if (allNumbersFilled) {
     return (
-      <div className="rounded-4xl border border-border/70 bg-background px-5 py-14 text-center sm:px-8">
-        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-2xl text-primary">
-          {raffleHasWinner ? "✓" : "◷"}
-        </div>
+      <div
+        ref={winnerRef}
+        className="relative overflow-hidden rounded-4xl border border-border/70 bg-background px-5 py-14 text-center sm:px-8"
+      >
+        {/* CONFETES */}
+        {raffleHasWinner &&
+          celebrationStarted && (
+            <div
+              className="pointer-events-none absolute inset-0 z-10 overflow-hidden"
+              aria-hidden="true"
+            >
+              {CONFETTI.map((confetti) => (
+                <span
+                  key={confetti.id}
+                  className="absolute -top-5 block animate-[winner-confetti_2.8s_ease-out_forwards]"
+                  style={
+                    {
+                      left: confetti.left,
+                      width: confetti.width,
+                      height: confetti.height,
+                      animationDelay:
+                        confetti.delay,
+                      "--drift":
+                        confetti.drift,
+                      "--rotation":
+                        confetti.rotation,
+                    } as React.CSSProperties
+                  }
+                >
+                  <span
+                    className={`block h-full w-full rounded-[2px] ${
+                      confetti.id % 4 === 0
+                        ? "bg-primary"
+                        : confetti.id % 4 === 1
+                          ? "bg-foreground/70"
+                          : confetti.id % 4 === 2
+                            ? "bg-primary/50"
+                            : "bg-border"
+                    }`}
+                  />
+                </span>
+              ))}
+            </div>
+          )}
 
-        <p className="mt-6 text-[10px] font-semibold uppercase tracking-[0.2em] text-primary">
-          {raffleHasWinner
-            ? "Resultado da rifa"
-            : "Todos os números preenchidos"}
-        </p>
-
-        <h3 className="mt-2 font-serif text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-          {raffleHasWinner
-            ? `O número ${winNumber} venceu.`
-            : "Agora é só aguardar o sorteio."}
-        </h3>
-
-        <p className="mx-auto mt-4 max-w-lg text-sm leading-7 text-muted">
-          {raffleHasWinner
-            ? "O vencedor foi definido pelos 2 últimos números do 1º prêmio da Loteria Federal."
-            : "O sorteio será realizado utilizando o resultado oficial da Loteria Federal da próxima quarta-feira ou sábado."}
-        </p>
-
-        {raffleHasWinner && (
-          <div className="mt-6 inline-flex items-center gap-3 rounded-2xl border border-primary/15 bg-primary/5 px-5 py-4">
-            <span className="text-xs text-muted">
-              Pessoa sorteada
-            </span>
-
-            <span className="font-serif text-xl font-semibold tracking-wider text-primary">
-              XXXX-{winner}
-            </span>
+        {/* CONTEÚDO */}
+        <div
+          className={`relative z-20 ${
+            raffleHasWinner &&
+            celebrationStarted
+              ? "animate-[winner-content_0.7s_ease-out]"
+              : ""
+          }`}
+        >
+          <div
+            className={`mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-2xl text-primary ${
+              raffleHasWinner &&
+              celebrationStarted
+                ? "animate-[winner-badge_0.8s_ease-out]"
+                : ""
+            }`}
+          >
+            {raffleHasWinner ? "🎉" : "◷"}
           </div>
-        )}
+
+          <p className="mt-6 text-[10px] font-semibold uppercase tracking-[0.2em] text-primary">
+            {raffleHasWinner
+              ? "Resultado da rifa"
+              : "Todos os números preenchidos"}
+          </p>
+
+          <h3 className="mt-2 font-serif text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+            {raffleHasWinner
+              ? `O número ${winNumber} venceu.`
+              : "Agora é só aguardar o sorteio."}
+          </h3>
+
+          <p className="mx-auto mt-4 max-w-lg text-sm leading-7 text-muted">
+            {raffleHasWinner
+              ? "O vencedor foi definido pelos 2 últimos números do 1º prêmio da Loteria Federal."
+              : "O sorteio será realizado utilizando o resultado oficial da Loteria Federal da próxima quarta-feira ou sábado."}
+          </p>
+
+          {raffleHasWinner && (
+            <div className="mt-6 inline-flex items-center gap-3 rounded-2xl border border-primary/15 bg-primary/5 px-5 py-4">
+              <span className="text-xs text-muted">
+                Pessoa sorteada
+              </span>
+
+              <span className="font-serif text-xl font-semibold tracking-wider text-primary">
+                XXXX-{winner}
+              </span>
+            </div>
+          )}
+        </div>
       </div>
     );
   }

@@ -40,7 +40,7 @@ const raffleItem = {
   ],
 
   frete: {
-    peso: 1.1,
+    peso: 21.1,
     largura: 37,
     comprimento: 37,
     altura: 30,
