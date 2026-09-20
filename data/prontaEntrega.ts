@@ -9,7 +9,7 @@ export type ProntaEntrega = {
 const prontaEntrega: ProntaEntrega[] = [
   {
     productId: "tapete-sara",
-    color: "militar",
+    color: "verde militar",
     size: "65 × 45 cm",
     price: 30,
     quantity: 1,
@@ -30,8 +30,15 @@ const prontaEntrega: ProntaEntrega[] = [
   },
   {
     productId: "tapete-janine",
-    color: "limao-cru",
+    color: "verde limao-cru",
     size: "70 × 50 cm",
+    price: 50,
+    quantity: 1,
+  },
+  {
+    productId: "tapete-aline",
+    color: "telha-bege",
+    size: "76 × 53 cm",
     price: 50,
     quantity: 1,
   },
@@ -58,7 +65,7 @@ const prontaEntrega: ProntaEntrega[] = [
   },
   {
     productId: "trilho-losango",
-    color: "militar-cru-telha",
+    color: "verde militar-cru-telha",
     size: "120 × 35 cm",
     price: 80,
     quantity: 1,
