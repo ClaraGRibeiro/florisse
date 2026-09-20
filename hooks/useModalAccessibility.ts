@@ -25,6 +25,10 @@ export function useModalAccessibility({
   useEffect(() => {
     if (!isOpen) return;
 
+    // Bloqueia o scroll da página enquanto o modal está aberto
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
     previousFocusRef.current =
       document.activeElement instanceof HTMLElement
         ? document.activeElement
@@ -32,7 +36,11 @@ export function useModalAccessibility({
 
     const dialog = dialogRef.current;
 
-    if (!dialog) return;
+    if (!dialog) {
+      return () => {
+        document.body.style.overflow = previousOverflow;
+      };
+    }
 
     const focusableSelector = [
       "a[href]",
@@ -115,6 +123,8 @@ export function useModalAccessibility({
         "keydown",
         handleKeyDown,
       );
+
+      document.body.style.overflow = previousOverflow;
 
       requestAnimationFrame(() => {
         previousFocusRef.current?.focus();

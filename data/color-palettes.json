@@ -24,23 +24,23 @@
   {
     "category": "Tons de Verde",
     "colors": [
-      "agua escuro",
+      "verde agua escuro",
       "alecrim",
       "esmeralda",
-      "musgo",
-      "bandeira",
-      "militar"
+      "verde musgo",
+      "verde bandeira",
+      "verde militar"
     ]
   },
   {
     "category": "Tons de Azul",
     "colors": [
       "azul bebe",
-      "agua claro",
-      "piscina",
+      "verde agua claro",
+      "azul piscina",
       "jeans",
-      "royal",
-      "marinho"
+      "azul royal",
+      "azul marinho"
     ]
   },
   {
@@ -60,8 +60,8 @@
       "vermelho",
       "laranja",
       "ouro",
-      "bandeira",
-      "piscina",
+      "verde bandeira",
+      "azul piscina",
       "roxo"
     ]
   },
@@ -79,12 +79,12 @@
   {
     "category": "Verão",
     "colors": [
-      "piscina",
+      "azul piscina",
       "laranja",
       "pink",
       "ouro",
-      "royal",
-      "limao"
+      "azul royal",
+      "verde limao"
     ]
   },
   {
@@ -93,7 +93,7 @@
       "telha",
       "mostarda",
       "marrom",
-      "militar",
+      "verde militar",
       "ouro",
       "bordo"
     ]
@@ -101,10 +101,10 @@
   {
     "category": "Inverno",
     "colors": [
-      "marinho",
+      "azul marinho",
       "bordo",
       "chumbo",
-      "petroleo",
+      "azul petroleo",
       "roxo",
       "cinza"
     ]
@@ -115,7 +115,7 @@
       "amarelo bebe",
       "rosa bebe",
       "lilas claro",
-      "agua claro",
+      "verde agua claro",
       "branco",
       "cru"
     ]
@@ -127,7 +127,7 @@
       "azul bebe",
       "branco",
       "rosa",
-      "piscina",
+      "azul piscina",
       "cru"
     ]
   },
@@ -157,9 +157,9 @@
     "category": "Carnaval",
     "colors": [
       "pink",
-      "royal",
+      "azul royal",
       "laranja",
-      "limao",
+      "verde limao",
       "roxo",
       "amarelo bebe"
     ]
@@ -170,7 +170,7 @@
       "vermelho",
       "mostarda",
       "telha",
-      "bandeira",
+      "verde bandeira",
       "marrom",
       "cru"
     ]
@@ -189,7 +189,7 @@
   {
     "category": "Dia dos Pais",
     "colors": [
-      "marinho",
+      "azul marinho",
       "jeans",
       "cinza",
       "chumbo",
@@ -201,11 +201,11 @@
     "category": "Natal",
     "colors": [
       "vermelho",
-      "bandeira",
+      "verde bandeira",
       "ouro",
       "bordo",
-      "militar",
-      "marinho"
+      "verde militar",
+      "azul marinho"
     ]
   },
   {

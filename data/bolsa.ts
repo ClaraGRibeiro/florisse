@@ -9,10 +9,10 @@ const bolsa = [
                 sales: 1,
             },
         ],
-        colors: ["militar"],
+        colors: ["verde militar"],
         images: {
-            militar: [
-                "/products/bolsas/bolsa-redinha/militar.webp",
+            "verde militar": [
+                "/products/bolsas/bolsa-redinha/verde militar.webp",
             ],
         },
     },

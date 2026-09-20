@@ -92,13 +92,13 @@ const mesaposta = [
             },
         ],
 
-        colors: ["militar-cru-telha"],
+        colors: ["verde militar-cru-telha"],
 
         images: {
-            "militar-cru-telha": [
-                "/products/mesa-posta/trilho-losango/militar-cru-telha.webp",
-                "/products/mesa-posta/trilho-losango/militar-cru-telha-2.webp",
-                "/products/mesa-posta/trilho-losango/militar-cru-telha-3.webp",
+            "verde militar-cru-telha": [
+                "/products/mesa-posta/trilho-losango/verde militar-cru-telha.webp",
+                "/products/mesa-posta/trilho-losango/verde militar-cru-telha-2.webp",
+                "/products/mesa-posta/trilho-losango/verde militar-cru-telha-3.webp",
             ],
         },
     },

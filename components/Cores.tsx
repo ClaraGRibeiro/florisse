@@ -1,14 +1,14 @@
 "use client";
 
-import colorsData from "@/data/colors.json";
-import colorsCombinationData from "@/data/colors-combination.json";
 import colorPaletaData from "@/data/color-palettes.json";
+import colorsCombinationData from "@/data/colors-combination.json";
+import colorsData from "@/data/colors.json";
 import productsData from "@/data/products";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { FaArrowRight, FaPalette } from "react-icons/fa";
+import { FaPalette } from "react-icons/fa";
 
 import { useModalAccessibility } from "@/hooks/useModalAccessibility";
 import { formatPath } from "@/utils/format";
@@ -41,7 +41,7 @@ export default function Cores({
 
   const [selectedColorName, setSelectedColorName] =
     useState<string | null>(null);
-
+    
   const colorsByPalette =
     colorPaletaData as Palette[];
 
@@ -228,8 +228,8 @@ export default function Cores({
               >
                 <div
                   className={`relative h-14 w-14 overflow-hidden rounded-full shadow-sm transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg sm:h-16 sm:w-16 ${isLight
-                      ? "border border-border"
-                      : ""
+                    ? "border border-border"
+                    : ""
                     }`}
                   style={{
                     backgroundColor:
@@ -402,10 +402,10 @@ export default function Cores({
                             }
                           </h3>
 
-                          <FaArrowRight
+                          <FaPalette
                             size={13}
                             aria-hidden="true"
-                            className="text-muted transition-transform duration-300 group-hover:translate-x-1 group-hover:text-primary"
+                            className="text-muted group-hover:text-primary"
                           />
                         </div>
 
@@ -735,116 +735,116 @@ export default function Cores({
 
                         {productsWithColor.length >
                           0 && (
-                          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-                            {productsWithColor.map(
-                              (
-                                item,
-                                index,
-                              ) => {
-                                const {
-                                  product,
-                                  color,
-                                } = item;
-
-                                const image =
-                                  getProductImage(
+                            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+                              {productsWithColor.map(
+                                (
+                                  item,
+                                  index,
+                                ) => {
+                                  const {
                                     product,
                                     color,
-                                  );
+                                  } = item;
 
-                                const price =
-                                  getProductPrice(
-                                    product,
-                                  );
+                                  const image =
+                                    getProductImage(
+                                      product,
+                                      color,
+                                    );
 
-                                return (
-                                  <motion.div
-                                    key={`${product.name}-${color}`}
-                                    initial={{
-                                      opacity: 0,
-                                      y: 12,
-                                    }}
-                                    animate={{
-                                      opacity: 1,
-                                      y: 0,
-                                    }}
-                                    transition={{
-                                      duration: 0.3,
-                                      delay:
-                                        index *
-                                        0.05,
-                                    }}
-                                  >
-                                    <Link
-                                      href={`/produto/${formatPath(
-                                        product.name,
-                                      )}`}
-                                      onClick={() =>
-                                        setSelectedColorName(
-                                          null,
-                                        )
-                                      }
-                                      className="group block overflow-hidden rounded-2xl border border-border bg-background transition-all duration-300 hover:-translate-y-1 hover:border-primary/20 hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                                  const price =
+                                    getProductPrice(
+                                      product,
+                                    );
+
+                                  return (
+                                    <motion.div
+                                      key={`${product.name}-${color}`}
+                                      initial={{
+                                        opacity: 0,
+                                        y: 12,
+                                      }}
+                                      animate={{
+                                        opacity: 1,
+                                        y: 0,
+                                      }}
+                                      transition={{
+                                        duration: 0.3,
+                                        delay:
+                                          index *
+                                          0.05,
+                                      }}
                                     >
-                                      <div className="relative aspect-square overflow-hidden bg-muted/10">
-                                        <Image
-                                          src={
-                                            image
-                                          }
-                                          alt={
-                                            product.name
-                                          }
-                                          fill
-                                          sizes="(max-width: 640px) 45vw, 30vw"
-                                          className="object-cover transition-transform duration-500 group-hover:scale-105"
-                                        />
+                                      <Link
+                                        href={`/produto/${formatPath(
+                                          product.name,
+                                        )}`}
+                                        onClick={() =>
+                                          setSelectedColorName(
+                                            null,
+                                          )
+                                        }
+                                        className="group block overflow-hidden rounded-2xl border border-border bg-background transition-all duration-300 hover:-translate-y-1 hover:border-primary/20 hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                                      >
+                                        <div className="relative aspect-square overflow-hidden bg-muted/10">
+                                          <Image
+                                            src={
+                                              image
+                                            }
+                                            alt={
+                                              product.name
+                                            }
+                                            fill
+                                            sizes="(max-width: 640px) 45vw, 30vw"
+                                            className="object-cover transition-transform duration-500 group-hover:scale-105"
+                                          />
 
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                                          <div className="absolute inset-0 bg-linear-to-t from-black/35 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
-                                        <span className="absolute bottom-2 left-2 rounded-full bg-card/90 px-2.5 py-1 text-[9px] font-semibold uppercase tracking-wide text-foreground opacity-0 shadow-sm backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100">
-                                          Ver peça
-                                        </span>
-                                      </div>
+                                          <span className="absolute bottom-2 left-2 rounded-full bg-card/90 px-2.5 py-1 text-[9px] font-semibold uppercase tracking-wide text-foreground opacity-0 shadow-sm backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100">
+                                            Ver peça
+                                          </span>
+                                        </div>
 
-                                      <div className="p-3">
-                                        <h4 className="truncate font-serif text-sm font-semibold text-foreground sm:text-base">
-                                          {
-                                            product.name
-                                          }
-                                        </h4>
+                                        <div className="p-3">
+                                          <h4 className="truncate font-serif text-sm font-semibold text-foreground sm:text-base">
+                                            {
+                                              product.name
+                                            }
+                                          </h4>
 
-                                        <p className="mt-1 truncate text-[10px] text-muted sm:text-xs">
-                                          {color
-                                            .split(
-                                              "-",
-                                            )
-                                            .map(
-                                              formatColor,
-                                            )
-                                            .join(
-                                              " · ",
-                                            )}
-                                        </p>
-
-                                        {price && (
-                                          <p className="mt-1 text-xs text-muted sm:text-sm">
-                                            A partir{" "}
-                                            de{" "}
-                                            <span className="font-semibold text-foreground">
-                                              {
-                                                price
-                                              }
-                                            </span>
+                                          <p className="mt-1 truncate text-[10px] text-muted sm:text-xs">
+                                            {color
+                                              .split(
+                                                "-",
+                                              )
+                                              .map(
+                                                formatColor,
+                                              )
+                                              .join(
+                                                " · ",
+                                              )}
                                           </p>
-                                        )}
-                                      </div>
-                                    </Link>
-                                  </motion.div>
-                                );
-                              },
-                            )}
-                          </div>
-                        )}
+
+                                          {price && (
+                                            <p className="mt-1 text-xs text-muted sm:text-sm">
+                                              A partir{" "}
+                                              de{" "}
+                                              <span className="font-semibold text-foreground">
+                                                {
+                                                  price
+                                                }
+                                              </span>
+                                            </p>
+                                          )}
+                                        </div>
+                                      </Link>
+                                    </motion.div>
+                                  );
+                                },
+                              )}
+                            </div>
+                          )}
                       </div>
                     )}
                 </div>

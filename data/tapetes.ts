@@ -33,12 +33,12 @@ const tapetes = [
       },
     ],
 
-    colors: ["militar"],
+    colors: ["verde militar"],
 
     images: {
-      militar: [
-        "/products/tapetes/tapete-sara/militar.webp",
-        "/products/tapetes/tapete-sara/militar-2.webp",
+      "verde militar": [
+        "/products/tapetes/tapete-sara/verde militar.webp",
+        "/products/tapetes/tapete-sara/verde militar-2.webp",
       ],
     },
   },
@@ -202,17 +202,17 @@ const tapetes = [
     ],
 
     colors: [
-      "alecrim-militar",
+      "alecrim-verde militar",
       "cru-marrom-bege",
-      "limao-cru",
-      "cru-militar-alecrim",
+      "verde limao-cru",
+      "cru-verde militar-alecrim",
       "bege-alecrim-cru",
     ],
 
     images: {
-      "alecrim-militar": [
-        "/products/tapetes/tapete-janine/alecrim-militar.webp",
-        "/products/tapetes/tapete-janine/alecrim-militar-2.webp",
+      "alecrim-verde militar": [
+        "/products/tapetes/tapete-janine/alecrim-verde militar.webp",
+        "/products/tapetes/tapete-janine/alecrim-verde militar-2.webp",
       ],
 
       "cru-marrom-bege": [
@@ -221,14 +221,14 @@ const tapetes = [
         "/products/tapetes/tapete-janine/cru-marrom-bege-3.webp",
       ],
 
-      "limao-cru": [
-        "/products/tapetes/tapete-janine/limao-cru.webp",
-        "/products/tapetes/tapete-janine/limao-cru-2.webp",
+      "verde limao-cru": [
+        "/products/tapetes/tapete-janine/verde limao-cru.webp",
+        "/products/tapetes/tapete-janine/verde limao-cru-2.webp",
       ],
 
-      "cru-militar-alecrim": [
-        "/products/tapetes/tapete-janine/cru-militar-alecrim.webp",
-        "/products/tapetes/tapete-janine/cru-militar-alecrim-2.webp",
+      "cru-verde militar-alecrim": [
+        "/products/tapetes/tapete-janine/cru-verde militar-alecrim.webp",
+        "/products/tapetes/tapete-janine/cru-verde militar-alecrim-2.webp",
       ],
 
       "bege-alecrim-cru": [
@@ -312,11 +312,11 @@ const tapetes = [
       },
     ],
 
-    colors: ["telha-limao-vermelho-preto"],
+    colors: ["telha-verde limao-vermelho-preto"],
 
     images: {
-      "telha-limao-vermelho-preto": [
-        "/products/tapetes/tapete-gisele/telha-limao-vermelho-preto.webp",
+      "telha-verde limao-vermelho-preto": [
+        "/products/tapetes/tapete-gisele/telha-verde limao-vermelho-preto.webp",
       ],
     },
   },
@@ -395,12 +395,12 @@ const tapetes = [
       },
     ],
 
-    colors: ["bordo-militar"],
+    colors: ["bordo-verde militar"],
 
     images: {
-      "bordo-militar": [
-        "/products/tapetes/tapete-harmonia/bordo-militar.webp",
-        "/products/tapetes/tapete-harmonia/bordo-militar-2.webp",
+      "bordo-verde militar": [
+        "/products/tapetes/tapete-harmonia/bordo-verde militar.webp",
+        "/products/tapetes/tapete-harmonia/bordo-verde militar-2.webp",
       ],
     },
   },
@@ -463,12 +463,12 @@ const tapetes = [
       },
     ],
 
-    colors: ["alecrim-militar"],
+    colors: ["alecrim-verde militar"],
 
     images: {
-      "alecrim-militar": [
-        "/products/tapetes/tapete-maravilha/alecrim-militar.webp",
-        "/products/tapetes/tapete-maravilha/alecrim-militar-2.webp",
+      "alecrim-verde militar": [
+        "/products/tapetes/tapete-maravilha/alecrim-verde militar.webp",
+        "/products/tapetes/tapete-maravilha/alecrim-verde militar-2.webp",
       ],
     },
   },
