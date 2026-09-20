@@ -32,7 +32,7 @@ export async function generateMetadata({
   const title = product.name;
 
   const description =
-    `${product.name}, uma peça artesanal feita à mão pela ` + BRAND + `. ` +
+    `Uma peça artesanal feita à mão pela ` + BRAND + `. ` +
     `Personalize cores e tamanhos para deixar seu cantinho ainda mais especial.`;
 
   const url = `${SITE}/produto/${slug}`;
