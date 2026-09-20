@@ -1,6 +1,11 @@
 "use client";
 
-import { BRAND, INSTAGRAM, SLOGAN } from "@/data/config";
+import {
+  BRAND,
+  INSTAGRAM,
+  RAFFLE,
+  SLOGAN,
+} from "@/data/config";
 import { useCart } from "@/hooks/useCart";
 import { useModalAccessibility } from "@/hooks/useModalAccessibility";
 import Image from "next/image";
@@ -12,6 +17,7 @@ import {
   FaInstagram,
   FaTimes,
 } from "react-icons/fa";
+import { FaClover } from "react-icons/fa6";
 
 const navItems = [
   { label: "Início", href: "/#inicio" },
@@ -20,6 +26,7 @@ const navItems = [
   { label: "Cuidados", href: "/#cuidados" },
   { label: "Sobre", href: "/#sobre" },
 ];
+
 export default function Header() {
   const { totalItems } = useCart();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -27,6 +34,7 @@ export default function Header() {
   const closeMenu = () => {
     setMenuOpen(false);
   };
+
   const { dialogRef: mobileMenuRef } =
     useModalAccessibility({
       isOpen: menuOpen,
@@ -62,23 +70,40 @@ export default function Header() {
             </div>
           </Link>
 
+          {/* Desktop */}
           <nav className="hidden items-center gap-4 lg:flex">
             {navItems.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
                 className="relative text-sm font-medium text-foreground-soft transition-colors hover:text-primary after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all hover:after:w-full"
-
               >
                 {item.label}
               </a>
             ))}
 
+            {RAFFLE && (
+              <Link
+                href="/rifa"
+                className="flex cursor-pointer items-center gap-2 rounded-full border border-secondary/20 bg-secondary/10 px-4 py-2.5 text-sm font-semibold text-secondary shadow-sm transition-all hover:scale-[1.03] hover:bg-secondary/15"
+              >
+                <FaClover
+                  size={14}
+                  aria-hidden="true"
+                />
+
+                <span>Rifa</span>
+              </Link>
+            )}
+
             <Link
               href="/carrinho"
               className="flex cursor-pointer items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground shadow-md transition-all hover:scale-[1.03] hover:bg-primary-hover"
             >
-              <FaCartPlus size={16} />
+              <FaCartPlus
+                size={16}
+                aria-hidden="true"
+              />
 
               <span>Carrinho</span>
 
@@ -94,18 +119,29 @@ export default function Header() {
               aria-label="Instagram da Florisse Crochê"
               className="flex cursor-pointer items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-medium text-primary shadow-md transition-all hover:scale-[1.03] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             >
-              <FaInstagram size={16} />
+              <FaInstagram
+                size={16}
+                aria-hidden="true"
+              />
+
               <span>Instagram</span>
             </a>
           </nav>
 
+          {/* Mobile */}
           <div className="flex items-center gap-2 lg:hidden">
-            <Link href="/carrinho" aria-label="Abrir carrinho">
+            <Link
+              href="/carrinho"
+              aria-label="Abrir carrinho"
+            >
               <button
                 type="button"
                 className="relative flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-primary text-white shadow-md transition hover:scale-105"
               >
-                <FaCartPlus size={20} />
+                <FaCartPlus
+                  size={20}
+                  aria-hidden="true"
+                />
 
                 {totalItems > 0 && (
                   <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-bold text-white">
@@ -114,6 +150,7 @@ export default function Header() {
                 )}
               </button>
             </Link>
+
             <a
               href={INSTAGRAM}
               target="_blank"
@@ -122,17 +159,30 @@ export default function Header() {
               aria-label="Instagram da Florisse Crochê"
               className="relative flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-border bg-white text-primary shadow-md transition hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             >
-              <FaInstagram size={16} />
+              <FaInstagram
+                size={16}
+                aria-hidden="true"
+              />
             </a>
 
             <button
               type="button"
-              aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
+              aria-label={
+                menuOpen
+                  ? "Fechar menu"
+                  : "Abrir menu"
+              }
               aria-expanded={menuOpen}
-              onClick={() => setMenuOpen((prev) => !prev)}
+              onClick={() =>
+                setMenuOpen((prev) => !prev)
+              }
               className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-border bg-background text-foreground shadow-sm transition hover:bg-muted"
             >
-              {menuOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
+              {menuOpen ? (
+                <FaTimes size={20} />
+              ) : (
+                <FaBars size={20} />
+              )}
             </button>
           </div>
         </div>
@@ -148,10 +198,11 @@ export default function Header() {
 
       <aside
         ref={mobileMenuRef}
-        className={`fixed right-0 top-0 z-50 flex h-full w-[min(85vw,360px)] flex-col border-l border-border bg-background shadow-2xl transition-transform duration-300 lg:hidden ${menuOpen
-          ? "translate-x-0"
-          : "translate-x-full"
-          }`}
+        className={`fixed right-0 top-0 z-50 flex h-full w-[min(85vw,360px)] flex-col border-l border-border bg-background shadow-2xl transition-transform duration-300 lg:hidden ${
+          menuOpen
+            ? "translate-x-0"
+            : "translate-x-full"
+        }`}
         role="dialog"
         aria-modal="true"
         aria-labelledby="mobile-menu-title"
@@ -196,6 +247,25 @@ export default function Header() {
               {item.label}
             </a>
           ))}
+
+          {RAFFLE && (
+            <Link
+              href="/rifa"
+              onClick={closeMenu}
+              className="flex items-center gap-3 border-b border-border py-4 text-base font-semibold text-primary transition-colors hover:text-primary-hover"
+            >
+              <FaClover
+                size={16}
+                aria-hidden="true"
+              />
+
+              <span>Rifa</span>
+
+              <span className="ml-auto rounded-full bg-primary/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-primary">
+                Ativa
+              </span>
+            </Link>
+          )}
         </nav>
 
         <div className="mt-auto border-t border-border p-5">
@@ -224,7 +294,10 @@ export default function Header() {
             aria-label="Instagram da Florisse Crochê"
             className="mt-3 flex w-full cursor-pointer items-center justify-center gap-2 rounded-full border border-border bg-white px-5 py-3 text-sm font-medium text-primary shadow-sm transition hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
-            <FaInstagram size={16} />
+            <FaInstagram
+              size={16}
+              aria-hidden="true"
+            />
 
             <span>Instagram</span>
           </a>

@@ -1,27 +1,21 @@
 "use client";
 
+import Cores from "@/components/Cores";
 import Cuidados from "@/components/Cuidados";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
-import Numbers from "@/components/Numbers";
-import Products from "@/components/products/Products";
-import Raffle from "@/components/Raffle";
-import Sobre from "@/components/Sobre";
-import Cores from "@/components/Cores";
 import PorQueFlorisse from "@/components/Porque";
+import Products from "@/components/products/Products";
+import Sobre from "@/components/Sobre";
 
-import { getBestSelling, getBestSellingByCategory, getCatalogCategories, getCategoryCounts, getProducts, getReadyProducts } from "@/lib/products";
 import { useScrollTop } from "@/hooks/useScrollTop";
-import { useState } from "react";
+import { getBestSelling, getBestSellingByCategory, getCatalogCategories, getCategoryCounts, getProducts, getReadyProducts } from "@/lib/products";
 
+import { WHATSAPP } from "@/data/config";
 import { formatColor, formatPath } from "@/utils/format";
 import { FaArrowUp, FaWhatsapp } from "react-icons/fa";
-import { RAFFLE, RAFFLEPRICE, WHATSAPP } from "@/data/config";
 
 export default function Home() {
-  const [numbersOpen, setNumbersOpen] = useState(false);
-  const [raffleOpen, setRaffleOpen] = useState(true);
-
   const products = getProducts();
   const readyProducts = getReadyProducts();
   const bestSelling = getBestSelling();
@@ -33,16 +27,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      {RAFFLE && raffleOpen && (
-        <Raffle
-          setRaffleOpen={setRaffleOpen}
-          rafflePrice={RAFFLEPRICE}
-          setNumbersOpen={setNumbersOpen}
-        />
-      )}
-      {RAFFLE && numbersOpen && (
-        <Numbers rafflePrice={RAFFLEPRICE} setNumbersOpen={setNumbersOpen} />
-      )}
       <Hero bestSelling={bestSelling} formatPath={formatPath} />
 
       <Products

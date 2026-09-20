@@ -6,9 +6,9 @@ export const INSTAGRAM = "https://instagram.com/florisse_croche";
 
 export const SITE = "https://florisse.vercel.app";
 
-export const RAFFLE = false;
+export const RAFFLE = false; 
 
-export const RAFFLEPRICE = 5;
+export const RAFFLEPRICE = 2.5;
 
 export const CITY = "Montes Claros – MG";
 
