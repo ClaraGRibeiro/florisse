@@ -52,7 +52,7 @@ export async function generateMetadata(): Promise<Metadata> {
           width: 800,
           height: 800,
           alt: `Rifa ${BRAND} — ${RAFFLEITEM.name}`,
-          type: "image/webp",
+          type: "image/jpeg",
         },
       ],
     },
