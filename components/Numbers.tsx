@@ -27,8 +27,8 @@ export default function Numbers({ rafflePrice, setNumbersOpen }: NumbersProps) {
     });
   const [selectedNumbers, setSelectedNumbers] = useState<string[]>([]);
   const [raffleNumbers, setRaffleNumbers] = useState<RaffleNumber[]>([]);
-  const [winner, setWinner] = useState<String>("");
-  const [winNumber, setWinNumber] = useState<String>("");
+  const [winner, setWinner] = useState<string>("");
+  const [winNumber, setWinNumber] = useState<string>("");
   const [loading, setLoading] = useState(false);
 
   const loadSheet = async () => {

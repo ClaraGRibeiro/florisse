@@ -23,13 +23,9 @@ export default function ProductRelated({
   product,
   products,
 }: ProductRelatedProps) {
-
-  const [visitedProducts, setVisitedProducts] =
-    useState<Set<string>>(new Set());
-
-  useEffect(() => {
+  const getVisitedProducts = (): Set<string> => {
     if (typeof window === "undefined") {
-      return;
+      return new Set();
     }
 
     try {
@@ -38,25 +34,28 @@ export default function ProductRelated({
       );
 
       if (!stored) {
-        return;
+        return new Set();
       }
 
       const parsed = JSON.parse(stored);
 
-      if (Array.isArray(parsed)) {
-        setVisitedProducts(
-          new Set(
-            parsed.filter(
-              (item): item is string =>
-                typeof item === "string",
-            ),
-          ),
-        );
+      if (!Array.isArray(parsed)) {
+        return new Set();
       }
+
+      return new Set(
+        parsed.filter(
+          (item): item is string =>
+            typeof item === "string",
+        ),
+      );
     } catch {
-      setVisitedProducts(new Set());
+      return new Set();
     }
-  }, []);
+  };
+
+  const [visitedProducts, setVisitedProducts] =
+    useState<Set<string>>(getVisitedProducts);
 
   useEffect(() => {
     if (
@@ -275,7 +274,7 @@ export default function ProductRelated({
           continue;
         }
 
-  
+
         const candidateColors =
           getProductColors(
             item.product,
@@ -305,7 +304,7 @@ export default function ProductRelated({
             },
           ).length;
 
- 
+
         if (
           item.sharedColors > 0 &&
           sameColorCount >= 3

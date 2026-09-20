@@ -37,7 +37,6 @@ export default function ProductGallery({
 }: ProductGalleryProps) {
   const hasMultipleImages = images.length > 1;
 
-  const [isLoading, setIsLoading] = useState(Boolean(imageSrc));
 
   const discountPercentage =
     currentPrice !== undefined &&
@@ -47,10 +46,6 @@ export default function ProductGallery({
           (1 - currentPrice / originalPrice) * 100,
         )
       : 0;
-
-  useEffect(() => {
-    setIsLoading(Boolean(imageSrc));
-  }, [imageSrc]);
 
   return (
     <div className="relative mx-auto w-full max-w-120">
@@ -65,7 +60,6 @@ export default function ProductGallery({
           showLoading={Boolean(imageSrc)}
           emptyMessage="Imagem indisponível para esta seleção"
           fallbackMessage="Não foi possível carregar a imagem"
-          onLoad={() => setIsLoading(false)}
         />
 
         {totalSales > 0 && (
