@@ -22,7 +22,7 @@ import RaffleNumbers from "./RaffleNumbers";
 import FreightSimulator from "./FreightSimulator";
 import { Metadata } from "next";
 export async function generateMetadata(): Promise<Metadata> {
-  const image = `${SITE}${RAFFLEITEM.image[0]}`;
+  const image = `${SITE}/rifa/image.jpg`;
 
   const title = `Rifa ${BRAND} | ${RAFFLEITEM.name}`;
 
