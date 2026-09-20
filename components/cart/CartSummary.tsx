@@ -2,10 +2,10 @@
 
 import { useCart } from "@/hooks/useCart";
 
-type CartItem = ReturnType<typeof useCart>["cart"][number];
+import type { CartItemType } from "@/components/cart/types";
 
 type CartSummaryProps = {
-  cart: CartItem[];
+  cart: CartItemType[];
   onClear: () => void;
   onFinish: () => void;
 };

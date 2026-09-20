@@ -1,10 +1,8 @@
 "use client";
 
 import { useState } from "react";
-
+import type { CartItemType } from "@/components/cart/types";
 import { useCart } from "@/hooks/useCart";
-
-type CartItem = ReturnType<typeof useCart>["cart"][number];
 import { getProductByName } from "@/lib/products";
 import { formatColor } from "@/utils/format";
 
@@ -59,7 +57,7 @@ export default function Carrinho() {
     setConfirmationModal(null);
   }
 
-  function handleDecrease(item: CartItem) {
+  function handleDecrease(item: CartItemType) {
     if (item.quantity <= 1) {
       openRemoveModal(item.id);
       return;
@@ -68,7 +66,7 @@ export default function Carrinho() {
     updateQuantity(item.id, item.quantity - 1);
   }
 
-  function handleIncrease(item: CartItem) {
+  function handleIncrease(item: CartItemType) {
     updateQuantity(item.id, item.quantity + 1);
   }
 

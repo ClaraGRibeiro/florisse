@@ -1,10 +1,10 @@
 import type { Product } from "@/types/product";
 import { useCart } from "@/hooks/useCart";
 
-export type CartItem = ReturnType<typeof useCart>["cart"][number];
+export type CartItemType = ReturnType<typeof useCart>["cart"][number];
 
 export type CartItemEditorValues = {
-  type: CartItem["type"];
+  type: CartItemType["type"];
   color: string;
   size: string;
   customLength?: string;
@@ -15,13 +15,13 @@ export type CartItemEditorValues = {
 };
 
 export type CartItemProps = {
-  item: CartItem;
+  item: CartItemType;
   product: Product | null;
-  onDecrease: (item: CartItem) => void;
-  onIncrease: (item: CartItem) => void;
+  onDecrease: (item: CartItemType) => void;
+  onIncrease: (item: CartItemType) => void;
   onRemove: (itemId: string) => void;
   onUpdate: (
     itemId: string,
-    updates: Partial<CartItem>,
+    updates: Partial<CartItemType>,
   ) => void;
 };

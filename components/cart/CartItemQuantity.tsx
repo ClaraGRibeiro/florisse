@@ -2,12 +2,12 @@ import { FaMinus, FaPlus } from "react-icons/fa";
 
 import { useCart } from "@/hooks/useCart";
 
-type CartItem = ReturnType<typeof useCart>["cart"][number];
+import type { CartItemType } from "@/components/cart/types";
 
 type CartItemQuantityProps = {
-  item: CartItem;
-  onDecrease: (item: CartItem) => void;
-  onIncrease: (item: CartItem) => void;
+  item: CartItemType;
+  onDecrease: (item: CartItemType) => void;
+  onIncrease: (item: CartItemType) => void;
 };
 
 export default function CartItemQuantity({

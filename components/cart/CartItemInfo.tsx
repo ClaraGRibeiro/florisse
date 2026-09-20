@@ -1,10 +1,10 @@
 import { useCart } from "@/hooks/useCart";
 
-type CartItem = ReturnType<typeof useCart>["cart"][number];
+import type { CartItemType } from "@/components/cart/types";
 import { formatColor } from "@/utils/format";
 
 type CartItemInfoProps = {
-  item: CartItem;
+  item: CartItemType;
 };
 
 export default function CartItemInfo({ item }: CartItemInfoProps) {

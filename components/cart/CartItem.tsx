@@ -3,8 +3,6 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 
-import type { Product } from "@/types/product";
-
 import CartItemEditor from "./CartItemEditor";
 import CartItemImage from "./CartItemImage";
 import CartItemInfo from "./CartItemInfo";

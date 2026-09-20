@@ -10,7 +10,7 @@ import {
 import colorsData from "@/data/colors.json";
 import { useCart } from "@/hooks/useCart";
 
-type CartItem = ReturnType<typeof useCart>["cart"][number];
+import type { CartItemType } from "@/components/cart/types";
 import type { Product } from "@/types/product";
 import { formatColor, formatPath } from "@/utils/format";
 import { getGradient } from "@/utils/gradient";
@@ -22,7 +22,7 @@ type ColorData = {
 };
 
 type CartItemEditorProps = {
-  item: CartItem;
+  item: CartItemType;
   product: Product;
   onClose: () => void;
   onSave: (

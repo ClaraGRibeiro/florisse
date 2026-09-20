@@ -4,10 +4,10 @@ import ImageWithFallback from "@/components/ui/ImageWithFallback";
 import { useCart } from "@/hooks/useCart";
 import { formatPath } from "@/utils/format";
 
-type CartItem = ReturnType<typeof useCart>["cart"][number];
+import type { CartItemType } from "@/components/cart/types";
 
 type CartItemImageProps = {
-  item: CartItem;
+  item: CartItemType;
 };
 
 export default function CartItemImage({
