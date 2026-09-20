@@ -13,12 +13,10 @@ export default function Sobre() {
       transition={{ duration: 0.7 }}
       className="relative scroll-mt-20 overflow-hidden bg-card py-20 sm:py-24"
     >
-      {/* Elementos decorativos */}
       <div className="pointer-events-none absolute -left-24 top-20 h-64 w-64 rounded-full bg-primary/5 blur-3xl" />
       <div className="pointer-events-none absolute -right-24 bottom-10 h-72 w-72 rounded-full bg-primary/5 blur-3xl" />
 
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
-        {/* Cabeçalho */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -41,9 +39,7 @@ export default function Sobre() {
           <div className="mt-6 h-px w-16 bg-primary/40" />
         </motion.div>
 
-        {/* Composição principal */}
         <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-stretch lg:gap-20">
-          {/* Imagem */}
           <motion.div
             initial={{ opacity: 0, x: -25 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -54,7 +50,6 @@ export default function Sobre() {
             <div className="absolute -bottom-4 -left-4 h-full w-full rounded-[2rem] border border-primary/15 sm:-bottom-5 sm:-left-5" />
 
             <div className="relative h-[280px] overflow-hidden rounded-[2rem] shadow-xl sm:h-[340px] lg:h-full lg:min-h-[500px]">
-              {/* Mobile */}
               <Image
                 src="/about-mobile.webp"
                 alt="Artesã trabalhando em uma peça de crochê"
@@ -64,7 +59,6 @@ export default function Sobre() {
                 className="h-full w-full object-cover lg:hidden"
               />
 
-              {/* Desktop */}
               <Image
                 src="/about-pc.webp"
                 alt="Artesã trabalhando em uma peça de crochê"
@@ -92,7 +86,6 @@ export default function Sobre() {
             </div>
           </motion.div>
 
-          {/* Conteúdo */}
           <motion.div
             initial={{ opacity: 0, x: 25 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -113,7 +106,6 @@ export default function Sobre() {
                 pensamentos em algo bonito, leve e cheio de energia boa.
               </p>
 
-              {/* Destaque */}
               <div className="relative my-10 border-y border-primary/15 py-7 sm:my-12 sm:py-8">
                 <span className="absolute -top-3 left-0 bg-card pr-3 font-serif text-sm italic text-primary">
                   ✦
@@ -143,7 +135,6 @@ export default function Sobre() {
               </p>
             </div>
 
-            {/* Assinatura */}
             <div className="mt-10 flex items-center gap-3">
               <div className="h-px w-10 bg-border" />
 

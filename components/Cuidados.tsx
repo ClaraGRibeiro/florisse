@@ -46,7 +46,6 @@ export default function Cuidados() {
     >
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
 
-        {/* HEADER */}
         <div className="mx-auto max-w-xl text-center">
           <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-primary sm:text-xs">
             Feito para durar
@@ -62,7 +61,6 @@ export default function Cuidados() {
           </p>
         </div>
 
-        {/* CUIDADOS */}
         <div className="mx-auto mt-8 grid max-w-5xl gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {careItems.map((care, index) => {
             const Icon = care.icon;
@@ -95,7 +93,6 @@ export default function Cuidados() {
           })}
         </div>
 
-        {/* CTA */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}

@@ -82,17 +82,14 @@ export default function ProductInfo({
 
   return (
     <div className="flex flex-col">
-      {/* Categoria */}
       <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
         {product.category}
       </p>
 
-      {/* Nome */}
       <h1 className="mt-3 font-serif text-4xl font-semibold leading-tight tracking-tight text-foreground sm:text-5xl">
         {product.name}
       </h1>
 
-      {/* Preço */}
       <div className="mt-6">
         {isCustomSize ? (
           <>
@@ -119,7 +116,6 @@ export default function ProductInfo({
         ) : null}
       </div>
 
-      {/* Informações da peça */}
       <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
         <div className="flex items-center gap-3">
           <FaHeart
@@ -177,10 +173,8 @@ export default function ProductInfo({
         </div>
       </div>
 
-      {/* Divisor */}
       <div className="my-8 h-px w-full bg-border" />
 
-      {/* Cores */}
       <ProductColors
         product={product}
         colors={colors}
@@ -195,7 +189,6 @@ export default function ProductInfo({
         onOtherColorRemove={onOtherColorRemove}
       />
 
-      {/* Tamanhos */}
       <ProductSizes
         product={product}
         selectedSize={selectedSize}
@@ -208,7 +201,6 @@ export default function ProductInfo({
         onCustomWidthChange={onCustomWidthChange}
       />
 
-      {/* Ações */}
       <ProductActions
         canAddToCart={canAddToCart}
         added={added}

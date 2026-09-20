@@ -54,15 +54,6 @@ export default function Cores({
     ? colorCombinations[selectedColorName]
     : [];
 
-  /*
-   * Acessibilidade do modal de paletas.
-   *
-   * Controla:
-   * - foco inicial;
-   * - foco preso dentro do modal;
-   * - tecla Escape;
-   * - retorno do foco ao botão que abriu o modal.
-   */
   const paletteAccessibility =
     useModalAccessibility({
       isOpen: openPalette,
@@ -70,9 +61,6 @@ export default function Cores({
         setOpenPalette(false),
     });
 
-  /*
-   * Acessibilidade do modal da cor selecionada.
-   */
   const colorAccessibility =
     useModalAccessibility({
       isOpen:
@@ -83,17 +71,6 @@ export default function Cores({
         setSelectedColorName(null),
     });
 
-  /*
-   * Encontra produtos cujo nome contém a cor selecionada.
-   *
-   * Exemplos:
-   * "azul-cru"          → encontra "azul" e "cru"
-   * "rosa-bebe"         → encontra "rosa-bebe"
-   * "alecrim-militar"   → encontra "alecrim" e "militar"
-   *
-   * O nome é convertido para o mesmo padrão usado
-   * nas URLs através de formatPath().
-   */
   const productsWithColor = selectedColorName
     ? products.flatMap((product) =>
       product.colors
@@ -116,7 +93,6 @@ export default function Cores({
           const normalizedSelectedColor =
             normalize(selectedColorName);
 
-          // Cor exata
           if (
             normalizedProductColor ===
             normalizedSelectedColor
@@ -124,8 +100,6 @@ export default function Cores({
             return true;
           }
 
-          // Ex:
-          // "rosa-bebe-cru" → "rosa-bebe"
           const selectedColorSlug =
             normalizedSelectedColor.replace(
               /\s+/g,
@@ -140,9 +114,6 @@ export default function Cores({
             return true;
           }
 
-          // Ex:
-          // "alecrim-militar" → "alecrim"
-          // "alecrim-militar" → "militar"
           const productColorParts =
             normalizedProductColor.split("-");
 
@@ -217,7 +188,6 @@ export default function Cores({
       className="scroll-mt-20 bg-card py-16 sm:py-20 lg:py-24"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* HEADER */}
         <div className="mx-auto mb-12 max-w-2xl text-center">
           <span className="text-xs font-semibold uppercase tracking-[0.3em] text-primary">
             Feito para combinar
@@ -234,7 +204,6 @@ export default function Cores({
           </p>
         </div>
 
-        {/* GRID DE CORES */}
         <div className="mx-auto grid max-w-6xl grid-cols-4 gap-x-3 gap-y-6 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12">
           {colors.map((color) => {
             const isLight =
@@ -279,7 +248,6 @@ export default function Cores({
             );
           })}
 
-          {/* PALETAS */}
           <button
             type="button"
             onClick={() =>
@@ -303,7 +271,6 @@ export default function Cores({
           </button>
         </div>
 
-        {/* FRASE INFERIOR */}
         <div className="mx-auto mt-14 flex max-w-xl items-center justify-center gap-3 text-center">
           <span className="h-px flex-1 bg-border" />
 
@@ -316,11 +283,9 @@ export default function Cores({
         </div>
       </div>
 
-      {/* MODAL DE PALETAS */}
       <AnimatePresence>
         {openPalette && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6">
-            {/* OVERLAY */}
             <motion.div
               initial={{
                 opacity: 0,
@@ -338,7 +303,6 @@ export default function Cores({
               aria-hidden="true"
             />
 
-            {/* DIÁLOGO */}
             <motion.div
               ref={
                 paletteAccessibility.dialogRef
@@ -369,7 +333,6 @@ export default function Cores({
               }}
               className="relative z-10 flex h-[92vh] w-full max-w-5xl flex-col overflow-hidden rounded-4xl bg-card shadow-2xl focus:outline-none"
             >
-              {/* HEADER */}
               <div className="border-b border-border px-5 py-6 pr-16 sm:px-8 sm:py-7">
                 <button
                   type="button"
@@ -405,7 +368,6 @@ export default function Cores({
                 </p>
               </div>
 
-              {/* CONTEÚDO */}
               <div className="flex-1 overflow-y-auto px-5 py-6 sm:px-8">
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                   {colorsByPalette.map(
@@ -433,7 +395,6 @@ export default function Cores({
                         }}
                         className="group rounded-3xl border border-border bg-background/50 p-5 transition-all duration-300 hover:border-primary/20 hover:shadow-md"
                       >
-                        {/* TÍTULO */}
                         <div className="mb-4 flex items-center justify-between">
                           <h3 className="font-serif text-xl font-semibold">
                             {
@@ -448,7 +409,6 @@ export default function Cores({
                           />
                         </div>
 
-                        {/* CORES */}
                         <div className="grid grid-cols-3 gap-2">
                           {palette.colors.map(
                             (
@@ -518,12 +478,10 @@ export default function Cores({
         )}
       </AnimatePresence>
 
-      {/* MODAL DE COR */}
       <AnimatePresence>
         {selectedColorName &&
           activeColorData && (
             <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6">
-              {/* OVERLAY */}
               <motion.div
                 initial={{
                   opacity: 0,
@@ -543,7 +501,6 @@ export default function Cores({
                 aria-hidden="true"
               />
 
-              {/* DIÁLOGO */}
               <motion.div
                 ref={
                   colorAccessibility.dialogRef
@@ -574,7 +531,6 @@ export default function Cores({
                 }}
                 className="relative z-10 flex max-h-[92vh] w-full max-w-4xl flex-col overflow-hidden rounded-4xl bg-card shadow-2xl focus:outline-none"
               >
-                {/* HEADER */}
                 <div className="border-b border-border px-6 py-6 pr-16 sm:px-7">
                   <button
                     type="button"
@@ -629,9 +585,7 @@ export default function Cores({
                   </p>
                 </div>
 
-                {/* CONTEÚDO */}
                 <div className="flex-1 overflow-y-auto px-6 py-5 sm:px-7">
-                  {/* COMBINAÇÕES */}
                   {activeCombinations &&
                     activeCombinations.length >
                     0 && (
@@ -746,7 +700,6 @@ export default function Cores({
                       </div>
                     )}
 
-                  {/* PRODUTOS DA COR */}
                   {productsWithColor.length >
                     0 && (
                       <div>
@@ -833,7 +786,6 @@ export default function Cores({
                                       }
                                       className="group block overflow-hidden rounded-2xl border border-border bg-background transition-all duration-300 hover:-translate-y-1 hover:border-primary/20 hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                                     >
-                                      {/* IMAGEM */}
                                       <div className="relative aspect-square overflow-hidden bg-muted/10">
                                         <Image
                                           src={
@@ -854,7 +806,6 @@ export default function Cores({
                                         </span>
                                       </div>
 
-                                      {/* INFORMAÇÕES */}
                                       <div className="p-3">
                                         <h4 className="truncate font-serif text-sm font-semibold text-foreground sm:text-base">
                                           {
@@ -898,7 +849,6 @@ export default function Cores({
                     )}
                 </div>
 
-                {/* RODAPÉ */}
                 <div className="border-t border-border bg-background/40 px-6 py-4 sm:px-7">
                   <p className="text-center text-xs text-muted">
                     Clique em outra cor para

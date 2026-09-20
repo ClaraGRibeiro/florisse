@@ -16,8 +16,6 @@ export default function Share({ product }: ShareProps) {
   const compartilharProduto = async () => {
     const url = window.location.href;
 
-    // Navegadores sem Web Share API:
-    // copia o link para a área de transferência.
     if (!navigator.share) {
       try {
         await navigator.clipboard.writeText(url);
@@ -28,7 +26,6 @@ export default function Share({ product }: ShareProps) {
           setCopied(false);
         }, 2000);
       } catch {
-        // Área de transferência indisponível.
       }
 
       return;
@@ -41,7 +38,6 @@ export default function Share({ product }: ShareProps) {
         url,
       });
     } catch {
-      // Usuário fechou o compartilhamento.
     }
   };
 

@@ -73,7 +73,6 @@ export default function Products({
       }}
       className="mx-auto max-w-7xl scroll-mt-20 px-4 py-20 sm:px-6 lg:px-8 lg:py-24"
     >
-      {/* CABEÇALHO */}
       <div className="mx-auto max-w-2xl text-center">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary sm:text-sm">
           Feito ponto por ponto
@@ -90,7 +89,6 @@ export default function Products({
         </p>
       </div>
 
-      {/* FILTROS */}
       <ProductFilters
         category={category}
         setCategory={handleCategoryChange}
@@ -98,7 +96,6 @@ export default function Products({
         categoryCounts={categoryCounts}
       />
 
-      {/* PRODUTOS */}
       <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {filteredProducts.map(
           (product, index) => {
@@ -138,7 +135,6 @@ export default function Products({
         )}
       </div>
 
-      {/* ESTADO VAZIO */}
       {filteredProducts.length === 0 && (
         <div className="py-20 text-center">
           <p className="font-serif text-xl text-foreground">

@@ -9,7 +9,6 @@ export default function Footer() {
     <footer className="border-t border-border bg-muted/10">
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-14">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr] lg:gap-16">
-          {/* Marca */}
           <div>
             <Link
               href="/"
@@ -71,7 +70,6 @@ export default function Footer() {
             </nav>
           </div>
 
-          {/* Atendimento */}
           <div>
             <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-foreground">
               Atendimento
@@ -105,10 +103,8 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Divisor */}
         <div className="my-10 h-px bg-border" />
 
-        {/* Copyright */}
         <div className="flex flex-col items-center justify-between gap-3 text-center sm:flex-row sm:text-left">
           <p className="text-xs text-muted">
             © {year} {BRAND}

@@ -46,9 +46,6 @@ const CartContext =
 
 const STORAGE_KEY = "florisse-cart";
 
-/*
- * Verifica se o valor é um objeto válido.
- */
 function isRecord(
   value: unknown,
 ): value is Record<string, unknown> {
@@ -59,22 +56,13 @@ function isRecord(
   );
 }
 
-/*
- * Valida um item recuperado do localStorage.
- *
- * Somente itens que possuem todos os campos
- * obrigatórios e tipos corretos entram no carrinho.
- */
 function isValidCartItem(
   value: unknown,
 ): value is CartItem {
   if (!isRecord(value)) {
     return false;
   }
-
-  /*
-   * ID
-   */
+  
   if (
     typeof value.id !== "string" ||
     value.id.trim() === ""
@@ -82,9 +70,6 @@ function isValidCartItem(
     return false;
   }
 
-  /*
-   * Nome
-   */
   if (
     typeof value.name !== "string" ||
     value.name.trim() === ""
@@ -92,9 +77,6 @@ function isValidCartItem(
     return false;
   }
 
-  /*
-   * Tipo
-   */
   if (
     value.type !== "product" &&
     value.type !== "custom-order"
@@ -102,9 +84,6 @@ function isValidCartItem(
     return false;
   }
 
-  /*
-   * Cor
-   */
   if (
     typeof value.color !== "string" ||
     value.color.trim() === ""
@@ -112,19 +91,13 @@ function isValidCartItem(
     return false;
   }
 
-  /*
-   * Tamanho
-   */
   if (
     typeof value.size !== "string" ||
     value.size.trim() === ""
   ) {
     return false;
   }
-
-  /*
-   * Preço
-   */
+  
   if (
     typeof value.price !== "number" ||
     !Number.isFinite(value.price) ||
@@ -133,9 +106,6 @@ function isValidCartItem(
     return false;
   }
 
-  /*
-   * Quantidade
-   */
   if (
     typeof value.quantity !== "number" ||
     !Number.isFinite(value.quantity) ||
@@ -145,9 +115,6 @@ function isValidCartItem(
     return false;
   }
 
-  /*
-   * Imagem
-   */
   if (
     typeof value.image !== "string" ||
     value.image.trim() === ""
@@ -155,9 +122,6 @@ function isValidCartItem(
     return false;
   }
 
-  /*
-   * Campos opcionais
-   */
   if (
     value.customLength !== undefined &&
     typeof value.customLength !== "string"
@@ -186,10 +150,6 @@ function isValidCartItem(
   return true;
 }
 
-/*
- * Converte o conteúdo salvo no localStorage
- * em um carrinho validado.
- */
 function parseStoredCart(
   savedCart: string,
 ): CartItem[] {
@@ -219,12 +179,6 @@ export function CartProvider({
   const [isLoaded, setIsLoaded] =
     useState(false);
 
-  /*
-   * Recupera o carrinho do localStorage.
-   *
-   * Os dados passam pela validação antes
-   * de serem colocados no estado.
-   */
   useEffect(() => {
     try {
       const savedCart =
@@ -238,34 +192,21 @@ export function CartProvider({
 
         setCart(validCart);
 
-        /*
-         * Remove do localStorage qualquer
-         * item inválido ou incompatível.
-         */
         try {
           localStorage.setItem(
             STORAGE_KEY,
             JSON.stringify(validCart),
           );
         } catch {
-          // Ignora erro de gravação.
         }
       }
     } catch {
-      /*
-       * Se o localStorage estiver indisponível,
-       * inicia com carrinho vazio.
-       */
       setCart([]);
     } finally {
       setIsLoaded(true);
     }
   }, []);
 
-  /*
-   * Persiste o carrinho depois da
-   * recuperação inicial.
-   */
   useEffect(() => {
     if (!isLoaded) {
       return;
@@ -277,20 +218,9 @@ export function CartProvider({
         JSON.stringify(cart),
       );
     } catch {
-      // Ignora erro de gravação.
     }
   }, [cart, isLoaded]);
 
-  /*
-   * Quantidade total de itens no carrinho.
-   *
-   * Exemplo:
-   *
-   * Tapete × 2
-   * Bolsa × 1
-   *
-   * totalItems = 3
-   */
   const totalItems = useMemo(() => {
     return cart.reduce(
       (total, item) =>
@@ -298,16 +228,7 @@ export function CartProvider({
       0,
     );
   }, [cart]);
-
-  /*
-   * Adiciona um item ao carrinho.
-   *
-   * Se já existir um item com a mesma configuração,
-   * aumenta a quantidade em vez de criar uma nova linha.
-   *
-   * Itens com configurações diferentes continuam
-   * sendo adicionados separadamente.
-   */
+ 
   function addToCart(item: CartItem) {
     setCart((currentCart) => {
       const existingItem = currentCart.find(
@@ -337,22 +258,14 @@ export function CartProvider({
       );
     });
   }
-
-
-  /*
-   * Remove um item.
-   */
+ 
   function removeFromCart(id: string) {
     setCart((currentCart) =>
       currentCart.filter(
         (item) => item.id !== id,
       ),
     );
-  }
-
-  /*
-   * Atualiza a quantidade.
-   */
+  } 
   function updateQuantity(
     id: string,
     quantity: number,
@@ -375,10 +288,7 @@ export function CartProvider({
       ),
     );
   }
-
-  /*
-   * Atualiza propriedades de um item.
-   */
+ 
   function updateItem(
     id: string,
     updates: Partial<CartItem>,
@@ -394,10 +304,7 @@ export function CartProvider({
       ),
     );
   }
-
-  /*
-   * Limpa o carrinho.
-   */
+ 
   function clearCart() {
     setCart([]);
   }

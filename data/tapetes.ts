@@ -473,28 +473,6 @@ const tapetes = [
     },
   },
 
-  // {
-  //   name: "Tapete Ternura",
-  //   category: "Tapetes",
-  //   sizes: [
-  //     {
-  //       label: "100 cm",
-  //       price: 300,
-  //       sales: 0,
-  //     },
-  //     {
-  //       label: "150 cm",
-  //       price: 420,
-  //       sales: 0,
-  //     },
-  //   ],
-  //   colors: ["cru"],
-  //   images: {
-  //     cru: [
-  //       "/products/tapetes/tapete-ternura/cru.webp",
-  //     ],
-  //   },
-  // },
 ];
 
 export default tapetes;

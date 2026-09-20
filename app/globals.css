@@ -2,39 +2,29 @@
 @import "tailwindcss";
 
 :root {
-  /* 🍶 BACKGROUND - creme quentinho, cor de linha crua */
   --background: #f7efe4;
 
-  /* 🧺 CARD - areia clara, como algodão natural */
   --card: #fbf6ee;
   --card-soft: #f1e6d4;
 
-  /* 🤎 TEXT - marrom café, suave nos olhos */
   --foreground: #3d2b1f;
   --foreground-soft: #5a4636;
 
-  /* 🌾 MUTED */
   --muted: #8a7560;
 
-  /* 🌶 PRIMARY - terracota aconchegante */
   --primary: #c2643b;
   --primary-hover: #a64f29;
   --primary-foreground: #fbf6ee;
 
-  /* 🌿 SECONDARY - verde-musgo macio */
   --secondary: #7a8c5c;
   --secondary-hover: #5f7045;
 
-  /* 🌸 ACCENT - rosa-velho delicado */
   --accent: #d99c8f;
 
-  /* 🧶 BORDERS - linha fininha cor de juta */
   --border: rgba(61, 43, 31, 0.12);
 
-  /* INPUT */
   --input: #efe3d0;
 
-  /* 🍂 DEEP - marrom profundo p/ contrastes */
   --dark: #2a1d14;
 }
 

@@ -37,7 +37,6 @@ export default function Header() {
     <>
       <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6">
-          {/* LOGO */}
           <Link href="/" className="block" onClick={closeMenu}>
             <div className="flex min-w-0 items-center gap-3">
               <div className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-full bg-primary/15 shadow-sm">
@@ -63,7 +62,6 @@ export default function Header() {
             </div>
           </Link>
 
-          {/* DESKTOP */}
           <nav className="hidden items-center gap-4 lg:flex">
             {navItems.map((item) => (
               <a
@@ -76,7 +74,6 @@ export default function Header() {
               </a>
             ))}
 
-            {/* CARRINHO */}
             <Link
               href="/carrinho"
               className="flex cursor-pointer items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground shadow-md transition-all hover:scale-[1.03] hover:bg-primary-hover"
@@ -90,7 +87,6 @@ export default function Header() {
               </span>
             </Link>
 
-            {/* INSTAGRAM */}
             <a
               href={INSTAGRAM}
               target="_blank"
@@ -103,9 +99,7 @@ export default function Header() {
             </a>
           </nav>
 
-          {/* MOBILE */}
           <div className="flex items-center gap-2 lg:hidden">
-            {/* CARRINHO MOBILE */}
             <Link href="/carrinho" aria-label="Abrir carrinho">
               <button
                 type="button"
@@ -131,7 +125,6 @@ export default function Header() {
               <FaInstagram size={16} />
             </a>
 
-            {/* MENU */}
             <button
               type="button"
               aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
@@ -145,7 +138,6 @@ export default function Header() {
         </div>
       </header>
 
-      {/* OVERLAY */}
       {menuOpen && (
         <div
           className="fixed inset-0 z-40 bg-black/30 backdrop-blur-[2px] lg:hidden"
@@ -154,7 +146,6 @@ export default function Header() {
         />
       )}
 
-      {/* MENU LATERAL MOBILE */}
       <aside
         ref={mobileMenuRef}
         className={`fixed right-0 top-0 z-50 flex h-full w-[min(85vw,360px)] flex-col border-l border-border bg-background shadow-2xl transition-transform duration-300 lg:hidden ${menuOpen
@@ -167,7 +158,6 @@ export default function Header() {
         tabIndex={-1}
         aria-hidden={!menuOpen}
       >
-        {/* CABEÇALHO DO MENU */}
         <div className="flex items-center justify-between border-b border-border px-5 py-5">
           <div>
             <p
@@ -195,7 +185,6 @@ export default function Header() {
           </button>
         </div>
 
-        {/* NAVEGAÇÃO */}
         <nav className="flex flex-col px-5 py-6">
           {navItems.map((item) => (
             <a
@@ -209,7 +198,6 @@ export default function Header() {
           ))}
         </nav>
 
-        {/* AÇÕES */}
         <div className="mt-auto border-t border-border p-5">
           <Link
             href="/carrinho"

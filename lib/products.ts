@@ -39,21 +39,12 @@ function normalizeProduct(
     total_sales: getTotalSales(product),
   };
 }
-
-/*
- * Os produtos são normalizados uma única vez
- * quando este módulo é carregado.
- */
+ 
 const products: Product[] =
   productsData.products.map(
     normalizeProduct,
   );
-
-/*
- * =========================================================
- * PRODUTOS
- * =========================================================
- */
+ 
 
 export function getProducts(): Product[] {
   return products;
@@ -104,12 +95,7 @@ export function getProductsByColor(
     ),
   );
 }
-
-/*
- * =========================================================
- * MAIS VENDIDO
- * =========================================================
- */
+ 
 
 export function getBestSelling(): Product {
   return products.reduce(
@@ -147,12 +133,7 @@ export function getBestSellingByCategory():
     return acc;
   }, {});
 }
-
-/*
- * =========================================================
- * CATEGORIAS
- * =========================================================
- */
+ 
 
 export function getCategories(): string[] {
   return Array.from(
@@ -190,12 +171,7 @@ export function getCategoryCounts():
 
   return counts;
 }
-
-/*
- * =========================================================
- * PRONTA ENTREGA
- * =========================================================
- */
+ 
 
 export function getReadyProducts():
   ReadyProduct[] {
@@ -233,12 +209,7 @@ export function getReadyProducts():
         product !== null,
     );
 }
-
-/*
- * =========================================================
- * OUTRAS CONSULTAS
- * =========================================================
- */
+  
 
 export function getProductsFromCategory(
   category: string,

@@ -39,7 +39,6 @@ export default function PorQueFlorisse() {
       <div className="pointer-events-none absolute -right-24 bottom-10 h-64 w-64 rounded-full bg-primary/5 blur-3xl" />
 
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
-        {/* Título */}
         <div className="mb-12 text-center sm:mb-14">
           <div className="flex items-center justify-center gap-3 text-xs font-medium uppercase tracking-[0.2em] text-primary">
             <span>✦</span>
@@ -54,7 +53,6 @@ export default function PorQueFlorisse() {
           </h2>
         </div>
 
-        {/* Cards */}
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {benefits.map((benefit, index) => {
             const Icon = benefit.icon;

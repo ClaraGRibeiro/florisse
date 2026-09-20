@@ -53,21 +53,13 @@ export function useProducts() {
       (a.total_sales ?? 0),
   )[0];
 
-  /*
-   * Categorias normais do catálogo.
-   */
+  
   const categories = Array.from(
     new Set(
       products.map((product) => product.category),
     ),
   );
-
-  /*
-   * Produtos de pronta entrega.
-   *
-   * productId funciona como uma chave estrangeira
-   * baseada no slug do nome do produto.
-   */
+ 
   const readyProducts: ReadyProduct[] =
     productsData.prontaEntrega
       .map((ready) => {
@@ -98,18 +90,13 @@ export function useProducts() {
           product !== null,
       );
 
-  /*
-   * "Pronta entrega" aparece como uma categoria
-   * adicional no catálogo.
-   */
+ 
   const allCategories = [
     ...categories,
     "Pronta entrega",
   ];
 
-  /*
-   * Quantidade de produtos por categoria.
-   */
+  
   const categoryCounts =
     products.reduce(
       (acc, product) => {

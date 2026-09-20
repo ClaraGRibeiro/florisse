@@ -23,13 +23,11 @@ export default function Hero({ bestSelling, formatPath }: HeroProps) {
       transition={{ duration: 0.7, ease: "easeOut" }}
       className="relative isolate overflow-hidden scroll-mt-20 bg-card-soft"
     >
-      {/* DECORAÇÃO */}
       <div className="pointer-events-none absolute -left-32 top-1/4 h-80 w-80 rounded-full bg-primary/10 blur-3xl" />
 
       <div className="pointer-events-none absolute -bottom-32 -right-20 h-96 w-96 rounded-full bg-accent/60 blur-3xl" />
 
       <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 py-16 sm:px-6 sm:py-20 md:grid-cols-[1.05fr_0.95fr] md:gap-16 md:py-24 lg:py-28">
-        {/* TEXTO */}
         <div className="relative z-10 text-center md:text-left">
           <motion.p
             initial={{ opacity: 0, y: 10 }}
@@ -63,7 +61,6 @@ export default function Hero({ bestSelling, formatPath }: HeroProps) {
             para trazer textura, cor e aconchego aos seus espaços.
           </motion.p>
 
-          {/* INDICADORES */}
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -76,7 +73,6 @@ export default function Hero({ bestSelling, formatPath }: HeroProps) {
             <span>✦ {CITY}</span>
           </motion.div>
 
-          {/* AÇÕES */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -102,7 +98,6 @@ export default function Hero({ bestSelling, formatPath }: HeroProps) {
           </motion.div>
         </div>
 
-        {/* PRODUTO EM DESTAQUE */}
         <motion.div
           initial={{ opacity: 0, scale: 0.96 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -115,7 +110,6 @@ export default function Hero({ bestSelling, formatPath }: HeroProps) {
             className="group block w-full max-w-125"
           >
             <div className="relative">
-              {/* PEQUENO DETALHE DECORATIVO */}
               <div className="absolute -right-3 -top-3 z-0 h-full w-full rounded-4xl border border-primary/15 sm:-right-4 sm:-top-4" />
 
               <div
@@ -131,10 +125,8 @@ export default function Hero({ bestSelling, formatPath }: HeroProps) {
                   className="object-cover transition-transform duration-700 group-hover:scale-[1.025]"
                 />
 
-                {/* GRADIENTE INFERIOR */}
                 <div className="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-black/45 via-black/10 to-transparent" />
 
-                {/* INFORMAÇÃO DO PRODUTO */}
                 <div className="absolute bottom-5 left-5 right-5 text-white sm:bottom-6 sm:left-6 sm:right-6">
                   <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/80 sm:text-xs">
                     Mais vendido

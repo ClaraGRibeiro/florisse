@@ -79,9 +79,6 @@ export default function ProductClient({
     setSelectedOtherColors,
   ] = useState<string[]>([]);
 
-  /*
-   * MiniCart
-   */
   const [miniCartOpen, setMiniCartOpen] =
     useState(false);
 
@@ -95,17 +92,6 @@ export default function ProductClient({
 
   const product = getProductBySlug(slug);
 
-  /*
-   * Cor atual selecionada.
-   *
-   * Os produtos possuem:
-   *
-   * colors: ["malva", "marrom"]
-   *
-   * ou:
-   *
-   * colors: [{ name: "malva" }, { name: "marrom" }]
-   */
   const currentColor =
     product?.colors[selectedColor];
 
@@ -114,10 +100,6 @@ export default function ProductClient({
       ? currentColor
       : currentColor?.name;
 
-  /*
-   * As imagens agora são definidas
-   * explicitamente no produto.
-   */
   const images: string[] =
     product && currentColorName
       ? product.images?.[currentColorName] ?? []
@@ -320,10 +302,6 @@ export default function ProductClient({
       return;
     }
 
-    /*
-     * Guarda os dados que serão mostrados
-     * no MiniCart antes de adicionar o item.
-     */
     const miniCartItem: AddedItem = {
       name: product.name,
       image: imageSrc,
@@ -348,8 +326,6 @@ export default function ProductClient({
         ? customWidth
         : undefined,
 
-      // Pedido personalizado não tem
-      // preço definido no site.
       price: isCustomSize
         ? 0
         : currentSize.price,
@@ -361,17 +337,10 @@ export default function ProductClient({
       image: imageSrc,
       quantity: 1,
     });
-
-    /*
-     * Atualiza o conteúdo do MiniCart
-     * e abre o aviso.
-     */
+    
     setAddedItem(miniCartItem);
     setMiniCartOpen(true);
 
-    /*
-     * Mantém o feedback visual do botão.
-     */
     setAdded(true);
 
     if (addedTimeout.current) {
@@ -391,7 +360,6 @@ export default function ProductClient({
     <main className="scroll-mt-20 min-h-screen bg-background">
       <div className="mx-auto max-w-7xl px-4 pb-16 pt-2 sm:px-6 lg:px-8">
 
-        {/* MiniCart */}
         {addedItem && (
           <MiniCart
             isOpen={miniCartOpen}
@@ -405,7 +373,6 @@ export default function ProductClient({
           />
         )}
 
-        {/* Cabeçalho */}
         <div className="mb-2 flex items-center justify-between gap-4">
           <button
             type="button"
@@ -424,10 +391,8 @@ export default function ProductClient({
           />
         </div>
 
-        {/* Produto */}
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(380px,0.95fr)] lg:gap-16 xl:gap-20">
 
-          {/* Galeria */}
           <div>
             <ProductGallery
               productName={product.name}
@@ -458,8 +423,6 @@ export default function ProductClient({
               }
             />
 
-            {/* Aviso para combinações
-                personalizadas de cores */}
             {isOtherColor && (
               <div className="mt-4 flex items-start gap-3 rounded-2xl border border-primary/15 bg-primary/5 px-4 py-3.5">
                 <div className="mt-0.5 shrink-0 text-primary">
@@ -491,7 +454,6 @@ export default function ProductClient({
             )}
           </div>
 
-          {/* Informações */}
           <ProductInfo
             product={product}
             colors={colors}
@@ -540,13 +502,11 @@ export default function ProductClient({
           />
         </div>
 
-        {/* Produtos relacionados */}
         <ProductRelated
           product={product}
           products={products}
         />
 
-        {/* Voltar ao topo */}
         {showTop && (
           <button
             title="Voltar para o início"

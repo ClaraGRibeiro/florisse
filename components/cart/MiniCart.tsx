@@ -29,9 +29,7 @@ export default function MiniCart({
       isOpen,
       onClose,
     });
-  /*
-   * Fecha automaticamente após 2 segundos.
-   */
+    
   useEffect(() => {
     if (!isOpen) {
       return;
@@ -50,7 +48,6 @@ export default function MiniCart({
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Overlay somente no mobile */}
 
           <motion.div
             ref={dialogRef}
@@ -80,7 +77,6 @@ export default function MiniCart({
             }}
             className="fixed right-4 top-4 z-100 w-[calc(100%-2rem)] max-w-sm rounded-3xl border border-border/80 bg-background p-4 shadow-2xl focus:outline-none sm:right-6 sm:top-6"
           >
-            {/* CABEÇALHO */}
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <span className="flex h-7 w-7 items-center justify-center rounded-full bg-primary/10 text-primary">
@@ -105,7 +101,6 @@ export default function MiniCart({
               </button>
             </div>
 
-            {/* PRODUTO */}
             <div
               id="mini-cart-description"
               className="mt-4 flex gap-3 rounded-2xl border border-muted/40 p-3"
@@ -131,7 +126,6 @@ export default function MiniCart({
               </div>
             </div>
 
-            {/* AÇÃO */}
             <Link
               href="/carrinho"
               onClick={onClose}

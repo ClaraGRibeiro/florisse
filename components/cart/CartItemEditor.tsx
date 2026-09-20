@@ -143,7 +143,6 @@ export default function CartItemEditor({
 
         if (response.ok) return imagePath;
       } catch {
-        // Continua procurando.
       }
     }
 

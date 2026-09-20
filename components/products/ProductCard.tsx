@@ -77,7 +77,6 @@ Valor: R$ ${readyPrice?.toFixed(2).replace(".", ",")}`,
       className="group block"
     >
       <article className="relative overflow-hidden rounded-[1.75rem] border border-border/80 bg-card transition-all duration-500 hover:-translate-y-1 hover:shadow-xl">
-        {/* IMAGEM */}
         <ProductImage
           product={product}
           selectedColor={selectedColor}
@@ -85,14 +84,12 @@ Valor: R$ ${readyPrice?.toFixed(2).replace(".", ",")}`,
           formatColor={formatColor}
         />
 
-        {/* PRONTA ENTREGA */}
         {readyQuantity !== undefined && (
           <div className="absolute left-4 top-4 rounded-full bg-background/90 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-wide text-primary shadow-sm backdrop-blur-md">
             Pronta entrega
           </div>
         )}
 
-        {/* MAIS VENDIDO */}
         {readyQuantity === undefined &&
           isBestSelling && (
             <div className="absolute left-4 top-4 rounded-full bg-background/90 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-wide text-primary shadow-sm backdrop-blur-md">
@@ -100,7 +97,6 @@ Valor: R$ ${readyPrice?.toFixed(2).replace(".", ",")}`,
             </div>
           )}
 
-        {/* INFORMAÇÕES */}
         <div className="p-5 sm:p-6">
           <div>
             <h3 className="font-serif text-xl font-semibold leading-tight tracking-tight text-foreground">
@@ -120,7 +116,6 @@ Valor: R$ ${readyPrice?.toFixed(2).replace(".", ",")}`,
             )}
           </div>
 
-          {/* CORES */}
           <div className="mt-5">
             <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-muted">
               {readyQuantity !== undefined
@@ -203,7 +198,6 @@ Valor: R$ ${readyPrice?.toFixed(2).replace(".", ",")}`,
             )}
           </div>
 
-          {/* PREÇO + AÇÃO */}
           <div className="mt-6 flex items-end justify-between gap-4 border-t border-border/70 pt-5">
             <div>
               <p className="text-[11px] font-medium uppercase tracking-wide text-muted">

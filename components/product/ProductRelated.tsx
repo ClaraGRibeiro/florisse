@@ -16,12 +16,6 @@ type ProductRelatedProps = {
   products: Product[];
 };
 
-/*
- * Histórico de produtos visitados durante a sessão.
- *
- * IMPORTANTE:
- * total_sales NÃO é usado aqui.
- */
 const VISITED_PRODUCTS_KEY =
   "florisse-related-visited-products";
 
@@ -29,20 +23,9 @@ export default function ProductRelated({
   product,
   products,
 }: ProductRelatedProps) {
-  /*
-   * =========================================================
-   * PRODUTOS JÁ VISITADOS
-   * =========================================================
-   */
 
   const [visitedProducts, setVisitedProducts] =
     useState<Set<string>>(new Set());
-
-  /*
-   * ---------------------------------------------------------
-   * CARREGA O HISTÓRICO DA SESSÃO
-   * ---------------------------------------------------------
-   */
 
   useEffect(() => {
     if (typeof window === "undefined") {
@@ -75,12 +58,6 @@ export default function ProductRelated({
     }
   }, []);
 
-  /*
-   * ---------------------------------------------------------
-   * REGISTRA O PRODUTO ATUAL COMO VISITADO
-   * ---------------------------------------------------------
-   */
-
   useEffect(() => {
     if (
       typeof window === "undefined" ||
@@ -106,18 +83,12 @@ export default function ProductRelated({
           ),
         );
       } catch {
-        // Ignora erros de sessionStorage.
       }
 
       return updated;
     });
   }, [product]);
 
-  /*
-   * =========================================================
-   * PRODUTOS RELACIONADOS
-   * =========================================================
-   */
 
   const relatedProducts = useMemo(() => {
     if (
@@ -127,45 +98,12 @@ export default function ProductRelated({
       return [];
     }
 
-    /*
-     * =======================================================
-     * DADOS DO PRODUTO ATUAL
-     * =======================================================
-     */
 
     const currentColors =
       getProductColors(product);
 
     const currentPrice = getProductPrice(product);
 
-    /*
-     * =======================================================
-     * CALCULA A RELEVÂNCIA
-     * =======================================================
-     *
-     * CRITÉRIOS DE RECOMENDAÇÃO:
-     *
-     * 1. Mesma categoria ........ +100
-     *
-     * 2. Pelo menos uma cor
-     *    em comum ................ +30
-     *
-     * 3. Duas ou mais cores
-     *    em comum ................ +10
-     *
-     * 4. Preço até 20% ........... +20
-     *
-     * 5. Preço até 40% ........... +10
-     *
-     * NÃO EXISTE:
-     *
-     * total_sales
-     * vendas
-     * popularidade
-     * "mais vendido"
-     *
-     * como critério de recomendação.
-     */
 
     const scoredProducts = products
       .filter(
@@ -177,12 +115,6 @@ export default function ProductRelated({
         (candidate, originalIndex) => {
           let score = 0;
 
-          /*
-           * -------------------------------------------------
-           * 1. MESMA CATEGORIA
-           * -------------------------------------------------
-           */
-
           if (
             candidate.category ===
             product.category
@@ -190,11 +122,6 @@ export default function ProductRelated({
             score += 100;
           }
 
-          /*
-           * -------------------------------------------------
-           * 2. CORES SEMELHANTES
-           * -------------------------------------------------
-           */
 
           const candidateColors =
             getProductColors(candidate);
@@ -211,31 +138,14 @@ export default function ProductRelated({
             },
           );
 
-          /*
-           * Pelo menos uma cor em comum.
-           */
+
           if (sharedColors > 0) {
             score += 30;
           }
 
-          /*
-           * Duas ou mais cores em comum.
-           *
-           * Bônus limitado a +10.
-           *
-           * Assim, um produto com várias
-           * combinações de cores não domina
-           * a recomendação.
-           */
           if (sharedColors >= 2) {
             score += 10;
           }
-
-          /*
-           * -------------------------------------------------
-           * 3. PREÇO SEMELHANTE
-           * -------------------------------------------------
-           */
 
           const candidatePrice =
             getProductPrice(candidate);
@@ -252,21 +162,15 @@ export default function ProductRelated({
             const priceDifference =
               Math.abs(
                 candidatePrice -
-                  currentPrice,
+                currentPrice,
               ) / currentPrice;
 
-            /*
-             * Até 20% de diferença.
-             */
             if (
               priceDifference <= 0.2
             ) {
               score += 20;
             }
 
-            /*
-             * Entre 20% e 40%.
-             */
             else if (
               priceDifference <= 0.4
             ) {
@@ -274,31 +178,12 @@ export default function ProductRelated({
             }
           }
 
-          /*
-           * -------------------------------------------------
-           * RESULTADO
-           * -------------------------------------------------
-           *
-           * Observe que NÃO existe:
-           *
-           * totalSales
-           * candidate.total_sales
-           *
-           * aqui.
-           */
-
           return {
             product: candidate,
             score,
             sharedColors,
             originalIndex,
 
-            /*
-             * Apenas verifica se já foi visitado.
-             *
-             * Isso serve para DIVERSIDADE,
-             * não para popularidade.
-             */
             wasVisited:
               visitedProducts.has(
                 candidate.name,
@@ -307,24 +192,7 @@ export default function ProductRelated({
         },
       );
 
-    /*
-     * =======================================================
-     * ORDENAÇÃO
-     * =======================================================
-     *
-     * 1. Produtos ainda não visitados.
-     *
-     * 2. Maior relevância.
-     *
-     * 3. Ordem original do catálogo em caso de empate.
-     *
-     * total_sales NÃO participa.
-     */
-
     scoredProducts.sort((a, b) => {
-      /*
-       * Produtos novos primeiro.
-       */
       if (
         a.wasVisited !==
         b.wasVisited
@@ -332,72 +200,37 @@ export default function ProductRelated({
         return a.wasVisited ? 1 : -1;
       }
 
-      /*
-       * Depois, maior relevância.
-       */
       if (b.score !== a.score) {
         return b.score - a.score;
       }
 
-      /*
-       * Empate:
-       * ordem original do catálogo.
-       */
       return (
         a.originalIndex -
         b.originalIndex
       );
     });
 
-    /*
-     * =======================================================
-     * PRODUTOS NOVOS
-     * =======================================================
-     */
 
     const freshProducts =
       scoredProducts.filter(
         (item) => !item.wasVisited,
       );
 
-    /*
-     * =======================================================
-     * SEPARAÇÃO POR COR
-     * =======================================================
-     */
-
-    /*
-     * Produtos com pelo menos uma cor em comum.
-     */
     const sameColorFresh =
       freshProducts.filter(
         (item) =>
           item.sharedColors > 0,
       );
 
-    /*
-     * Produtos sem nenhuma cor em comum.
-     */
     const differentColorFresh =
       freshProducts.filter(
         (item) =>
           item.sharedColors === 0,
       );
 
-    /*
-     * =======================================================
-     * SELEÇÃO
-     * =======================================================
-     */
 
     const selected: Product[] = [];
 
-    /*
-     * -------------------------------------------------------
-     * PRIMEIRO:
-     * até 3 produtos de cor semelhante.
-     * -------------------------------------------------------
-     */
 
     sameColorFresh
       .slice(0, 3)
@@ -409,29 +242,17 @@ export default function ProductRelated({
         }
       });
 
-    /*
-     * -------------------------------------------------------
-     * DEPOIS:
-     * pelo menos 1 produto de cor diferente.
-     * -------------------------------------------------------
-     */
 
     if (
       selected.length < 4 &&
       differentColorFresh.length >
-        0
+      0
     ) {
       selected.push(
         differentColorFresh[0]
           .product,
       );
     }
-
-    /*
-     * =======================================================
-     * COMPLETA ATÉ 4
-     * =======================================================
-     */
 
     if (selected.length < 4) {
       const selectedNames =
@@ -454,11 +275,7 @@ export default function ProductRelated({
           continue;
         }
 
-        /*
-         * Descobre se o candidato possui
-         * alguma cor em comum com os produtos
-         * já selecionados.
-         */
+  
         const candidateColors =
           getProductColors(
             item.product,
@@ -488,10 +305,7 @@ export default function ProductRelated({
             },
           ).length;
 
-        /*
-         * Nunca ultrapassa 3 recomendações
-         * de cor semelhante.
-         */
+ 
         if (
           item.sharedColors > 0 &&
           sameColorCount >= 3
@@ -508,23 +322,6 @@ export default function ProductRelated({
         );
       }
     }
-
-    /*
-     * =======================================================
-     * FALLBACK
-     * =======================================================
-     *
-     * Só usamos produtos já visitados se o catálogo
-     * não tiver produtos novos suficientes.
-     *
-     * Mesmo aqui:
-     *
-     * NÃO usamos vendas.
-     *
-     * NÃO usamos total_sales.
-     *
-     * NÃO usamos "mais vendido".
-     */
 
     if (selected.length < 4) {
       const selectedNames =
@@ -565,11 +362,6 @@ export default function ProductRelated({
     visitedProducts,
   ]);
 
-  /*
-   * =========================================================
-   * SEM PRODUTOS RELACIONADOS
-   * =========================================================
-   */
 
   if (
     relatedProducts.length === 0
@@ -579,16 +371,10 @@ export default function ProductRelated({
 
   const bestSellingByCategory = getBestSellingByCategory();
 
-  /*
-   * =========================================================
-   * RENDER
-   * =========================================================
-   */
 
   return (
     <section className="mt-16 border-t border-border pt-16">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        {/* CABEÇALHO */}
         <motion.div
           initial={{
             opacity: 0,
@@ -623,7 +409,6 @@ export default function ProductRelated({
           </p>
         </motion.div>
 
-        {/* PRODUTOS */}
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {relatedProducts.map(
             (

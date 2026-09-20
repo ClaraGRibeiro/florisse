@@ -120,7 +120,6 @@ export default function Numbers({ rafflePrice, setNumbersOpen }: NumbersProps) {
         }
         className="max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-3xl border border-border bg-background p-4 shadow-2xl focus:outline-none sm:rounded-4xl sm:p-6"
       >
-        {/* HEADER */}
         <header className="flex items-start justify-between gap-4 border-b border-border pb-4">
           <div className="flex-1">
             <div className="flex items-center gap-2">
@@ -212,7 +211,6 @@ export default function Numbers({ rafflePrice, setNumbersOpen }: NumbersProps) {
           </div>
         </header>
 
-        {/* GRID NUMBERS */}
         {!allNumbersFilled && !loading &&
           <>
             <div className="mt-5 grid gap-2 grid-cols-8 sm:grid-cols-8 md:grid-cols-10 lg:grid-cols-12 xl:grid-cols-15">
@@ -236,13 +234,11 @@ export default function Numbers({ rafflePrice, setNumbersOpen }: NumbersProps) {
                 );
               })}
             </div>
-            {/* LEGEND */}
             <div className="mt-5 flex flex-wrap gap-3 text-xs sm:text-sm text-secondary">
               <Legend color="bg-secondary" label="Disponível" />
               <Legend color="bg-primary" label="Selecionado" />
               <Legend color="bg-muted/20" label="Reservado" />
             </div>
-            {/* SUMMARY */}
             <div className="mt-5 rounded-2xl sm:rounded-3xl border border-border bg-card-soft p-4 sm:p-5">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div>

@@ -83,7 +83,6 @@ Não perca essa chance!`,
         </button>
 
         <div className="relative z-10 grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr]">
-          {/* LEFT */}
           <div className="flex min-h-80 flex-col justify-between bg-card-soft p-5 sm:p-8">
             <div>
               <div className="text-center sm:text-left inline-flex items-center rounded-full border border-primary/20 bg-primary/10 px-4 py-1 text-xs font-medium text-primary">
@@ -150,7 +149,6 @@ Não perca essa chance!`,
             </div>
           </div>
 
-          {/* RIGHT */}
           <div className="flex flex-col p-5 sm:p-6">
             <div className="flex flex-col sm:flex-row items-center justify-center gap-2">
               {raffleItems.map((item, index) => (

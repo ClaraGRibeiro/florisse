@@ -45,7 +45,6 @@ export default function ProductSizes({
 
   return (
     <section className="mt-8">
-      {/* Título */}
       <div>
         <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted">
           Tamanho
@@ -58,7 +57,6 @@ export default function ProductSizes({
         </p>
       </div>
 
-      {/* Opções */}
       <div className="mt-5 flex flex-wrap gap-2.5">
         {product.sizes.map(
           (size, index) => {
@@ -88,7 +86,6 @@ export default function ProductSizes({
           },
         )}
 
-        {/* Outro */}
         <button
           type="button"
           onClick={onCustomSizeClick}
@@ -121,7 +118,6 @@ export default function ProductSizes({
         </button>
       </div>
 
-      {/* Tamanho personalizado */}
       {isCustomSize && (
         <div className="mt-5 rounded-3xl border border-border/70 bg-muted/10 p-5">
           <div>
@@ -137,7 +133,6 @@ export default function ProductSizes({
           </div>
 
           <div className="mt-5 grid gap-4 sm:grid-cols-2">
-            {/* Comprimento */}
             <label className="block">
               <span className="mb-2 block text-xs font-semibold uppercase tracking-[0.12em] text-muted">
                 Comprimento
@@ -165,7 +160,6 @@ export default function ProductSizes({
               </div>
             </label>
 
-            {/* Largura */}
             <label className="block">
               <span className="mb-2 block text-xs font-semibold uppercase tracking-[0.12em] text-muted">
                 Largura
@@ -194,7 +188,6 @@ export default function ProductSizes({
             </label>
           </div>
 
-          {/* Aviso */}
           <div className="mt-5 rounded-xl bg-primary/5 px-4 py-3 text-xs leading-relaxed text-muted">
             O tamanho personalizado
             precisa ser combinado antes
