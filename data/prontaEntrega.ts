@@ -39,7 +39,7 @@ const prontaEntrega: ProntaEntrega[] = [
     productId: "tapete-aline",
     color: "telha-bege",
     size: "76 × 53 cm",
-    price: 50,
+    price: 60,
     quantity: 1,
   },
   {
