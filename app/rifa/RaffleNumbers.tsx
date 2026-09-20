@@ -260,7 +260,7 @@ Total: R$ ${total.toFixed(2)}`,
                   }
                 >
                   <span
-                    className={`block h-full w-full rounded-[2px] ${
+                    className={`block h-full w-full rounded-xs ${
                       confetti.id % 4 === 0
                         ? "bg-primary"
                         : confetti.id % 4 === 1
@@ -428,7 +428,7 @@ Total: R$ ${total.toFixed(2)}`,
               Sua seleção
             </p>
 
-            <p className="mt-2 min-h-6 break-words text-sm font-semibold text-foreground">
+            <p className="mt-2 min-h-6 wrap-break-word text-sm font-semibold text-foreground">
               {sortedNumbers.length > 0
                 ? sortedNumbers.join(" · ")
                 : "Nenhum número selecionado"}

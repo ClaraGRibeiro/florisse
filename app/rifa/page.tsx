@@ -1,93 +1,57 @@
+"use client";
+
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { useState } from "react";
 import {
   FaArrowLeft,
   FaHeart,
   FaMapMarkerAlt,
-  FaWhatsapp,
 } from "react-icons/fa";
-import { FaClover } from "react-icons/fa6";
+import { FaClover, FaShareFromSquare } from "react-icons/fa6";
 
 import {
   BRAND,
   CITY,
-  RAFFLE,
   RAFFLEITEM,
   RAFFLEPRICE,
-  SITE,
 } from "@/data/config";
 
+import FreightSimulator from "./FreightSimulator";
 import RaffleGallery from "./RaffleGallery";
 import RaffleNumbers from "./RaffleNumbers";
-import FreightSimulator from "./FreightSimulator";
-import { Metadata } from "next";
-export async function generateMetadata(): Promise<Metadata> {
-  const image = `${SITE}/rifa/image.jpg`;
-
-  const title = `Rifa ${BRAND} | ${RAFFLEITEM.name}`;
-
-  const description =
-    "Concorra a um conjunto de mesa posta feito à mão pela Florisse.";
-
-  const url = `${SITE}/rifa`;
-
-  return {
-    title,
-    description,
-
-    alternates: {
-      canonical: url,
-    },
-
-    openGraph: {
-      title,
-      description,
-      url,
-      siteName: BRAND,
-      locale: "pt_BR",
-      type: "website",
-      images: [
-        {
-          url: image,
-          width: 800,
-          height: 800,
-          alt: `Rifa ${BRAND} — ${RAFFLEITEM.name}`,
-          type: "image/jpeg",
-        },
-      ],
-    },
-
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images: [image],
-    },
-  };
-}
 
 export default function RafflePage() {
-  if (!RAFFLE) {
-    redirect("/");
-  }
+  const [copied, setCopied] = useState(false);
 
-  const whatsappText =
-    encodeURIComponent(
-      `RIFA ${BRAND.toUpperCase()}
+  const compartilharRifa = async () => {
+    const url = window.location.href;
 
-Prêmio: ${RAFFLEITEM.name}
-• ${RAFFLEITEM.details.join("\n• ")}
+    if (!navigator.share) {
+      try {
+        await navigator.clipboard.writeText(url);
 
-Valor: R$ ${RAFFLEPRICE.toFixed(2).replace(".", ",")} por número
-100 números disponíveis
-Sorteio pela Loteria Federal
+        setCopied(true);
 
-Participe:
-${SITE}/rifa`,
-    );
+        setTimeout(() => {
+          setCopied(false);
+        }, 2000);
+      } catch {
+        // Não faz nada caso não seja possível copiar.
+      }
 
-  const whatsappLink =
-    `https://wa.me/?text=${whatsappText}`;
+      return;
+    }
+
+    try {
+      await navigator.share({
+        title: `Rifa ${BRAND} | ${RAFFLEITEM.name}`,
+        text: `Olha essa rifa da ${BRAND}! 🧶✨`,
+        url,
+      });
+    } catch {
+      // O usuário pode simplesmente ter cancelado o compartilhamento.
+    }
+  };
 
   return (
     <main className="min-h-screen bg-background">
@@ -112,16 +76,13 @@ ${SITE}/rifa`,
 
           <h1 className="mt-3 max-w-3xl font-serif text-4xl font-semibold leading-tight tracking-tight text-foreground sm:text-5xl">
             Um pedacinho da{" "}
-            <span className="text-primary">
-              Florisse
-            </span>{" "}
+            <span className="text-primary">Florisse</span>{" "}
             na sua casa.
           </h1>
 
           <p className="mt-4 max-w-2xl text-sm leading-7 text-muted sm:text-base">
-            Concorra a um conjunto de mesa posta
-            feito à mão, preparado com o mesmo
-            cuidado das peças da Florisse.
+            Concorra a um conjunto de mesa posta feito à mão,
+            preparado com o mesmo cuidado das peças da Florisse.
           </p>
         </section>
 
@@ -209,17 +170,12 @@ ${SITE}/rifa`,
                   </span>
 
                   <span className="font-serif text-6xl font-semibold leading-none tracking-tight text-primary sm:text-7xl">
-                    {Math.floor(
-                      RAFFLEPRICE,
-                    )}
+                    {Math.floor(RAFFLEPRICE)}
                   </span>
 
                   <span className="mb-1 text-2xl font-semibold text-primary">
                     ,
-                    {Math.round(
-                      (RAFFLEPRICE % 1) *
-                      100,
-                    )
+                    {Math.round((RAFFLEPRICE % 1) * 100)
                       .toString()
                       .padStart(2, "0")}
                   </span>
@@ -246,9 +202,8 @@ ${SITE}/rifa`,
                     </p>
 
                     <p className="mt-1 text-xs leading-5 text-muted">
-                      O vencedor será definido
-                      pelos 2 últimos números
-                      do 1º prêmio da{" "}
+                      O vencedor será definido pelos 2 últimos
+                      números do 1º prêmio da{" "}
                       <a
                         href="https://loterias.caixa.gov.br/paginas/federal.aspx"
                         target="_blank"
@@ -269,8 +224,7 @@ ${SITE}/rifa`,
                     </span>
 
                     <p className="text-xs leading-5 text-muted">
-                      Escolha um ou mais
-                      números na cartela
+                      Escolha um ou mais números na cartela
                       abaixo.
                     </p>
                   </div>
@@ -281,8 +235,7 @@ ${SITE}/rifa`,
                     </span>
 
                     <p className="text-xs leading-5 text-muted">
-                      Envie sua escolha pelo
-                      WhatsApp e siga as
+                      Envie sua escolha pelo WhatsApp e siga as
                       instruções para pagamento.
                     </p>
                   </div>
@@ -293,52 +246,41 @@ ${SITE}/rifa`,
                     </span>
 
                     <p className="text-xs leading-5 text-muted">
-                      Assim que os 100 números
-                      forem preenchidos, o
-                      sorteio acontecerá na
-                      próxima quarta-feira ou
-                      sábado.
+                      Assim que os 100 números forem preenchidos,
+                      o sorteio acontecerá na próxima quarta-feira
+                      ou sábado.
                     </p>
                   </div>
                 </div>
               </div>
 
               {/* COMPARTILHAR */}
-              <a
-                href={whatsappLink}
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                type="button"
+                onClick={compartilharRifa}
                 className="mt-4 flex min-h-12 w-full cursor-pointer items-center justify-center gap-2 rounded-full border border-border bg-background px-5 py-3 text-sm font-semibold text-foreground shadow-sm transition-all hover:-translate-y-0.5 hover:bg-card-soft focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
               >
-                <FaWhatsapp
+                <FaShareFromSquare
                   size={16}
                   className="text-primary"
                   aria-hidden="true"
                 />
 
-                Compartilhar rifa
-              </a>
+                {copied
+                  ? "Link copiado!"
+                  : "Compartilhar rifa"}
+              </button>
             </div>
           </div>
         </section>
 
         {/* FRETE */}
         <FreightSimulator
-          originCep={
-            RAFFLEITEM.frete.cep_origem
-          }
-          weight={
-            RAFFLEITEM.frete.peso
-          }
-          width={
-            RAFFLEITEM.frete.largura
-          }
-          length={
-            RAFFLEITEM.frete.comprimento
-          }
-          height={
-            RAFFLEITEM.frete.altura
-          }
+          originCep={RAFFLEITEM.frete.cep_origem}
+          weight={RAFFLEITEM.frete.peso}
+          width={RAFFLEITEM.frete.largura}
+          length={RAFFLEITEM.frete.comprimento}
+          height={RAFFLEITEM.frete.altura}
         />
 
         {/* DIVISOR */}
@@ -359,17 +301,14 @@ ${SITE}/rifa`,
             </h2>
 
             <p className="mt-3 text-sm leading-7 text-muted">
-              Selecione um ou mais números
-              disponíveis. Depois, envie seu pedido
-              pelo WhatsApp para confirmar sua
+              Selecione um ou mais números disponíveis. Depois,
+              envie seu pedido pelo WhatsApp para confirmar sua
               participação.
             </p>
           </div>
 
           <div className="mt-7">
-            <RaffleNumbers
-              rafflePrice={RAFFLEPRICE}
-            />
+            <RaffleNumbers rafflePrice={RAFFLEPRICE} />
           </div>
         </section>
 
