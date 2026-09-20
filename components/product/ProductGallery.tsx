@@ -42,24 +42,23 @@ export default function ProductGallery({
     currentPrice !== undefined &&
     originalPrice !== undefined &&
     originalPrice > currentPrice
-      ? Math.round((1 - currentPrice / originalPrice) * 100)
+      ? Math.round(
+          (1 - currentPrice / originalPrice) * 100,
+        )
       : 0;
 
-  // Sempre que a imagem selecionada mudar,
-  // volta para o estado de loading.
   useEffect(() => {
     setIsLoading(true);
-  }, [selectedImage, imageSrc]);
+  }, [imageSrc]);
 
   return (
     <div className="relative mx-auto w-full max-w-120">
       <div className="relative aspect-9/12 w-full overflow-hidden rounded-4xl border border-border/20 bg-muted/20 shadow-sm">
         {imageSrc ? (
           <>
-            {/* Loading */}
             {isLoading && (
               <div
-                className="absolute inset-0 z-10 flex items-center justify-center"
+                className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none"
                 aria-label="Carregando imagem do produto"
               >
                 <span className="h-8 w-8 animate-spin rounded-full border-2 border-border border-t-primary" />
@@ -74,9 +73,8 @@ export default function ProductGallery({
               priority={selectedImage === 0}
               sizes="(max-width: 768px) 100vw, 50vw"
               onLoad={() => setIsLoading(false)}
-              className={`object-cover transition-opacity duration-300 ${
-                isLoading ? "opacity-0" : "opacity-100"
-              }`}
+              onError={() => setIsLoading(false)}
+              className="object-cover"
             />
           </>
         ) : (
@@ -90,7 +88,8 @@ export default function ProductGallery({
 
         {totalSales > 0 && (
           <div className="absolute left-4 top-4 rounded-full bg-background/90 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-primary shadow-sm backdrop-blur-md">
-            {totalSales} {totalSales > 1 ? "vendidos" : "vendido"}
+            {totalSales}{" "}
+            {totalSales > 1 ? "vendidos" : "vendido"}
           </div>
         )}
 
@@ -145,7 +144,9 @@ export default function ProductGallery({
               onClick={() => onSelectImage(index)}
               aria-label={`Ver imagem ${index + 1}`}
               aria-current={
-                selectedImage === index ? "true" : undefined
+                selectedImage === index
+                  ? "true"
+                  : undefined
               }
               className={`cursor-pointer rounded-full transition-all duration-300 ${
                 selectedImage === index
