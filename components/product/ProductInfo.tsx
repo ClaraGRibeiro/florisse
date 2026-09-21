@@ -1,5 +1,5 @@
-import { Product } from "@/types/product";
 import { Color } from "@/types/color";
+import { Product } from "@/types/product";
 
 import ProductActions from "./ProductActions";
 import ProductColors from "./ProductColors";
@@ -7,12 +7,10 @@ import ProductSizes from "./ProductSizes";
 
 import {
   FaHeart,
-  FaRulerCombined,
   FaPalette,
-  FaMapMarkerAlt,
-  FaWhatsapp,
+  FaRulerCombined,
+  FaWhatsapp
 } from "react-icons/fa";
-import { CITY } from "@/data/config";
 
 type ProductInfoProps = {
   product: Product;
@@ -151,25 +149,19 @@ export default function ProductInfo({
         </div>
 
         <div className="flex items-center gap-3">
-          <FaMapMarkerAlt
-            size={15}
-            className="shrink-0 text-primary"
-          />
 
-          <span className="text-sm text-foreground">
-            Produzido em {CITY}
-          </span>
-        </div>
+          <div className="flex items-center gap-3 sm:col-span-2">
+            <FaWhatsapp
+              size={16}
+              className="shrink-0 text-primary"
+            />
 
-        <div className="flex items-center gap-3 sm:col-span-2">
-          <FaWhatsapp
-            size={16}
-            className="shrink-0 text-primary"
-          />
+            <span className="text-sm text-foreground">
+              Pedido confirmado pelo WhatsApp
+            </span>
+          </div>
 
-          <span className="text-sm text-foreground">
-            Pedido confirmado pelo WhatsApp
-          </span>
+
         </div>
       </div>
 

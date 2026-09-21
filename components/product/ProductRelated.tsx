@@ -27,81 +27,77 @@ export default function ProductRelated({
   product,
   products,
 }: ProductRelatedProps) {
-  const getVisitedProducts = (): Set<string> => {
-    if (typeof window === "undefined") {
-      return new Set();
-    }
-
-    try {
-      const stored = sessionStorage.getItem(
-        VISITED_PRODUCTS_KEY,
-      );
-
-      if (!stored) {
-        return new Set();
-      }
-
-      const parsed = JSON.parse(stored);
-
-      if (!Array.isArray(parsed)) {
-        return new Set();
-      }
-
-      return new Set(
-        parsed.filter(
-          (item): item is string =>
-            typeof item === "string",
-        ),
-      );
-    } catch {
-      return new Set();
-    }
-  };
-
-  const [visitedProducts] =
+  /*
+   * IMPORTANTE:
+   * Não lemos sessionStorage durante a renderização inicial.
+   *
+   * O servidor não possui window/sessionStorage, enquanto o
+   * navegador possui. Ler o storage diretamente no useState
+   * fazia o servidor renderizar uma lista diferente da lista
+   * renderizada pelo cliente durante a hidratação.
+   */
+  const [visitedProducts, setVisitedProducts] =
     useState<Set<string>>(
-      getVisitedProducts,
+      () => new Set(),
     );
 
-  const effectiveVisitedProducts =
-    useMemo(() => {
-      const updated = new Set(
-        visitedProducts,
-      );
-
-      if (product?.name) {
-        updated.add(product.name);
-      }
-
-      return updated;
-    }, [
-      visitedProducts,
-      product?.name,
-    ]);
-
+  /*
+   * Carrega os produtos visitados somente depois da hidratação.
+   *
+   * Isso garante que o HTML inicial do servidor e o HTML inicial
+   * do cliente sejam iguais.
+   */
   useEffect(() => {
-    if (
-      typeof window === "undefined" ||
-      !product?.name
-    ) {
+    if (!product?.name) {
       return;
     }
 
     try {
+      const stored =
+        sessionStorage.getItem(
+          VISITED_PRODUCTS_KEY,
+        );
+
+      let visited = new Set<string>();
+
+      if (stored) {
+        const parsed = JSON.parse(stored);
+
+        if (Array.isArray(parsed)) {
+          visited = new Set(
+            parsed.filter(
+              (item): item is string =>
+                typeof item === "string",
+            ),
+          );
+        }
+      }
+
+      /*
+       * A página atual também passa a ser considerada visitada.
+       */
+      visited.add(product.name);
+
+      setVisitedProducts(visited);
+
       sessionStorage.setItem(
         VISITED_PRODUCTS_KEY,
         JSON.stringify(
-          Array.from(
-            effectiveVisitedProducts,
-          ),
+          Array.from(visited),
         ),
       );
     } catch {
+      /*
+       * Se o sessionStorage estiver indisponível ou
+       * corrompido, mantemos o comportamento determinístico.
+       */
+      const fallback = new Set<string>();
+
+      fallback.add(product.name);
+
+      setVisitedProducts(fallback);
     }
-  }, [
-    effectiveVisitedProducts,
-    product?.name,
-  ]);
+  }, [product?.name]);
 
   const relatedProducts = useMemo(() => {
     if (
@@ -130,6 +126,9 @@ export default function ProductRelated({
         ) => {
           let score = 0;
 
+          /*
+           * Mesma categoria.
+           */
           if (
             candidate.category ===
             product.category
@@ -137,6 +136,9 @@ export default function ProductRelated({
             score += 100;
           }
 
+          /*
+           * Cores em comum.
+           */
           const candidateColors =
             getProductColors(
               candidate,
@@ -164,6 +166,9 @@ export default function ProductRelated({
             score += 10;
           }
 
+          /*
+           * Faixa de preço semelhante.
+           */
           const candidatePrice =
             getProductPrice(
               candidate,
@@ -202,14 +207,24 @@ export default function ProductRelated({
             originalIndex,
 
             wasVisited:
-              effectiveVisitedProducts.has(
+              visitedProducts.has(
                 candidate.name,
               ),
           };
         },
       );
 
+    /*
+     * Ordenação totalmente determinística.
+     *
+     * Não usamos Math.random(), Date.now() ou qualquer
+     * comportamento que possa gerar listas diferentes
+     * entre servidor e cliente.
+     */
     scoredProducts.sort((a, b) => {
+      /*
+       * Produtos ainda não visitados vêm primeiro.
+       */
       if (
         a.wasVisited !==
         b.wasVisited
@@ -217,10 +232,19 @@ export default function ProductRelated({
         return a.wasVisited ? 1 : -1;
       }
 
+      /*
+       * Maior relevância primeiro.
+       */
       if (b.score !== a.score) {
         return b.score - a.score;
       }
 
+      /*
+       * Desempate determinístico.
+       *
+       * Usar o índice original também é determinístico,
+       * pois products é uma lista estável recebida como prop.
+       */
       return (
         a.originalIndex -
         b.originalIndex
@@ -246,6 +270,9 @@ export default function ProductRelated({
 
     const selected: Product[] = [];
 
+    /*
+     * Primeiro: até 3 produtos com cores em comum.
+     */
     sameColorFresh
       .slice(0, 3)
       .forEach((item) => {
@@ -256,6 +283,10 @@ export default function ProductRelated({
         }
       });
 
+    /*
+     * Depois: pelo menos 1 produto de cor diferente,
+     * quando disponível.
+     */
     if (
       selected.length < 4 &&
       differentColorFresh.length > 0
@@ -266,6 +297,9 @@ export default function ProductRelated({
       );
     }
 
+    /*
+     * Completa até 4 produtos.
+     */
     if (selected.length < 4) {
       const selectedNames =
         new Set(
@@ -317,6 +351,10 @@ export default function ProductRelated({
             },
           ).length;
 
+        /*
+         * Evita que os quatro cards acabem excessivamente
+         * concentrados nas mesmas cores.
+         */
         if (
           item.sharedColors > 0 &&
           sameColorCount >= 3
@@ -334,6 +372,10 @@ export default function ProductRelated({
       }
     }
 
+    /*
+     * Se não houver 4 produtos novos, completa com
+     * produtos já visitados.
+     */
     if (selected.length < 4) {
       const selectedNames =
         new Set(
@@ -370,7 +412,7 @@ export default function ProductRelated({
   }, [
     product,
     products,
-    effectiveVisitedProducts,
+    visitedProducts,
   ]);
 
   if (

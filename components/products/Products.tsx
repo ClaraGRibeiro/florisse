@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
-import { Product } from "@/types/product";
-import { ReadyProduct } from "@/types/product";
+import { Product, ReadyProduct } from "@/types/product";
 
 import { ProductCard } from "./ProductCard";
 import ProductFilters from "./ProductFilters";
+
+type SortOption =
+  | "relevancia"
+  | "menor-preco"
+  | "maior-preco"
+  | "az";
 
 type ProductsProps = {
   products: Product[];
@@ -26,12 +31,16 @@ export default function Products({
   filters,
   categoryCounts,
 }: ProductsProps) {
+  const [category, setCategory] = useState("Todos");
+  const [sort, setSort] =
+    useState<SortOption>("relevancia");
+
   const handleCategoryChange = (newCategory: string) => {
     setCategory(newCategory);
 
     const url = new URL(window.location.href);
 
-    if (newCategory === "Tapetes") {
+    if (newCategory === "Todos") {
       url.searchParams.delete("categoria");
     } else {
       url.searchParams.set("categoria", newCategory);
@@ -39,27 +48,59 @@ export default function Products({
 
     window.history.pushState({}, "", url);
   };
-  const [category, setCategory] = useState("Tapetes");
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const categoryFromUrl = params.get("categoria");
+    const params = new URLSearchParams(
+      window.location.search,
+    );
+
+    const categoryFromUrl =
+      params.get("categoria");
 
     if (
       categoryFromUrl &&
       filters.includes(categoryFromUrl)
     ) {
       setCategory(categoryFromUrl);
+    } else {
+      setCategory("Todos");
     }
   }, [filters]);
 
   const filteredProducts =
-    category === "Pronta entrega"
-      ? readyProducts
-      : products.filter(
-        (product) =>
-          product.category === category,
+    category === "Todos"
+      ? products
+      : category === "Pronta entrega"
+        ? readyProducts
+        : products.filter(
+            (product) =>
+              product.category === category,
+          );
+
+  const sortedProducts = [...filteredProducts].sort(
+   (a, b) => {
+  switch (sort) {
+    case "menor-preco":
+      return a.sizes[0].price - b.sizes[0].price;
+
+    case "maior-preco":
+      return b.sizes[0].price - a.sizes[0].price;
+
+    case "az":
+      return a.name.localeCompare(
+        b.name,
+        "pt-BR",
+        {
+          sensitivity: "base",
+        },
       );
+
+    case "relevancia":
+    default:
+      return (b.total_sales ?? 0) - (a.total_sales ?? 0);
+  }
+},
+  );
 
   return (
     <motion.section
@@ -94,10 +135,12 @@ export default function Products({
         setCategory={handleCategoryChange}
         filters={filters}
         categoryCounts={categoryCounts}
+        sort={sort}
+        setSort={setSort}
       />
 
       <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {filteredProducts.map(
+        {sortedProducts.map(
           (product, index) => {
             const readyProduct =
               category === "Pronta entrega"
@@ -135,7 +178,7 @@ export default function Products({
         )}
       </div>
 
-      {filteredProducts.length === 0 && (
+      {sortedProducts.length === 0 && (
         <div className="py-20 text-center">
           <p className="font-serif text-xl text-foreground">
             Nenhuma peça encontrada.

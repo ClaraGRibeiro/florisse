@@ -39,11 +39,11 @@ export default function ProductGallery({
 
   const discountPercentage =
     currentPrice !== undefined &&
-    originalPrice !== undefined &&
-    originalPrice > currentPrice
+      originalPrice !== undefined &&
+      originalPrice > currentPrice
       ? Math.round(
-          (1 - currentPrice / originalPrice) * 100,
-        )
+        (1 - currentPrice / originalPrice) * 100,
+      )
       : 0;
 
   return (
@@ -59,6 +59,7 @@ export default function ProductGallery({
           showLoading={Boolean(imageSrc)}
           emptyMessage="Imagem indisponível para esta seleção"
           fallbackMessage="Não foi possível carregar a imagem"
+          className="object-cover"
         />
 
         {totalSales > 0 && (
@@ -123,11 +124,10 @@ export default function ProductGallery({
                   ? "true"
                   : undefined
               }
-              className={`cursor-pointer rounded-full transition-all duration-300 ${
-                selectedImage === index
+              className={`cursor-pointer rounded-full transition-all duration-300 ${selectedImage === index
                   ? "h-2 w-7 bg-primary"
                   : "h-2 w-2 bg-border hover:bg-primary/50"
-              }`}
+                }`}
             />
           ))}
         </div>

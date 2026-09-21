@@ -12,7 +12,7 @@ const mesaposta = [
                 sales: 2,
             },
             {
-                label: "6 (37 cm) + 1 (100 × 25 cm)",
+                label: "KIT 6 (37 cm) + 1 (100 × 25 cm)",
                 price: (27 + 27 + 27 + 27 + 27 + 27 + 65) * DISCOUNT,
                 no_discount: 27 + 27 + 27 + 27 + 27 + 27 + 65,
             },
@@ -63,7 +63,7 @@ const mesaposta = [
                 sales: 0,
             },
             {
-                label: "6 (37 cm)",
+                label: "KIT 6 (37 cm)",
                 price: (27 + 27 + 27 + 27 + 27 + 27) * DISCOUNT,
                 no_discount: 27 + 27 + 27 + 27 + 27 + 27,
             },

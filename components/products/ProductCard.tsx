@@ -91,8 +91,8 @@ Valor: R$ ${readyPrice?.toFixed(2).replace(".", ",")}`,
 
         {readyQuantity === undefined &&
           isBestSelling && (
-            <div className="absolute left-4 top-4 rounded-full bg-background/90 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-wide text-primary shadow-sm backdrop-blur-md">
-              Mais vendido
+            <div className="absolute left-4 top-4 rounded-full bg-background/70 px-3.5 py-1.5 text-[10px] font-semibold uppercase tracking-wide text-primary shadow-sm backdrop-blur-md">
+              Mais vendido <span className="lowercase">({product.category})</span>
             </div>
           )}
 
