@@ -95,7 +95,7 @@ export default function ProductFilters({
       </div>
 
       {/* Ordenação */}
-      {category !== "Pronta Entrega" && (
+      {category !== "Pronta Entrega" ? (
         <div className="flex items-center gap-2">
           <span className="text-muted text-sm">Ordenar por</span>
 
@@ -132,6 +132,17 @@ export default function ProductFilters({
               />
             </svg>
           </div>
+        </div>
+      ) : (
+        <div className="border-primary/20 bg-primary/5 rounded-2xl border px-4 py-3.5 shadow-sm">
+          <p className="text-foreground/80 text-sm leading-relaxed">
+            <span className="text-primary font-semibold">
+              <span>✦</span> {" "}
+              Quer receber mais rápido?
+            </span>{" "}
+            Essas peças já estão prontas para você. Escolha sua favorita e fale
+            comigo pelo WhatsApp!
+          </p>
         </div>
       )}
     </div>

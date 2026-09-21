@@ -1,3 +1,5 @@
+import { DISCOUNT } from "./config";
+
 export type ProntaEntrega = {
   name: string | null;
   productId: string;
@@ -21,7 +23,7 @@ const prontaEntrega: ProntaEntrega[] = [
       ],
     },
     size: "KIT 6 (37 cm) + 1 (100 × 25 cm)",
-    price: 219,
+    price: (27 + 27 + 27 + 27 + 27 + 27 + 65) * DISCOUNT,
     quantity: 1,
   },
   {
