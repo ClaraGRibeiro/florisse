@@ -1,4 +1,4 @@
-type SortOption = "relevancia" | "menor-preco" | "maior-preco" | "az";
+type SortOption = "relevancia" | "menor-preco" | "maior-preco" | "az" | "za";
 
 type ProductFiltersProps = {
   category: string;
@@ -18,7 +18,7 @@ export default function ProductFilters({
   setSort,
 }: ProductFiltersProps) {
   const totalProducts = filters
-    .filter((filter) => filter !== "Pronta entrega")
+    .filter((filter) => filter !== "Pronta Entrega")
     .reduce((total, filter) => total + (categoryCounts[filter] ?? 0), 0);
   return (
     <div className="mt-10 flex flex-col items-center gap-4">
@@ -49,7 +49,7 @@ export default function ProductFilters({
         </button>
 
         {filters.map((filter) => {
-          const isReady = filter === "Pronta entrega";
+          const isReady = filter === "Pronta Entrega";
 
           return (
             <button
@@ -95,41 +95,45 @@ export default function ProductFilters({
       </div>
 
       {/* Ordenação */}
-      <div className="flex items-center gap-2">
-        <span className="text-muted text-sm">Ordenar por</span>
+      {category !== "Pronta Entrega" && (
+        <div className="flex items-center gap-2">
+          <span className="text-muted text-sm">Ordenar por</span>
 
-        <div className="relative">
-          <select
-            id="sort-products"
-            value={sort}
-            onChange={(event) => setSort(event.target.value as SortOption)}
-            className="border-border/70 bg-background text-foreground hover:border-primary/40 focus:border-primary focus:ring-primary/10 cursor-pointer appearance-none rounded-full border py-2.5 pr-10 pl-4 text-sm font-medium shadow-sm transition-all duration-200 outline-none hover:shadow-md focus:ring-2"
-          >
-            <option value="relevancia">Relevância</option>
+          <div className="relative">
+            <select
+              id="sort-products"
+              value={sort}
+              onChange={(event) => setSort(event.target.value as SortOption)}
+              className="border-border/70 bg-background text-foreground hover:border-primary/40 focus:border-primary focus:ring-primary/10 cursor-pointer appearance-none rounded-full border py-2.5 pr-10 pl-4 text-sm font-medium shadow-sm transition-all duration-200 outline-none hover:shadow-md focus:ring-2"
+            >
+              <option value="relevancia">Relevância</option>
 
-            <option value="menor-preco">Menor preço</option>
+              <option value="menor-preco">Menor preço</option>
 
-            <option value="maior-preco">Maior preço</option>
+              <option value="maior-preco">Maior preço</option>
 
-            <option value="az">A–Z</option>
-          </select>
+              <option value="az">A - Z</option>
 
-          <svg
-            className="text-muted pointer-events-none absolute top-1/2 right-4 h-4 w-4 -translate-y-1/2"
-            viewBox="0 0 20 20"
-            fill="none"
-            aria-hidden="true"
-          >
-            <path
-              d="M5 7.5L10 12.5L15 7.5"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+              <option value="za">Z - A</option>
+            </select>
+
+            <svg
+              className="text-muted pointer-events-none absolute top-1/2 right-4 h-4 w-4 -translate-y-1/2"
+              viewBox="0 0 20 20"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M5 7.5L10 12.5L15 7.5"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

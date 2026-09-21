@@ -76,7 +76,7 @@ export function getCategories(): string[] {
 }
 
 export function getCatalogCategories(): string[] {
-  return [...getCategories(), "Pronta entrega"];
+  return [...getCategories(), "Pronta Entrega"];
 }
 
 export function getCategoryCounts(): Record<string, number> {
@@ -86,7 +86,7 @@ export function getCategoryCounts(): Record<string, number> {
     return acc;
   }, {});
 
-  counts["Pronta entrega"] = getReadyProducts().length;
+  counts["Pronta Entrega"] = getReadyProducts().length;
 
   return counts;
 }
@@ -100,7 +100,7 @@ export function getReadyProducts(): ReadyProduct[] {
 
       if (!product) {
         console.warn(
-          `Pronta entrega: produto "${ready.productId}" não encontrado.`,
+          `Pronta Entrega: produto "${ready.productId}" não encontrado.`,
         );
 
         return null;
@@ -108,7 +108,9 @@ export function getReadyProducts(): ReadyProduct[] {
 
       return {
         ...product,
+        name: ready.name ? ready.name : product.name,
         readyColor: ready.color,
+        images: ready.images ? ready.images : product.images,
         readySize: ready.size,
         readyPrice: ready.price,
         readyQuantity: ready.quantity,

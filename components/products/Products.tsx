@@ -6,7 +6,7 @@ import { Product, ReadyProduct } from "@/types/product";
 import { ProductCard } from "./ProductCard";
 import ProductFilters from "./ProductFilters";
 
-type SortOption = "relevancia" | "menor-preco" | "maior-preco" | "az";
+type SortOption = "relevancia" | "menor-preco" | "maior-preco" | "az" | "za";
 
 type ProductsProps = {
   products: Product[];
@@ -59,7 +59,7 @@ export default function Products({
   const filteredProducts =
     category === "Todos"
       ? products
-      : category === "Pronta entrega"
+      : category === "Pronta Entrega"
         ? readyProducts
         : products.filter((product) => product.category === category);
 
@@ -73,6 +73,11 @@ export default function Products({
 
       case "az":
         return a.name.localeCompare(b.name, "pt-BR", {
+          sensitivity: "base",
+        });
+
+      case "za":
+        return b.name.localeCompare(a.name, "pt-BR", {
           sensitivity: "base",
         });
 
@@ -121,7 +126,7 @@ export default function Products({
       <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {sortedProducts.map((product, index) => {
           const readyProduct =
-            category === "Pronta entrega" ? (product as ReadyProduct) : null;
+            category === "Pronta Entrega" ? (product as ReadyProduct) : null;
 
           return (
             <ProductCard
