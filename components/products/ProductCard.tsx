@@ -1,11 +1,15 @@
+"use client";
+
 import Link from "next/link";
 import { useState } from "react";
 import { FaWhatsapp } from "react-icons/fa";
+
+import { WHATSAPP } from "@/data/config";
 import { Product } from "@/types/product";
 import { getGradient } from "@/utils/gradient";
 
 import ProductImage from "./ProductImage";
-import { WHATSAPP } from "@/data/config";
+
 export function ProductCard({
   product,
   bestSellingByCategory,
@@ -25,18 +29,42 @@ export function ProductCard({
   readyPrice?: number;
   readyQuantity?: number;
 }) {
+  /*
+   * Cor que está sendo apenas pré-visualizada
+   * enquanto o mouse está sobre a bolinha.
+   */
   const [hoveredColor, setHoveredColor] =
     useState<string | null>(null);
 
+  /*
+   * Cor efetivamente selecionada pelo clique.
+   *
+   * Para produtos de pronta entrega, a cor já começa
+   * selecionada em readyColor.
+   */
+  const [selectedColorName, setSelectedColorName] =
+    useState<string | null>(
+      readyColor ?? null,
+    );
+
   const firstSize = product.sizes[0];
 
-  const selectedColorName =
-    readyColor ?? hoveredColor;
+  /*
+   * A cor exibida segue esta prioridade:
+   *
+   * 1. Cor em hover, para permitir pré-visualização;
+   * 2. Cor que o usuário clicou;
+   * 3. Primeira cor do produto.
+   */
+  const displayedColorName =
+    hoveredColor ??
+    selectedColorName ??
+    product.colors[0]?.name;
 
   const selectedColor =
     product.colors.find(
       (color) =>
-        color.name === selectedColorName,
+        color.name === displayedColorName,
     ) ?? product.colors[0];
 
   const isBestSelling =
@@ -69,11 +97,28 @@ Valor: R$ ${readyPrice?.toFixed(2).replace(".", ",")}`,
       "noopener,noreferrer",
     );
   };
+
+  /*
+   * Quando o usuário clica em uma cor:
+   *
+   * - impede a navegação do Link;
+   * - fixa a cor selecionada;
+   * - a cor continua selecionada mesmo depois
+   *   que o mouse sair da bolinha.
+   */
+  const handleColorClick = (
+    event: React.MouseEvent<HTMLButtonElement>,
+    colorName: string,
+  ) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    setSelectedColorName(colorName);
+  };
+
   return (
     <Link
-      href={`/produto/${formatPath(
-        product.name,
-      )}`}
+      href={`/produto/${formatPath(product.name)}`}
       className="group block"
     >
       <article className="relative overflow-hidden rounded-[1.75rem] border border-border/80 bg-card transition-all duration-500 hover:-translate-y-1 hover:shadow-xl">
@@ -92,7 +137,10 @@ Valor: R$ ${readyPrice?.toFixed(2).replace(".", ",")}`,
         {readyQuantity === undefined &&
           isBestSelling && (
             <div className="absolute left-4 top-4 rounded-full bg-background/70 px-3.5 py-1.5 text-[10px] font-semibold uppercase tracking-wide text-primary shadow-sm backdrop-blur-md">
-              Mais vendido <span className="lowercase">({product.category})</span>
+              Mais vendido{" "}
+              <span className="lowercase">
+                ({product.category})
+              </span>
             </div>
           )}
 
@@ -118,10 +166,11 @@ Valor: R$ ${readyPrice?.toFixed(2).replace(".", ",")}`,
           <div className="mt-5">
             <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-muted">
               {readyQuantity !== undefined
-                ? `${readyQuantity} ${readyQuantity === 1
-                  ? "unidade disponível"
-                  : "unidades disponíveis"
-                }`
+                ? `${readyQuantity} ${
+                    readyQuantity === 1
+                      ? "unidade disponível"
+                      : "unidades disponíveis"
+                  }`
                 : `${product.sizes.length} tamanhos disponíveis`}
             </p>
 
@@ -134,8 +183,7 @@ Valor: R$ ${readyPrice?.toFixed(2).replace(".", ",")}`,
                   className="h-6 w-6 rounded-full border-2 border-background shadow-sm"
                   style={{
                     background: getGradient(
-                      selectedColor?.hex ??
-                      [],
+                      selectedColor?.hex ?? [],
                     ),
                   }}
                 />
@@ -147,52 +195,72 @@ Valor: R$ ${readyPrice?.toFixed(2).replace(".", ",")}`,
                 </span>
               </div>
             ) : (
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2">
                 {product.colors
                   .slice(0, 7)
-                  .map((color) => (
-                    <button
-                      key={color.name}
-                      type="button"
-                      title={formatColor(
-                        color.name,
-                      )}
-                      aria-label={`Ver ${product.name} na cor ${formatColor(
-                        color.name,
-                      )}`}
-                      onMouseEnter={() =>
-                        setHoveredColor(
+                  .map((color) => {
+                    const isSelected =
+                      selectedColorName ===
+                      color.name;
+
+                    const isHovered =
+                      hoveredColor ===
+                      color.name;
+
+                    return (
+                      <button
+                        key={color.name}
+                        type="button"
+                        title={`Selecionar ${formatColor(
                           color.name,
-                        )
-                      }
-                      onMouseLeave={() =>
-                        setHoveredColor(null)
-                      }
-                      onClick={(event) =>
-                        event.preventDefault()
-                      }
-                      className={`h-6 w-6 cursor-pointer rounded-full border-2 border-background shadow-sm transition-all duration-200 ${hoveredColor ===
-                        color.name
-                        ? "scale-125 ring-2 ring-primary/30"
-                        : "hover:scale-110"
+                        )}`}
+                        aria-label={`Selecionar ${product.name} na cor ${formatColor(
+                          color.name,
+                        )}`}
+                        aria-pressed={
+                          isSelected
+                        }
+                        onMouseEnter={() =>
+                          setHoveredColor(
+                            color.name,
+                          )
+                        }
+                        onMouseLeave={() =>
+                          setHoveredColor(
+                            null,
+                          )
+                        }
+                        onClick={(event) =>
+                          handleColorClick(
+                            event,
+                            color.name,
+                          )
+                        }
+                        className={`h-6 w-6 cursor-pointer rounded-full border-2 border-background shadow-sm transition-all duration-200 ${
+                          isSelected
+                            ? "scale-125 ring-2 ring-primary/40"
+                            : isHovered
+                              ? "scale-110 ring-2 ring-primary/20"
+                              : "hover:scale-110"
                         }`}
-                      style={{
-                        background:
-                          getGradient(
-                            color.hex,
-                          ),
-                      }}
-                    />
-                  ))}
+                        style={{
+                          background:
+                            getGradient(
+                              color.hex,
+                            ),
+                        }}
+                      />
+                    );
+                  })}
 
                 {product.colors.length >
                   7 && (
-                    <span className="ml-1 text-xs font-medium text-muted">
-                      +
-                      {product.colors.length -
-                        7}
-                    </span>
-                  )}
+                  <span className="ml-1 text-xs font-medium text-muted">
+                    +
+                    {product.colors.length -
+                      7}
+                  </span>
+                )}
               </div>
             )}
           </div>
@@ -230,7 +298,9 @@ Valor: R$ ${readyPrice?.toFixed(2).replace(".", ",")}`,
             {isReadyProduct ? (
               <button
                 type="button"
-                onClick={handleReadyProductClick}
+                onClick={
+                  handleReadyProductClick
+                }
                 className="flex cursor-pointer items-center gap-2 rounded-full bg-primary px-4 py-2.5 text-sm font-semibold text-white transition-all duration-300 hover:scale-[1.02] hover:shadow-md"
               >
                 <FaWhatsapp className="text-base" />
