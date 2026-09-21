@@ -21,7 +21,11 @@ function isValidCep(value: string) {
 }
 
 function isPositiveNumber(value: unknown): value is number {
-  return typeof value === "number" && Number.isFinite(value) && value > 0;
+  return (
+    typeof value === "number" &&
+    Number.isFinite(value) &&
+    value > 0
+  );
 }
 
 function getErrorMessage(data: unknown) {
@@ -73,6 +77,44 @@ function normalizeServices(data: unknown) {
   }
 
   return [];
+}
+
+function addFreightMargin(price: unknown) {
+  const value = Number(price);
+
+  if (!Number.isFinite(value)) {
+    return null;
+  }
+
+  return Number((value).toFixed(2));
+}
+
+function applyFreightMargin(service: unknown) {
+  if (!service || typeof service !== "object") {
+    return service;
+  }
+
+  const object = service as Record<string, unknown>;
+
+  const price =
+    object.custom_price ??
+    object.price ??
+    object.final_price;
+
+  if (price === undefined || price === null) {
+    return service;
+  }
+
+  const customPrice = addFreightMargin(price);
+
+  if (customPrice === null) {
+    return service;
+  }
+
+  return {
+    ...object,
+    custom_price: customPrice,
+  };
 }
 
 export async function POST(request: NextRequest) {
@@ -163,7 +205,7 @@ export async function POST(request: NextRequest) {
 
       headers: {
         Authorization: `Bearer ${token}`,
-        "User-Agent": "Florisse-Croche (" + BRAND + ")",
+        "User-Agent": `Florisse-Croche (${BRAND})`,
         Accept: "application/json",
         "Content-Type": "application/json",
       },
@@ -178,7 +220,9 @@ export async function POST(request: NextRequest) {
     let responseData: unknown = null;
 
     try {
-      responseData = responseText ? JSON.parse(responseText) : null;
+      responseData = responseText
+        ? JSON.parse(responseText)
+        : null;
     } catch {
       responseData = null;
     }
@@ -195,15 +239,21 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           error:
-            apiMessage || "Não foi possível calcular o frete para esse CEP.",
+            apiMessage ||
+            "Não foi possível calcular o frete para esse CEP.",
         },
         {
-          status: response.status >= 400 && response.status < 500 ? 400 : 502,
+          status:
+            response.status >= 400 && response.status < 500
+              ? 400
+              : 502,
         },
       );
     }
 
-    const services = normalizeServices(responseData);
+    const services = normalizeServices(responseData).map(
+      applyFreightMargin,
+    );
 
     return NextResponse.json({
       success: true,
@@ -214,7 +264,8 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(
       {
-        error: "Não foi possível calcular o frete agora. Tente novamente.",
+        error:
+          "Não foi possível calcular o frete agora. Tente novamente.",
       },
       { status: 500 },
     );

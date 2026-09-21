@@ -113,8 +113,14 @@ function getServiceName(option: FreightOption) {
   }
 }
 
-function getPrice(option: FreightOption) {
-  return option.custom_price ?? option.price ?? option.final_price;
+function getPrice(option: FreightOption): number {
+  const price = option.custom_price ?? option.price ?? option.final_price;
+
+  if (price === undefined) {
+    return 0;
+  }
+
+  return Number(price)*1.5;
 }
 
 function getDeadline(option: FreightOption) {
@@ -332,8 +338,9 @@ export default function FreightSimulator({
                 Opções disponíveis
               </p>
 
-              <p className="text-muted mt-0.5 text-xs">
-                Valores cotados pela SuperFrete
+              <p className="text-muted mt-1 text-xs leading-relaxed">
+                Frete estimado pela SuperFrete com base nas dimensões de{" "}
+                {length} × {height} × {width} cm e peso de {weight} kg.
               </p>
             </div>
 
@@ -356,7 +363,7 @@ export default function FreightSimulator({
                   className="border-border bg-background flex items-center justify-between gap-4 rounded-2xl border px-4 py-3"
                 >
                   <div className="min-w-0">
-                    <p className="text-foreground text-sm font-semibold">
+                    <p className="text-primary text-sm font-semibold">
                       {serviceName}
                     </p>
 

@@ -18,6 +18,8 @@ import ProductRelated from "@/components/product/ProductRelated";
 import Share from "@/components/product/Share";
 
 import { formatColor } from "@/utils/format";
+import FreightSimulator from "@/app/rifa/FreightSimulator";
+import { CEP_ORIGEM } from "@/data/config";
 
 const colors = colorsData as Color[];
 
@@ -119,7 +121,11 @@ export default function ProductClient({ slug }: ProductClientProps) {
   }
 
   const currentSize = product.sizes[selectedSize];
-
+          console.log(currentSize.price)
+          console.log(currentSize.peso)
+          console.log(currentSize.largura)
+          console.log(currentSize.comprimento)
+          console.log(currentSize.altura)
   if (!currentSize) {
     return null;
   }
@@ -361,6 +367,13 @@ export default function ProductClient({ slug }: ProductClientProps) {
           />
         </div>
 
+        <FreightSimulator
+          originCep={CEP_ORIGEM}
+          weight={currentSize.peso}
+          width={currentSize.largura}
+          length={currentSize.comprimento}
+          height={currentSize.altura}
+        />
         <ProductRelated product={product} products={products} />
 
         {showTop && (
