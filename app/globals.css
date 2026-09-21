@@ -84,12 +84,8 @@ html {
   }
 
   100% {
-    transform: translate3d(
-      calc((var(--random-x, 0) - 50) * 1px),
-      420px,
-      0
-    )
-    rotate(720deg);
+    transform: translate3d(calc((var(--random-x, 0) - 50) * 1px), 420px, 0)
+      rotate(720deg);
     opacity: 0;
   }
 }

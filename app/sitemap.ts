@@ -1,4 +1,3 @@
-
 import type { MetadataRoute } from "next";
 
 import productsData from "@/data/products";
@@ -12,7 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.8,
-    })
+    }),
   );
 
   return [

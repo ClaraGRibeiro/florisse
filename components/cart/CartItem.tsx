@@ -30,7 +30,8 @@ export default function CartItem({
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="rounded-[1.75rem] border border-border/80 bg-card p-4 shadow-sm transition-shadow duration-300 hover:shadow-md sm:p-5">
+      className="border-border/80 bg-card rounded-[1.75rem] border p-4 shadow-sm transition-shadow duration-300 hover:shadow-md sm:p-5"
+    >
       <div className="flex flex-col gap-4 md:flex-row">
         <CartItemImage item={item} />
 
@@ -48,7 +49,7 @@ export default function CartItem({
               <button
                 type="button"
                 onClick={() => setIsEditing((current) => !current)}
-                className="cursor-pointer rounded-full border border-border px-4 py-2.5 text-sm font-medium transition-all duration-300 hover:border-primary/50 hover:bg-primary/5 hover:text-primary"
+                className="border-border hover:border-primary/50 hover:bg-primary/5 hover:text-primary cursor-pointer rounded-full border px-4 py-2.5 text-sm font-medium transition-all duration-300"
               >
                 {isEditing ? "Fechar edição" : "Editar opções"}
               </button>
@@ -57,7 +58,7 @@ export default function CartItem({
             <button
               type="button"
               onClick={() => onRemove(item.id)}
-              className="cursor-pointer rounded-full border border-border px-4 py-2.5 text-sm font-medium text-muted transition-all duration-300 hover:border-destructive/40 hover:bg-destructive/5 hover:text-destructive"
+              className="border-border text-muted hover:border-destructive/40 hover:bg-destructive/5 hover:text-destructive cursor-pointer rounded-full border px-4 py-2.5 text-sm font-medium transition-all duration-300"
             >
               Remover
             </button>
@@ -76,4 +77,3 @@ export default function CartItem({
     </motion.div>
   );
 }
-

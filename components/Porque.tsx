@@ -33,22 +33,21 @@ export default function PorQueFlorisse() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.7 }}
-      className="scroll-mt-20 relative overflow-hidden bg-background py-20 sm:py-24"
+      className="bg-background relative scroll-mt-20 overflow-hidden py-20 sm:py-24"
     >
-      <div className="pointer-events-none absolute -left-24 top-20 h-64 w-64 rounded-full bg-primary/5 blur-3xl" />
-      <div className="pointer-events-none absolute -right-24 bottom-10 h-64 w-64 rounded-full bg-primary/5 blur-3xl" />
+      <div className="bg-primary/5 pointer-events-none absolute top-20 -left-24 h-64 w-64 rounded-full blur-3xl" />
+      <div className="bg-primary/5 pointer-events-none absolute -right-24 bottom-10 h-64 w-64 rounded-full blur-3xl" />
 
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
         <div className="mb-12 text-center sm:mb-14">
-          <div className="flex items-center justify-center gap-3 text-xs font-medium uppercase tracking-[0.2em] text-primary">
+          <div className="text-primary flex items-center justify-center gap-3 text-xs font-medium tracking-[0.2em] uppercase">
             <span>✦</span>
             <span>Por que escolher a Florisse?</span>
             <span>✦</span>
           </div>
 
-          <h2 className="mt-4 font-serif text-4xl font-medium leading-tight text-foreground sm:text-5xl">
-            Feito com{" "}
-            <span className="italic text-primary">cuidado</span>,
+          <h2 className="text-foreground mt-4 font-serif text-4xl leading-tight font-medium sm:text-5xl">
+            Feito com <span className="text-primary italic">cuidado</span>,
             pensado para você.
           </h2>
         </div>
@@ -67,17 +66,17 @@ export default function PorQueFlorisse() {
                   duration: 0.5,
                   delay: index * 0.08,
                 }}
-                className="group rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/20 hover:shadow-lg sm:p-7"
+                className="group border-border bg-card hover:border-primary/20 rounded-2xl border p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg sm:p-7"
               >
-                <div className="flex h-11 w-11 items-center justify-center rounded-full bg-primary/10 text-primary transition-transform duration-300 group-hover:scale-110">
+                <div className="bg-primary/10 text-primary flex h-11 w-11 items-center justify-center rounded-full transition-transform duration-300 group-hover:scale-110">
                   <Icon className="text-base" />
                 </div>
 
-                <h3 className="mt-5 font-serif text-xl font-semibold text-foreground">
+                <h3 className="text-foreground mt-5 font-serif text-xl font-semibold">
                   {benefit.title}
                 </h3>
 
-                <p className="mt-2 text-sm leading-relaxed text-muted">
+                <p className="text-muted mt-2 text-sm leading-relaxed">
                   {benefit.description}
                 </p>
               </motion.div>

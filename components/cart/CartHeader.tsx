@@ -2,12 +2,10 @@ type CartHeaderProps = {
   totalItems: number;
 };
 
-export default function CartHeader({
-  totalItems,
-}: CartHeaderProps) {
+export default function CartHeader({ totalItems }: CartHeaderProps) {
   return (
-    <div className="mb-10 border-b border-border/70 pb-7">
-      <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+    <div className="border-border/70 mb-10 border-b pb-7">
+      <p className="text-primary mb-2 text-xs font-semibold tracking-[0.18em] uppercase">
         Seu pedido
       </p>
 
@@ -15,8 +13,9 @@ export default function CartHeader({
         Seu Carrinho
       </h1>
 
-      <p className="mt-2 text-sm text-muted">
-        {totalItems} {totalItems === 1 ? "item adicionado" : "itens adicionados"}
+      <p className="text-muted mt-2 text-sm">
+        {totalItems}{" "}
+        {totalItems === 1 ? "item adicionado" : "itens adicionados"}
       </p>
     </div>
   );

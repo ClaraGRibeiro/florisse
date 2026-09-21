@@ -1,25 +1,11 @@
 [
   {
     "category": "Tons de Vermelho",
-    "colors": [
-      "rosa bebe",
-      "rosa",
-      "pink",
-      "melancia",
-      "vermelho",
-      "bordo"
-    ]
+    "colors": ["rosa bebe", "rosa", "pink", "melancia", "vermelho", "bordo"]
   },
   {
     "category": "Tons de Amarelo",
-    "colors": [
-      "cru",
-      "nude",
-      "amarelo bebe",
-      "ouro",
-      "mostarda",
-      "bege"
-    ]
+    "colors": ["cru", "nude", "amarelo bebe", "ouro", "mostarda", "bege"]
   },
   {
     "category": "Tons de Verde",
@@ -45,14 +31,7 @@
   },
   {
     "category": "Tons Monocromáticos",
-    "colors": [
-      "branco",
-      "cru",
-      "nude",
-      "cinza",
-      "chumbo",
-      "preto"
-    ]
+    "colors": ["branco", "cru", "nude", "cinza", "chumbo", "preto"]
   },
   {
     "category": "Arco-iris",
@@ -89,14 +68,7 @@
   },
   {
     "category": "Outono",
-    "colors": [
-      "telha",
-      "mostarda",
-      "marrom",
-      "verde militar",
-      "ouro",
-      "bordo"
-    ]
+    "colors": ["telha", "mostarda", "marrom", "verde militar", "ouro", "bordo"]
   },
   {
     "category": "Inverno",
@@ -133,25 +105,11 @@
   },
   {
     "category": "Dia das Mães",
-    "colors": [
-      "rosa",
-      "malva",
-      "nude",
-      "cru",
-      "bege",
-      "ouro"
-    ]
+    "colors": ["rosa", "malva", "nude", "cru", "bege", "ouro"]
   },
   {
     "category": "Dia dos Namorados",
-    "colors": [
-      "rosa",
-      "pink",
-      "vermelho",
-      "bordo",
-      "nude",
-      "branco"
-    ]
+    "colors": ["rosa", "pink", "vermelho", "bordo", "nude", "branco"]
   },
   {
     "category": "Carnaval",
@@ -177,25 +135,11 @@
   },
   {
     "category": "Halloween",
-    "colors": [
-      "laranja",
-      "preto",
-      "roxo",
-      "chumbo",
-      "mostarda",
-      "bordo"
-    ]
+    "colors": ["laranja", "preto", "roxo", "chumbo", "mostarda", "bordo"]
   },
   {
     "category": "Dia dos Pais",
-    "colors": [
-      "azul marinho",
-      "jeans",
-      "cinza",
-      "chumbo",
-      "cru",
-      "marrom"
-    ]
+    "colors": ["azul marinho", "jeans", "cinza", "chumbo", "cru", "marrom"]
   },
   {
     "category": "Natal",
@@ -210,13 +154,6 @@
   },
   {
     "category": "Ano Novo",
-    "colors": [
-      "branco",
-      "ouro",
-      "cinza",
-      "cru",
-      "nude",
-      "preto"
-    ]
+    "colors": ["branco", "ouro", "cinza", "cru", "nude", "preto"]
   }
 ]

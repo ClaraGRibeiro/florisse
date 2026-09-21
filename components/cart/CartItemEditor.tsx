@@ -1,11 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import {
-  FaCheck,
-  FaSearch,
-  FaTimes,
-} from "react-icons/fa";
+import { FaCheck, FaSearch, FaTimes } from "react-icons/fa";
 
 import colorsData from "@/data/colors.json";
 
@@ -24,9 +20,7 @@ type CartItemEditorProps = {
   item: CartItemType;
   product: Product;
   onClose: () => void;
-  onSave: (
-    values: CartItemEditorValues,
-  ) => void | Promise<void>;
+  onSave: (values: CartItemEditorValues) => void | Promise<void>;
 };
 
 const colors: ColorData[] = colorsData;
@@ -48,9 +42,7 @@ export default function CartItemEditor({
   const [selectedColor, setSelectedColor] = useState<number | null>(
     registeredColorIndex >= 0 ? registeredColorIndex : null,
   );
-  const [isOtherColor, setIsOtherColor] = useState(
-    registeredColorIndex < 0,
-  );
+  const [isOtherColor, setIsOtherColor] = useState(registeredColorIndex < 0);
   const [selectedOtherColors, setSelectedOtherColors] = useState<string[]>(
     registeredColorIndex < 0
       ? item.color
@@ -64,15 +56,9 @@ export default function CartItemEditor({
   const [selectedSize, setSelectedSize] = useState<number | null>(
     registeredSizeIndex >= 0 ? registeredSizeIndex : null,
   );
-  const [isCustomSize, setIsCustomSize] = useState(
-    registeredSizeIndex < 0,
-  );
-  const [customLength, setCustomLength] = useState(
-    item.customLength ?? "",
-  );
-  const [customWidth, setCustomWidth] = useState(
-    item.customWidth ?? "",
-  );
+  const [isCustomSize, setIsCustomSize] = useState(registeredSizeIndex < 0);
+  const [customLength, setCustomLength] = useState(item.customLength ?? "");
+  const [customWidth, setCustomWidth] = useState(item.customWidth ?? "");
 
   const filteredColors = useMemo(() => {
     const search = colorSearch.trim().toLowerCase();
@@ -124,7 +110,7 @@ export default function CartItemEditor({
     setSelectedSize(null);
   }
 
- function findColorImage(colorName: string, fallback: string) {
+  function findColorImage(colorName: string, fallback: string) {
     return product.images[colorName]?.[0] ?? fallback;
   }
   async function handleSave() {
@@ -133,10 +119,7 @@ export default function CartItemEditor({
     if (isOtherColor) {
       if (!selectedOtherColors.length) return;
       newColor = selectedOtherColors.join("/");
-    } else if (
-      selectedColor !== null &&
-      product.colors[selectedColor]
-    ) {
+    } else if (selectedColor !== null && product.colors[selectedColor]) {
       newColor = product.colors[selectedColor].name;
     }
 
@@ -150,10 +133,7 @@ export default function CartItemEditor({
       newSize = "Outro";
       newCustomLength = customLength;
       newCustomWidth = customWidth;
-    } else if (
-      selectedSize !== null &&
-      product.sizes[selectedSize]
-    ) {
+    } else if (selectedSize !== null && product.sizes[selectedSize]) {
       newSize = product.sizes[selectedSize].label;
     }
 
@@ -193,9 +173,9 @@ export default function CartItemEditor({
   }
 
   return (
-    <div className="mt-7 rounded-3xl border border-border/70 bg-muted/10 p-5 sm:p-6">
+    <div className="border-border/70 bg-muted/10 mt-7 rounded-3xl border p-5 sm:p-6">
       <div>
-        <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-muted">
+        <p className="text-muted mb-3 text-xs font-semibold tracking-[0.14em] uppercase">
           Cor da peça:
         </p>
 
@@ -205,7 +185,7 @@ export default function CartItemEditor({
               key={color.name}
               type="button"
               onClick={() => handleColorChange(index)}
-              className={`flex cursor-pointer items-center gap-2 rounded-full border px-3 py-2 text-sm transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
+              className={`focus-visible:ring-primary flex cursor-pointer items-center gap-2 rounded-full border px-3 py-2 text-sm transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${
                 !isOtherColor && selectedColor === index
                   ? "border-primary bg-primary text-white shadow-md"
                   : "border-border bg-background hover:border-primary/40"
@@ -222,7 +202,7 @@ export default function CartItemEditor({
           <button
             type="button"
             onClick={handleOtherColorClick}
-            className={`flex cursor-pointer items-center gap-2 rounded-full border px-3 py-2 text-sm transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
+            className={`focus-visible:ring-primary flex cursor-pointer items-center gap-2 rounded-full border px-3 py-2 text-sm transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${
               isOtherColor
                 ? "border-primary bg-primary text-white shadow-md"
                 : "border-border bg-background hover:border-primary/40"
@@ -243,15 +223,15 @@ export default function CartItemEditor({
 
         {isOtherColor && (
           <div className="relative mt-3 w-full max-w-md">
-            <div className="flex items-center gap-2 rounded-2xl border border-border bg-background px-4 py-3 transition focus-within:border-primary">
-              <FaSearch size={13} className="shrink-0 text-muted" />
+            <div className="border-border bg-background focus-within:border-primary flex items-center gap-2 rounded-2xl border px-4 py-3 transition">
+              <FaSearch size={13} className="text-muted shrink-0" />
 
               <input
                 type="text"
                 value={colorSearch}
                 onChange={(event) => setColorSearch(event.target.value)}
                 placeholder="Digite uma cor..."
-                className="min-w-0 flex-1 bg-transparent text-sm outline-none placeholder:text-muted"
+                className="placeholder:text-muted min-w-0 flex-1 bg-transparent text-sm outline-none"
               />
 
               {colorSearch && (
@@ -259,7 +239,7 @@ export default function CartItemEditor({
                   type="button"
                   onClick={() => setColorSearch("")}
                   aria-label="Limpar busca"
-                  className="cursor-pointer text-muted transition hover:text-foreground"
+                  className="text-muted hover:text-foreground cursor-pointer transition"
                 >
                   <FaTimes size={13} />
                 </button>
@@ -267,12 +247,10 @@ export default function CartItemEditor({
             </div>
 
             {colorSearch.trim() !== "" && (
-              <div className="absolute left-0 right-0 top-full z-50 mt-2 max-h-60 overflow-y-auto rounded-2xl border border-border bg-background p-2 shadow-xl">
+              <div className="border-border bg-background absolute top-full right-0 left-0 z-50 mt-2 max-h-60 overflow-y-auto rounded-2xl border p-2 shadow-xl">
                 {filteredColors.length > 0 ? (
                   filteredColors.map((color) => {
-                    const isSelected = selectedOtherColors.includes(
-                      color.name,
-                    );
+                    const isSelected = selectedOtherColors.includes(color.name);
 
                     return (
                       <button
@@ -286,7 +264,7 @@ export default function CartItemEditor({
                         }`}
                       >
                         <span
-                          className="h-6 w-6 shrink-0 rounded-full border border-border"
+                          className="border-border h-6 w-6 shrink-0 rounded-full border"
                           style={{ background: color.hex }}
                         />
 
@@ -299,7 +277,7 @@ export default function CartItemEditor({
                     );
                   })
                 ) : (
-                  <p className="px-3 py-3 text-sm text-muted">
+                  <p className="text-muted px-3 py-3 text-sm">
                     Nenhuma cor encontrada.
                   </p>
                 )}
@@ -309,9 +287,7 @@ export default function CartItemEditor({
             {selectedOtherColors.length > 0 && (
               <div className="mt-3 flex flex-wrap gap-2">
                 {selectedOtherColors.map((colorName) => {
-                  const color = colors.find(
-                    (item) => item.name === colorName,
-                  );
+                  const color = colors.find((item) => item.name === colorName);
 
                   if (!color) return null;
 
@@ -320,11 +296,11 @@ export default function CartItemEditor({
                       key={colorName}
                       type="button"
                       onClick={() => removeOtherColor(colorName)}
-                      className="flex cursor-pointer items-center gap-2 rounded-full bg-primary/10 px-3 py-1.5 text-xs text-primary transition hover:bg-primary/20"
+                      className="bg-primary/10 text-primary hover:bg-primary/20 flex cursor-pointer items-center gap-2 rounded-full px-3 py-1.5 text-xs transition"
                       title="Remover cor"
                     >
                       <span
-                        className="h-4 w-4 rounded-full border border-border"
+                        className="border-border h-4 w-4 rounded-full border"
                         style={{ background: color.hex }}
                       />
                       {formatColor(colorName)}
@@ -335,12 +311,12 @@ export default function CartItemEditor({
               </div>
             )}
 
-            <p className="mt-2 text-xs text-muted">
+            <p className="text-muted mt-2 text-xs">
               A quantidade de cores pode variar conforme o modelo.
             </p>
 
-            <div className="mt-3 flex items-start gap-3 rounded-2xl border border-primary/15 bg-primary/5 px-4 py-3.5">
-              <div className="mt-0.5 shrink-0 text-primary">
+            <div className="border-primary/15 bg-primary/5 mt-3 flex items-start gap-3 rounded-2xl border px-4 py-3.5">
+              <div className="text-primary mt-0.5 shrink-0">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
@@ -358,8 +334,8 @@ export default function CartItemEditor({
                 </svg>
               </div>
 
-              <p className="text-xs leading-relaxed text-muted">
-                <span className="font-semibold text-foreground">
+              <p className="text-muted text-xs leading-relaxed">
+                <span className="text-foreground font-semibold">
                   A imagem é ilustrativa.
                 </span>{" "}
                 A peça será produzida nas cores escolhidas.
@@ -370,7 +346,7 @@ export default function CartItemEditor({
       </div>
 
       <div className="mt-7">
-        <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-muted">
+        <p className="text-muted mb-3 text-xs font-semibold tracking-[0.14em] uppercase">
           Tamanho da peça:
         </p>
 
@@ -420,12 +396,12 @@ export default function CartItemEditor({
               <div>
                 <label
                   htmlFor={`custom-length-${item.id}`}
-                  className="mb-2 block text-xs font-medium text-muted"
+                  className="text-muted mb-2 block text-xs font-medium"
                 >
                   Comprimento
                 </label>
 
-                <div className="flex items-center rounded-2xl border border-border bg-background px-4 py-3 transition focus-within:border-primary">
+                <div className="border-border bg-background focus-within:border-primary flex items-center rounded-2xl border px-4 py-3 transition">
                   <input
                     id={`custom-length-${item.id}`}
                     type="number"
@@ -434,21 +410,21 @@ export default function CartItemEditor({
                     value={customLength}
                     onChange={(event) => setCustomLength(event.target.value)}
                     placeholder="Ex.: 150"
-                    className="min-w-0 flex-1 bg-transparent text-sm outline-none placeholder:text-muted"
+                    className="placeholder:text-muted min-w-0 flex-1 bg-transparent text-sm outline-none"
                   />
-                  <span className="ml-2 text-xs text-muted">cm</span>
+                  <span className="text-muted ml-2 text-xs">cm</span>
                 </div>
               </div>
 
               <div>
                 <label
                   htmlFor={`custom-width-${item.id}`}
-                  className="mb-2 block text-xs font-medium text-muted"
+                  className="text-muted mb-2 block text-xs font-medium"
                 >
                   Largura
                 </label>
 
-                <div className="flex items-center rounded-2xl border border-border bg-background px-4 py-3 transition focus-within:border-primary">
+                <div className="border-border bg-background focus-within:border-primary flex items-center rounded-2xl border px-4 py-3 transition">
                   <input
                     id={`custom-width-${item.id}`}
                     type="number"
@@ -457,14 +433,14 @@ export default function CartItemEditor({
                     value={customWidth}
                     onChange={(event) => setCustomWidth(event.target.value)}
                     placeholder="Ex.: 200"
-                    className="min-w-0 flex-1 bg-transparent text-sm outline-none placeholder:text-muted"
+                    className="placeholder:text-muted min-w-0 flex-1 bg-transparent text-sm outline-none"
                   />
-                  <span className="ml-2 text-xs text-muted">cm</span>
+                  <span className="text-muted ml-2 text-xs">cm</span>
                 </div>
               </div>
             </div>
 
-            <p className="mt-2 text-xs text-muted">
+            <p className="text-muted mt-2 text-xs">
               O valor para tamanho personalizado será negociado.
             </p>
           </div>
@@ -475,7 +451,7 @@ export default function CartItemEditor({
         <button
           type="button"
           onClick={onClose}
-          className="cursor-pointer rounded-full border border-border px-5 py-2.5 text-sm font-medium transition-all duration-300 hover:border-primary/50 hover:bg-primary/5 hover:text-primary"
+          className="border-border hover:border-primary/50 hover:bg-primary/5 hover:text-primary cursor-pointer rounded-full border px-5 py-2.5 text-sm font-medium transition-all duration-300"
         >
           Cancelar
         </button>
@@ -489,7 +465,7 @@ export default function CartItemEditor({
             (isCustomSize && (!customLength || !customWidth)) ||
             (!isCustomSize && selectedSize === null)
           }
-          className="cursor-pointer rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-50"
+          className="bg-primary text-primary-foreground hover:bg-primary-hover cursor-pointer rounded-full px-5 py-2.5 text-sm font-semibold shadow-md transition-all duration-300 hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50"
         >
           Salvar alterações
         </button>

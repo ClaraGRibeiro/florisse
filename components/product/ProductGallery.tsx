@@ -1,9 +1,6 @@
 "use client";
 
-import {
-  FaChevronLeft,
-  FaChevronRight,
-} from "react-icons/fa";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 import ImageWithFallback from "@/components/ui/ImageWithFallback";
 
@@ -36,19 +33,16 @@ export default function ProductGallery({
 }: ProductGalleryProps) {
   const hasMultipleImages = images.length > 1;
 
-
   const discountPercentage =
     currentPrice !== undefined &&
-      originalPrice !== undefined &&
-      originalPrice > currentPrice
-      ? Math.round(
-        (1 - currentPrice / originalPrice) * 100,
-      )
+    originalPrice !== undefined &&
+    originalPrice > currentPrice
+      ? Math.round((1 - currentPrice / originalPrice) * 100)
       : 0;
 
   return (
     <div className="relative mx-auto w-full max-w-120">
-      <div className="relative aspect-9/12 w-full overflow-hidden rounded-4xl border border-border/20 bg-muted/20 shadow-sm">
+      <div className="border-border/20 bg-muted/20 relative aspect-9/12 w-full overflow-hidden rounded-4xl border shadow-sm">
         <ImageWithFallback
           key={imageSrc ?? "no-image"}
           src={imageSrc}
@@ -63,21 +57,20 @@ export default function ProductGallery({
         />
 
         {totalSales > 0 && (
-          <div className="absolute left-4 top-4 rounded-full bg-background/90 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-primary shadow-sm backdrop-blur-md">
-            {totalSales}{" "}
-            {totalSales > 1 ? "vendidos" : "vendido"}
+          <div className="bg-background/90 text-primary absolute top-4 left-4 rounded-full px-4 py-2 text-[11px] font-semibold tracking-[0.12em] uppercase shadow-sm backdrop-blur-md">
+            {totalSales} {totalSales > 1 ? "vendidos" : "vendido"}
           </div>
         )}
 
         {discountPercentage > 0 && (
-          <div className="absolute right-4 top-4 rounded-full bg-primary px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-primary-foreground shadow-sm">
+          <div className="bg-primary text-primary-foreground absolute top-4 right-4 rounded-full px-4 py-2 text-[11px] font-semibold tracking-[0.12em] uppercase shadow-sm">
             -{discountPercentage}%
           </div>
         )}
 
         {hasMultipleImages && (
           <>
-            <div className="absolute bottom-4 right-4 rounded-full bg-background/90 px-3 py-1.5 text-xs font-medium text-muted shadow-sm backdrop-blur-md">
+            <div className="bg-background/90 text-muted absolute right-4 bottom-4 rounded-full px-3 py-1.5 text-xs font-medium shadow-sm backdrop-blur-md">
               {selectedImage + 1} / {images.length}
             </div>
 
@@ -85,24 +78,18 @@ export default function ProductGallery({
               type="button"
               onClick={onPreviousImage}
               aria-label="Imagem anterior"
-              className="absolute left-4 top-1/2 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-border/70 bg-background/90 text-foreground shadow-md backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-background"
+              className="border-border/70 bg-background/90 text-foreground hover:bg-background absolute top-1/2 left-4 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border shadow-md backdrop-blur-md transition-all duration-300 hover:scale-105"
             >
-              <FaChevronLeft
-                aria-hidden="true"
-                className="text-xs"
-              />
+              <FaChevronLeft aria-hidden="true" className="text-xs" />
             </button>
 
             <button
               type="button"
               onClick={onNextImage}
               aria-label="Próxima imagem"
-              className="absolute right-4 top-1/2 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-border/70 bg-background/90 text-foreground shadow-md backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-background"
+              className="border-border/70 bg-background/90 text-foreground hover:bg-background absolute top-1/2 right-4 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border shadow-md backdrop-blur-md transition-all duration-300 hover:scale-105"
             >
-              <FaChevronRight
-                aria-hidden="true"
-                className="text-xs"
-              />
+              <FaChevronRight aria-hidden="true" className="text-xs" />
             </button>
           </>
         )}
@@ -119,15 +106,12 @@ export default function ProductGallery({
               type="button"
               onClick={() => onSelectImage(index)}
               aria-label={`Ver imagem ${index + 1}`}
-              aria-current={
+              aria-current={selectedImage === index ? "true" : undefined}
+              className={`cursor-pointer rounded-full transition-all duration-300 ${
                 selectedImage === index
-                  ? "true"
-                  : undefined
-              }
-              className={`cursor-pointer rounded-full transition-all duration-300 ${selectedImage === index
-                  ? "h-2 w-7 bg-primary"
-                  : "h-2 w-2 bg-border hover:bg-primary/50"
-                }`}
+                  ? "bg-primary h-2 w-7"
+                  : "bg-border hover:bg-primary/50 h-2 w-2"
+              }`}
             />
           ))}
         </div>

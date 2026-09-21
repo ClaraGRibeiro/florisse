@@ -1,14 +1,9 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 
-import {
-  BRAND,
-  RAFFLE,
-  RAFFLEITEM,
-  SITE,
-} from "@/data/config";
+import { BRAND, RAFFLE, RAFFLEITEM, SITE } from "@/data/config";
 
-const ogImage = RAFFLE ? "image" : "disabled"
+const ogImage = RAFFLE ? "image" : "disabled";
 export const metadata: Metadata = {
   title: `Rifa ${BRAND} | ${RAFFLEITEM.name}`,
   description:
@@ -43,7 +38,6 @@ export const metadata: Metadata = {
     ],
   },
 
-  
   twitter: {
     card: "summary_large_image",
 

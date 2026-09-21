@@ -15,9 +15,7 @@ const CONFETTI = Array.from({ length: 36 }, (_, index) => ({
   size: `${6 + (index % 4) * 2}px`,
 }));
 
-export default function WinnerCelebration({
-  active,
-}: WinnerCelebrationProps) {
+export default function WinnerCelebration({ active }: WinnerCelebrationProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [hasStarted, setHasStarted] = useState(false);
 
@@ -69,7 +67,7 @@ export default function WinnerCelebration({
               } as React.CSSProperties
             }
           >
-            <span className="block h-full w-full rounded-sm bg-primary" />
+            <span className="bg-primary block h-full w-full rounded-sm" />
           </span>
         ))}
     </div>

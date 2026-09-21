@@ -1,4 +1,3 @@
-
 import type { CartItemType } from "@/components/cart/types";
 import { formatColor } from "@/utils/format";
 
@@ -12,27 +11,28 @@ export default function CartItemInfo({ item }: CartItemInfoProps) {
   return (
     <div className="flex items-start justify-between gap-4">
       <div>
-        <h2 className="font-serif text-xl font-semibold leading-tight tracking-tight">
+        <h2 className="font-serif text-xl leading-tight font-semibold tracking-tight">
           {item.name}
         </h2>
 
         <div className="mt-3 space-y-1.5">
-          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted">
+          <p className="text-muted text-xs font-semibold tracking-[0.14em] uppercase">
             Cor: {formatColor(item.color)}
           </p>
 
-          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted">
+          <p className="text-muted text-xs font-semibold tracking-[0.14em] uppercase">
             Tamanho: {item.size}
             {item.customLength && item.customWidth && (
               <>
-                {" "}({item.customLength} × {item.customWidth} cm)
+                {" "}
+                ({item.customLength} × {item.customWidth} cm)
               </>
             )}
           </p>
         </div>
 
         {item.type === "custom-order" && (
-          <div className="mt-3 inline-flex rounded-full bg-primary/10 px-3 py-1.5 text-xs font-semibold text-primary">
+          <div className="bg-primary/10 text-primary mt-3 inline-flex rounded-full px-3 py-1.5 text-xs font-semibold">
             Pedido personalizado · valor sob consulta
           </div>
         )}
@@ -40,20 +40,21 @@ export default function CartItemInfo({ item }: CartItemInfoProps) {
 
       <div className="text-right">
         {item.type === "custom-order" ? (
-          <p className="font-serif text-xl font-semibold text-primary">
+          <p className="text-primary font-serif text-xl font-semibold">
             Sob consulta
           </p>
         ) : (
           <>
-            <p className="font-serif text-xl font-semibold text-primary">
+            <p className="text-primary font-serif text-xl font-semibold">
               R$ {subtotal.toFixed(2).replace(".", ",")}
             </p>
 
             {item.no_discount && (
-              <p className="whitespace-nowrap text-sm font-medium text-muted line-through">
-                R$ {(
-                  item.no_discount * item.quantity
-                ).toFixed(2).replace(".", ",")}
+              <p className="text-muted text-sm font-medium whitespace-nowrap line-through">
+                R${" "}
+                {(item.no_discount * item.quantity)
+                  .toFixed(2)
+                  .replace(".", ",")}
               </p>
             )}
           </>

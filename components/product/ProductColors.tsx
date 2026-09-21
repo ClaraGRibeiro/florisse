@@ -41,20 +41,18 @@ export default function ProductColors({
     <section>
       <div className="flex items-center justify-between gap-4">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted">
+          <p className="text-muted text-xs font-semibold tracking-[0.14em] uppercase">
             Cor
           </p>
 
-          <p className="mt-1 text-sm text-foreground">
-            {isOtherColor
-              ? "Personalize sua combinação"
-              : currentColor?.name}
+          <p className="text-foreground mt-1 text-sm">
+            {isOtherColor ? "Personalize sua combinação" : currentColor?.name}
           </p>
         </div>
 
         {!isOtherColor && currentColor && (
           <span
-            className="h-7 w-7 shrink-0 rounded-full border border-border shadow-sm"
+            className="border-border h-7 w-7 shrink-0 rounded-full border shadow-sm"
             style={{
               background: getGradient(currentColor.hex),
             }}
@@ -66,8 +64,7 @@ export default function ProductColors({
 
       <div className="mt-5 flex flex-wrap gap-3">
         {product.colors.map((color, index) => {
-          const isSelected =
-            !isOtherColor && selectedColor === index;
+          const isSelected = !isOtherColor && selectedColor === index;
 
           return (
             <button
@@ -79,8 +76,8 @@ export default function ProductColors({
               aria-pressed={isSelected}
               className={`group relative flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border-2 transition-all duration-300 ${
                 isSelected
-                  ? "scale-110 border-primary shadow-md"
-                  : "border-border hover:scale-105 hover:border-primary/50"
+                  ? "border-primary scale-110 shadow-md"
+                  : "border-border hover:border-primary/50 hover:scale-105"
               }`}
             >
               <span
@@ -93,7 +90,7 @@ export default function ProductColors({
 
               {isSelected && (
                 <span
-                  className="absolute inset-0 rounded-full ring-2 ring-primary/20 ring-offset-2 ring-offset-background"
+                  className="ring-primary/20 ring-offset-background absolute inset-0 rounded-full ring-2 ring-offset-2"
                   aria-hidden="true"
                 />
               )}
@@ -113,10 +110,7 @@ export default function ProductColors({
         >
           {isOtherColor ? (
             <>
-              <FaTimes
-                aria-hidden="true"
-                className="text-xs"
-              />
+              <FaTimes aria-hidden="true" className="text-xs" />
               Fechar
             </>
           ) : (

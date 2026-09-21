@@ -2,10 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import {
-  FaChevronLeft,
-  FaChevronRight,
-} from "react-icons/fa";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { FaClover } from "react-icons/fa6";
 
 type RaffleGalleryProps = {
@@ -18,29 +15,22 @@ export default function RaffleGallery({
   images,
 }: RaffleGalleryProps) {
   const [selectedImage, setSelectedImage] = useState(0);
-  const [loadedImages, setLoadedImages] = useState<
-    Record<string, boolean>
-  >({});
+  const [loadedImages, setLoadedImages] = useState<Record<string, boolean>>({});
 
   const hasMultipleImages = images.length > 1;
   const imageSrc = images[selectedImage];
 
-  const isCurrentImageLoaded =
-    imageSrc ? loadedImages[imageSrc] : false;
+  const isCurrentImageLoaded = imageSrc ? loadedImages[imageSrc] : false;
 
   const goToPrevious = () => {
     setSelectedImage((current) =>
-      current === 0
-        ? images.length - 1
-        : current - 1,
+      current === 0 ? images.length - 1 : current - 1,
     );
   };
 
   const goToNext = () => {
     setSelectedImage((current) =>
-      current === images.length - 1
-        ? 0
-        : current + 1,
+      current === images.length - 1 ? 0 : current + 1,
     );
   };
 
@@ -56,25 +46,23 @@ export default function RaffleGallery({
   return (
     <div className="relative mx-auto w-full max-w-120">
       {/* IMAGEM PRINCIPAL */}
-      <div className="relative aspect-9/12 w-full overflow-hidden rounded-4xl border border-border/20 bg-muted/20 shadow-sm">
+      <div className="border-border/20 bg-muted/20 relative aspect-9/12 w-full overflow-hidden rounded-4xl border shadow-sm">
         {imageSrc ? (
           <>
             {/* LOADING SOMENTE ENQUANTO A IMAGEM ATUAL NÃO FOI CARREGADA */}
             {!isCurrentImageLoaded && (
               <div
-                className="absolute inset-0 z-0 flex items-center justify-center bg-muted/20"
+                className="bg-muted/20 absolute inset-0 z-0 flex items-center justify-center"
                 aria-label="Carregando imagem"
               >
-                <span className="h-8 w-8 animate-spin rounded-full border-2 border-border border-t-primary" />
+                <span className="border-border border-t-primary h-8 w-8 animate-spin rounded-full border-2" />
               </div>
             )}
 
             <Image
               key={imageSrc}
               src={imageSrc}
-              alt={`${productName} - imagem ${
-                selectedImage + 1
-              }`}
+              alt={`${productName} - imagem ${selectedImage + 1}`}
               fill
               priority={selectedImage === 0}
               sizes="(max-width: 768px) 100vw, 50vw"
@@ -85,28 +73,20 @@ export default function RaffleGallery({
           </>
         ) : (
           <div className="absolute inset-0 flex items-center justify-center">
-            <FaClover
-              size={24}
-              className="text-primary"
-              aria-hidden="true"
-            />
+            <FaClover size={24} className="text-primary" aria-hidden="true" />
           </div>
         )}
 
         {/* BADGE */}
-        <div className="absolute left-4 top-4 z-20 flex items-center gap-2 rounded-full bg-background/90 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-primary shadow-sm backdrop-blur-md">
-          <FaClover
-            size={10}
-            aria-hidden="true"
-          />
-
+        <div className="bg-background/90 text-primary absolute top-4 left-4 z-20 flex items-center gap-2 rounded-full px-4 py-2 text-[11px] font-semibold tracking-[0.12em] uppercase shadow-sm backdrop-blur-md">
+          <FaClover size={10} aria-hidden="true" />
           Rifa Florisse
         </div>
 
         {hasMultipleImages && (
           <>
             {/* CONTADOR */}
-            <div className="absolute bottom-4 right-4 z-20 rounded-full bg-background/90 px-3 py-1.5 text-xs font-medium text-muted shadow-sm backdrop-blur-md">
+            <div className="bg-background/90 text-muted absolute right-4 bottom-4 z-20 rounded-full px-3 py-1.5 text-xs font-medium shadow-sm backdrop-blur-md">
               {selectedImage + 1} / {images.length}
             </div>
 
@@ -115,12 +95,9 @@ export default function RaffleGallery({
               type="button"
               onClick={goToPrevious}
               aria-label="Imagem anterior"
-              className="absolute left-4 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-border/70 bg-background/90 text-foreground shadow-md backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-background focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+              className="border-border/70 bg-background/90 text-foreground hover:bg-background focus-visible:ring-primary absolute top-1/2 left-4 z-20 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border shadow-md backdrop-blur-md transition-all duration-300 hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
             >
-              <FaChevronLeft
-                aria-hidden="true"
-                className="text-xs"
-              />
+              <FaChevronLeft aria-hidden="true" className="text-xs" />
             </button>
 
             {/* PRÓXIMA */}
@@ -128,12 +105,9 @@ export default function RaffleGallery({
               type="button"
               onClick={goToNext}
               aria-label="Próxima imagem"
-              className="absolute right-4 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-border/70 bg-background/90 text-foreground shadow-md backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-background focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+              className="border-border/70 bg-background/90 text-foreground hover:bg-background focus-visible:ring-primary absolute top-1/2 right-4 z-20 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border shadow-md backdrop-blur-md transition-all duration-300 hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
             >
-              <FaChevronRight
-                aria-hidden="true"
-                className="text-xs"
-              />
+              <FaChevronRight aria-hidden="true" className="text-xs" />
             </button>
           </>
         )}
@@ -151,15 +125,11 @@ export default function RaffleGallery({
               type="button"
               onClick={() => setSelectedImage(index)}
               aria-label={`Ver imagem ${index + 1}`}
-              aria-current={
+              aria-current={selectedImage === index ? "true" : undefined}
+              className={`focus-visible:ring-primary cursor-pointer rounded-full transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${
                 selectedImage === index
-                  ? "true"
-                  : undefined
-              }
-              className={`cursor-pointer rounded-full transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
-                selectedImage === index
-                  ? "h-2 w-7 bg-primary"
-                  : "h-2 w-2 bg-border hover:bg-primary/50"
+                  ? "bg-primary h-2 w-7"
+                  : "bg-border hover:bg-primary/50 h-2 w-2"
               }`}
             />
           ))}

@@ -17,29 +17,26 @@ export const BRAND = "Florisse Crochê";
 export const SLOGAN = "Onde o crochê vira paz.";
 
 export const RAFFLEITEM = {
-    name: "Sousplats + Trilho de Mesa",
+  name: "Sousplats + Trilho de Mesa",
 
-    category: "Mesa posta",
+  category: "Mesa posta",
 
-    image: [
-        "/products/mesa-posta/trilho-tradicional/marrom-2.webp",
-        "/products/mesa-posta/trilho-tradicional/marrom.webp",
-        "/products/mesa-posta/sousplat-tradicional/marrom.webp",
-    ],
+  image: [
+    "/products/mesa-posta/trilho-tradicional/marrom-2.webp",
+    "/products/mesa-posta/trilho-tradicional/marrom.webp",
+    "/products/mesa-posta/sousplat-tradicional/marrom.webp",
+  ],
 
-    description:
-        "Um conjunto artesanal para deixar sua mesa ainda mais especial.",
+  description:
+    "Um conjunto artesanal para deixar sua mesa ainda mais especial.",
 
-    details: [
-        "6 Sousplats · 37 cm",
-        "1 Trilho de Mesa · 100 × 25 cm",
-    ],
+  details: ["6 Sousplats · 37 cm", "1 Trilho de Mesa · 100 × 25 cm"],
 
-    frete: {
-        peso: 1.1,
-        largura: 20,
-        comprimento: 32,
-        altura: 13,
-        cep_origem: "39401262",
-    },
-}
+  frete: {
+    peso: 1.1,
+    largura: 20,
+    comprimento: 32,
+    altura: 13,
+    cep_origem: "39401262",
+  },
+};

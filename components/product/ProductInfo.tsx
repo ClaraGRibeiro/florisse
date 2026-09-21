@@ -9,7 +9,7 @@ import {
   FaHeart,
   FaPalette,
   FaRulerCombined,
-  FaWhatsapp
+  FaWhatsapp,
 } from "react-icons/fa";
 
 type ProductInfoProps = {
@@ -74,39 +74,37 @@ export default function ProductInfo({
   onAddToCart,
 }: ProductInfoProps) {
   const currentSize =
-    selectedSize !== null
-      ? product.sizes[selectedSize]
-      : undefined;
+    selectedSize !== null ? product.sizes[selectedSize] : undefined;
 
   return (
     <div className="flex flex-col">
-      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+      <p className="text-primary text-xs font-semibold tracking-[0.18em] uppercase">
         {product.category}
       </p>
 
-      <h1 className="mt-3 font-serif text-4xl font-semibold leading-tight tracking-tight text-foreground sm:text-5xl">
+      <h1 className="text-foreground mt-3 font-serif text-4xl leading-tight font-semibold tracking-tight sm:text-5xl">
         {product.name}
       </h1>
 
       <div className="mt-6">
         {isCustomSize ? (
           <>
-            <p className="font-serif text-3xl font-semibold text-primary">
+            <p className="text-primary font-serif text-3xl font-semibold">
               Sob consulta
             </p>
 
-            <p className="mt-1 text-sm leading-relaxed text-muted">
+            <p className="text-muted mt-1 text-sm leading-relaxed">
               O valor será confirmado de acordo com as medidas escolhidas.
             </p>
           </>
         ) : currentSize ? (
           <div className="flex items-end gap-3">
-            <span className="font-serif text-3xl font-semibold text-primary">
+            <span className="text-primary font-serif text-3xl font-semibold">
               R$ {currentSize.price.toFixed(2)}
             </span>
 
             {currentSize.no_discount && (
-              <span className="pb-1 text-sm text-muted line-through">
+              <span className="text-muted pb-1 text-sm line-through">
                 R$ {currentSize.no_discount}
               </span>
             )}
@@ -116,56 +114,37 @@ export default function ProductInfo({
 
       <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
         <div className="flex items-center gap-3">
-          <FaHeart
-            size={15}
-            className="shrink-0 text-primary"
-          />
+          <FaHeart size={15} className="text-primary shrink-0" />
 
-          <span className="text-sm text-foreground">
-            Feito à mão
-          </span>
+          <span className="text-foreground text-sm">Feito à mão</span>
         </div>
 
         <div className="flex items-center gap-3">
-          <FaRulerCombined
-            size={15}
-            className="shrink-0 text-primary"
-          />
+          <FaRulerCombined size={15} className="text-primary shrink-0" />
 
-          <span className="text-sm text-foreground">
+          <span className="text-foreground text-sm">
             Tamanhos à sua escolha
           </span>
         </div>
 
         <div className="flex items-center gap-3">
-          <FaPalette
-            size={15}
-            className="shrink-0 text-primary"
-          />
+          <FaPalette size={15} className="text-primary shrink-0" />
 
-          <span className="text-sm text-foreground">
-            Cores personalizáveis
-          </span>
+          <span className="text-foreground text-sm">Cores personalizáveis</span>
         </div>
 
         <div className="flex items-center gap-3">
-
           <div className="flex items-center gap-3 sm:col-span-2">
-            <FaWhatsapp
-              size={16}
-              className="shrink-0 text-primary"
-            />
+            <FaWhatsapp size={16} className="text-primary shrink-0" />
 
-            <span className="text-sm text-foreground">
+            <span className="text-foreground text-sm">
               Pedido confirmado pelo WhatsApp
             </span>
           </div>
-
-
         </div>
       </div>
 
-      <div className="my-8 h-px w-full bg-border" />
+      <div className="bg-border my-8 h-px w-full" />
 
       <ProductColors
         product={product}

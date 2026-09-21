@@ -21,11 +21,7 @@ function isValidCep(value: string) {
 }
 
 function isPositiveNumber(value: unknown): value is number {
-  return (
-    typeof value === "number" &&
-    Number.isFinite(value) &&
-    value > 0
-  );
+  return typeof value === "number" && Number.isFinite(value) && value > 0;
 }
 
 function getErrorMessage(data: unknown) {
@@ -84,14 +80,11 @@ export async function POST(request: NextRequest) {
     const token = process.env.SUPERFRETE_API_TOKEN;
 
     if (!token) {
-      console.error(
-        "SUPERFRETE_API_TOKEN não configurado.",
-      );
+      console.error("SUPERFRETE_API_TOKEN não configurado.");
 
       return NextResponse.json(
         {
-          error:
-            "O cálculo de frete ainda não está configurado.",
+          error: "O cálculo de frete ainda não está configurado.",
         },
         { status: 500 },
       );
@@ -133,8 +126,7 @@ export async function POST(request: NextRequest) {
     ) {
       return NextResponse.json(
         {
-          error:
-            "Peso e dimensões do pacote precisam ser válidos.",
+          error: "Peso e dimensões do pacote precisam ser válidos.",
         },
         { status: 400 },
       );
@@ -166,36 +158,27 @@ export async function POST(request: NextRequest) {
       },
     };
 
-    const response = await fetch(
-      SUPERFRETE_API_URL,
-      {
-        method: "POST",
+    const response = await fetch(SUPERFRETE_API_URL, {
+      method: "POST",
 
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "User-Agent":
-            "Florisse-Croche ("+BRAND+")",
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-
-        body: JSON.stringify(
-          superFreteBody,
-        ),
-
-        cache: "no-store",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "User-Agent": "Florisse-Croche (" + BRAND + ")",
+        Accept: "application/json",
+        "Content-Type": "application/json",
       },
-    );
 
-    const responseText =
-      await response.text();
+      body: JSON.stringify(superFreteBody),
+
+      cache: "no-store",
+    });
+
+    const responseText = await response.text();
 
     let responseData: unknown = null;
 
     try {
-      responseData = responseText
-        ? JSON.parse(responseText)
-        : null;
+      responseData = responseText ? JSON.parse(responseText) : null;
     } catch {
       responseData = null;
     }
@@ -207,42 +190,31 @@ export async function POST(request: NextRequest) {
         responseData ?? responseText,
       );
 
-      const apiMessage =
-        getErrorMessage(responseData);
+      const apiMessage = getErrorMessage(responseData);
 
       return NextResponse.json(
         {
           error:
-            apiMessage ||
-            "Não foi possível calcular o frete para esse CEP.",
+            apiMessage || "Não foi possível calcular o frete para esse CEP.",
         },
         {
-          status:
-            response.status >= 400 &&
-            response.status < 500
-              ? 400
-              : 502,
+          status: response.status >= 400 && response.status < 500 ? 400 : 502,
         },
       );
     }
 
-    const services =
-      normalizeServices(responseData);
+    const services = normalizeServices(responseData);
 
     return NextResponse.json({
       success: true,
       services,
     });
   } catch (error) {
-    console.error(
-      "Erro interno ao calcular frete:",
-      error,
-    );
+    console.error("Erro interno ao calcular frete:", error);
 
     return NextResponse.json(
       {
-        error:
-          "Não foi possível calcular o frete agora. Tente novamente.",
+        error: "Não foi possível calcular o frete agora. Tente novamente.",
       },
       { status: 500 },
     );

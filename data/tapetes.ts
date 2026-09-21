@@ -472,7 +472,6 @@ const tapetes = [
       ],
     },
   },
-
 ];
 
 export default tapetes;

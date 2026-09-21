@@ -28,73 +28,41 @@ type CartContextType = {
   totalItems: number;
   addToCart: (item: CartItem) => void;
   removeFromCart: (id: string) => void;
-  updateQuantity: (
-    id: string,
-    quantity: number,
-  ) => void;
-  updateItem: (
-    id: string,
-    updates: Partial<CartItem>,
-  ) => void;
+  updateQuantity: (id: string, quantity: number) => void;
+  updateItem: (id: string, updates: Partial<CartItem>) => void;
   clearCart: () => void;
 };
 
-const CartContext =
-  createContext<CartContextType | undefined>(
-    undefined,
-  );
+const CartContext = createContext<CartContextType | undefined>(undefined);
 
 const STORAGE_KEY = "florisse-cart";
 
-function isRecord(
-  value: unknown,
-): value is Record<string, unknown> {
-  return (
-    typeof value === "object" &&
-    value !== null &&
-    !Array.isArray(value)
-  );
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
-function isValidCartItem(
-  value: unknown,
-): value is CartItem {
+function isValidCartItem(value: unknown): value is CartItem {
   if (!isRecord(value)) {
     return false;
   }
 
-  if (
-    typeof value.id !== "string" ||
-    value.id.trim() === ""
-  ) {
+  if (typeof value.id !== "string" || value.id.trim() === "") {
     return false;
   }
 
-  if (
-    typeof value.name !== "string" ||
-    value.name.trim() === ""
-  ) {
+  if (typeof value.name !== "string" || value.name.trim() === "") {
     return false;
   }
 
-  if (
-    value.type !== "product" &&
-    value.type !== "custom-order"
-  ) {
+  if (value.type !== "product" && value.type !== "custom-order") {
     return false;
   }
 
-  if (
-    typeof value.color !== "string" ||
-    value.color.trim() === ""
-  ) {
+  if (typeof value.color !== "string" || value.color.trim() === "") {
     return false;
   }
 
-  if (
-    typeof value.size !== "string" ||
-    value.size.trim() === ""
-  ) {
+  if (typeof value.size !== "string" || value.size.trim() === "") {
     return false;
   }
 
@@ -115,10 +83,7 @@ function isValidCartItem(
     return false;
   }
 
-  if (
-    typeof value.image !== "string" ||
-    value.image.trim() === ""
-  ) {
+  if (typeof value.image !== "string" || value.image.trim() === "") {
     return false;
   }
 
@@ -138,11 +103,9 @@ function isValidCartItem(
 
   if (
     value.no_discount !== undefined &&
-    (
-      typeof value.no_discount !== "number" ||
+    (typeof value.no_discount !== "number" ||
       !Number.isFinite(value.no_discount) ||
-      value.no_discount < 0
-    )
+      value.no_discount < 0)
   ) {
     return false;
   }
@@ -150,12 +113,9 @@ function isValidCartItem(
   return true;
 }
 
-function parseStoredCart(
-  savedCart: string,
-): CartItem[] {
+function parseStoredCart(savedCart: string): CartItem[] {
   try {
-    const parsed: unknown =
-      JSON.parse(savedCart);
+    const parsed: unknown = JSON.parse(savedCart);
 
     if (!Array.isArray(parsed)) {
       return [];
@@ -167,10 +127,7 @@ function parseStoredCart(
   }
 }
 
-function areSameCartConfiguration(
-  first: CartItem,
-  second: CartItem,
-): boolean {
+function areSameCartConfiguration(first: CartItem, second: CartItem): boolean {
   return (
     first.name === second.name &&
     first.type === second.type &&
@@ -183,38 +140,23 @@ function areSameCartConfiguration(
   );
 }
 
-export function CartProvider({
-  children,
-}: {
-  children: ReactNode;
-}) {
-  const [cart, setCart] = useState<CartItem[]>(
-    [],
-  );
+export function CartProvider({ children }: { children: ReactNode }) {
+  const [cart, setCart] = useState<CartItem[]>([]);
 
-  const [isLoaded, setIsLoaded] =
-    useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     try {
-      const savedCart =
-        localStorage.getItem(
-          STORAGE_KEY,
-        );
+      const savedCart = localStorage.getItem(STORAGE_KEY);
 
       if (savedCart) {
-        const validCart =
-          parseStoredCart(savedCart);
+        const validCart = parseStoredCart(savedCart);
 
         setCart(validCart);
 
         try {
-          localStorage.setItem(
-            STORAGE_KEY,
-            JSON.stringify(validCart),
-          );
-        } catch {
-        }
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(validCart));
+        } catch {}
       }
     } catch {
       setCart([]);
@@ -229,30 +171,18 @@ export function CartProvider({
     }
 
     try {
-      localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(cart),
-      );
-    } catch {
-    }
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
+    } catch {}
   }, [cart, isLoaded]);
 
   const totalItems = useMemo(() => {
-    return cart.reduce(
-      (total, item) =>
-        total + item.quantity,
-      0,
-    );
+    return cart.reduce((total, item) => total + item.quantity, 0);
   }, [cart]);
 
   function addToCart(item: CartItem) {
     setCart((currentCart) => {
-      const existingItem = currentCart.find(
-        (currentItem) =>
-          areSameCartConfiguration(
-            currentItem,
-            item,
-          ),
+      const existingItem = currentCart.find((currentItem) =>
+        areSameCartConfiguration(currentItem, item),
       );
 
       if (!existingItem) {
@@ -262,32 +192,20 @@ export function CartProvider({
       return currentCart.map((currentItem) =>
         currentItem.id === existingItem.id
           ? {
-            ...currentItem,
-            quantity:
-              currentItem.quantity +
-              item.quantity,
-          }
+              ...currentItem,
+              quantity: currentItem.quantity + item.quantity,
+            }
           : currentItem,
       );
     });
   }
 
   function removeFromCart(id: string) {
-    setCart((currentCart) =>
-      currentCart.filter(
-        (item) => item.id !== id,
-      ),
-    );
+    setCart((currentCart) => currentCart.filter((item) => item.id !== id));
   }
 
-  function updateQuantity(
-    id: string,
-    quantity: number,
-  ) {
-    if (
-      !Number.isInteger(quantity) ||
-      quantity <= 0
-    ) {
+  function updateQuantity(id: string, quantity: number) {
+    if (!Number.isInteger(quantity) || quantity <= 0) {
       return;
     }
 
@@ -295,22 +213,17 @@ export function CartProvider({
       currentCart.map((item) =>
         item.id === id
           ? {
-            ...item,
-            quantity,
-          }
+              ...item,
+              quantity,
+            }
           : item,
       ),
     );
   }
 
-  function updateItem(
-    id: string,
-    updates: Partial<CartItem>,
-  ) {
+  function updateItem(id: string, updates: Partial<CartItem>) {
     setCart((currentCart) => {
-      const currentItem = currentCart.find(
-        (item) => item.id === id,
-      );
+      const currentItem = currentCart.find((item) => item.id === id);
 
       if (!currentItem) {
         return currentCart;
@@ -322,20 +235,11 @@ export function CartProvider({
       };
 
       const existingItem = currentCart.find(
-        (item) =>
-          item.id !== id &&
-          areSameCartConfiguration(
-            item,
-            updatedItem,
-          ),
+        (item) => item.id !== id && areSameCartConfiguration(item, updatedItem),
       );
 
       if (!existingItem) {
-        return currentCart.map((item) =>
-          item.id === id
-            ? updatedItem
-            : item,
-        );
+        return currentCart.map((item) => (item.id === id ? updatedItem : item));
       }
 
       return currentCart
@@ -343,11 +247,9 @@ export function CartProvider({
         .map((item) =>
           item.id === existingItem.id
             ? {
-              ...item,
-              quantity:
-                item.quantity +
-                updatedItem.quantity,
-            }
+                ...item,
+                quantity: item.quantity + updatedItem.quantity,
+              }
             : item,
         );
     });
@@ -375,13 +277,10 @@ export function CartProvider({
 }
 
 export function useCart() {
-  const context =
-    useContext(CartContext);
+  const context = useContext(CartContext);
 
   if (!context) {
-    throw new Error(
-      "useCart deve ser usado dentro de um CartProvider",
-    );
+    throw new Error("useCart deve ser usado dentro de um CartProvider");
   }
 
   return context;

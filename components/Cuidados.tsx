@@ -1,11 +1,6 @@
 import { WHATSAPP } from "@/data/config";
 import { motion } from "framer-motion";
-import {
-  FaBoxOpen,
-  FaFire,
-  FaSoap,
-  FaSun,
-} from "react-icons/fa";
+import { FaBoxOpen, FaFire, FaSoap, FaSun } from "react-icons/fa";
 
 export default function Cuidados() {
   const careItems = [
@@ -42,20 +37,19 @@ export default function Cuidados() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
-      className="scroll-mt-20 bg-card-soft py-12 sm:py-14 lg:py-16"
+      className="bg-card-soft scroll-mt-20 py-12 sm:py-14 lg:py-16"
     >
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-
         <div className="mx-auto max-w-xl text-center">
-          <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-primary sm:text-xs">
+          <span className="text-primary text-[10px] font-semibold tracking-[0.25em] uppercase sm:text-xs">
             Feito para durar
           </span>
 
-          <h2 className="mt-2 font-serif text-3xl font-semibold leading-tight sm:text-4xl">
+          <h2 className="mt-2 font-serif text-3xl leading-tight font-semibold sm:text-4xl">
             Cuide da sua peça com carinho
           </h2>
 
-          <p className="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-muted">
+          <p className="text-muted mx-auto mt-3 max-w-lg text-sm leading-relaxed">
             Pequenos cuidados ajudam a preservar os fios, os pontos e as cores
             para que sua peça continue bonita por muito tempo.
           </p>
@@ -75,17 +69,17 @@ export default function Cuidados() {
                   duration: 0.4,
                   delay: index * 0.05,
                 }}
-                className="group rounded-2xl border border-border bg-card p-5 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
+                className="group border-border bg-card rounded-2xl border p-5 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
               >
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-primary-foreground">
+                <div className="bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground flex h-9 w-9 items-center justify-center rounded-xl transition-colors duration-300">
                   <Icon size={15} />
                 </div>
 
-                <h3 className="mt-4 font-serif text-lg font-semibold text-foreground">
+                <h3 className="text-foreground mt-4 font-serif text-lg font-semibold">
                   {care.title}
                 </h3>
 
-                <p className="mt-2 text-xs leading-relaxed text-muted sm:text-sm">
+                <p className="text-muted mt-2 text-xs leading-relaxed sm:text-sm">
                   {care.description}
                 </p>
               </motion.div>
@@ -100,7 +94,7 @@ export default function Cuidados() {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="mt-8 text-center"
         >
-          <p className="text-sm text-foreground">
+          <p className="text-foreground text-sm">
             Quer saber como cuidar de uma peça específica?
           </p>
 
@@ -108,7 +102,7 @@ export default function Cuidados() {
             href={WHATSAPP}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-1 inline-block text-sm font-medium text-primary transition-colors hover:text-primary/70"
+            className="text-primary hover:text-primary/70 mt-1 inline-block text-sm font-medium transition-colors"
           >
             Fale com a Florisse →
           </a>

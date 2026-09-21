@@ -38,21 +38,19 @@ export default function ProductCustomColor({
   const selectedColorData = useMemo(
     () =>
       selectedColors
-        .map((colorName) =>
-          colors.find((color) => color.name === colorName),
-        )
+        .map((colorName) => colors.find((color) => color.name === colorName))
         .filter((color): color is Color => Boolean(color)),
     [colors, selectedColors],
   );
 
   return (
-    <div className="mt-6 rounded-3xl border border-border/70 bg-muted/10 p-5">
+    <div className="border-border/70 bg-muted/10 mt-6 rounded-3xl border p-5">
       <div>
-        <p className="font-serif text-lg font-semibold text-foreground">
+        <p className="text-foreground font-serif text-lg font-semibold">
           Escolha outras cores
         </p>
 
-        <p className="mt-1 text-sm leading-relaxed text-muted">
+        <p className="text-muted mt-1 text-sm leading-relaxed">
           Pesquise e selecione as cores que você deseja combinar na sua peça.
         </p>
       </div>
@@ -60,7 +58,7 @@ export default function ProductCustomColor({
       <div className="relative mt-5">
         <FaSearch
           aria-hidden="true"
-          className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-xs text-muted"
+          className="text-muted pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-xs"
         />
 
         <input
@@ -69,12 +67,12 @@ export default function ProductCustomColor({
           onChange={(event) => onSearchChange(event.target.value)}
           placeholder="Buscar cor..."
           aria-label="Buscar uma cor"
-          className="h-11 w-full rounded-full border border-border bg-background pl-10 pr-4 text-sm text-foreground outline-none transition-all placeholder:text-muted focus:border-primary focus:ring-2 focus:ring-primary/10"
+          className="border-border bg-background text-foreground placeholder:text-muted focus:border-primary focus:ring-primary/10 h-11 w-full rounded-full border pr-4 pl-10 text-sm transition-all outline-none focus:ring-2"
         />
       </div>
 
       {search.trim() && (
-        <div className="mt-4 max-h-48 overflow-y-auto rounded-2xl border border-border/70 bg-background p-2">
+        <div className="border-border/70 bg-background mt-4 max-h-48 overflow-y-auto rounded-2xl border p-2">
           {filteredColors.length > 0 ? (
             <div className="grid grid-cols-1 gap-1 sm:grid-cols-2">
               {filteredColors.map((color) => {
@@ -86,26 +84,25 @@ export default function ProductCustomColor({
                     type="button"
                     onClick={() => onColorToggle(color.name)}
                     aria-pressed={isSelected}
-                    className={`flex cursor-pointer items-center gap-3 rounded-xl px-3 py-2.5 text-left transition-all ${isSelected
-                        ? "bg-primary/10"
-                        : "hover:bg-muted/50"
-                      }`}
+                    className={`flex cursor-pointer items-center gap-3 rounded-xl px-3 py-2.5 text-left transition-all ${
+                      isSelected ? "bg-primary/10" : "hover:bg-muted/50"
+                    }`}
                   >
                     <span
-                      className="h-7 w-7 shrink-0 rounded-full border border-border shadow-sm"
+                      className="border-border h-7 w-7 shrink-0 rounded-full border shadow-sm"
                       style={{
                         background: getGradient([color.hex]),
                       }}
                       aria-hidden="true"
                     />
 
-                    <span className="min-w-0 flex-1 truncate text-sm text-foreground">
+                    <span className="text-foreground min-w-0 flex-1 truncate text-sm">
                       {color.name}
                     </span>
 
                     {isSelected && (
                       <span
-                        className="text-xs font-semibold text-primary"
+                        className="text-primary text-xs font-semibold"
                         aria-hidden="true"
                       >
                         ✓
@@ -116,7 +113,7 @@ export default function ProductCustomColor({
               })}
             </div>
           ) : (
-            <p className="px-3 py-5 text-center text-sm text-muted">
+            <p className="text-muted px-3 py-5 text-center text-sm">
               Nenhuma cor encontrada.
             </p>
           )}
@@ -125,7 +122,7 @@ export default function ProductCustomColor({
 
       {selectedColorData.length > 0 && (
         <div className="mt-5">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.12em] text-muted">
+          <p className="text-muted mb-3 text-xs font-semibold tracking-[0.12em] uppercase">
             Cores escolhidas
           </p>
 
@@ -133,17 +130,17 @@ export default function ProductCustomColor({
             {selectedColorData.map((color) => (
               <div
                 key={color.name}
-                className="flex items-center gap-2 rounded-full border border-border bg-background py-1.5 pl-2 pr-3"
+                className="border-border bg-background flex items-center gap-2 rounded-full border py-1.5 pr-3 pl-2"
               >
                 <span
-                  className="h-6 w-6 rounded-full border border-border/70"
+                  className="border-border/70 h-6 w-6 rounded-full border"
                   style={{
                     background: getGradient([color.hex]),
                   }}
                   aria-hidden="true"
                 />
 
-                <span className="max-w-32 truncate text-xs font-medium text-foreground">
+                <span className="text-foreground max-w-32 truncate text-xs font-medium">
                   {color.name}
                 </span>
 
@@ -151,12 +148,9 @@ export default function ProductCustomColor({
                   type="button"
                   onClick={() => onColorRemove(color.name)}
                   aria-label={`Remover cor ${color.name}`}
-                  className="flex h-5 w-5 cursor-pointer items-center justify-center rounded-full text-muted transition-colors hover:bg-muted hover:text-foreground"
+                  className="text-muted hover:bg-muted hover:text-foreground flex h-5 w-5 cursor-pointer items-center justify-center rounded-full transition-colors"
                 >
-                  <FaTimes
-                    aria-hidden="true"
-                    className="text-[9px]"
-                  />
+                  <FaTimes aria-hidden="true" className="text-[9px]" />
                 </button>
               </div>
             ))}
@@ -164,8 +158,9 @@ export default function ProductCustomColor({
         </div>
       )}
 
-      <div className="mt-5 rounded-xl bg-primary/5 px-4 py-3 text-xs leading-relaxed text-muted">
-        A quantidade de cores pode variar conforme o modelo. Combine as cores disponíveis e crie uma peça do seu jeito.
+      <div className="bg-primary/5 text-muted mt-5 rounded-xl px-4 py-3 text-xs leading-relaxed">
+        A quantidade de cores pode variar conforme o modelo. Combine as cores
+        disponíveis e crie uma peça do seu jeito.
       </div>
     </div>
   );

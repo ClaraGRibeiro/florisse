@@ -24,11 +24,10 @@ export default function MiniCart({
   size,
   onClose,
 }: MiniCartProps) {
-  const { dialogRef } =
-    useModalAccessibility({
-      isOpen,
-      onClose,
-    });
+  const { dialogRef } = useModalAccessibility({
+    isOpen,
+    onClose,
+  });
 
   useEffect(() => {
     if (!isOpen) {
@@ -48,7 +47,6 @@ export default function MiniCart({
     <AnimatePresence>
       {isOpen && (
         <>
-
           <motion.div
             ref={dialogRef}
             role="dialog"
@@ -75,18 +73,15 @@ export default function MiniCart({
               duration: 0.25,
               ease: "easeOut",
             }}
-            className="fixed right-4 top-4 z-100 w-[calc(100%-2rem)] max-w-sm rounded-3xl border border-border/80 bg-background p-4 shadow-2xl focus:outline-none sm:right-6 sm:top-6"
+            className="border-border/80 bg-background fixed top-4 right-4 z-100 w-[calc(100%-2rem)] max-w-sm rounded-3xl border p-4 shadow-2xl focus:outline-none sm:top-6 sm:right-6"
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-primary/10 text-primary">
+                <span className="bg-primary/10 text-primary flex h-7 w-7 items-center justify-center rounded-full">
                   <FaCheck size={11} />
                 </span>
 
-                <p
-                  id="mini-cart-title"
-                  className="text-sm font-semibold"
-                >
+                <p id="mini-cart-title" className="text-sm font-semibold">
                   Adicionado ao carrinho
                 </p>
               </div>
@@ -95,7 +90,7 @@ export default function MiniCart({
                 type="button"
                 onClick={onClose}
                 aria-label="Fechar"
-                className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full text-muted transition hover:bg-muted hover:text-foreground"
+                className="text-muted hover:bg-muted hover:text-foreground flex h-8 w-8 cursor-pointer items-center justify-center rounded-full transition"
               >
                 <FaTimes size={12} />
               </button>
@@ -103,9 +98,9 @@ export default function MiniCart({
 
             <div
               id="mini-cart-description"
-              className="mt-4 flex gap-3 rounded-2xl border border-muted/40 p-3"
+              className="border-muted/40 mt-4 flex gap-3 rounded-2xl border p-3"
             >
-              <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-muted">
+              <div className="bg-muted relative h-20 w-20 shrink-0 overflow-hidden rounded-xl">
                 <ImageWithFallback
                   src={image}
                   alt={name}
@@ -121,7 +116,7 @@ export default function MiniCart({
                   {name}
                 </h3>
 
-                <p className="mt-1 text-xs text-muted">
+                <p className="text-muted mt-1 text-xs">
                   {size} · {color}
                 </p>
               </div>
@@ -130,7 +125,7 @@ export default function MiniCart({
             <Link
               href="/carrinho"
               onClick={onClose}
-              className="mt-4 flex items-center justify-center rounded-full bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary-hover"
+              className="bg-primary text-primary-foreground hover:bg-primary-hover mt-4 flex items-center justify-center rounded-full px-4 py-3 text-sm font-semibold shadow-md transition-all duration-300 hover:-translate-y-0.5"
             >
               Ver carrinho
             </Link>

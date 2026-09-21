@@ -22,8 +22,7 @@ export async function generateMetadata({
   if (!product) {
     return {
       title: "Peça não encontrada",
-      description:
-        "Essa peça não está disponível na " + BRAND + ".",
+      description: "Essa peça não está disponível na " + BRAND + ".",
     };
   }
 
@@ -32,7 +31,9 @@ export async function generateMetadata({
   const title = product.name;
 
   const description =
-    `Uma peça artesanal feita à mão pela ` + BRAND + `. ` +
+    `Uma peça artesanal feita à mão pela ` +
+    BRAND +
+    `. ` +
     `Personalize cores e tamanhos para deixar seu cantinho ainda mais especial.`;
 
   const url = `${SITE}/produto/${slug}`;
@@ -72,9 +73,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function ProductPage({
-  params,
-}: ProductPageProps) {
+export default async function ProductPage({ params }: ProductPageProps) {
   const { slug } = await params;
 
   return <ProductClient slug={slug} />;

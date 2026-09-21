@@ -7,9 +7,5 @@ export const formatPath = (text: string) =>
 export const formatColor = (color: string) =>
   color
     .split("-")
-    .map(
-      (word) =>
-        word.charAt(0).toUpperCase() +
-        word.slice(1).toLowerCase(),
-    )
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
     .join("/");

@@ -1,0 +1,63 @@
+# Dependências
+node_modules/
+
+# Next.js
+.next/
+out/
+
+# Builds / distribuição
+dist/
+build/
+coverage/
+
+# Cache
+.cache/
+.parcel-cache/
+.turbo/
+.vercel/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Arquivos gerados
+*.min.js
+*.min.css
+
+# Imagens e arquivos binários
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
+*.ico
+*.svg
+*.pdf
+*.zip
+
+# Fontes
+*.woff
+*.woff2
+*.ttf
+*.otf
+*.eot
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
+
+# Lockfiles
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Ambiente
+.env
+.env.*
+!.env.example
+
+# Dados que não precisam de formatação
+*.csv

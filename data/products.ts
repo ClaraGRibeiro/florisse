@@ -5,11 +5,7 @@ import prontaEntrega from "./prontaEntrega";
 
 import { DISCOUNT } from "./config";
 
-const products = [
-  ...tapetes,
-  ...mesaPosta,
-  ...bolsas,
-];
+const products = [...tapetes, ...mesaPosta, ...bolsas];
 
 const productsData = {
   products,

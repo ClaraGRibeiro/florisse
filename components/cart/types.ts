@@ -20,8 +20,5 @@ export type CartItemProps = {
   onDecrease: (item: CartItemType) => void;
   onIncrease: (item: CartItemType) => void;
   onRemove: (itemId: string) => void;
-  onUpdate: (
-    itemId: string,
-    updates: Partial<CartItemType>,
-  ) => void;
+  onUpdate: (itemId: string, updates: Partial<CartItemType>) => void;
 };

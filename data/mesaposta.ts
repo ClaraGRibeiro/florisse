@@ -1,129 +1,125 @@
 import { DISCOUNT } from "./config";
 
 const mesaposta = [
-    {
-        name: "Sousplat Tradicional",
-        category: "Mesa Posta",
+  {
+    name: "Sousplat Tradicional",
+    category: "Mesa Posta",
 
-        sizes: [
-            {
-                label: "37 cm",
-                price: 27,
-                sales: 2,
-            },
-            {
-                label: "KIT 6 (37 cm) + 1 (100 × 25 cm)",
-                price: (27 + 27 + 27 + 27 + 27 + 27 + 65) * DISCOUNT,
-                no_discount: 27 + 27 + 27 + 27 + 27 + 27 + 65,
-            },
-        ],
+    sizes: [
+      {
+        label: "37 cm",
+        price: 27,
+        sales: 2,
+      },
+      {
+        label: "KIT 6 (37 cm) + 1 (100 × 25 cm)",
+        price: (27 + 27 + 27 + 27 + 27 + 27 + 65) * DISCOUNT,
+        no_discount: 27 + 27 + 27 + 27 + 27 + 27 + 65,
+      },
+    ],
 
-        colors: ["malva", "marrom"],
+    colors: ["malva", "marrom"],
 
-        images: {
-            malva: [
-                "/products/mesa-posta/sousplat-tradicional/malva.webp",
-            ],
-            marrom: [
-                "/products/mesa-posta/sousplat-tradicional/marrom.webp",
-            ],
-        },
+    images: {
+      malva: ["/products/mesa-posta/sousplat-tradicional/malva.webp"],
+      marrom: ["/products/mesa-posta/sousplat-tradicional/marrom.webp"],
     },
+  },
 
-    {
-        name: "Trilho Tradicional",
-        category: "Mesa Posta",
+  {
+    name: "Trilho Tradicional",
+    category: "Mesa Posta",
 
-        sizes: [
-            {
-                label: "100 × 25 cm",
-                price: 65,
-                sales: 0,
-            },
-        ],
+    sizes: [
+      {
+        label: "100 × 25 cm",
+        price: 65,
+        sales: 0,
+      },
+    ],
 
-        colors: ["marrom"],
+    colors: ["marrom"],
 
-        images: {
-            marrom: [
-                "/products/mesa-posta/trilho-tradicional/marrom.webp",
-                "/products/mesa-posta/trilho-tradicional/marrom-2.webp",
-            ],
-        },
+    images: {
+      marrom: [
+        "/products/mesa-posta/trilho-tradicional/marrom.webp",
+        "/products/mesa-posta/trilho-tradicional/marrom-2.webp",
+      ],
     },
+  },
 
-    {
-        name: "Sousplat Encanto",
-        category: "Mesa Posta",
+  {
+    name: "Sousplat Encanto",
+    category: "Mesa Posta",
 
-        sizes: [
-            {
-                label: "37 cm",
-                price: 27,
-                sales: 0,
-            },
-            {
-                label: "KIT 6 (37 cm)",
-                price: (27 + 27 + 27 + 27 + 27 + 27) * DISCOUNT,
-                no_discount: 27 + 27 + 27 + 27 + 27 + 27,
-            },
-        ],
+    sizes: [
+      {
+        label: "37 cm",
+        price: 27,
+        sales: 0,
+      },
+      {
+        label: "KIT 6 (37 cm)",
+        price: (27 + 27 + 27 + 27 + 27 + 27) * DISCOUNT,
+        no_discount: 27 + 27 + 27 + 27 + 27 + 27,
+      },
+    ],
 
-        colors: ["cinza"],
+    colors: ["cinza"],
 
-        images: {
-            cinza: [
-                "/products/mesa-posta/sousplat-encanto/cinza.webp",
-                "/products/mesa-posta/sousplat-encanto/cinza-2.webp",
-                "/products/mesa-posta/sousplat-encanto/cinza-3.webp",
-            ],
-        },
+    images: {
+      cinza: [
+        "/products/mesa-posta/sousplat-encanto/cinza.webp",
+        "/products/mesa-posta/sousplat-encanto/cinza-2.webp",
+        "/products/mesa-posta/sousplat-encanto/cinza-3.webp",
+      ],
     },
+  },
 
-    {
-        name: "Trilho Losango",
-        category: "Mesa Posta",
+  {
+    name: "Trilho Losango",
+    category: "Mesa Posta",
 
-        sizes: [
-            {
-                label: "120 × 35 cm",
-                price: 85,
-                sales: 0,
-            },
-        ],
+    sizes: [
+      {
+        label: "120 × 35 cm",
+        price: 85,
+        sales: 0,
+      },
+    ],
 
-        colors: ["verde militar-cru-telha"],
+    colors: ["verde militar-cru-telha"],
 
-        images: {
-            "verde militar-cru-telha": [
-                "/products/mesa-posta/trilho-losango/verde militar-cru-telha.webp",
-                "/products/mesa-posta/trilho-losango/verde militar-cru-telha-2.webp",
-                "/products/mesa-posta/trilho-losango/verde militar-cru-telha-3.webp",
-            ],
-        },
+    images: {
+      "verde militar-cru-telha": [
+        "/products/mesa-posta/trilho-losango/verde militar-cru-telha.webp",
+        "/products/mesa-posta/trilho-losango/verde militar-cru-telha-2.webp",
+        "/products/mesa-posta/trilho-losango/verde militar-cru-telha-3.webp",
+      ],
     },
+  },
 
-    {
-        name: "Trilho Floral",
-        category: "Mesa Posta",
+  {
+    name: "Trilho Floral",
+    category: "Mesa Posta",
 
-        sizes: [
-            {
-                label: "110 × 40 cm",
-                price: 135,
-                sales: 1,
-            },
-        ],
+    sizes: [
+      {
+        label: "110 × 40 cm",
+        price: 135,
+        sales: 1,
+      },
+    ],
 
-        colors: ["cru-bege"],
+    colors: ["cru-bege"],
 
-        images: {
-            "cru-bege": [
-                "/products/mesa-posta/trilho-floral/cru-bege.webp",
-                "/products/mesa-posta/trilho-floral/cru-bege-2.webp",
-            ],
-        },
+    images: {
+      "cru-bege": [
+        "/products/mesa-posta/trilho-floral/cru-bege.webp",
+        "/products/mesa-posta/trilho-floral/cru-bege-2.webp",
+      ],
     },
+  },
 ];
 
 export default mesaposta;

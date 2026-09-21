@@ -9,14 +9,9 @@ type CartItemImageProps = {
   item: CartItemType;
 };
 
-export default function CartItemImage({
-  item,
-}: CartItemImageProps) {
+export default function CartItemImage({ item }: CartItemImageProps) {
   return (
-    <Link
-      href={`/produto/${formatPath(item.name)}`}
-      className="block shrink-0"
-    >
+    <Link href={`/produto/${formatPath(item.name)}`} className="block shrink-0">
       <div className="relative h-40 w-full overflow-hidden rounded-[1.25rem] md:h-36 md:w-36">
         <ImageWithFallback
           src={item.image}

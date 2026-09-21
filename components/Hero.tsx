@@ -11,7 +11,7 @@ type HeroProps = {
 
 export default function Hero({ bestSelling, formatPath }: HeroProps) {
   const imageSrc = `/products/${formatPath(bestSelling.category)}/${formatPath(
-    bestSelling.name
+    bestSelling.name,
   )}/${bestSelling.colors[0].name}.webp`;
 
   return (
@@ -21,11 +21,11 @@ export default function Hero({ bestSelling, formatPath }: HeroProps) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.7, ease: "easeOut" }}
-      className="relative isolate overflow-hidden scroll-mt-20 bg-card-soft"
+      className="bg-card-soft relative isolate scroll-mt-20 overflow-hidden"
     >
-      <div className="pointer-events-none absolute -left-32 top-1/4 h-80 w-80 rounded-full bg-primary/10 blur-3xl" />
+      <div className="bg-primary/10 pointer-events-none absolute top-1/4 -left-32 h-80 w-80 rounded-full blur-3xl" />
 
-      <div className="pointer-events-none absolute -bottom-32 -right-20 h-96 w-96 rounded-full bg-accent/60 blur-3xl" />
+      <div className="bg-accent/60 pointer-events-none absolute -right-20 -bottom-32 h-96 w-96 rounded-full blur-3xl" />
 
       <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 py-16 sm:px-6 sm:py-20 md:grid-cols-[1.05fr_0.95fr] md:gap-16 md:py-24 lg:py-28">
         <div className="relative z-10 text-center md:text-left">
@@ -34,7 +34,7 @@ export default function Hero({ bestSelling, formatPath }: HeroProps) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1, duration: 0.5 }}
-            className="text-xs font-semibold uppercase tracking-[0.2em] text-primary sm:text-sm"
+            className="text-primary text-xs font-semibold tracking-[0.2em] uppercase sm:text-sm"
           >
             Feito à mão · Feito para você
           </motion.p>
@@ -44,7 +44,7 @@ export default function Hero({ bestSelling, formatPath }: HeroProps) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.15, duration: 0.6 }}
-            className="mt-5 max-w-2xl font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-foreground sm:text-5xl lg:text-6xl"
+            className="text-foreground mt-5 max-w-2xl font-serif text-4xl leading-[1.08] font-semibold tracking-tight sm:text-5xl lg:text-6xl"
           >
             O detalhe que transforma uma casa em{" "}
             <span className="text-primary italic">lar.</span>
@@ -55,10 +55,10 @@ export default function Hero({ bestSelling, formatPath }: HeroProps) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.25, duration: 0.6 }}
-            className="mx-auto mt-6 max-w-xl text-base leading-7 text-muted sm:text-lg md:mx-0"
+            className="text-muted mx-auto mt-6 max-w-xl text-base leading-7 sm:text-lg md:mx-0"
           >
-            Peças de crochê feitas ponto por ponto, com cuidado e intenção,
-            para trazer textura, cor e aconchego aos seus espaços.
+            Peças de crochê feitas ponto por ponto, com cuidado e intenção, para
+            trazer textura, cor e aconchego aos seus espaços.
           </motion.p>
 
           <motion.div
@@ -66,7 +66,7 @@ export default function Hero({ bestSelling, formatPath }: HeroProps) {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.35, duration: 0.6 }}
-            className="mt-7 flex flex-wrap justify-center gap-x-5 gap-y-2 text-xs text-muted sm:text-sm md:justify-start"
+            className="text-muted mt-7 flex flex-wrap justify-center gap-x-5 gap-y-2 text-xs sm:text-sm md:justify-start"
           >
             <span>✦ Cores personalizáveis</span>
             <span>✦ Tamanhos sob medida</span>
@@ -82,7 +82,7 @@ export default function Hero({ bestSelling, formatPath }: HeroProps) {
           >
             <a
               href="#produtos"
-              className="w-full cursor-pointer rounded-full bg-primary px-7 py-3.5 font-semibold text-primary-foreground shadow-md transition-all hover:-translate-y-0.5 hover:bg-primary-hover hover:shadow-lg sm:w-auto"
+              className="bg-primary text-primary-foreground hover:bg-primary-hover w-full cursor-pointer rounded-full px-7 py-3.5 font-semibold shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg sm:w-auto"
             >
               Ver peças
             </a>
@@ -91,7 +91,7 @@ export default function Hero({ bestSelling, formatPath }: HeroProps) {
               href={WHATSAPP}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full cursor-pointer rounded-full border border-border bg-background/70 px-7 py-3.5 text-center font-semibold text-foreground transition-all hover:-translate-y-0.5 hover:bg-background sm:w-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+              className="border-border bg-background/70 text-foreground hover:bg-background focus-visible:ring-primary w-full cursor-pointer rounded-full border px-7 py-3.5 text-center font-semibold transition-all hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none sm:w-auto"
             >
               Falar pelo WhatsApp
             </a>
@@ -110,10 +110,10 @@ export default function Hero({ bestSelling, formatPath }: HeroProps) {
             className="group block w-full max-w-125"
           >
             <div className="relative">
-              <div className="absolute -right-3 -top-3 z-0 h-full w-full rounded-4xl border border-primary/15 sm:-right-4 sm:-top-4" />
+              <div className="border-primary/15 absolute -top-3 -right-3 z-0 h-full w-full rounded-4xl border sm:-top-4 sm:-right-4" />
 
               <div
-                className="relative z-10 w-full overflow-hidden rounded-4xl bg-muted shadow-xl transition-all duration-500 group-hover:-translate-y-1 group-hover:shadow-2xl"
+                className="bg-muted relative z-10 w-full overflow-hidden rounded-4xl shadow-xl transition-all duration-500 group-hover:-translate-y-1 group-hover:shadow-2xl"
                 style={{ aspectRatio: "1 / 1" }}
               >
                 <Image
@@ -127,8 +127,8 @@ export default function Hero({ bestSelling, formatPath }: HeroProps) {
 
                 <div className="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-black/45 via-black/10 to-transparent" />
 
-                <div className="absolute bottom-5 left-5 right-5 text-white sm:bottom-6 sm:left-6 sm:right-6">
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/80 sm:text-xs">
+                <div className="absolute right-5 bottom-5 left-5 text-white sm:right-6 sm:bottom-6 sm:left-6">
+                  <p className="text-[10px] font-semibold tracking-[0.18em] text-white/80 uppercase sm:text-xs">
                     Mais vendido
                   </p>
 
@@ -138,7 +138,9 @@ export default function Hero({ bestSelling, formatPath }: HeroProps) {
 
                   <p className="mt-1 text-xs text-white/80 sm:text-sm">
                     {bestSelling.total_sales}{" "}
-                    {bestSelling.total_sales === 1 ? "peça vendida" : "peças vendidas"}
+                    {bestSelling.total_sales === 1
+                      ? "peça vendida"
+                      : "peças vendidas"}
                   </p>
                 </div>
               </div>

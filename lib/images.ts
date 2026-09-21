@@ -1,10 +1,7 @@
 import { Product } from "@/types/product";
 import { formatPath } from "@/utils/format";
 
-export function getProductImage(
-  product: Product,
-  color: string,
-): string[] {
+export function getProductImage(product: Product, color: string): string[] {
   return product.images[color] ?? [];
 }
 

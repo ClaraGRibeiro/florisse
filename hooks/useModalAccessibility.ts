@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  useEffect,
-  useRef,
-  type RefObject,
-} from "react";
+import { useEffect, useRef, type RefObject } from "react";
 
 type UseModalAccessibilityOptions = {
   isOpen: boolean;
@@ -54,9 +50,7 @@ export function useModalAccessibility({
 
     const getFocusableElements = () =>
       Array.from(
-        dialog.querySelectorAll<HTMLElement>(
-          focusableSelector,
-        ),
+        dialog.querySelectorAll<HTMLElement>(focusableSelector),
       ).filter(
         (element) =>
           !element.hasAttribute("disabled") &&
@@ -72,57 +66,39 @@ export function useModalAccessibility({
 
       if (event.key !== "Tab") return;
 
-      const focusableElements =
-        getFocusableElements();
+      const focusableElements = getFocusableElements();
 
       if (focusableElements.length === 0) {
         event.preventDefault();
         return;
       }
 
-      const firstElement =
-        focusableElements[0];
+      const firstElement = focusableElements[0];
 
-      const lastElement =
-        focusableElements[
-          focusableElements.length - 1
-        ];
+      const lastElement = focusableElements[focusableElements.length - 1];
 
-      if (
-        event.shiftKey &&
-        document.activeElement === firstElement
-      ) {
+      if (event.shiftKey && document.activeElement === firstElement) {
         event.preventDefault();
         lastElement.focus();
         return;
       }
 
-      if (
-        !event.shiftKey &&
-        document.activeElement === lastElement
-      ) {
+      if (!event.shiftKey && document.activeElement === lastElement) {
         event.preventDefault();
         firstElement.focus();
       }
     };
 
-    document.addEventListener(
-      "keydown",
-      handleKeyDown,
-    );
+    document.addEventListener("keydown", handleKeyDown);
 
     requestAnimationFrame(() => {
-      const focusableElements =
-        getFocusableElements();
+      const focusableElements = getFocusableElements();
 
       focusableElements[0]?.focus();
     });
 
     return () => {
-      document.removeEventListener(
-        "keydown",
-        handleKeyDown,
-      );
+      document.removeEventListener("keydown", handleKeyDown);
 
       document.body.style.overflow = previousOverflow;
 

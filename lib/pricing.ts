@@ -16,11 +16,6 @@ export function getProductPrice(product: Product): number {
   return Math.min(...prices);
 }
 
-export function getTotalSales(
-  product: Pick<Product, "sizes">,
-): number {
-  return product.sizes.reduce(
-    (total, size) => total + (size.sales ?? 0),
-    0,
-  );
+export function getTotalSales(product: Pick<Product, "sizes">): number {
+  return product.sizes.reduce((total, size) => total + (size.sales ?? 0), 0);
 }

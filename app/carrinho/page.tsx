@@ -75,15 +75,11 @@ export default function Carrinho() {
 
     const total = cart.reduce(
       (acc, item) =>
-        item.type === "product"
-          ? acc + item.price * item.quantity
-          : acc,
+        item.type === "product" ? acc + item.price * item.quantity : acc,
       0,
     );
 
-    const hasCustomOrders = cart.some(
-      (item) => item.type === "custom-order",
-    );
+    const hasCustomOrders = cart.some((item) => item.type === "custom-order");
 
     const items = cart
       .map((item) => {
@@ -95,9 +91,7 @@ export default function Carrinho() {
         const value =
           item.type === "custom-order"
             ? "Sob consulta"
-            : `R$ ${(item.price * item.quantity)
-              .toFixed(2)
-              .replace(".", ",")}`;
+            : `R$ ${(item.price * item.quantity).toFixed(2).replace(".", ",")}`;
 
         return `🧶 ${item.name}
 • Tamanho: ${item.size}${customSize}
@@ -116,12 +110,13 @@ Gostaria de fazer um pedido na Florisse:
 ${items}
 
 ──────────────
-${hasCustomOrders
-        ? `Subtotal dos itens com preço definido: ${totalText}
+${
+  hasCustomOrders
+    ? `Subtotal dos itens com preço definido: ${totalText}
 
 Alguns itens são personalizados e estão com valor sob consulta. O valor final será confirmado pela Florisse.`
-        : `Total: ${totalText}`
-      }
+    : `Total: ${totalText}`
+}
 
 Gostaria de confirmar a disponibilidade e combinar a entrega. 😊`;
 
@@ -133,7 +128,7 @@ Gostaria de confirmar a disponibilidade e combinar a entrega. 😊`;
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="bg-background text-foreground min-h-screen">
       <RemoveConfirmationModal
         confirmation={confirmationModal}
         onClose={closeConfirmationModal}
@@ -147,8 +142,8 @@ Gostaria de confirmar a disponibilidade e combinar a entrega. 😊`;
           <EmptyCart />
         ) : (
           <>
-            <div className="mb-4 flex items-center gap-3 text-xs font-medium uppercase tracking-[0.14em] text-muted">
-              <span className="h-px w-8 bg-primary/40" />
+            <div className="text-muted mb-4 flex items-center gap-3 text-xs font-medium tracking-[0.14em] uppercase">
+              <span className="bg-primary/40 h-px w-8" />
               <span>Suas escolhas</span>
             </div>
 
@@ -170,8 +165,9 @@ Gostaria de confirmar a disponibilidade e combinar a entrega. 😊`;
               })}
             </div>
 
-            <p className="mt-4 text-sm leading-relaxed text-muted">
-              Pedidos com tamanho personalizado têm valor sob consulta. A Florisse confirma o preço final pelo WhatsApp antes da produção.
+            <p className="text-muted mt-4 text-sm leading-relaxed">
+              Pedidos com tamanho personalizado têm valor sob consulta. A
+              Florisse confirma o preço final pelo WhatsApp antes da produção.
             </p>
 
             <CartSummary

@@ -25,8 +25,7 @@ export default function Share({ product }: ShareProps) {
         setTimeout(() => {
           setCopied(false);
         }, 2000);
-      } catch {
-      }
+      } catch {}
 
       return;
     }
@@ -37,23 +36,18 @@ export default function Share({ product }: ShareProps) {
         text: "Olha essa peça linda da " + BRAND + "! 🧶✨",
         url,
       });
-    } catch {
-    }
+    } catch {}
   };
 
   return (
     <button
       type="button"
       onClick={compartilharProduto}
-      className="group flex cursor-pointer items-center gap-2 rounded-full border border-border bg-card px-4 py-2.5 text-sm font-medium text-foreground shadow-sm transition-all duration-300 hover:border-primary/40 hover:text-primary hover:shadow-md"
+      className="group border-border bg-card text-foreground hover:border-primary/40 hover:text-primary flex cursor-pointer items-center gap-2 rounded-full border px-4 py-2.5 text-sm font-medium shadow-sm transition-all duration-300 hover:shadow-md"
     >
-      <FaShareFromSquare
-        className="text-sm transition-transform duration-300 group-hover:scale-110"
-      />
+      <FaShareFromSquare className="text-sm transition-transform duration-300 group-hover:scale-110" />
 
-      <span>
-        {copied ? "Link copiado!" : "Compartilhar peça"}
-      </span>
+      <span>{copied ? "Link copiado!" : "Compartilhar peça"}</span>
     </button>
   );
 }
