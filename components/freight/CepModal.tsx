@@ -213,7 +213,7 @@ export default function CepModal({ isOpen, onClose }: CepModalProps) {
                     </p>
                   </div>
                 ) : address ? (
-                  <div className="flex items-start gap-3.5">
+                  <div className="flex items-start gap-4">
                     <div className="bg-primary/10 text-primary mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl">
                       <FaMapMarkerAlt size={12} aria-hidden="true" />
                     </div>

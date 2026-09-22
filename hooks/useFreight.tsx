@@ -11,11 +11,21 @@ import {
   type ReactNode,
 } from "react";
 
-import { CEP_ORIGEM, FREIGHT } from "@/data/config";
+import { CEP_ORIGEM, FREIGHT, PACKAGE } from "@/data/config";
 
 const CEP_STORAGE_KEY = "florisse-cep";
 const FREIGHT_CACHE_KEY = "florisse-freight-cache";
 const CACHE_TTL = 1000 * 60 * 60 * 6;
+
+/*
+ * Limites usados para montar os pacotes.
+ *
+ * Eles não representam necessariamente os limites máximos
+ * da transportadora. Servem para evitar que o carrinho
+ * monte um único pacote fisicamente pouco realista.
+ */
+const MAX_PACKAGE_WEIGHT = 30;
+const MAX_PACKAGE_HEIGHT = 60;
 
 export type FreightOption = {
   id?: string | number;
@@ -72,6 +82,22 @@ export type CartFreightPackage = {
   height: number;
 };
 
+type ShippingUnit = {
+  id: string;
+  weight: number;
+  width: number;
+  length: number;
+  height: number;
+};
+
+type PhysicalPackage = {
+  id: string;
+  weight: number;
+  width: number;
+  length: number;
+  height: number;
+};
+
 type CartFreightResult = {
   total: number;
   loading: boolean;
@@ -79,7 +105,9 @@ type CartFreightResult = {
   unavailable: boolean;
 };
 
-const FreightContext = createContext<FreightContextType | undefined>(undefined);
+const FreightContext = createContext<FreightContextType | undefined>(
+  undefined,
+);
 
 function cleanCep(value: string) {
   return value.replace(/\D/g, "").slice(0, 8);
@@ -540,10 +568,222 @@ export function useFreightEstimate({
 }
 
 /**
+ * Remove o peso da embalagem que já está embutido
+ * no campo `peso` dos produtos.
+ *
+ * Exemplo:
+ *
+ * produto:
+ *   peso = PACKAGE + 0.14
+ *
+ * peso físico da peça:
+ *   0.14 kg
+ */
+function getProductWeight(weight: number) {
+  return Math.max(0, weight - PACKAGE);
+}
+
+/**
+ * Converte os itens do carrinho em unidades físicas.
+ *
+ * A quantidade deixa de ser usada para multiplicar o preço
+ * do frete. Ela passa a representar unidades dentro de um
+ * pacote físico.
+ */
+function createShippingUnits(
+  packages: CartFreightPackage[],
+): ShippingUnit[] {
+  const units: ShippingUnit[] = [];
+
+  for (const item of packages) {
+    const quantity = Math.max(0, Math.floor(item.quantity));
+
+    if (quantity === 0) {
+      continue;
+    }
+
+    const unitWeight = getProductWeight(item.weight);
+
+    for (let index = 0; index < quantity; index += 1) {
+      units.push({
+        id: `${item.id}-${index + 1}`,
+        weight: unitWeight,
+        width: item.width,
+        length: item.length,
+        height: item.height,
+      });
+    }
+  }
+
+  return units;
+}
+
+/**
+ * Calcula o volume de uma unidade.
+ */
+function getVolume(unit: ShippingUnit) {
+  return unit.width * unit.length * unit.height;
+}
+
+/**
+ * Ordena as peças maiores primeiro.
+ *
+ * Isso melhora a ocupação dos pacotes quando existem
+ * produtos de tamanhos diferentes.
+ */
+function sortShippingUnits(units: ShippingUnit[]) {
+  return [...units].sort((a, b) => {
+    const volumeDifference = getVolume(b) - getVolume(a);
+
+    if (volumeDifference !== 0) {
+      return volumeDifference;
+    }
+
+    return b.weight - a.weight;
+  });
+}
+
+/**
+ * Verifica se uma unidade pode ser adicionada a um pacote.
+ *
+ * A lógica considera:
+ *
+ * - peso total;
+ * - largura máxima;
+ * - comprimento máximo;
+ * - altura acumulada.
+ *
+ * Para os produtos atuais da Florisse, que são enviados
+ * dobrados/enrolados, a altura é a dimensão que cresce
+ * quando várias peças são empilhadas.
+ */
+function canAddToPackage(
+  current: PhysicalPackage,
+  unit: ShippingUnit,
+) {
+  const nextWeight = current.weight + unit.weight;
+
+  const nextWidth = Math.max(current.width, unit.width);
+  const nextLength = Math.max(current.length, unit.length);
+  const nextHeight = current.height + unit.height;
+
+  return (
+    nextWeight <= MAX_PACKAGE_WEIGHT &&
+    nextWidth > 0 &&
+    nextLength > 0 &&
+    nextHeight <= MAX_PACKAGE_HEIGHT
+  );
+}
+
+/**
+ * Adiciona uma unidade ao pacote.
+ */
+function addUnitToPackage(
+  current: PhysicalPackage,
+  unit: ShippingUnit,
+): PhysicalPackage {
+  return {
+    id: current.id,
+    weight: Number((current.weight + unit.weight).toFixed(3)),
+    width: Math.max(current.width, unit.width),
+    length: Math.max(current.length, unit.length),
+    height: Number((current.height + unit.height).toFixed(1)),
+  };
+}
+
+/**
+ * Monta os pacotes físicos do carrinho.
+ *
+ * Cada pacote recebe UMA única embalagem.
+ *
+ * Exemplo:
+ *
+ * 3 peças de 0,14 kg:
+ *
+ * peças = 0,42 kg
+ * embalagem = 0,15 kg
+ *
+ * pacote = 0,57 kg
+ */
+function buildPhysicalPackages(
+  packages: CartFreightPackage[],
+): PhysicalPackage[] {
+  const units = sortShippingUnits(createShippingUnits(packages));
+
+  const physicalPackages: PhysicalPackage[] = [];
+
+  for (const unit of units) {
+    let added = false;
+
+    /*
+     * Tenta colocar a peça em um pacote já existente.
+     *
+     * Preferimos o pacote que terá menor altura depois
+     * da inclusão, reduzindo o desperdício de espaço.
+     */
+    const possiblePackages = physicalPackages
+      .map((physicalPackage, index) => ({
+        physicalPackage,
+        index,
+      }))
+      .filter(({ physicalPackage }) =>
+        canAddToPackage(physicalPackage, unit),
+      )
+      .sort((a, b) => {
+        const heightA = a.physicalPackage.height + unit.height;
+        const heightB = b.physicalPackage.height + unit.height;
+
+        return heightA - heightB;
+      });
+
+    if (possiblePackages.length > 0) {
+      const target = possiblePackages[0];
+
+      physicalPackages[target.index] = addUnitToPackage(
+        target.physicalPackage,
+        unit,
+      );
+
+      added = true;
+    }
+
+    if (!added) {
+      physicalPackages.push({
+        id: `package-${physicalPackages.length + 1}`,
+        weight: unit.weight,
+        width: unit.width,
+        length: unit.length,
+        height: unit.height,
+      });
+    }
+  }
+
+  /*
+   * A embalagem é adicionada uma única vez por pacote.
+   */
+  return physicalPackages.map((physicalPackage) => ({
+    ...physicalPackage,
+    weight: Number(
+      (physicalPackage.weight + PACKAGE).toFixed(3),
+    ),
+  }));
+}
+
+/**
  * Calcula o frete de todos os produtos do carrinho.
  *
- * O valor de cada frete é multiplicado pela quantidade
- * daquele produto e depois todos os fretes são somados.
+ * Diferentemente da implementação anterior:
+ *
+ * ❌ não faz:
+ *
+ *   frete da peça × quantidade
+ *
+ * ✅ faz:
+ *
+ *   peças → pacotes físicos → SuperFrete
+ *
+ * Assim, duas ou mais peças podem compartilhar a mesma
+ * embalagem e pagar um frete compatível com um único envio.
  */
 export function useCartFreight(
   packages: CartFreightPackage[],
@@ -575,14 +815,17 @@ export function useCartFreight(
 
     setLoading(true);
     setUnavailable(false);
+
+    const physicalPackages = buildPhysicalPackages(packages);
+
     Promise.all(
-      packages.map(async (item) => {
+      physicalPackages.map(async (physicalPackage) => {
         const estimate = await requestEstimate(
           cep,
-          item.weight,
-          item.width,
-          item.length,
-          item.height,
+          physicalPackage.weight,
+          physicalPackage.width,
+          physicalPackage.length,
+          physicalPackage.height,
         );
 
         if (!estimate) {
@@ -593,7 +836,7 @@ export function useCartFreight(
         }
 
         return {
-          value: estimate.price * item.quantity,
+          value: estimate.price,
           unavailable: false,
         };
       }),

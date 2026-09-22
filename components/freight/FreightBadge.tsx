@@ -39,9 +39,7 @@ export default function FreightBadge({
     return (
       <p className="text-muted flex items-center gap-1.5 text-xs">
         <FaTruck className="shrink-0" size={11} />
-        Calculando frete <span className="font-semibold">
-          aproximado
-        </span> para {cep.slice(0, 5)}-{cep.slice(5)}...
+        Calculando frete para {cep.slice(0, 5)}-{cep.slice(5)}...
       </p>
     );
   }
