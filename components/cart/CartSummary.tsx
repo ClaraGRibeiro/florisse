@@ -30,7 +30,7 @@ export default function CartSummary({
 
   const hasCustomOrders = cart.some((item) => item.type === "custom-order");
 
-  const canShowFinalTotal = hasCep && !freightLoading && !freightUnavailable;
+  const canShowFinalTotal = hasCep && !freightLoading && !freightUnavailable && !hasCustomOrders;
 
   const finalTotal = subtotal + freightTotal;
 
@@ -47,7 +47,7 @@ export default function CartSummary({
               <span className="text-muted">Subtotal</span>
 
               <span className="text-foreground font-medium">
-                {subtotal > 0 ? formatFreightPrice(subtotal) : "Sob consulta"}
+                {!hasCustomOrders ? formatFreightPrice(subtotal) : "Sob consulta"}
               </span>
             </div>
 
@@ -55,19 +55,22 @@ export default function CartSummary({
               <span className="text-muted">
                 Frete <span className="font-semibold">aproximado</span>
               </span>
-
-              {!hasCep ? (
-                <span className="text-muted text-right">Defina seu CEP</span>
-              ) : freightLoading ? (
-                <span className="text-muted text-right">Calculando...</span>
-              ) : freightUnavailable ? (
-                <span className="text-destructive text-right">
-                  Indisponível
-                </span>
+              {!hasCustomOrders ? (
+                !hasCep ? (
+                  <span className="text-muted text-right">Defina seu CEP</span>
+                ) : freightLoading ? (
+                  <span className="text-muted text-right">Calculando...</span>
+                ) : freightUnavailable ? (
+                  <span className="text-destructive text-right">
+                    Indisponível
+                  </span>
+                ) : (
+                  <span className="text-foreground font-medium">
+                    {formatFreightPrice(freightTotal)}
+                  </span>
+                )
               ) : (
-                <span className="text-foreground font-medium">
-                  {formatFreightPrice(freightTotal)}
-                </span>
+                "Sob consulta"
               )}
             </div>
 
