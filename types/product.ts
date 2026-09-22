@@ -1,4 +1,4 @@
-export interface Productcolors {
+export interface ProductColors {
   name: string;
   hex: string[];
 }
@@ -19,13 +19,15 @@ export interface Product {
   name: string;
   category: string;
 
-  colors: Productcolors[];
+  colors: ProductColors[];
   images: Record<string, string[]>;
   sizes: ProductSize[];
 }
+
 export type ReadyProduct = Product & {
   readyColor: string;
   readySize: string;
   readyPrice: number;
+  readyPeso: number | null;
   readyQuantity: number;
 };

@@ -106,13 +106,18 @@ export function getReadyProducts(): ReadyProduct[] {
         return null;
       }
 
+      const size = product.sizes.find(
+        (item) => item.label === ready.size,
+      );
+
       return {
         ...product,
-        name: ready.name ? ready.name : product.name,
+        name: ready.name ?? product.name,
         readyColor: ready.color,
-        images: ready.images ? ready.images : product.images,
+        images: ready.images ?? product.images,
         readySize: ready.size,
         readyPrice: ready.price,
+        readyPeso: ready.peso ?? size?.peso ?? null,
         readyQuantity: ready.quantity,
       };
     })
