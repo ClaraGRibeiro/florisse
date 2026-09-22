@@ -48,9 +48,22 @@ export function ProductCard({
   );
 
   const firstSize = product.sizes[0];
-  const freightSize =
-    (readySize && product.sizes.find((size) => size.label === readySize)) ??
-    firstSize;
+
+  /*
+   * Tamanho utilizado para o cálculo do frete.
+   *
+   * Se for uma pronta entrega e houver readySize,
+   * procura o tamanho correspondente.
+   *
+   * Caso não encontre ou não exista readySize,
+   * utiliza o primeiro tamanho do produto.
+   *
+   * O teste `readySize ?` evita que o TypeScript
+   * considere `""` como possível resultado.
+   */
+  const freightSize = readySize
+    ? (product.sizes.find((size) => size.label === readySize) ?? firstSize)
+    : firstSize;
 
   /*
    * A cor exibida segue esta prioridade:
@@ -71,6 +84,7 @@ export function ProductCard({
     (product.total_sales ?? 0) > 0;
 
   const isReadyProduct = readyQuantity !== undefined;
+
   const handleReadyProductClick = () => {
     const message = encodeURIComponent(
       `Olá, Florisse! Quero essa pronta entrega:
@@ -101,6 +115,7 @@ Valor: R$ ${readyPrice?.toFixed(2).replace(".", ",")}`,
 
     setSelectedColorName(colorName);
   };
+
   const cardContent = (
     <article
       className={
@@ -112,16 +127,19 @@ Valor: R$ ${readyPrice?.toFixed(2).replace(".", ",")}`,
         selectedColor={selectedColor}
         formatColor={formatColor}
       />
+
       {readyQuantity !== undefined && (
         <div className="bg-background/90 text-primary absolute top-4 left-4 rounded-full px-3.5 py-1.5 text-[11px] font-semibold tracking-wide uppercase shadow-sm backdrop-blur-md">
           Pronta Entrega
         </div>
       )}
+
       {readyQuantity === undefined && isBestSelling && (
         <div className="bg-background/70 text-primary absolute top-4 left-4 rounded-full px-3.5 py-1.5 text-[10px] font-semibold tracking-wide uppercase shadow-sm backdrop-blur-md">
           Mais vendido <span className="lowercase">({product.category})</span>
         </div>
       )}
+
       <div className="p-5 sm:p-6">
         <div>
           <h3 className="text-foreground font-serif text-xl leading-tight font-semibold tracking-tight">
@@ -168,7 +186,6 @@ Valor: R$ ${readyPrice?.toFixed(2).replace(".", ",")}`,
             <div className="flex flex-wrap items-center gap-2">
               {product.colors.slice(0, 7).map((color) => {
                 const isSelected = selectedColorName === color.name;
-
                 const isHovered = hoveredColor === color.name;
 
                 return (
@@ -252,6 +269,7 @@ Valor: R$ ${readyPrice?.toFixed(2).replace(".", ",")}`,
       </div>
     </article>
   );
+
   return isReadyProduct ? (
     <div
       className="group block cursor-pointer"
