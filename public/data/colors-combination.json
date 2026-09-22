@@ -1,0 +1,192 @@
+{
+  "cru": [
+    ["cru", "bege", "marrom"],
+    ["cru", "verde militar", "alecrim"],
+    ["cru", "azul marinho", "jeans"]
+  ],
+  "branco": [
+    ["branco", "cru", "bege"],
+    ["branco", "azul bebe", "rosa bebe"],
+    ["branco", "preto", "cinza"]
+  ],
+  "preto": [
+    ["preto", "cru", "cinza"],
+    ["preto", "ouro", "bordo"],
+    ["preto", "pink", "branco"]
+  ],
+  "cinza": [
+    ["cinza", "chumbo", "branco"],
+    ["cinza", "rosa bebe", "lilas claro"],
+    ["cinza", "preto", "amarelo bebe"]
+  ],
+  "nude": [
+    ["nude", "cru", "bege"],
+    ["nude", "malva", "marrom"],
+    ["nude", "alecrim", "salmao"]
+  ],
+  "chumbo": [
+    ["chumbo", "cinza", "branco"],
+    ["chumbo", "mostarda", "preto"],
+    ["chumbo", "azul piscina", "cru"]
+  ],
+  "amarelo bebe": [
+    ["amarelo bebe", "branco", "cru"],
+    ["amarelo bebe", "cinza", "chumbo"],
+    ["amarelo bebe", "azul bebe", "rosa bebe"]
+  ],
+  "ouro": [
+    ["ouro", "marrom", "cru"],
+    ["ouro", "preto", "bordo"],
+    ["ouro", "verde militar", "nude"]
+  ],
+  "mostarda": [
+    ["mostarda", "azul marinho", "azul petroleo"],
+    ["mostarda", "telha", "marrom"],
+    ["mostarda", "cru", "cinza"]
+  ],
+  "rosa": [
+    ["rosa", "rosa bebe", "branco"],
+    ["rosa", "malva", "nude"],
+    ["rosa", "alecrim", "cru"]
+  ],
+  "rosa bebe": [
+    ["rosa bebe", "branco", "cru"],
+    ["rosa bebe", "lilas claro", "verde agua claro"],
+    ["rosa bebe", "cinza", "chumbo"]
+  ],
+  "pink": [
+    ["pink", "preto", "branco"],
+    ["pink", "magenta", "roxo"],
+    ["pink", "laranja", "cru"]
+  ],
+  "malva": [
+    ["malva", "nude", "rosa bebe"],
+    ["malva", "alecrim", "cru"],
+    ["malva", "bordo", "cinza"]
+  ],
+  "lilas claro": [
+    ["lilas claro", "branco", "cru"],
+    ["lilas claro", "roxo", "magenta"],
+    ["lilas claro", "verde agua claro", "amarelo bebe"]
+  ],
+  "salmao": [
+    ["salmao", "cru", "bege"],
+    ["salmao", "melancia", "branco"],
+    ["salmao", "azul petroleo", "nude"]
+  ],
+  "telha": [
+    ["telha", "marrom", "cru"],
+    ["telha", "mostarda", "verde militar"],
+    ["telha", "jeans", "nude"]
+  ],
+  "laranja": [
+    ["laranja", "preto", "branco"],
+    ["laranja", "pink", "mostarda"],
+    ["laranja", "marrom", "cru"]
+  ],
+  "verde agua claro": [
+    ["verde agua claro", "branco", "cru"],
+    ["verde agua claro", "verde agua escuro", "azul piscina"],
+    ["verde agua claro", "lilas claro", "rosa bebe"]
+  ],
+  "verde limao": [
+    ["verde limao", "branco", "cru"],
+    ["verde limao", "verde militar", "verde musgo"],
+    ["verde limao", "cinza", "preto"]
+  ],
+  "esmeralda": [
+    ["esmeralda", "cru", "bege"],
+    ["esmeralda", "azul marinho", "branco"],
+    ["esmeralda", "ouro", "nude"]
+  ],
+  "verde bandeira": [
+    ["verde bandeira", "branco", "cru"],
+    ["verde bandeira", "preto", "cinza"],
+    ["verde bandeira", "ouro", "marrom"]
+  ],
+  "verde musgo": [
+    ["verde musgo", "alecrim", "cru"],
+    ["verde musgo", "marrom", "bege"],
+    ["verde musgo", "telha", "mostarda"]
+  ],
+  "verde militar": [
+    ["verde militar", "cru", "nude"],
+    ["verde militar", "ouro", "preto"],
+    ["verde militar", "laranja", "cinza"]
+  ],
+  "alecrim": [
+    ["alecrim", "cru", "branco"],
+    ["alecrim", "verde musgo", "verde militar"],
+    ["alecrim", "malva", "nude"]
+  ],
+  "verde agua escuro": [
+    ["verde agua escuro", "cru", "branco"],
+    ["verde agua escuro", "azul petroleo", "azul marinho"],
+    ["verde agua escuro", "mostarda", "cinza"]
+  ],
+  "azul bebe": [
+    ["azul bebe", "branco", "cru"],
+    ["azul bebe", "rosa bebe", "amarelo bebe"],
+    ["azul bebe", "jeans", "azul marinho"]
+  ],
+  "azul piscina": [
+    ["azul piscina", "branco", "cru"],
+    ["azul piscina", "azul royal", "azul marinho"],
+    ["azul piscina", "salmao", "bege"]
+  ],
+  "azul petroleo": [
+    ["azul petroleo", "cru", "bege"],
+    ["azul petroleo", "mostarda", "telha"],
+    ["azul petroleo", "verde agua claro", "branco"]
+  ],
+  "azul royal": [
+    ["azul royal", "branco", "preto"],
+    ["azul royal", "ouro", "cru"],
+    ["azul royal", "jeans", "cinza"]
+  ],
+  "azul marinho": [
+    ["azul marinho", "cru", "branco"],
+    ["azul marinho", "jeans", "azul bebe"],
+    ["azul marinho", "mostarda", "telha"]
+  ],
+  "vermelho": [
+    ["vermelho", "cru", "bege"],
+    ["vermelho", "preto", "branco"],
+    ["vermelho", "bordo", "ouro"]
+  ],
+  "bordo": [
+    ["bordo", "cru", "nude"],
+    ["bordo", "rosa bebe", "cinza"],
+    ["bordo", "ouro", "preto"]
+  ],
+  "melancia": [
+    ["melancia", "cru", "branco"],
+    ["melancia", "rosa", "verde limao"],
+    ["melancia", "marrom", "bege"]
+  ],
+  "marrom": [
+    ["marrom", "bege", "cru"],
+    ["marrom", "telha", "ouro"],
+    ["marrom", "azul petroleo", "nude"]
+  ],
+  "bege": [
+    ["bege", "cru", "marrom"],
+    ["bege", "nude", "branco"],
+    ["bege", "verde militar", "telha"]
+  ],
+  "jeans": [
+    ["jeans", "azul marinho", "cru"],
+    ["jeans", "azul bebe", "branco"],
+    ["jeans", "mostarda", "chumbo"]
+  ],
+  "magenta": [
+    ["magenta", "preto", "branco"],
+    ["magenta", "roxo", "pink"],
+    ["magenta", "mostarda", "cru"]
+  ],
+  "roxo": [
+    ["roxo", "lilas claro", "branco"],
+    ["roxo", "preto", "chumbo"],
+    ["roxo", "ouro", "nude"]
+  ]
+}
