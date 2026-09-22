@@ -156,7 +156,13 @@ export default function Carrinho() {
   function handleIncrease(item: CartItemType) {
     updateQuantity(item.id, item.quantity + 1);
   }
+  function handleSetQuantity(item: CartItemType, quantity: number) {
+    if (!Number.isInteger(quantity) || quantity < 1) {
+      return;
+    }
 
+    updateQuantity(item.id, quantity);
+  }
   function finishOrder() {
     if (!cart.length) {
       return;
@@ -321,6 +327,7 @@ Gostaria de confirmar a disponibilidade e combinar a entrega. 😊`;
                     product={product}
                     onDecrease={handleDecrease}
                     onIncrease={handleIncrease}
+                    onSetQuantity={handleSetQuantity}
                     onRemove={openRemoveModal}
                     onUpdate={updateItem}
                   />

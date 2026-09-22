@@ -21,6 +21,7 @@ export default function CartItem({
   onIncrease,
   onRemove,
   onUpdate,
+  onSetQuantity,
 }: Props) {
   const [isEditing, setIsEditing] = useState(false);
 
@@ -85,6 +86,7 @@ export default function CartItem({
               item={item}
               onDecrease={onDecrease}
               onIncrease={onIncrease}
+              onSetQuantity={onSetQuantity}
             />
 
             {product && (
