@@ -1,5 +1,7 @@
 export const DISCOUNT = 0.9;
 
+export const PACKAGE = 0.15;
+
 export const WHATSAPP = "https://wa.me/5538992030710";
 
 export const INSTAGRAM = "https://instagram.com/florisse_croche";
@@ -18,6 +20,8 @@ export const BRAND = "Florisse Crochê";
 
 export const SLOGAN = "Onde o crochê vira paz.";
 
+export const FREIGHT = 1.5;
+
 export const RAFFLEITEM = {
   name: "Sousplats + Trilho de Mesa",
 
@@ -35,7 +39,7 @@ export const RAFFLEITEM = {
   details: ["6 Sousplats · 37 cm", "1 Trilho de Mesa · 100 × 25 cm"],
 
   frete: {
-    peso: 1.1,
+    peso: PACKAGE + 0.14 + 0.14 + 0.14 + 0.14 + 0.14 + 0.14 + 0.25,
     largura: 20,
     comprimento: 32,
     altura: 13,

@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import {
@@ -11,7 +10,7 @@ import {
   type ReactNode,
 } from "react";
 
-import { CEP_ORIGEM } from "@/data/config";
+import { CEP_ORIGEM, FREIGHT } from "@/data/config";
 
 const CEP_STORAGE_KEY = "florisse-cep";
 const FREIGHT_CACHE_KEY = "florisse-freight-cache";
@@ -117,14 +116,10 @@ function getRawPrice(option: FreightOption) {
   return Number(option.custom_price ?? option.price ?? option.final_price);
 }
 
-/**
- * Mantém a mesma regra usada pela loja:
- * o preço exibido é 1,5x o valor retornado pela SuperFrete.
- */
 function getDisplayedPrice(option: FreightOption) {
   const price = getRawPrice(option);
 
-  return Number.isFinite(price) ? Number((price * 1.5).toFixed(2)) : Infinity;
+  return Number.isFinite(price) ? Number((price * FREIGHT).toFixed(2)) : Infinity;
 }
 
 function formatDeadlineDays(value: number) {
