@@ -57,8 +57,14 @@ const tapetes = [
 
     images: {
       "verde militar": [
-        "/products/tapetes/tapete-sara/verde militar.webp",
-        "/products/tapetes/tapete-sara/verde militar-2.webp",
+        {
+          url: "/products/tapetes/tapete-sara/verde militar.webp",
+          alt: "65 × 45 cm",
+        },
+        {
+          url: "/products/tapetes/tapete-sara/verde militar-2.webp",
+          alt: "65 × 45 cm",
+        },
       ],
     },
   },
@@ -119,8 +125,14 @@ const tapetes = [
 
     images: {
       malva: [
-        "/products/tapetes/tapete-cleo/malva.webp",
-        "/products/tapetes/tapete-cleo/malva-2.webp",
+        {
+          url: "/products/tapetes/tapete-cleo/malva.webp",
+          alt: "65 × 45 cm",
+        },
+        {
+          url: "/products/tapetes/tapete-cleo/malva-2.webp",
+          alt: "65 × 45 cm",
+        },
       ],
     },
   },
@@ -181,8 +193,14 @@ const tapetes = [
 
     images: {
       bordo: [
-        "/products/tapetes/tapete-cris/bordo.webp",
-        "/products/tapetes/tapete-cris/bordo-2.webp",
+        {
+          url: "/products/tapetes/tapete-cris/bordo.webp",
+          alt: "65 × 45 cm",
+        },
+        {
+          url: "/products/tapetes/tapete-cris/bordo-2.webp",
+          alt: "65 × 45 cm",
+        },
       ],
     },
   },
@@ -243,8 +261,14 @@ const tapetes = [
 
     images: {
       vermelho: [
-        "/products/tapetes/tapete-nina/vermelho.webp",
-        "/products/tapetes/tapete-nina/vermelho-2.webp",
+        {
+          url: "/products/tapetes/tapete-nina/vermelho.webp",
+          alt: "70 × 50 cm",
+        },
+        {
+          url: "/products/tapetes/tapete-nina/vermelho-2.webp",
+          alt: "70 × 50 cm",
+        },
       ],
     },
   },
@@ -311,29 +335,58 @@ const tapetes = [
 
     images: {
       "alecrim-verde militar": [
-        "/products/tapetes/tapete-janine/alecrim-verde militar.webp",
-        "/products/tapetes/tapete-janine/alecrim-verde militar-2.webp",
+        {
+          url: "/products/tapetes/tapete-janine/alecrim-verde militar.webp",
+          alt: "KIT 2 (70 × 50 cm) e 1 (170 × 50 cm)",
+        },
+        {
+          url: "/products/tapetes/tapete-janine/alecrim-verde militar-2.webp",
+          alt: "KIT 2 (70 × 50 cm)",
+        },
       ],
 
       "cru-marrom-bege": [
-        "/products/tapetes/tapete-janine/cru-marrom-bege.webp",
-        "/products/tapetes/tapete-janine/cru-marrom-bege-2.webp",
-        "/products/tapetes/tapete-janine/cru-marrom-bege-3.webp",
+        {
+          url: "/products/tapetes/tapete-janine/cru-marrom-bege.webp",
+          alt: "KIT 2 (70 × 50 cm)",
+        },
+        {
+          url: "/products/tapetes/tapete-janine/cru-marrom-bege-2.webp",
+          alt: "100 × 50 cm",
+        },
       ],
 
       "verde limao-cru": [
-        "/products/tapetes/tapete-janine/verde limao-cru.webp",
-        "/products/tapetes/tapete-janine/verde limao-cru-2.webp",
+        {
+          url: "/products/tapetes/tapete-janine/verde limao-cru.webp",
+          alt: "70 × 50 cm",
+        },
+        {
+          url: "/products/tapetes/tapete-janine/verde limao-cru-2.webp",
+          alt: "70 × 50 cm",
+        },
       ],
 
       "cru-verde militar-alecrim": [
-        "/products/tapetes/tapete-janine/cru-verde militar-alecrim.webp",
-        "/products/tapetes/tapete-janine/cru-verde militar-alecrim-2.webp",
+        {
+          url: "/products/tapetes/tapete-janine/cru-verde militar-alecrim.webp",
+          alt: "KIT 2 (70 × 50 cm)",
+        },
+        {
+          url: "/products/tapetes/tapete-janine/cru-verde militar-alecrim-2.webp",
+          alt: "100 × 50 cm",
+        },
       ],
 
       "bege-alecrim-cru": [
-        "/products/tapetes/tapete-janine/bege-alecrim-cru.webp",
-        "/products/tapetes/tapete-janine/bege-alecrim-cru-2.webp",
+        {
+          url: "/products/tapetes/tapete-janine/bege-alecrim-cru.webp",
+          alt: "KIT 2 (100 × 50 cm)",
+        },
+        {
+          url: "/products/tapetes/tapete-janine/bege-alecrim-cru-2.webp",
+          alt: "100 × 50 cm",
+        },
       ],
     },
   },
@@ -394,8 +447,14 @@ const tapetes = [
 
     images: {
       "telha-bege": [
-        "/products/tapetes/tapete-aline/telha-bege.webp",
-        "/products/tapetes/tapete-aline/telha-bege-2.webp",
+        {
+          url: "/products/tapetes/tapete-aline/telha-bege.webp",
+          alt: "76 × 53 cm",
+        },
+        {
+          url: "/products/tapetes/tapete-aline/telha-bege-2.webp",
+          alt: "76 × 53 cm",
+        },
       ],
     },
   },
@@ -456,7 +515,10 @@ const tapetes = [
 
     images: {
       "telha-verde limao-vermelho-preto": [
-        "/products/tapetes/tapete-gisele/telha-verde limao-vermelho-preto.webp",
+        {
+          url: "/products/tapetes/tapete-gisele/telha-verde limao-vermelho-preto.webp",
+          alt: "210 × 65 cm)",
+        },
       ],
     },
   },
@@ -517,8 +579,14 @@ const tapetes = [
 
     images: {
       "cru-vermelho": [
-        "/products/tapetes/tapete-home/cru-vermelho.webp",
-        "/products/tapetes/tapete-home/cru-vermelho-2.webp",
+        {
+          url: "/products/tapetes/tapete-home/cru-vermelho.webp",
+          alt: "185 × 65 cm",
+        },
+        {
+          url: "/products/tapetes/tapete-home/cru-vermelho-2.webp",
+          alt: "185 × 65 cm",
+        },
       ],
     },
   },
@@ -579,8 +647,14 @@ const tapetes = [
 
     images: {
       "bordo-verde militar": [
-        "/products/tapetes/tapete-harmonia/bordo-verde militar.webp",
-        "/products/tapetes/tapete-harmonia/bordo-verde militar-2.webp",
+        {
+          url: "/products/tapetes/tapete-harmonia/bordo-verde militar.webp",
+          alt: "85 × 50 cm",
+        },
+        {
+          url: "/products/tapetes/tapete-harmonia/bordo-verde militar-2.webp",
+          alt: "85 × 50 cm",
+        },
       ],
     },
   },
@@ -641,7 +715,10 @@ const tapetes = [
 
     images: {
       "cru-cinza-bege": [
-        "/products/tapetes/tapete-hexagonos/cru-cinza-bege.webp",
+        {
+          url: "/products/tapetes/tapete-hexagonos/cru-cinza-bege.webp",
+          alt: "227 × 63 cm",
+        },
       ],
     },
   },
@@ -675,8 +752,14 @@ const tapetes = [
 
     images: {
       "alecrim-verde militar": [
-        "/products/tapetes/tapete-maravilha/alecrim-verde militar.webp",
-        "/products/tapetes/tapete-maravilha/alecrim-verde militar-2.webp",
+        {
+          url: "/products/tapetes/tapete-maravilha/alecrim-verde militar.webp",
+          alt: "105 cm",
+        },
+        {
+          url: "/products/tapetes/tapete-maravilha/alecrim-verde militar-2.webp",
+          alt: "105 cm",
+        },
       ],
     },
   },

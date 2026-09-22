@@ -111,7 +111,7 @@ export default function CartItemEditor({
   }
 
   function findColorImage(colorName: string, fallback: string) {
-    return product.images[colorName]?.[0] ?? fallback;
+    return product.images[colorName]?.[0]?.url ?? fallback;
   }
   async function handleSave() {
     let newColor = item.color;

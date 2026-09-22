@@ -74,7 +74,7 @@ export default function ProductClient({ slug }: ProductClientProps) {
   const currentColorName =
     typeof currentColor === "string" ? currentColor : currentColor?.name;
 
-  const images: string[] =
+  const images =
     product && currentColorName
       ? (product.images?.[currentColorName] ?? [])
       : [];
@@ -124,8 +124,7 @@ export default function ProductClient({ slug }: ProductClientProps) {
     return null;
   }
 
-  const imageSrc = images[selectedImage];
-
+  const imageSrc = images[selectedImage]?.url ?? "";
   const cartSize = isCustomSize ? "Outro" : currentSize.label;
 
   const cartColor = isOtherColor

@@ -17,7 +17,12 @@ const bolsa = [
     ],
     colors: ["verde militar"],
     images: {
-      "verde militar": ["/products/bolsas/bolsa-redinha/verde militar.webp"],
+      "verde militar": [
+        {
+          url: "/products/bolsas/bolsa-redinha/verde militar.webp",
+          alt: "30 × 30 × 10 cm",
+        },
+      ],
     },
   },
 ];

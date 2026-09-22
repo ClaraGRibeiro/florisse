@@ -67,7 +67,10 @@ export async function POST(request: NextRequest) {
     // Só usamos o resultado automaticamente se for um CEP brasileiro válido.
     if (data.address?.country_code !== "br" || !/^\d{8}$/.test(cep)) {
       return NextResponse.json(
-        { error: "Não foi possível encontrar um CEP brasileiro para essa localização." },
+        {
+          error:
+            "Não foi possível encontrar um CEP brasileiro para essa localização.",
+        },
         { status: 404 },
       );
     }

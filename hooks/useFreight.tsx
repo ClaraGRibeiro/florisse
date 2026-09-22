@@ -120,7 +120,9 @@ function getRawPrice(option: FreightOption) {
 function getDisplayedPrice(option: FreightOption) {
   const price = getRawPrice(option);
 
-  return Number.isFinite(price) ? Number((price * FREIGHT).toFixed(2)) : Infinity;
+  return Number.isFinite(price)
+    ? Number((price * FREIGHT).toFixed(2))
+    : Infinity;
 }
 
 function formatDeadlineDays(value: number) {
@@ -336,15 +338,11 @@ async function getCepFromCurrentLocation(): Promise<string | null> {
   }
 
   const position = await new Promise<GeolocationPosition | null>((resolve) => {
-    navigator.geolocation.getCurrentPosition(
-      resolve,
-      () => resolve(null),
-      {
-        enableHighAccuracy: false,
-        timeout: 10000,
-        maximumAge: 10 * 60 * 1000,
-      },
-    );
+    navigator.geolocation.getCurrentPosition(resolve, () => resolve(null), {
+      enableHighAccuracy: false,
+      timeout: 10000,
+      maximumAge: 10 * 60 * 1000,
+    });
   });
 
   if (!position) {

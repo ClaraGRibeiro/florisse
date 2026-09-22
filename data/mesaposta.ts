@@ -29,8 +29,19 @@ const mesaposta = [
     colors: ["malva", "marrom"],
 
     images: {
-      malva: ["/products/mesa-posta/sousplat-tradicional/malva.webp"],
-      marrom: ["/products/mesa-posta/sousplat-tradicional/marrom.webp"],
+      malva: [
+        {
+          url: "/products/mesa-posta/sousplat-tradicional/malva.webp",
+          alt: "27 cm",
+        },
+      ],
+
+      marrom: [
+        {
+          url: "/products/mesa-posta/sousplat-tradicional/marrom.webp",
+          alt: "37 cm",
+        },
+      ],
     },
   },
 
@@ -54,8 +65,14 @@ const mesaposta = [
 
     images: {
       marrom: [
-        "/products/mesa-posta/trilho-tradicional/marrom.webp",
-        "/products/mesa-posta/trilho-tradicional/marrom-2.webp",
+        {
+          url: "/products/mesa-posta/trilho-tradicional/marrom.webp",
+          alt: "100 × 25 cm",
+        },
+        {
+          url: "/products/mesa-posta/trilho-tradicional/marrom-2.webp",
+          alt: "KIT 6 (37 cm) + 1 (100 × 25 cm)",
+        },
       ],
     },
   },
@@ -89,9 +106,18 @@ const mesaposta = [
 
     images: {
       cinza: [
-        "/products/mesa-posta/sousplat-encanto/cinza.webp",
-        "/products/mesa-posta/sousplat-encanto/cinza-2.webp",
-        "/products/mesa-posta/sousplat-encanto/cinza-3.webp",
+        {
+          url: "/products/mesa-posta/sousplat-encanto/cinza.webp",
+          alt: "37 cm",
+        },
+        {
+          url: "/products/mesa-posta/sousplat-encanto/cinza-2.webp",
+          alt: "37 cm",
+        },
+        {
+          url: "/products/mesa-posta/sousplat-encanto/cinza-3.webp",
+          alt: "37 cm",
+        },
       ],
     },
   },
@@ -116,9 +142,18 @@ const mesaposta = [
 
     images: {
       "verde militar-cru-telha": [
-        "/products/mesa-posta/trilho-losango/verde militar-cru-telha.webp",
-        "/products/mesa-posta/trilho-losango/verde militar-cru-telha-2.webp",
-        "/products/mesa-posta/trilho-losango/verde militar-cru-telha-3.webp",
+        {
+          url: "/products/mesa-posta/trilho-losango/verde militar-cru-telha.webp",
+          alt: "120 × 35 cm",
+        },
+        {
+          url: "/products/mesa-posta/trilho-losango/verde militar-cru-telha-2.webp",
+          alt: "120 × 35 cm",
+        },
+        {
+          url: "/products/mesa-posta/trilho-losango/verde militar-cru-telha-3.webp",
+          alt: "120 × 35 cm",
+        },
       ],
     },
   },
@@ -143,8 +178,14 @@ const mesaposta = [
 
     images: {
       "cru-bege": [
-        "/products/mesa-posta/trilho-floral/cru-bege.webp",
-        "/products/mesa-posta/trilho-floral/cru-bege-2.webp",
+        {
+          url: "/products/mesa-posta/trilho-floral/cru-bege.webp",
+          alt: "110 × 40 cm",
+        },
+        {
+          url: "/products/mesa-posta/trilho-floral/cru-bege-2.webp",
+          alt: "110 × 40 cm",
+        },
       ],
     },
   },

@@ -21,21 +21,12 @@ export default function ProductImage({
   const images = getProductImage(product, selectedColor.name);
 
   const [imageIndex, setImageIndex] = useState(0);
-
   const [isHovered, setIsHovered] = useState(false);
 
-  /*
-   * Sempre que a cor mudar, volta para
-   * a primeira imagem daquela cor.
-   */
   useEffect(() => {
     setImageIndex(0);
   }, [selectedColor.name]);
 
-  /*
-   * Quando o mouse estiver sobre a imagem,
-   * passa automaticamente pelas imagens.
-   */
   useEffect(() => {
     if (!isHovered || images.length <= 1) {
       return;
@@ -50,18 +41,13 @@ export default function ProductImage({
     };
   }, [isHovered, images.length]);
 
-  /*
-   * Garante que o índice continue válido
-   * caso a cor selecionada tenha uma quantidade
-   * diferente de imagens.
-   */
   useEffect(() => {
     if (imageIndex >= images.length) {
       setImageIndex(0);
     }
   }, [imageIndex, images.length]);
 
-  const imagePath = images[imageIndex];
+  const image = images[imageIndex];
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -71,6 +57,25 @@ export default function ProductImage({
     setIsHovered(false);
     setImageIndex(0);
   };
+
+  if (!image) {
+    return (
+      <div className="bg-muted relative aspect-9/12 w-full overflow-hidden">
+        <ImageWithFallback
+          src=""
+          alt={`Imagem indisponível para ${product.name} - ${formatColor(
+            selectedColor.name,
+          )}`}
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+          loading="lazy"
+          emptyMessage="Imagem indisponível para esta cor"
+          fallbackMessage="Não foi possível carregar a imagem"
+          className="object-cover"
+        />
+      </div>
+    );
+  }
 
   return (
     <div
@@ -97,10 +102,8 @@ export default function ProductImage({
           className="absolute inset-0"
         >
           <ImageWithFallback
-            src={imagePath}
-            alt={`${product.name} - ${formatColor(selectedColor.name)}${
-              images.length > 1 ? ` - imagem ${imageIndex + 1}` : ""
-            }`}
+            src={image.url}
+            alt={image.alt}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
             loading="lazy"

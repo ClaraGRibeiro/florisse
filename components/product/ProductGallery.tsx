@@ -3,11 +3,13 @@
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 import ImageWithFallback from "@/components/ui/ImageWithFallback";
+import { ProductImage } from "@/types/product";
 
 type ProductGalleryProps = {
   productName: string;
-  imageSrc?: string;
-  images: string[];
+
+  imageSrc: string | undefined;
+  images: ProductImage[];
   selectedImage: number;
 
   totalSales?: number;
@@ -33,6 +35,8 @@ export default function ProductGallery({
 }: ProductGalleryProps) {
   const hasMultipleImages = images.length > 1;
 
+  const currentImage = images[selectedImage];
+
   const discountPercentage =
     currentPrice !== undefined &&
     originalPrice !== undefined &&
@@ -46,7 +50,9 @@ export default function ProductGallery({
         <ImageWithFallback
           key={imageSrc ?? "no-image"}
           src={imageSrc}
-          alt={`${productName} - imagem ${selectedImage + 1}`}
+          alt={
+            currentImage?.alt ?? `${productName} - imagem ${selectedImage + 1}`
+          }
           fill
           priority={selectedImage === 0}
           sizes="(max-width: 768px) 100vw, 50vw"
@@ -55,6 +61,14 @@ export default function ProductGallery({
           fallbackMessage="Não foi possível carregar a imagem"
           className="object-cover"
         />
+        {currentImage?.alt && (
+          <div
+            className="bg-primary/50 absolute bottom-4 left-1/2 z-20 max-w-[calc(100%-2rem)] -translate-x-1/2 rounded-full px-4 py-2 text-center text-[11px] leading-relaxed text-white shadow-md backdrop-blur-md"
+            aria-live="polite"
+          >
+            {currentImage.alt}
+          </div>
+        )}
 
         {totalSales > 0 && (
           <div className="bg-background/90 text-primary absolute top-4 left-4 rounded-full px-4 py-2 text-[11px] font-semibold tracking-[0.12em] uppercase shadow-sm backdrop-blur-md">
@@ -97,15 +111,15 @@ export default function ProductGallery({
 
       {hasMultipleImages && (
         <div
-          className="mt-5 flex items-center justify-center gap-2"
+          className="mt-4 flex items-center justify-center gap-2"
           aria-label="Selecionar imagem"
         >
           {images.map((image, index) => (
             <button
-              key={image}
+              key={image.url}
               type="button"
               onClick={() => onSelectImage(index)}
-              aria-label={`Ver imagem ${index + 1}`}
+              aria-label={`Ver imagem ${index + 1}: ${image.alt}`}
               aria-current={selectedImage === index ? "true" : undefined}
               className={`cursor-pointer rounded-full transition-all duration-300 ${
                 selectedImage === index
