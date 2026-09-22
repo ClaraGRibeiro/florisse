@@ -3,11 +3,13 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 
+import FreightBadge from "@/components/freight/FreightBadge";
+
 import CartItemEditor from "./CartItemEditor";
 import CartItemImage from "./CartItemImage";
 import CartItemInfo from "./CartItemInfo";
 import CartItemQuantity from "./CartItemQuantity";
-import FreightBadge from "@/components/freight/FreightBadge";
+
 import type { CartItemEditorValues, CartItemProps } from "./types";
 
 type Props = CartItemProps;
@@ -29,8 +31,14 @@ export default function CartItem({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={{
+        opacity: 0,
+        y: 10,
+      }}
+      animate={{
+        opacity: 1,
+        y: 0,
+      }}
       className="border-border/80 bg-card rounded-[1.75rem] border p-4 shadow-sm transition-shadow duration-300 hover:shadow-md sm:p-5"
     >
       <div className="flex flex-col gap-4 md:flex-row">
@@ -46,7 +54,9 @@ export default function CartItem({
                 (productSize) => productSize.label === item.size,
               );
 
-              if (!size) return null;
+              if (!size) {
+                return null;
+              }
 
               return (
                 <div className="bg-primary/5 mt-4 rounded-2xl px-3.5 py-3">
@@ -57,6 +67,15 @@ export default function CartItem({
                     height={size.altura}
                     compact
                   />
+
+                  {item.quantity > 1 && (
+                    <p className="text-muted mt-2 text-[11px]">
+                      Frete <span className="font-semibold">aproximado</span>{" "}
+                      considerado {item.quantity}{" "}
+                      {item.quantity === 1 ? "unidade" : "unidades"} no resumo
+                      do pedido.
+                    </p>
+                  )}
                 </div>
               );
             })()}

@@ -66,8 +66,9 @@ export default function CepModal({ isOpen, onClose }: CepModalProps) {
               </h2>
 
               <p className="text-muted mt-1 text-xs leading-5">
-                O CEP salvo será usado para calcular o frete automaticamente
-                pela loja inteira.
+                O CEP salvo será usado para calcular o frete{" "}
+                <span className="font-semibold">aproximado</span>{" "}
+                automaticamente pela loja inteira.
               </p>
             </div>
           </div>

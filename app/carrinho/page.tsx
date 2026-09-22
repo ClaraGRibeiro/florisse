@@ -1,10 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import type { CartItemType } from "@/components/cart/types";
-import { useCart } from "@/hooks/useCart";
-import { getProductByName } from "@/lib/products";
-import { formatColor } from "@/utils/format";
+import { useMemo, useState } from "react";
+import { FaMapMarkerAlt } from "react-icons/fa";
 
 import CartHeader from "@/components/cart/CartHeader";
 import CartItem from "@/components/cart/CartItem";
@@ -13,9 +10,21 @@ import EmptyCart from "@/components/cart/EmptyCart";
 import RemoveConfirmationModal, {
   type Confirmation,
 } from "@/components/cart/RemoveConfirmationModal";
+import type { CartItemType } from "@/components/cart/types";
+
 import { WHATSAPP } from "@/data/config";
-import { formatStoredCep, useFreightCep } from "@/hooks/useFreight";
-import { FaMapMarkerAlt } from "react-icons/fa";
+
+import {
+  formatFreightPrice,
+  formatStoredCep,
+  useCartFreight,
+  useFreightCep,
+  type CartFreightPackage,
+} from "@/hooks/useFreight";
+
+import { useCart } from "@/hooks/useCart";
+import { getProductByName } from "@/lib/products";
+import { formatColor } from "@/utils/format";
 
 export default function Carrinho() {
   const {
@@ -32,6 +41,74 @@ export default function Carrinho() {
   const [confirmationModal, setConfirmationModal] =
     useState<Confirmation | null>(null);
 
+  /*
+   * Monta os pacotes que podem ter frete calculado.
+   *
+   * Pedidos personalizados ficam fora daqui porque
+   * ainda não possuem necessariamente dimensões/preço
+   * definitivos.
+   */
+  const freightPackages = useMemo<CartFreightPackage[]>(() => {
+    return cart.flatMap((item) => {
+      if (item.type !== "product") {
+        return [];
+      }
+
+      const product = getProductByName(item.name);
+
+      if (!product) {
+        return [];
+      }
+
+      const size = product.sizes.find(
+        (productSize) => productSize.label === item.size,
+      );
+
+      if (!size) {
+        return [];
+      }
+
+      return [
+        {
+          id: item.id,
+          quantity: item.quantity,
+          weight: size.peso,
+          width: size.largura,
+          length: size.comprimento,
+          height: size.altura,
+        },
+      ];
+    });
+  }, [cart]);
+
+  const {
+    total: freightTotal,
+    loading: freightLoading,
+    unavailable: freightUnavailable,
+    hasCep,
+  } = useCartFreight(freightPackages);
+
+  const hasProductWithoutFreightData = useMemo(
+    () =>
+      cart.some((item) => {
+        if (item.type !== "product") {
+          return false;
+        }
+
+        const product = getProductByName(item.name);
+
+        if (!product) {
+          return true;
+        }
+
+        return !product.sizes.some((size) => size.label === item.size);
+      }),
+    [cart],
+  );
+
+  const effectiveFreightUnavailable =
+    freightUnavailable || hasProductWithoutFreightData;
+
   function openRemoveModal(itemId: string) {
     setConfirmationModal({
       type: "remove",
@@ -40,9 +117,13 @@ export default function Carrinho() {
   }
 
   function openClearCartModal() {
-    if (!cart.length) return;
+    if (!cart.length) {
+      return;
+    }
 
-    setConfirmationModal({ type: "clear" });
+    setConfirmationModal({
+      type: "clear",
+    });
   }
 
   function closeConfirmationModal() {
@@ -50,7 +131,9 @@ export default function Carrinho() {
   }
 
   function confirmRemoval() {
-    if (!confirmationModal) return;
+    if (!confirmationModal) {
+      return;
+    }
 
     if (confirmationModal.type === "remove") {
       removeFromCart(confirmationModal.itemId);
@@ -75,9 +158,11 @@ export default function Carrinho() {
   }
 
   function finishOrder() {
-    if (!cart.length) return;
+    if (!cart.length) {
+      return;
+    }
 
-    const total = cart.reduce(
+    const subtotal = cart.reduce(
       (acc, item) =>
         item.type === "product" ? acc + item.price * item.quantity : acc,
       0,
@@ -105,7 +190,62 @@ export default function Carrinho() {
       })
       .join("\n\n");
 
-    const totalText = `R$ ${total.toFixed(2).replace(".", ",")}`;
+    let freightText: string;
+    let totalText: string;
+
+    if (!hasCep) {
+      freightText = "Frete: CEP não informado — calcular pelo WhatsApp.";
+
+      totalText = hasCustomOrders
+        ? `Subtotal dos itens com preço definido: ${formatFreightPrice(
+            subtotal,
+          )}
+
+Frete: a calcular.`
+        : `Subtotal: ${formatFreightPrice(subtotal)}
+
+Frete: a calcular.`;
+    } else if (freightLoading) {
+      freightText = `Frete para ${formatStoredCep(cep)}: calculando...`;
+
+      totalText = `Subtotal: ${formatFreightPrice(subtotal)}
+
+${freightText}
+
+Total: a confirmar.`;
+    } else if (effectiveFreightUnavailable) {
+      freightText = `Frete para ${formatStoredCep(
+        cep,
+      )}: indisponível no momento.`;
+
+      totalText = `Subtotal: ${formatFreightPrice(subtotal)}
+
+${freightText}
+
+Total: a confirmar pelo WhatsApp.`;
+    } else {
+      const finalTotal = subtotal + freightTotal;
+
+      freightText = `Frete para ${formatStoredCep(cep)}: ${formatFreightPrice(
+        freightTotal,
+      )}`;
+
+      totalText = hasCustomOrders
+        ? `Subtotal dos itens com preço definido: ${formatFreightPrice(
+            subtotal,
+          )}
+
+${freightText}
+
+Total parcial com frete: ${formatFreightPrice(finalTotal)}
+
+Os itens personalizados ainda terão o valor confirmado pela Florisse.`
+        : `Subtotal: ${formatFreightPrice(subtotal)}
+
+${freightText}
+
+Total: ${formatFreightPrice(finalTotal)}`;
+    }
 
     const text = `Olá! 💛
 
@@ -114,13 +254,7 @@ Gostaria de fazer um pedido na Florisse:
 ${items}
 
 ──────────────
-${
-  hasCustomOrders
-    ? `Subtotal dos itens com preço definido: ${totalText}
-
-Alguns itens são personalizados e estão com valor sob consulta. O valor final será confirmado pela Florisse.`
-    : `Total: ${totalText}`
-}
+${totalText}
 
 Gostaria de confirmar a disponibilidade e combinar a entrega. 😊`;
 
@@ -148,15 +282,18 @@ Gostaria de confirmar a disponibilidade e combinar a entrega. 😊`;
           <>
             <div className="text-muted mb-4 flex items-center gap-3 text-xs font-medium tracking-[0.14em] uppercase">
               <span className="bg-primary/40 h-px w-8" />
+
               <span>Suas escolhas</span>
             </div>
 
             <div className="border-primary/10 bg-primary/5 mb-5 flex items-center gap-3 rounded-2xl border px-4 py-3">
               <FaMapMarkerAlt className="text-primary shrink-0" size={14} />
+
               <p className="text-muted text-xs leading-5">
                 {cep ? (
                   <>
-                    Os fretes exibidos abaixo estão baseados no CEP salvo{" "}
+                    Os fretes <span className="font-semibold">aproximados</span>{" "}
+                    exibidos abaixo estão baseados no CEP salvo{" "}
                     <strong className="text-foreground">
                       {formatStoredCep(cep)}
                     </strong>
@@ -165,7 +302,9 @@ Gostaria de confirmar a disponibilidade e combinar a entrega. 😊`;
                 ) : (
                   <>
                     Defina seu CEP no botão de localização do cabeçalho para
-                    calcular os fretes automaticamente.
+                    calcular os fretes{" "}
+                    <span className="font-semibold">aproximados</span>
+                    automaticamente.
                   </>
                 )}
               </p>
@@ -196,6 +335,10 @@ Gostaria de confirmar a disponibilidade e combinar a entrega. 😊`;
 
             <CartSummary
               cart={cart}
+              freightTotal={freightTotal}
+              freightLoading={freightLoading}
+              freightUnavailable={effectiveFreightUnavailable}
+              hasCep={hasCep}
               onClear={openClearCartModal}
               onFinish={finishOrder}
             />

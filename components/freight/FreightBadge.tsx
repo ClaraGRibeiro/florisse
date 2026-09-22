@@ -29,7 +29,8 @@ export default function FreightBadge({
     return (
       <p className="text-muted flex items-center gap-1.5 text-xs">
         <FaMapMarkerAlt className="shrink-0" size={11} />
-        Defina seu CEP para ver o frete
+        Defina seu CEP para ver o frete{" "}
+        <span className="font-semibold">aproximado</span>
       </p>
     );
   }
@@ -38,7 +39,9 @@ export default function FreightBadge({
     return (
       <p className="text-muted flex items-center gap-1.5 text-xs">
         <FaTruck className="shrink-0" size={11} />
-        Calculando frete para {cep.slice(0, 5)}-{cep.slice(5)}...
+        Calculando frete <span className="font-semibold">
+          aproximado
+        </span> para {cep.slice(0, 5)}-{cep.slice(5)}...
       </p>
     );
   }
@@ -56,12 +59,14 @@ export default function FreightBadge({
     <div className={compact ? "text-xs" : "text-sm"}>
       <p className="text-foreground flex items-center gap-1.5 font-medium">
         <FaTruck className="text-primary shrink-0" size={11} />
-        Frete {formatFreightPrice(estimate.price)}
+        Frete <span className="font-semibold">aproximado</span>{" "}
+        {formatFreightPrice(estimate.price)}
       </p>
 
       <p className="text-muted mt-0.5">
         {estimate.serviceName}
-        {estimate.deadline ? ` · ${estimate.deadline}` : ""} · CEP{" "}
+        {estimate.deadline ? ` · ${estimate.deadline}` : ""}
+        {" · CEP "}
         {cep.slice(0, 5)}-{cep.slice(5)}
       </p>
     </div>

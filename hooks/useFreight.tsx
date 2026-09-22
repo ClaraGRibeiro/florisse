@@ -22,7 +22,9 @@ export type FreightOption = {
   name?: string;
   service?: string | number;
   service_name?: string;
-  company?: { name?: string };
+  company?: {
+    name?: string;
+  };
   company_name?: string;
   price?: number | string;
   custom_price?: number | string;
@@ -30,7 +32,10 @@ export type FreightOption = {
   delivery_time?: number | string;
   deliveryTime?: number | string;
   deadline?: number | string;
-  delivery_range?: { min?: number; max?: number };
+  delivery_range?: {
+    min?: number;
+    max?: number;
+  };
 };
 
 export type FreightEstimate = {
@@ -56,6 +61,22 @@ type FreightContextType = {
   cep: string;
   setCep: (value: string) => boolean;
   clearCep: () => void;
+};
+
+export type CartFreightPackage = {
+  id: string;
+  quantity: number;
+  weight: number;
+  width: number;
+  length: number;
+  height: number;
+};
+
+type CartFreightResult = {
+  total: number;
+  loading: boolean;
+  hasCep: boolean;
+  unavailable: boolean;
 };
 
 const FreightContext = createContext<FreightContextType | undefined>(undefined);
@@ -97,11 +118,17 @@ function getRawPrice(option: FreightOption) {
 }
 
 /**
- * Mantém a mesma regra usada pelo simulador atual da loja.
+ * Mantém a mesma regra usada pela loja:
+ * o preço exibido é 1,5x o valor retornado pela SuperFrete.
  */
 function getDisplayedPrice(option: FreightOption) {
   const price = getRawPrice(option);
+
   return Number.isFinite(price) ? Number((price * 1.5).toFixed(2)) : Infinity;
+}
+
+function formatDeadlineDays(value: number) {
+  return `${value} ${value === 1 ? "dia útil" : "dias úteis"}`;
 }
 
 function getDeadline(option: FreightOption) {
@@ -111,20 +138,42 @@ function getDeadline(option: FreightOption) {
     const min = range.min;
     const max = range.max;
 
-    if (min !== undefined && max !== undefined && min !== max) {
+    if (min !== undefined && max !== undefined) {
+      if (min === max) {
+        return formatDeadlineDays(min);
+      }
+
       return `${min}–${max} dias úteis`;
     }
 
     const days = min ?? max;
-    if (days !== undefined) return `${days} dias úteis`;
+
+    if (days !== undefined) {
+      return formatDeadlineDays(days);
+    }
   }
 
   const deadline =
     option.delivery_time ?? option.deliveryTime ?? option.deadline;
 
   if (deadline !== undefined && deadline !== null && String(deadline).trim()) {
-    const value = String(deadline);
-    return value.toLowerCase().includes("dia") ? value : `${value} dias úteis`;
+    const value = String(deadline).trim();
+
+    /*
+     * Se a API já retornar algo como "1 dia útil",
+     * preservamos o texto.
+     */
+    if (value.toLowerCase().includes("dia")) {
+      return value;
+    }
+
+    const numericValue = Number(value);
+
+    if (Number.isFinite(numericValue)) {
+      return formatDeadlineDays(numericValue);
+    }
+
+    return `${value} dias úteis`;
   }
 
   return null;
@@ -149,9 +198,13 @@ function getCacheKey(
 function readCache(): FreightCache {
   try {
     const raw = localStorage.getItem(FREIGHT_CACHE_KEY);
-    if (!raw) return {};
+
+    if (!raw) {
+      return {};
+    }
 
     const parsed: unknown = JSON.parse(raw);
+
     if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
       return {};
     }
@@ -166,7 +219,7 @@ function writeCache(cache: FreightCache) {
   try {
     localStorage.setItem(FREIGHT_CACHE_KEY, JSON.stringify(cache));
   } catch {
-    // Cache é apenas uma otimização; falhar aqui não impede o cálculo.
+    // Cache é apenas uma otimização.
   }
 }
 
@@ -174,7 +227,9 @@ function readCachedEstimate(key: string): FreightEstimate | null | undefined {
   const cache = readCache();
   const entry = cache[key];
 
-  if (!entry) return undefined;
+  if (!entry) {
+    return undefined;
+  }
 
   if (
     typeof entry.savedAt !== "number" ||
@@ -182,6 +237,7 @@ function readCachedEstimate(key: string): FreightEstimate | null | undefined {
   ) {
     delete cache[key];
     writeCache(cache);
+
     return undefined;
   }
 
@@ -215,16 +271,24 @@ async function requestEstimate(
   const key = getCacheKey(cep, weight, width, length, height);
 
   const cached = readCachedEstimate(key);
-  if (cached !== undefined) return cached;
+
+  if (cached !== undefined) {
+    return cached;
+  }
 
   const running = inFlight.get(key);
-  if (running) return running;
+
+  if (running) {
+    return running;
+  }
 
   const promise = (async () => {
     try {
       const response = await fetch("/api/frete", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({
           from: CEP_ORIGEM,
           to: cep,
@@ -242,6 +306,7 @@ async function requestEstimate(
       }
 
       const options = sortByPrice(data.services ?? []);
+
       const cheapest = options.find((option) =>
         Number.isFinite(getDisplayedPrice(option)),
       );
@@ -255,6 +320,7 @@ async function requestEstimate(
         : null;
 
       saveCachedEstimate(key, estimate);
+
       return estimate;
     } catch {
       return null;
@@ -264,6 +330,7 @@ async function requestEstimate(
   })();
 
   inFlight.set(key, promise);
+
   return promise;
 }
 
@@ -273,6 +340,7 @@ export function FreightProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     try {
       const saved = cleanCep(localStorage.getItem(CEP_STORAGE_KEY) ?? "");
+
       setCepState(isValidCep(saved) ? saved : "");
     } catch {
       setCepState("");
@@ -289,10 +357,11 @@ export function FreightProvider({ children }: { children: ReactNode }) {
     try {
       localStorage.setItem(CEP_STORAGE_KEY, cleaned);
     } catch {
-      // O estado continua funcionando mesmo se o storage estiver indisponível.
+      // Estado continua funcionando mesmo sem localStorage.
     }
 
     setCepState(cleaned);
+
     return true;
   }, []);
 
@@ -305,7 +374,11 @@ export function FreightProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const value = useMemo(
-    () => ({ cep, setCep, clearCep }),
+    () => ({
+      cep,
+      setCep,
+      clearCep,
+    }),
     [cep, setCep, clearCep],
   );
 
@@ -336,7 +409,9 @@ export function useFreightEstimate({
   height?: number;
 }) {
   const { cep } = useFreightCep();
+
   const [estimate, setEstimate] = useState<FreightEstimate | null>(null);
+
   const [loading, setLoading] = useState(false);
 
   const validPackage =
@@ -362,7 +437,10 @@ export function useFreightEstimate({
     setLoading(true);
 
     requestEstimate(cep, weight!, width!, length!, height!).then((result) => {
-      if (cancelled) return;
+      if (cancelled) {
+        return;
+      }
+
       setEstimate(result);
       setLoading(false);
     });
@@ -380,10 +458,100 @@ export function useFreightEstimate({
   };
 }
 
+/**
+ * Calcula o frete de todos os produtos do carrinho.
+ *
+ * O valor de cada frete é multiplicado pela quantidade
+ * daquele produto e depois todos os fretes são somados.
+ */
+export function useCartFreight(
+  packages: CartFreightPackage[],
+): CartFreightResult {
+  const { cep } = useFreightCep();
+
+  const [total, setTotal] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [unavailable, setUnavailable] = useState(false);
+
+  const packagesKey = JSON.stringify(packages);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    if (!cep) {
+      setTotal(0);
+      setLoading(false);
+      setUnavailable(false);
+      return;
+    }
+
+    if (packages.length === 0) {
+      setTotal(0);
+      setLoading(false);
+      setUnavailable(false);
+      return;
+    }
+
+    setLoading(true);
+    setUnavailable(false);
+    Promise.all(
+      packages.map(async (item) => {
+        const estimate = await requestEstimate(
+          cep,
+          item.weight,
+          item.width,
+          item.length,
+          item.height,
+        );
+
+        if (!estimate) {
+          return {
+            value: 0,
+            unavailable: true,
+          };
+        }
+
+        return {
+          value: estimate.price * item.quantity,
+          unavailable: false,
+        };
+      }),
+    ).then((results) => {
+      if (cancelled) {
+        return;
+      }
+
+      const hasUnavailable = results.some((result) => result.unavailable);
+
+      const freightTotal = results.reduce(
+        (sum, result) => sum + result.value,
+        0,
+      );
+
+      setTotal(Number(freightTotal.toFixed(2)));
+      setUnavailable(hasUnavailable);
+      setLoading(false);
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [cep, packagesKey]);
+
+  return {
+    total,
+    loading,
+    hasCep: Boolean(cep),
+    unavailable,
+  };
+}
+
 export function formatStoredCep(value: string) {
   const digits = cleanCep(value);
 
-  if (digits.length <= 5) return digits;
+  if (digits.length <= 5) {
+    return digits;
+  }
 
   return `${digits.slice(0, 5)}-${digits.slice(5)}`;
 }
