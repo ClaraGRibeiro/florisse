@@ -21,11 +21,7 @@ function isValidCep(value: string) {
 }
 
 function isPositiveNumber(value: unknown): value is number {
-  return (
-    typeof value === "number" &&
-    Number.isFinite(value) &&
-    value > 0
-  );
+  return typeof value === "number" && Number.isFinite(value) && value > 0;
 }
 
 function getErrorMessage(data: unknown) {
@@ -86,7 +82,7 @@ function addFreightMargin(price: unknown) {
     return null;
   }
 
-  return Number((value).toFixed(2));
+  return Number(value.toFixed(2));
 }
 
 function applyFreightMargin(service: unknown) {
@@ -96,10 +92,7 @@ function applyFreightMargin(service: unknown) {
 
   const object = service as Record<string, unknown>;
 
-  const price =
-    object.custom_price ??
-    object.price ??
-    object.final_price;
+  const price = object.custom_price ?? object.price ?? object.final_price;
 
   if (price === undefined || price === null) {
     return service;
@@ -220,9 +213,7 @@ export async function POST(request: NextRequest) {
     let responseData: unknown = null;
 
     try {
-      responseData = responseText
-        ? JSON.parse(responseText)
-        : null;
+      responseData = responseText ? JSON.parse(responseText) : null;
     } catch {
       responseData = null;
     }
@@ -239,21 +230,15 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           error:
-            apiMessage ||
-            "Não foi possível calcular o frete para esse CEP.",
+            apiMessage || "Não foi possível calcular o frete para esse CEP.",
         },
         {
-          status:
-            response.status >= 400 && response.status < 500
-              ? 400
-              : 502,
+          status: response.status >= 400 && response.status < 500 ? 400 : 502,
         },
       );
     }
 
-    const services = normalizeServices(responseData).map(
-      applyFreightMargin,
-    );
+    const services = normalizeServices(responseData).map(applyFreightMargin);
 
     return NextResponse.json({
       success: true,
@@ -264,8 +249,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(
       {
-        error:
-          "Não foi possível calcular o frete agora. Tente novamente.",
+        error: "Não foi possível calcular o frete agora. Tente novamente.",
       },
       { status: 500 },
     );

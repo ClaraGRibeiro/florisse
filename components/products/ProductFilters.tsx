@@ -137,8 +137,7 @@ export default function ProductFilters({
         <div className="border-primary/20 bg-primary/5 rounded-2xl border px-4 py-3.5 shadow-sm">
           <p className="text-foreground/80 text-sm leading-relaxed">
             <span className="text-primary font-semibold">
-              <span>✦</span> {" "}
-              Quer receber mais rápido?
+              <span>✦</span> Quer receber mais rápido?
             </span>{" "}
             Essas peças já estão prontas para você. Escolha sua favorita e fale
             comigo pelo WhatsApp!

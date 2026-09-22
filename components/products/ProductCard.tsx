@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useState } from "react";
 import { FaWhatsapp } from "react-icons/fa";
 
+import FreightBadge from "@/components/freight/FreightBadge";
+
 import { WHATSAPP } from "@/data/config";
 import { Product } from "@/types/product";
 import { getGradient } from "@/utils/gradient";
@@ -46,6 +48,9 @@ export function ProductCard({
   );
 
   const firstSize = product.sizes[0];
+  const freightSize =
+    (readySize && product.sizes.find((size) => size.label === readySize)) ??
+    firstSize;
 
   /*
    * A cor exibida segue esta prioridade:
@@ -199,6 +204,16 @@ Valor: R$ ${readyPrice?.toFixed(2).replace(".", ",")}`,
               )}
             </div>
           )}
+        </div>
+
+        <div className="border-primary/10 bg-primary/5 mt-5 rounded-2xl px-3.5 py-3">
+          <FreightBadge
+            weight={freightSize.peso}
+            width={freightSize.largura}
+            length={freightSize.comprimento}
+            height={freightSize.altura}
+            compact
+          />
         </div>
 
         <div className="border-border/70 mt-6 flex items-end justify-between gap-4 border-t pt-5">

@@ -120,7 +120,7 @@ function getPrice(option: FreightOption): number {
     return 0;
   }
 
-  return Number(price)*1.5;
+  return Number(price) * 1.5;
 }
 
 function getDeadline(option: FreightOption) {

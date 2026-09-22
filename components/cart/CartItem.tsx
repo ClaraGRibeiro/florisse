@@ -7,6 +7,7 @@ import CartItemEditor from "./CartItemEditor";
 import CartItemImage from "./CartItemImage";
 import CartItemInfo from "./CartItemInfo";
 import CartItemQuantity from "./CartItemQuantity";
+import FreightBadge from "@/components/freight/FreightBadge";
 import type { CartItemEditorValues, CartItemProps } from "./types";
 
 type Props = CartItemProps;
@@ -37,6 +38,28 @@ export default function CartItem({
 
         <div className="flex flex-1 flex-col justify-between">
           <CartItemInfo item={item} />
+
+          {item.type === "product" &&
+            product &&
+            (() => {
+              const size = product.sizes.find(
+                (productSize) => productSize.label === item.size,
+              );
+
+              if (!size) return null;
+
+              return (
+                <div className="bg-primary/5 mt-4 rounded-2xl px-3.5 py-3">
+                  <FreightBadge
+                    weight={size.peso}
+                    width={size.largura}
+                    length={size.comprimento}
+                    height={size.altura}
+                    compact
+                  />
+                </div>
+              );
+            })()}
 
           <div className="mt-6 flex flex-wrap items-center gap-2">
             <CartItemQuantity

@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 
 import "./globals.css";
 import { CartProvider } from "@/hooks/useCart";
+import { FreightProvider } from "@/hooks/useFreight";
 import Header from "@/components/Header";
 import { BRAND, CITY, SITE, SLOGAN } from "@/data/config";
 
@@ -124,8 +125,10 @@ export default function RootLayout({
     >
       <body className="flex min-h-full flex-col">
         <CartProvider>
-          <Header />
-          {children}
+          <FreightProvider>
+            <Header />
+            {children}
+          </FreightProvider>
         </CartProvider>
       </body>
     </html>

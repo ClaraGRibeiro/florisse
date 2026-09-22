@@ -14,6 +14,8 @@ import RemoveConfirmationModal, {
   type Confirmation,
 } from "@/components/cart/RemoveConfirmationModal";
 import { WHATSAPP } from "@/data/config";
+import { formatStoredCep, useFreightCep } from "@/hooks/useFreight";
+import { FaMapMarkerAlt } from "react-icons/fa";
 
 export default function Carrinho() {
   const {
@@ -24,6 +26,8 @@ export default function Carrinho() {
     updateItem,
     totalItems,
   } = useCart();
+
+  const { cep } = useFreightCep();
 
   const [confirmationModal, setConfirmationModal] =
     useState<Confirmation | null>(null);
@@ -145,6 +149,26 @@ Gostaria de confirmar a disponibilidade e combinar a entrega. 😊`;
             <div className="text-muted mb-4 flex items-center gap-3 text-xs font-medium tracking-[0.14em] uppercase">
               <span className="bg-primary/40 h-px w-8" />
               <span>Suas escolhas</span>
+            </div>
+
+            <div className="border-primary/10 bg-primary/5 mb-5 flex items-center gap-3 rounded-2xl border px-4 py-3">
+              <FaMapMarkerAlt className="text-primary shrink-0" size={14} />
+              <p className="text-muted text-xs leading-5">
+                {cep ? (
+                  <>
+                    Os fretes exibidos abaixo estão baseados no CEP salvo{" "}
+                    <strong className="text-foreground">
+                      {formatStoredCep(cep)}
+                    </strong>
+                    .
+                  </>
+                ) : (
+                  <>
+                    Defina seu CEP no botão de localização do cabeçalho para
+                    calcular os fretes automaticamente.
+                  </>
+                )}
+              </p>
             </div>
 
             <div className="space-y-4">

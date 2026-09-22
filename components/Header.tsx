@@ -6,7 +6,15 @@ import { useModalAccessibility } from "@/hooks/useModalAccessibility";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { FaBars, FaCartPlus, FaInstagram, FaTimes } from "react-icons/fa";
+import {
+  FaBars,
+  FaCartPlus,
+  FaInstagram,
+  FaMapMarkerAlt,
+  FaTimes,
+} from "react-icons/fa";
+import CepModal from "@/components/freight/CepModal";
+import { formatStoredCep, useFreightCep } from "@/hooks/useFreight";
 import { FaClover } from "react-icons/fa6";
 
 const navItems = [
@@ -20,6 +28,8 @@ const navItems = [
 export default function Header() {
   const { totalItems } = useCart();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [cepModalOpen, setCepModalOpen] = useState(false);
+  const { cep } = useFreightCep();
 
   const closeMenu = () => {
     setMenuOpen(false);
@@ -80,6 +90,26 @@ export default function Header() {
               </Link>
             )}
 
+            <button
+              type="button"
+              onClick={() => setCepModalOpen(true)}
+              className="border-border bg-background text-foreground hover:border-primary/40 hover:bg-primary/5 flex max-w-44 cursor-pointer items-center gap-2 rounded-full border px-4 py-2.5 text-sm font-medium shadow-sm transition-all hover:scale-[1.02]"
+              title={
+                cep
+                  ? `CEP salvo: ${formatStoredCep(cep)}`
+                  : "Definir CEP para calcular o frete"
+              }
+            >
+              <FaMapMarkerAlt
+                className="text-primary shrink-0"
+                size={14}
+                aria-hidden="true"
+              />
+              <span className="truncate">
+                {cep ? formatStoredCep(cep) : "Definir CEP"}
+              </span>
+            </button>
+
             <Link
               href="/carrinho"
               className="bg-primary text-primary-foreground hover:bg-primary-hover flex cursor-pointer items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium shadow-md transition-all hover:scale-[1.03]"
@@ -108,6 +138,17 @@ export default function Header() {
 
           {/* Mobile */}
           <div className="flex items-center gap-2 lg:hidden">
+            <button
+              type="button"
+              onClick={() => setCepModalOpen(true)}
+              aria-label={
+                cep ? `Alterar CEP ${formatStoredCep(cep)}` : "Definir CEP"
+              }
+              className="border-border bg-background text-primary flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border shadow-sm transition hover:scale-105"
+            >
+              <FaMapMarkerAlt size={17} aria-hidden="true" />
+            </button>
+
             <Link href="/carrinho" aria-label="Abrir carrinho">
               <button
                 type="button"
@@ -189,6 +230,25 @@ export default function Header() {
         </div>
 
         <nav className="flex flex-col px-5 py-6">
+          <button
+            type="button"
+            onClick={() => {
+              closeMenu();
+              setCepModalOpen(true);
+            }}
+            className="border-border text-foreground hover:text-primary flex items-center gap-3 border-b py-4 text-left text-base font-medium transition-colors"
+          >
+            <FaMapMarkerAlt
+              className="text-primary"
+              size={16}
+              aria-hidden="true"
+            />
+            <span>
+              {cep
+                ? `Frete para ${formatStoredCep(cep)}`
+                : "Definir CEP para o frete"}
+            </span>
+          </button>
           {navItems.map((item) => (
             <a
               key={item.label}
@@ -246,6 +306,8 @@ export default function Header() {
           </a>
         </div>
       </aside>
+
+      <CepModal isOpen={cepModalOpen} onClose={() => setCepModalOpen(false)} />
     </>
   );
 }
