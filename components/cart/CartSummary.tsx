@@ -1,7 +1,11 @@
 "use client";
 
 import type { CartItemType } from "@/components/cart/types";
-import { formatFreightPrice } from "@/hooks/useFreight";
+import {
+  formatFreightPrice,
+  type CartFreightOption,
+} from "@/hooks/useFreight";
+import { FaTruck } from "react-icons/fa";
 
 type CartSummaryProps = {
   cart: CartItemType[];
@@ -9,6 +13,9 @@ type CartSummaryProps = {
   freightLoading: boolean;
   freightUnavailable: boolean;
   hasCep: boolean;
+  freightOptions: CartFreightOption[];
+  selectedFreightServiceId: string | null;
+  onSelectFreightService: (serviceId: string) => void;
   onClear: () => void;
   onFinish: () => void;
 };
@@ -19,6 +26,9 @@ export default function CartSummary({
   freightLoading,
   freightUnavailable,
   hasCep,
+  freightOptions,
+  selectedFreightServiceId,
+  onSelectFreightService,
   onClear,
   onFinish,
 }: CartSummaryProps) {
@@ -30,7 +40,12 @@ export default function CartSummary({
 
   const hasCustomOrders = cart.some((item) => item.type === "custom-order");
 
-  const canShowFinalTotal = hasCep && !freightLoading && !freightUnavailable && !hasCustomOrders;
+  const canShowFinalTotal =
+    hasCep &&
+    !freightLoading &&
+    !freightUnavailable &&
+    freightTotal >= 0 &&
+    !hasCustomOrders;
 
   const finalTotal = subtotal + freightTotal;
 
@@ -42,12 +57,68 @@ export default function CartSummary({
             Resumo do pedido
           </p>
 
-          <div className="mt-4 space-y-2">
+          {hasCep && !freightLoading && freightOptions.length > 0 && (
+            <div className="border-border/70 bg-background mt-5 rounded-2xl border p-4">
+              <div className="flex items-center gap-2">
+                <FaTruck className="text-primary shrink-0" size={14} />
+
+                <div>
+                  <p className="text-foreground text-sm font-semibold">
+                    Escolha o serviço de transporte
+                  </p>
+
+                  <p className="text-muted mt-0.5 text-xs leading-relaxed">
+                    O valor abaixo é calculado para todo o carrinho.
+                  </p>
+                </div>
+              </div>
+
+              <div className="mt-4 grid gap-2">
+                {freightOptions.map((option) => {
+                  const selected = option.id === selectedFreightServiceId;
+
+                  return (
+                    <button
+                      key={option.id}
+                      type="button"
+                      onClick={() => onSelectFreightService(option.id)}
+                      aria-pressed={selected}
+                      className={`flex w-full cursor-pointer items-center justify-between gap-4 rounded-2xl border px-4 py-3 text-left transition ${
+                        selected
+                          ? "border-primary bg-primary/5 ring-primary/20 ring-2"
+                          : "border-border hover:border-primary/40 hover:bg-primary/5"
+                      }`}
+                    >
+                      <span className="min-w-0">
+                        <span className="text-foreground block text-sm font-semibold">
+                          {option.name}
+                        </span>
+
+                        {option.deadline && (
+                          <span className="text-muted mt-0.5 block text-xs">
+                            Prazo: {option.deadline}
+                          </span>
+                        )}
+                      </span>
+
+                      <span className="text-foreground shrink-0 text-sm font-semibold">
+                        {formatFreightPrice(option.price)}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          <div className="mt-5 space-y-2">
             <div className="flex items-center justify-between gap-4 text-sm">
               <span className="text-muted">Subtotal</span>
 
               <span className="text-foreground font-medium">
-                {!hasCustomOrders ? formatFreightPrice(subtotal) : "Sob consulta"}
+                {!hasCustomOrders
+                  ? formatFreightPrice(subtotal)
+                  : "Sob consulta"}
               </span>
             </div>
 
@@ -55,6 +126,7 @@ export default function CartSummary({
               <span className="text-muted">
                 Frete <span className="font-semibold">aproximado</span>
               </span>
+
               {!hasCustomOrders ? (
                 !hasCep ? (
                   <span className="text-muted text-right">Defina seu CEP</span>

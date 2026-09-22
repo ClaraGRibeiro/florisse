@@ -15,15 +15,9 @@ import { CEP_ORIGEM, FREIGHT, PACKAGE } from "@/data/config";
 
 const CEP_STORAGE_KEY = "florisse-cep";
 const FREIGHT_CACHE_KEY = "florisse-freight-cache";
+const FREIGHT_SERVICE_STORAGE_KEY = "florisse-freight-service";
 const CACHE_TTL = 1000 * 60 * 60 * 6;
 
-/*
- * Limites usados para montar os pacotes.
- *
- * Eles não representam necessariamente os limites máximos
- * da transportadora. Servem para evitar que o carrinho
- * monte um único pacote fisicamente pouco realista.
- */
 const MAX_PACKAGE_WEIGHT = 30;
 const MAX_PACKAGE_HEIGHT = 60;
 
@@ -52,6 +46,14 @@ export type FreightEstimate = {
   price: number;
   serviceName: string;
   deadline: string | null;
+  serviceId: string;
+};
+
+export type CartFreightOption = {
+  id: string;
+  name: string;
+  price: number;
+  deadline: string | null;
 };
 
 type FreightResponse = {
@@ -62,7 +64,7 @@ type FreightResponse = {
 
 type FreightCacheEntry = {
   savedAt: number;
-  estimate: FreightEstimate | null;
+  estimates: FreightEstimate[];
 };
 
 type FreightCache = Record<string, FreightCacheEntry>;
@@ -71,6 +73,8 @@ type FreightContextType = {
   cep: string;
   setCep: (value: string) => boolean;
   clearCep: () => void;
+  selectedServiceId: string | null;
+  setSelectedServiceId: (value: string | null) => void;
 };
 
 export type CartFreightPackage = {
@@ -98,11 +102,14 @@ type PhysicalPackage = {
   height: number;
 };
 
-type CartFreightResult = {
+export type CartFreightResult = {
   total: number;
   loading: boolean;
   hasCep: boolean;
   unavailable: boolean;
+  options: CartFreightOption[];
+  selectedServiceId: string | null;
+  setSelectedServiceId: (value: string | null) => void;
 };
 
 const FreightContext = createContext<FreightContextType | undefined>(
@@ -117,6 +124,16 @@ function isValidCep(value: string) {
   return /^\d{8}$/.test(value);
 }
 
+function getServiceId(option: FreightOption) {
+  const id = option.id ?? option.service;
+
+  if (id !== undefined && id !== null && String(id).trim()) {
+    return String(id);
+  }
+
+  return getServiceName(option).toLowerCase().trim().replace(/\s+/g, "-");
+}
+
 function getServiceName(option: FreightOption) {
   if (option.name) return option.name;
   if (option.service_name) return option.service_name;
@@ -127,7 +144,7 @@ function getServiceName(option: FreightOption) {
     case "1":
       return "PAC";
     case "2":
-      return "Sedex";
+      return "SEDEX";
     case "3":
       return "Jadlog";
     case "33":
@@ -185,10 +202,6 @@ function getDeadline(option: FreightOption) {
   if (deadline !== undefined && deadline !== null && String(deadline).trim()) {
     const value = String(deadline).trim();
 
-    /*
-     * Se a API já retornar algo como "1 dia útil",
-     * preservamos o texto.
-     */
     if (value.toLowerCase().includes("dia")) {
       return value;
     }
@@ -249,7 +262,9 @@ function writeCache(cache: FreightCache) {
   }
 }
 
-function readCachedEstimate(key: string): FreightEstimate | null | undefined {
+function readCachedEstimates(
+  key: string,
+): FreightEstimate[] | null | undefined {
   const cache = readCache();
   const entry = cache[key];
 
@@ -267,15 +282,15 @@ function readCachedEstimate(key: string): FreightEstimate | null | undefined {
     return undefined;
   }
 
-  return entry.estimate;
+  return Array.isArray(entry.estimates) ? entry.estimates : null;
 }
 
-function saveCachedEstimate(key: string, estimate: FreightEstimate | null) {
+function saveCachedEstimates(key: string, estimates: FreightEstimate[]) {
   const cache = readCache();
 
   cache[key] = {
     savedAt: Date.now(),
-    estimate,
+    estimates,
   };
 
   const entries = Object.entries(cache)
@@ -285,21 +300,21 @@ function saveCachedEstimate(key: string, estimate: FreightEstimate | null) {
   writeCache(Object.fromEntries(entries));
 }
 
-const inFlight = new Map<string, Promise<FreightEstimate | null>>();
+const inFlight = new Map<string, Promise<FreightEstimate[]>>();
 
-async function requestEstimate(
+async function requestEstimates(
   cep: string,
   weight: number,
   width: number,
   length: number,
   height: number,
-): Promise<FreightEstimate | null> {
+): Promise<FreightEstimate[]> {
   const key = getCacheKey(cep, weight, width, length, height);
 
-  const cached = readCachedEstimate(key);
+  const cached = readCachedEstimates(key);
 
   if (cached !== undefined) {
-    return cached;
+    return cached ?? [];
   }
 
   const running = inFlight.get(key);
@@ -331,25 +346,28 @@ async function requestEstimate(
         throw new Error(data.error || "Não foi possível calcular o frete.");
       }
 
-      const options = sortByPrice(data.services ?? []);
+      const estimates = sortByPrice(data.services ?? [])
+        .map((option) => {
+          const price = getDisplayedPrice(option);
 
-      const cheapest = options.find((option) =>
-        Number.isFinite(getDisplayedPrice(option)),
-      );
-
-      const estimate = cheapest
-        ? {
-            price: getDisplayedPrice(cheapest),
-            serviceName: getServiceName(cheapest),
-            deadline: getDeadline(cheapest),
+          if (!Number.isFinite(price)) {
+            return null;
           }
-        : null;
 
-      saveCachedEstimate(key, estimate);
+          return {
+            price,
+            serviceName: getServiceName(option),
+            deadline: getDeadline(option),
+            serviceId: getServiceId(option),
+          };
+        })
+        .filter((estimate): estimate is FreightEstimate => estimate !== null);
 
-      return estimate;
+      saveCachedEstimates(key, estimates);
+
+      return estimates;
     } catch {
-      return null;
+      return [];
     } finally {
       inFlight.delete(key);
     }
@@ -404,33 +422,40 @@ async function getCepFromCurrentLocation(): Promise<string | null> {
 
 export function FreightProvider({ children }: { children: ReactNode }) {
   const [cep, setCepState] = useState("");
+  const [selectedServiceId, setSelectedServiceIdState] = useState<
+    string | null
+  >(null);
+
   const cepSetManuallyRef = useRef(false);
 
   useEffect(() => {
     let cancelled = false;
 
+    try {
+      const savedService = localStorage.getItem(FREIGHT_SERVICE_STORAGE_KEY);
+
+      if (savedService) {
+        setSelectedServiceIdState(savedService);
+      }
+    } catch {
+      // Estado continua funcionando sem localStorage.
+    }
+
     async function initializeCep() {
       try {
         const saved = cleanCep(localStorage.getItem(CEP_STORAGE_KEY) ?? "");
 
-        // Se já existe um CEP salvo, nunca consulta a localização novamente.
         if (isValidCep(saved)) {
           setCepState(saved);
           return;
         }
 
-        // Só tentamos descobrir a localização quando ainda não existe um CEP salvo.
-        // Se a tentativa falhar, não gravamos nenhuma flag: em uma próxima visita
-        // o site poderá tentar novamente. Assim, o único estado persistente que
-        // impede novas consultas automáticas é o próprio CEP salvo.
         const detectedCep = await getCepFromCurrentLocation();
 
         if (cancelled || !detectedCep || cepSetManuallyRef.current) {
           return;
         }
 
-        // Se a pessoa digitou um CEP enquanto a localização era processada,
-        // o CEP digitado tem prioridade e nunca é sobrescrito.
         const currentSavedCep = cleanCep(
           localStorage.getItem(CEP_STORAGE_KEY) ?? "",
         );
@@ -442,8 +467,7 @@ export function FreightProvider({ children }: { children: ReactNode }) {
         localStorage.setItem(CEP_STORAGE_KEY, detectedCep);
         setCepState(detectedCep);
       } catch {
-        // Se localização/localStorage não estiver disponível, o CEP pode ser
-        // informado normalmente pelo modal.
+        // CEP pode ser informado manualmente pelo modal.
       }
     }
 
@@ -482,13 +506,29 @@ export function FreightProvider({ children }: { children: ReactNode }) {
     setCepState("");
   }, []);
 
+  const setSelectedServiceId = useCallback((value: string | null) => {
+    setSelectedServiceIdState(value);
+
+    try {
+      if (value) {
+        localStorage.setItem(FREIGHT_SERVICE_STORAGE_KEY, value);
+      } else {
+        localStorage.removeItem(FREIGHT_SERVICE_STORAGE_KEY);
+      }
+    } catch {
+      // Estado continua funcionando sem localStorage.
+    }
+  }, []);
+
   const value = useMemo(
     () => ({
       cep,
       setCep,
       clearCep,
+      selectedServiceId,
+      setSelectedServiceId,
     }),
-    [cep, setCep, clearCep],
+    [cep, setCep, clearCep, selectedServiceId, setSelectedServiceId],
   );
 
   return (
@@ -520,7 +560,6 @@ export function useFreightEstimate({
   const { cep } = useFreightCep();
 
   const [estimate, setEstimate] = useState<FreightEstimate | null>(null);
-
   const [loading, setLoading] = useState(false);
 
   const validPackage =
@@ -545,12 +584,12 @@ export function useFreightEstimate({
 
     setLoading(true);
 
-    requestEstimate(cep, weight!, width!, length!, height!).then((result) => {
+    requestEstimates(cep, weight!, width!, length!, height!).then((options) => {
       if (cancelled) {
         return;
       }
 
-      setEstimate(result);
+      setEstimate(options[0] ?? null);
       setLoading(false);
     });
 
@@ -567,29 +606,10 @@ export function useFreightEstimate({
   };
 }
 
-/**
- * Remove o peso da embalagem que já está embutido
- * no campo `peso` dos produtos.
- *
- * Exemplo:
- *
- * produto:
- *   peso = PACKAGE + 0.14
- *
- * peso físico da peça:
- *   0.14 kg
- */
 function getProductWeight(weight: number) {
   return Math.max(0, weight - PACKAGE);
 }
 
-/**
- * Converte os itens do carrinho em unidades físicas.
- *
- * A quantidade deixa de ser usada para multiplicar o preço
- * do frete. Ela passa a representar unidades dentro de um
- * pacote físico.
- */
 function createShippingUnits(
   packages: CartFreightPackage[],
 ): ShippingUnit[] {
@@ -618,19 +638,10 @@ function createShippingUnits(
   return units;
 }
 
-/**
- * Calcula o volume de uma unidade.
- */
 function getVolume(unit: ShippingUnit) {
   return unit.width * unit.length * unit.height;
 }
 
-/**
- * Ordena as peças maiores primeiro.
- *
- * Isso melhora a ocupação dos pacotes quando existem
- * produtos de tamanhos diferentes.
- */
 function sortShippingUnits(units: ShippingUnit[]) {
   return [...units].sort((a, b) => {
     const volumeDifference = getVolume(b) - getVolume(a);
@@ -643,26 +654,8 @@ function sortShippingUnits(units: ShippingUnit[]) {
   });
 }
 
-/**
- * Verifica se uma unidade pode ser adicionada a um pacote.
- *
- * A lógica considera:
- *
- * - peso total;
- * - largura máxima;
- * - comprimento máximo;
- * - altura acumulada.
- *
- * Para os produtos atuais da Florisse, que são enviados
- * dobrados/enrolados, a altura é a dimensão que cresce
- * quando várias peças são empilhadas.
- */
-function canAddToPackage(
-  current: PhysicalPackage,
-  unit: ShippingUnit,
-) {
+function canAddToPackage(current: PhysicalPackage, unit: ShippingUnit) {
   const nextWeight = current.weight + unit.weight;
-
   const nextWidth = Math.max(current.width, unit.width);
   const nextLength = Math.max(current.length, unit.length);
   const nextHeight = current.height + unit.height;
@@ -675,9 +668,6 @@ function canAddToPackage(
   );
 }
 
-/**
- * Adiciona uma unidade ao pacote.
- */
 function addUnitToPackage(
   current: PhysicalPackage,
   unit: ShippingUnit,
@@ -691,36 +681,13 @@ function addUnitToPackage(
   };
 }
 
-/**
- * Monta os pacotes físicos do carrinho.
- *
- * Cada pacote recebe UMA única embalagem.
- *
- * Exemplo:
- *
- * 3 peças de 0,14 kg:
- *
- * peças = 0,42 kg
- * embalagem = 0,15 kg
- *
- * pacote = 0,57 kg
- */
 function buildPhysicalPackages(
   packages: CartFreightPackage[],
 ): PhysicalPackage[] {
   const units = sortShippingUnits(createShippingUnits(packages));
-
   const physicalPackages: PhysicalPackage[] = [];
 
   for (const unit of units) {
-    let added = false;
-
-    /*
-     * Tenta colocar a peça em um pacote já existente.
-     *
-     * Preferimos o pacote que terá menor altura depois
-     * da inclusão, reduzindo o desperdício de espaço.
-     */
     const possiblePackages = physicalPackages
       .map((physicalPackage, index) => ({
         physicalPackage,
@@ -743,54 +710,97 @@ function buildPhysicalPackages(
         target.physicalPackage,
         unit,
       );
-
-      added = true;
+      continue;
     }
 
-    if (!added) {
-      physicalPackages.push({
-        id: `package-${physicalPackages.length + 1}`,
-        weight: unit.weight,
-        width: unit.width,
-        length: unit.length,
-        height: unit.height,
+    physicalPackages.push({
+      id: `package-${physicalPackages.length + 1}`,
+      weight: unit.weight,
+      width: unit.width,
+      length: unit.length,
+      height: unit.height,
+    });
+  }
+
+  return physicalPackages.map((physicalPackage) => ({
+    ...physicalPackage,
+    weight: Number((physicalPackage.weight + PACKAGE).toFixed(3)),
+  }));
+}
+
+function combinePackageOptions(
+  packageOptions: FreightEstimate[][],
+): CartFreightOption[] {
+  if (packageOptions.length === 0) {
+    return [];
+  }
+
+  /*
+   * Um serviço só aparece para escolha se estiver disponível
+   * em TODOS os pacotes físicos do pedido. Assim, o cliente
+   * escolhe uma única transportadora/serviço para o pedido
+   * inteiro e não corre o risco de selecionar um serviço que
+   * só atende uma parte do carrinho.
+   */
+  const commonIds = new Set(
+    packageOptions[0].map((option) => option.serviceId),
+  );
+
+  for (const options of packageOptions.slice(1)) {
+    const ids = new Set(options.map((option) => option.serviceId));
+
+    for (const id of [...commonIds]) {
+      if (!ids.has(id)) {
+        commonIds.delete(id);
+      }
+    }
+  }
+
+  const result: CartFreightOption[] = [];
+
+  for (const serviceId of commonIds) {
+    let total = 0;
+    let representative: FreightEstimate | null = null;
+    let valid = true;
+
+    for (const options of packageOptions) {
+      const option = options.find((item) => item.serviceId === serviceId);
+
+      if (!option) {
+        valid = false;
+        break;
+      }
+
+      total += option.price;
+
+      if (!representative) {
+        representative = option;
+      }
+    }
+
+    if (valid && representative) {
+      result.push({
+        id: serviceId,
+        name: representative.serviceName,
+        price: Number(total.toFixed(2)),
+        deadline: representative.deadline,
       });
     }
   }
 
-  /*
-   * A embalagem é adicionada uma única vez por pacote.
-   */
-  return physicalPackages.map((physicalPackage) => ({
-    ...physicalPackage,
-    weight: Number(
-      (physicalPackage.weight + PACKAGE).toFixed(3),
-    ),
-  }));
+  return result.sort((a, b) => a.price - b.price);
 }
 
-/**
- * Calcula o frete de todos os produtos do carrinho.
- *
- * Diferentemente da implementação anterior:
- *
- * ❌ não faz:
- *
- *   frete da peça × quantidade
- *
- * ✅ faz:
- *
- *   peças → pacotes físicos → SuperFrete
- *
- * Assim, duas ou mais peças podem compartilhar a mesma
- * embalagem e pagar um frete compatível com um único envio.
- */
 export function useCartFreight(
   packages: CartFreightPackage[],
 ): CartFreightResult {
-  const { cep } = useFreightCep();
+  const {
+    cep,
+    selectedServiceId: contextSelectedServiceId,
+    setSelectedServiceId,
+  } = useFreightCep();
 
-  const [total, setTotal] = useState(0);
+  const [options, setOptions] = useState<CartFreightOption[]>([]);
   const [loading, setLoading] = useState(false);
   const [unavailable, setUnavailable] = useState(false);
 
@@ -799,15 +809,8 @@ export function useCartFreight(
   useEffect(() => {
     let cancelled = false;
 
-    if (!cep) {
-      setTotal(0);
-      setLoading(false);
-      setUnavailable(false);
-      return;
-    }
-
-    if (packages.length === 0) {
-      setTotal(0);
+    if (!cep || packages.length === 0) {
+      setOptions([]);
       setLoading(false);
       setUnavailable(false);
       return;
@@ -819,54 +822,58 @@ export function useCartFreight(
     const physicalPackages = buildPhysicalPackages(packages);
 
     Promise.all(
-      physicalPackages.map(async (physicalPackage) => {
-        const estimate = await requestEstimate(
+      physicalPackages.map((physicalPackage) =>
+        requestEstimates(
           cep,
           physicalPackage.weight,
           physicalPackage.width,
           physicalPackage.length,
           physicalPackage.height,
-        );
-
-        if (!estimate) {
-          return {
-            value: 0,
-            unavailable: true,
-          };
-        }
-
-        return {
-          value: estimate.price,
-          unavailable: false,
-        };
-      }),
-    ).then((results) => {
+        ),
+      ),
+    ).then((packageOptions) => {
       if (cancelled) {
         return;
       }
 
-      const hasUnavailable = results.some((result) => result.unavailable);
+      const combinedOptions = combinePackageOptions(packageOptions);
 
-      const freightTotal = results.reduce(
-        (sum, result) => sum + result.value,
-        0,
+      setOptions(combinedOptions);
+      setUnavailable(combinedOptions.length === 0);
+      setLoading(false);
+
+      /*
+       * Se o serviço salvo ainda existir para este carrinho,
+       * mantemos a escolha. Caso contrário, usamos o serviço
+       * mais barato apenas como seleção inicial.
+       */
+      const currentStillAvailable = combinedOptions.some(
+        (option) => option.id === contextSelectedServiceId,
       );
 
-      setTotal(Number(freightTotal.toFixed(2)));
-      setUnavailable(hasUnavailable);
-      setLoading(false);
+      if (currentStillAvailable) {
+        return;
+      }
+
+      setSelectedServiceId(combinedOptions[0]?.id ?? null);
     });
 
     return () => {
       cancelled = true;
     };
-  }, [cep, packagesKey]);
+  }, [cep, packagesKey, contextSelectedServiceId, setSelectedServiceId]);
+
+  const selectedOption =
+    options.find((option) => option.id === contextSelectedServiceId) ?? null;
 
   return {
-    total,
+    total: selectedOption?.price ?? 0,
     loading,
     hasCep: Boolean(cep),
     unavailable,
+    options,
+    selectedServiceId: selectedOption?.id ?? null,
+    setSelectedServiceId,
   };
 }
 

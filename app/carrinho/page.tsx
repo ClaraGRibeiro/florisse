@@ -41,13 +41,6 @@ export default function Carrinho() {
   const [confirmationModal, setConfirmationModal] =
     useState<Confirmation | null>(null);
 
-  /*
-   * Monta os pacotes que podem ter frete calculado.
-   *
-   * Pedidos personalizados ficam fora daqui porque
-   * ainda não possuem necessariamente dimensões/preço
-   * definitivos.
-   */
   const freightPackages = useMemo<CartFreightPackage[]>(() => {
     return cart.flatMap((item) => {
       if (item.type !== "product") {
@@ -86,6 +79,9 @@ export default function Carrinho() {
     loading: freightLoading,
     unavailable: freightUnavailable,
     hasCep,
+    options: freightOptions,
+    selectedServiceId,
+    setSelectedServiceId,
   } = useCartFreight(freightPackages);
 
   const hasProductWithoutFreightData = useMemo(
@@ -156,6 +152,7 @@ export default function Carrinho() {
   function handleIncrease(item: CartItemType) {
     updateQuantity(item.id, item.quantity + 1);
   }
+
   function handleSetQuantity(item: CartItemType, quantity: number) {
     if (!Number.isInteger(quantity) || quantity < 1) {
       return;
@@ -163,6 +160,7 @@ export default function Carrinho() {
 
     updateQuantity(item.id, quantity);
   }
+
   function finishOrder() {
     if (!cart.length) {
       return;
@@ -175,6 +173,9 @@ export default function Carrinho() {
     );
 
     const hasCustomOrders = cart.some((item) => item.type === "custom-order");
+
+    const selectedFreightOption =
+      freightOptions.find((option) => option.id === selectedServiceId) ?? null;
 
     const items = cart
       .map((item) => {
@@ -219,7 +220,7 @@ Frete: a calcular.`;
 ${freightText}
 
 Total: a confirmar.`;
-    } else if (effectiveFreightUnavailable) {
+    } else if (effectiveFreightUnavailable || !selectedFreightOption) {
       freightText = `Frete para ${formatStoredCep(
         cep,
       )}: indisponível no momento.`;
@@ -230,11 +231,11 @@ ${freightText}
 
 Total: a confirmar pelo WhatsApp.`;
     } else {
-      const finalTotal = subtotal + freightTotal;
+      const finalTotal = subtotal + selectedFreightOption.price;
 
-      freightText = `Frete para ${formatStoredCep(cep)}: ${formatFreightPrice(
-        freightTotal,
-      )}`;
+      freightText = `Frete (${selectedFreightOption.name}) para ${formatStoredCep(
+        cep,
+      )}: ${formatFreightPrice(selectedFreightOption.price)}`;
 
       totalText = hasCustomOrders
         ? `Subtotal dos itens com preço definido: ${formatFreightPrice(
@@ -288,7 +289,6 @@ Gostaria de confirmar a disponibilidade e combinar a entrega. 😊`;
           <>
             <div className="text-muted mb-4 flex items-center gap-3 text-xs font-medium tracking-[0.14em] uppercase">
               <span className="bg-primary/40 h-px w-8" />
-
               <span>Suas escolhas</span>
             </div>
 
@@ -346,6 +346,9 @@ Gostaria de confirmar a disponibilidade e combinar a entrega. 😊`;
               freightLoading={freightLoading}
               freightUnavailable={effectiveFreightUnavailable}
               hasCep={hasCep}
+              freightOptions={freightOptions}
+              selectedFreightServiceId={selectedServiceId}
+              onSelectFreightService={setSelectedServiceId}
               onClear={openClearCartModal}
               onFinish={finishOrder}
             />
