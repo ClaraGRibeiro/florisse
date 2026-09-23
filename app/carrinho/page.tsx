@@ -41,12 +41,29 @@ export default function Carrinho() {
   const [confirmationModal, setConfirmationModal] =
     useState<Confirmation | null>(null);
 
-  const freightPackages = useMemo<CartFreightPackage[]>(() => {
-    return cart.flatMap((item) => {
-      if (item.type !== "product") {
-        return [];
-      }
+  /*
+   * Separa os itens do carrinho em:
+   *
+   * 1. Produtos normais, com preço e dimensões cadastradas.
+   * 2. Pedidos personalizados, cujo preço será definido depois.
+   */
+  const regularItems = useMemo(
+    () => cart.filter((item) => item.type === "product"),
+    [cart],
+  );
 
+  const customItems = useMemo(
+    () => cart.filter((item) => item.type === "custom-order"),
+    [cart],
+  );
+
+  /*
+   * Apenas os produtos normais participam do cálculo de frete.
+   * Pedidos personalizados ficam fora porque suas dimensões/peso
+   * definitivos ainda não foram definidos.
+   */
+  const freightPackages = useMemo<CartFreightPackage[]>(() => {
+    return regularItems.flatMap((item) => {
       const product = getProductByName(item.name);
 
       if (!product) {
@@ -72,7 +89,7 @@ export default function Carrinho() {
         },
       ];
     });
-  }, [cart]);
+  }, [regularItems]);
 
   const {
     total: freightTotal,
@@ -84,13 +101,15 @@ export default function Carrinho() {
     setSelectedServiceId,
   } = useCartFreight(freightPackages);
 
+  /*
+   * Verifica somente os produtos normais.
+   *
+   * Um pedido personalizado não pode causar "frete indisponível"
+   * porque ele não possui dimensões definitivas cadastradas.
+   */
   const hasProductWithoutFreightData = useMemo(
     () =>
-      cart.some((item) => {
-        if (item.type !== "product") {
-          return false;
-        }
-
+      regularItems.some((item) => {
         const product = getProductByName(item.name);
 
         if (!product) {
@@ -99,7 +118,7 @@ export default function Carrinho() {
 
         return !product.sizes.some((size) => size.label === item.size);
       }),
-    [cart],
+    [regularItems],
   );
 
   const effectiveFreightUnavailable =
@@ -166,13 +185,15 @@ export default function Carrinho() {
       return;
     }
 
-    const subtotal = cart.reduce(
-      (acc, item) =>
-        item.type === "product" ? acc + item.price * item.quantity : acc,
+    /*
+     * Apenas os produtos com preço definido entram no valor definitivo.
+     */
+    const regularSubtotal = regularItems.reduce(
+      (acc, item) => acc + item.price * item.quantity,
       0,
     );
 
-    const hasCustomOrders = cart.some((item) => item.type === "custom-order");
+    const hasCustomOrders = customItems.length > 0;
 
     const selectedFreightOption =
       freightOptions.find((option) => option.id === selectedServiceId) ?? null;
@@ -187,9 +208,11 @@ export default function Carrinho() {
         const value =
           item.type === "custom-order"
             ? "Sob consulta"
-            : `R$ ${(item.price * item.quantity).toFixed(2).replace(".", ",")}`;
+            : `R$ ${(item.price * item.quantity)
+                .toFixed(2)
+                .replace(".", ",")}`;
 
-        return `🧶 ${item.name}
+        return `-> ${item.name}
 • Tamanho: ${item.size}${customSize}
 • Cor: ${formatColor(item.color)}
 • Quantidade: ${item.quantity}
@@ -200,61 +223,89 @@ export default function Carrinho() {
     let freightText: string;
     let totalText: string;
 
-    if (!hasCep) {
-      freightText = "Frete: CEP não informado — calcular pelo WhatsApp.";
+    if (regularItems.length === 0) {
+      /*
+       * Carrinho somente com personalizados.
+       */
+      freightText =
+        "Frete: será calculado/confirmado após a definição do pedido.";
 
-      totalText = hasCustomOrders
-        ? `Subtotal dos itens com preço definido: ${formatFreightPrice(
-            subtotal,
-          )}
-
-Frete: a calcular.`
-        : `Subtotal: ${formatFreightPrice(subtotal)}
-
-Frete: a calcular.`;
-    } else if (freightLoading) {
-      freightText = `Frete para ${formatStoredCep(cep)}: calculando...`;
-
-      totalText = `Subtotal: ${formatFreightPrice(subtotal)}
+      totalText = `Valor definitivo dos produtos: Sob consulta
 
 ${freightText}
 
-Total: a confirmar.`;
+Personalizados: Sob consulta.`;
+    } else if (!hasCep) {
+      freightText = "Frete: CEP não informado — calcular pelo WhatsApp.";
+
+      totalText = `Valor dos produtos com preço definido: ${formatFreightPrice(
+        regularSubtotal,
+      )}
+
+${freightText}`;
+
+      if (hasCustomOrders) {
+        totalText += `
+
+Personalizados: Sob consulta.`;
+      }
+    } else if (freightLoading) {
+      freightText = `Frete para ${formatStoredCep(cep)}: calculando...`;
+
+      totalText = `Valor dos produtos com preço definido: ${formatFreightPrice(
+        regularSubtotal,
+      )}
+
+${freightText}`;
+
+      if (hasCustomOrders) {
+        totalText += `
+
+Personalizados: Sob consulta.`;
+      }
     } else if (effectiveFreightUnavailable || !selectedFreightOption) {
       freightText = `Frete para ${formatStoredCep(
         cep,
       )}: indisponível no momento.`;
 
-      totalText = `Subtotal: ${formatFreightPrice(subtotal)}
+      totalText = `Valor dos produtos com preço definido: ${formatFreightPrice(
+        regularSubtotal,
+      )}
 
-${freightText}
+${freightText}`;
 
-Total: a confirmar pelo WhatsApp.`;
+      if (hasCustomOrders) {
+        totalText += `
+
+Personalizados: Sob consulta.`;
+      }
+
+      totalText += `
+
+Valor definitivo: a confirmar pelo WhatsApp.`;
     } else {
-      const finalTotal = subtotal + selectedFreightOption.price;
+      const finalTotal = regularSubtotal + selectedFreightOption.price;
 
       freightText = `Frete (${selectedFreightOption.name}) para ${formatStoredCep(
         cep,
       )}: ${formatFreightPrice(selectedFreightOption.price)}`;
 
-      totalText = hasCustomOrders
-        ? `Subtotal dos itens com preço definido: ${formatFreightPrice(
-            subtotal,
-          )}
+      totalText = `Valor dos produtos: ${formatFreightPrice(
+        regularSubtotal,
+      )}
 
 ${freightText}
 
-Total parcial com frete: ${formatFreightPrice(finalTotal)}
+Valor definitivo: ${formatFreightPrice(finalTotal)}`;
 
-Os itens personalizados ainda terão o valor confirmado pela Florisse.`
-        : `Subtotal: ${formatFreightPrice(subtotal)}
+      if (hasCustomOrders) {
+        totalText += `
 
-${freightText}
-
-Total: ${formatFreightPrice(finalTotal)}`;
++ Sob consulta para personalizado.`;
+      }
     }
 
-    const text = `Olá! 💛
+    const text = `Olá!
 
 Gostaria de fazer um pedido na Florisse:
 
@@ -263,7 +314,7 @@ ${items}
 ──────────────
 ${totalText}
 
-Gostaria de confirmar a disponibilidade e combinar a entrega. 😊`;
+Gostaria de confirmar a disponibilidade e combinar a entrega.`;
 
     window.open(
       WHATSAPP + `?text=${encodeURIComponent(text)}`,
@@ -298,7 +349,8 @@ Gostaria de confirmar a disponibilidade e combinar a entrega. 😊`;
               <p className="text-muted text-xs leading-5">
                 {cep ? (
                   <>
-                    Os fretes <span className="font-semibold">aproximados</span>{" "}
+                    Os fretes{" "}
+                    <span className="font-semibold">aproximados</span>{" "}
                     exibidos abaixo estão baseados no CEP salvo{" "}
                     <strong className="text-foreground">
                       {formatStoredCep(cep)}
@@ -309,36 +361,105 @@ Gostaria de confirmar a disponibilidade e combinar a entrega. 😊`;
                   <>
                     Defina seu CEP no botão de localização do cabeçalho para
                     calcular os fretes{" "}
-                    <span className="font-semibold">aproximados</span>
+                    <span className="font-semibold">aproximados</span>{" "}
                     automaticamente.
                   </>
                 )}
               </p>
             </div>
 
-            <div className="space-y-4">
-              {cart.map((item) => {
-                const product = getProductByName(item.name) ?? null;
+            {/* =========================================================
+                PRODUTOS COM PREÇO DEFINIDO
+            ========================================================== */}
+            {regularItems.length > 0 && (
+              <section>
+                <div className="mb-4 flex items-center gap-3">
+                  <div className="bg-primary/20 flex h-9 w-9 items-center justify-center rounded-full">
+                    <span className="text-primary text-sm font-bold">
+                      {regularItems.reduce(
+                        (total, item) => total + item.quantity,
+                        0,
+                      )}
+                    </span>
+                  </div>
 
-                return (
-                  <CartItem
-                    key={item.id}
-                    item={item}
-                    product={product}
-                    onDecrease={handleDecrease}
-                    onIncrease={handleIncrease}
-                    onSetQuantity={handleSetQuantity}
-                    onRemove={openRemoveModal}
-                    onUpdate={updateItem}
-                  />
-                );
-              })}
-            </div>
+                  <div>
+                    <h2 className="font-serif text-xl font-semibold">
+                      Produtos
+                    </h2>
 
-            <p className="text-muted mt-4 text-sm leading-relaxed">
-              Pedidos com tamanho personalizado têm valor sob consulta. A
-              Florisse confirma o preço final pelo WhatsApp antes da produção.
-            </p>
+                    <p className="text-muted text-xs">
+                      Produtos com preço definido
+                    </p>
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  {regularItems.map((item) => {
+                    const product = getProductByName(item.name) ?? null;
+
+                    return (
+                      <CartItem
+                        key={item.id}
+                        item={item}
+                        product={product}
+                        onDecrease={handleDecrease}
+                        onIncrease={handleIncrease}
+                        onSetQuantity={handleSetQuantity}
+                        onRemove={openRemoveModal}
+                        onUpdate={updateItem}
+                      />
+                    );
+                  })}
+                </div>
+              </section>
+            )}
+
+            {/* =========================================================
+                PEDIDOS PERSONALIZADOS
+            ========================================================== */}
+            {customItems.length > 0 && (
+              <section className="mt-10">
+                <div className="border-primary/20 bg-primary/5 mb-5 rounded-[1.75rem] border p-5 sm:p-6">
+                  <div className="flex items-start gap-4">
+                    <div className="bg-primary text-primary-foreground flex h-10 w-10 shrink-0 items-center justify-center rounded-full">
+                      <span className="text-lg">✦</span>
+                    </div>
+
+                    <div>
+                      <h2 className="font-serif text-xl font-semibold">
+                        Pedidos personalizados
+                      </h2>
+
+                      <p className="text-muted mt-1 text-sm leading-relaxed">
+                        Estes itens foram feitos com medidas personalizadas.
+                        O valor definitivo será confirmado pela Florisse antes
+                        da produção.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  {customItems.map((item) => {
+                    const product = getProductByName(item.name) ?? null;
+
+                    return (
+                      <CartItem
+                        key={item.id}
+                        item={item}
+                        product={product}
+                        onDecrease={handleDecrease}
+                        onIncrease={handleIncrease}
+                        onSetQuantity={handleSetQuantity}
+                        onRemove={openRemoveModal}
+                        onUpdate={updateItem}
+                      />
+                    );
+                  })}
+                </div>
+              </section>
+            )}
 
             <CartSummary
               cart={cart}
