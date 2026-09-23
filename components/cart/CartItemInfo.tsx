@@ -44,8 +44,7 @@ export default function CartItemInfo({ item }: CartItemInfoProps) {
 
         {economy > 0 && (
           <div className="bg-primary/5 text-primary mt-3 inline-flex items-center rounded-full px-3 py-1.5 text-xs font-semibold">
-            Economia: R${" "}
-            {economy.toFixed(2).replace(".", ",")}
+            Economia: R$ {economy.toFixed(2).replace(".", ",")}
           </div>
         )}
       </div>

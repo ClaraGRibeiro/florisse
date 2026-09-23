@@ -141,6 +141,41 @@ export default function ProductInfo({
         </div>
       )}
 
+      <div className="bg-border my-8 h-px w-full" />
+
+      <ProductColors
+        product={product}
+        colors={colors}
+        selectedColor={selectedColor}
+        isOtherColor={isOtherColor}
+        search={colorSearch}
+        selectedOtherColors={selectedOtherColors}
+        onColorChange={onColorChange}
+        onToggleOtherColor={onToggleOtherColor}
+        onSearchChange={onColorSearchChange}
+        onOtherColorToggle={onOtherColorToggle}
+        onOtherColorRemove={onOtherColorRemove}
+      />
+
+      <ProductSizes
+        product={product}
+        selectedSize={selectedSize}
+        isCustomSize={isCustomSize}
+        customLength={customLength}
+        customWidth={customWidth}
+        onSizeChange={onSizeChange}
+        onCustomSizeClick={onCustomSizeClick}
+        onCustomLengthChange={onCustomLengthChange}
+        onCustomWidthChange={onCustomWidthChange}
+      />
+
+      <ProductActions
+        canAddToCart={canAddToCart}
+        added={added}
+        isCustomSize={isCustomSize}
+        onAddToCart={onAddToCart}
+      />
+
       <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
         <div className="flex items-center gap-3">
           <FaPalette size={15} className="text-primary shrink-0" />
@@ -186,41 +221,6 @@ export default function ProductInfo({
           </div>
         </div>
       </div>
-
-      <div className="bg-border my-8 h-px w-full" />
-
-      <ProductColors
-        product={product}
-        colors={colors}
-        selectedColor={selectedColor}
-        isOtherColor={isOtherColor}
-        search={colorSearch}
-        selectedOtherColors={selectedOtherColors}
-        onColorChange={onColorChange}
-        onToggleOtherColor={onToggleOtherColor}
-        onSearchChange={onColorSearchChange}
-        onOtherColorToggle={onOtherColorToggle}
-        onOtherColorRemove={onOtherColorRemove}
-      />
-
-      <ProductSizes
-        product={product}
-        selectedSize={selectedSize}
-        isCustomSize={isCustomSize}
-        customLength={customLength}
-        customWidth={customWidth}
-        onSizeChange={onSizeChange}
-        onCustomSizeClick={onCustomSizeClick}
-        onCustomLengthChange={onCustomLengthChange}
-        onCustomWidthChange={onCustomWidthChange}
-      />
-
-      <ProductActions
-        canAddToCart={canAddToCart}
-        added={added}
-        isCustomSize={isCustomSize}
-        onAddToCart={onAddToCart}
-      />
     </div>
   );
 }

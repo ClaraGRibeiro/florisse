@@ -1,5 +1,3 @@
-import { PACKAGE } from "./config";
-
 const bolsa = [
   {
     name: "Bolsa Redinha",
@@ -9,10 +7,6 @@ const bolsa = [
         label: "30 × 30 × 10 cm",
         price: 80,
         sales: 1,
-        peso: PACKAGE + 0.325,
-        largura: 20,
-        comprimento: 30,
-        altura: 15,
       },
     ],
     colors: ["verde militar"],

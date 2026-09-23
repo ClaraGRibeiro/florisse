@@ -4,8 +4,6 @@ import Link from "next/link";
 import { useState } from "react";
 import { FaWhatsapp } from "react-icons/fa";
 
-import FreightBadge from "@/components/freight/FreightBadge";
-
 import { WHATSAPP } from "@/data/config";
 import { Product } from "@/types/product";
 import { getGradient } from "@/utils/gradient";
@@ -48,22 +46,6 @@ export function ProductCard({
   );
 
   const firstSize = product.sizes[0];
-
-  /*
-   * Tamanho utilizado para o cálculo do frete.
-   *
-   * Se for uma pronta entrega e houver readySize,
-   * procura o tamanho correspondente.
-   *
-   * Caso não encontre ou não exista readySize,
-   * utiliza o primeiro tamanho do produto.
-   *
-   * O teste `readySize ?` evita que o TypeScript
-   * considere `""` como possível resultado.
-   */
-  const freightSize = readySize
-    ? (product.sizes.find((size) => size.label === readySize) ?? firstSize)
-    : firstSize;
 
   /*
    * A cor exibida segue esta prioridade:

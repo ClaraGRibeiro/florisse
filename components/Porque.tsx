@@ -1,6 +1,6 @@
 import { FaHeart, FaPalette, FaLocationDot, FaWhatsapp } from "react-icons/fa6";
 import { motion } from "framer-motion";
-import { CITY } from "@/data/config";
+import { BRAND, CITY } from "@/data/config";
 
 const benefits = [
   {
@@ -42,7 +42,7 @@ export default function PorQueFlorisse() {
         <div className="mb-12 text-center sm:mb-14">
           <div className="text-primary flex items-center justify-center gap-3 text-xs font-medium tracking-[0.2em] uppercase">
             <span>✦</span>
-            <span>Por que escolher a Florisse?</span>
+            <span>Por que escolher a {BRAND}?</span>
             <span>✦</span>
           </div>
 

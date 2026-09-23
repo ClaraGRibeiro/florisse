@@ -112,9 +112,7 @@ export type CartFreightResult = {
   setSelectedServiceId: (value: string | null) => void;
 };
 
-const FreightContext = createContext<FreightContextType | undefined>(
-  undefined,
-);
+const FreightContext = createContext<FreightContextType | undefined>(undefined);
 
 function cleanCep(value: string) {
   return value.replace(/\D/g, "").slice(0, 8);
@@ -610,9 +608,7 @@ function getProductWeight(weight: number) {
   return Math.max(0, weight - PACKAGE);
 }
 
-function createShippingUnits(
-  packages: CartFreightPackage[],
-): ShippingUnit[] {
+function createShippingUnits(packages: CartFreightPackage[]): ShippingUnit[] {
   const units: ShippingUnit[] = [];
 
   for (const item of packages) {
@@ -693,9 +689,7 @@ function buildPhysicalPackages(
         physicalPackage,
         index,
       }))
-      .filter(({ physicalPackage }) =>
-        canAddToPackage(physicalPackage, unit),
-      )
+      .filter(({ physicalPackage }) => canAddToPackage(physicalPackage, unit))
       .sort((a, b) => {
         const heightA = a.physicalPackage.height + unit.height;
         const heightB = b.physicalPackage.height + unit.height;

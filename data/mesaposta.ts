@@ -1,4 +1,4 @@
-import { DISCOUNT, PACKAGE } from "./config";
+import { DISCOUNT } from "./config";
 
 const mesaposta = [
   {
@@ -10,19 +10,11 @@ const mesaposta = [
         label: "37 cm",
         price: 27,
         sales: 2,
-        peso: PACKAGE + 0.14,
-        largura: 20,
-        comprimento: 30,
-        altura: 15,
       },
       {
         label: "KIT 7 peças: 6 (37 cm) + 1 (100 × 25 cm)",
         price: (27 + 27 + 27 + 27 + 27 + 27 + 65) * DISCOUNT,
         no_discount: 27 + 27 + 27 + 27 + 27 + 27 + 65,
-        peso: PACKAGE + 0.14 + 0.14 + 0.14 + 0.14 + 0.14 + 0.14 + 0.25,
-        largura: 20,
-        comprimento: 30,
-        altura: 15,
       },
     ],
 
@@ -54,10 +46,6 @@ const mesaposta = [
         label: "100 × 25 cm",
         price: 65,
         sales: 0,
-        peso: PACKAGE + 0.25,
-        largura: 20,
-        comprimento: 30,
-        altura: 15,
       },
     ],
 
@@ -86,19 +74,11 @@ const mesaposta = [
         label: "37 cm",
         price: 27,
         sales: 0,
-        peso: PACKAGE + 0.21,
-        largura: 20,
-        comprimento: 30,
-        altura: 15,
       },
       {
         label: "KIT 6 peças: 6 (37 cm)",
         price: (27 + 27 + 27 + 27 + 27 + 27) * DISCOUNT,
         no_discount: 27 + 27 + 27 + 27 + 27 + 27,
-        peso: PACKAGE + 0.21 + 0.21 + 0.21 + 0.21 + 0.21 + 0.21,
-        largura: 20,
-        comprimento: 30,
-        altura: 15,
       },
     ],
 
@@ -131,10 +111,6 @@ const mesaposta = [
         label: "120 × 35 cm",
         price: 85,
         sales: 0,
-        peso: PACKAGE + 0.36,
-        largura: 20,
-        comprimento: 30,
-        altura: 15,
       },
     ],
 
@@ -167,10 +143,6 @@ const mesaposta = [
         label: "110 × 40 cm",
         price: 135,
         sales: 1,
-        peso: PACKAGE + 0.5,
-        largura: 20,
-        comprimento: 30,
-        altura: 15,
       },
     ],
 

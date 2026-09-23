@@ -7,7 +7,6 @@ import { FaClover, FaShareFromSquare } from "react-icons/fa6";
 
 import { BRAND, CITY, RAFFLEITEM, RAFFLEPRICE } from "@/data/config";
 
-import FreightSimulator from "./FreightSimulator";
 import RaffleGallery from "./RaffleGallery";
 import RaffleNumbers from "./RaffleNumbers";
 
@@ -240,15 +239,6 @@ export default function RafflePage() {
             </div>
           </div>
         </section>
-
-        {/* FRETE */}
-        <FreightSimulator
-          originCep={RAFFLEITEM.frete.cep_origem}
-          weight={RAFFLEITEM.frete.peso}
-          width={RAFFLEITEM.frete.largura}
-          length={RAFFLEITEM.frete.comprimento}
-          height={RAFFLEITEM.frete.altura}
-        />
 
         {/* DIVISOR */}
         <div className="bg-border my-14 h-px sm:my-16" />

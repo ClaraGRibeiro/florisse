@@ -84,7 +84,7 @@ export default function Hero({ bestSelling, formatPath }: HeroProps) {
               href="#produtos"
               className="bg-primary text-primary-foreground hover:bg-primary-hover w-full cursor-pointer rounded-full px-7 py-3.5 font-semibold shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg sm:w-auto"
             >
-              Ver peças
+              Ver catálogo
             </a>
 
             <a

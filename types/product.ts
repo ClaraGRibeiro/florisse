@@ -13,10 +13,6 @@ export interface ProductSize {
   price: number;
   no_discount?: number;
   sales?: number;
-  peso: number;
-  altura: number;
-  comprimento: number;
-  largura: number;
 }
 
 export interface Product {

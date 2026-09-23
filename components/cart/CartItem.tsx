@@ -3,8 +3,6 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 
-import FreightBadge from "@/components/freight/FreightBadge";
-
 import CartItemEditor from "./CartItemEditor";
 import CartItemImage from "./CartItemImage";
 import CartItemInfo from "./CartItemInfo";
@@ -47,39 +45,6 @@ export default function CartItem({
 
         <div className="flex flex-1 flex-col justify-between">
           <CartItemInfo item={item} />
-
-          {item.type === "product" &&
-            product &&
-            (() => {
-              const size = product.sizes.find(
-                (productSize) => productSize.label === item.size,
-              );
-
-              if (!size) {
-                return null;
-              }
-
-              return (
-                <div className="bg-primary/5 mt-4 rounded-2xl px-3.5 py-3">
-                  <FreightBadge
-                    weight={size.peso}
-                    width={size.largura}
-                    length={size.comprimento}
-                    height={size.altura}
-                    compact
-                  />
-
-                  {item.quantity > 1 && (
-                    <p className="text-muted mt-2 text-[11px]">
-                      Frete <span className="font-semibold">(estimativa)</span>{" "}
-                      considerado {item.quantity}{" "}
-                      {item.quantity === 1 ? "unidade" : "unidades"} no resumo
-                      do pedido.
-                    </p>
-                  )}
-                </div>
-              );
-            })()}
 
           <div className="mt-6 flex flex-wrap items-center gap-2">
             <CartItemQuantity

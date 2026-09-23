@@ -1,6 +1,6 @@
-import { BRAND, CITY, INSTAGRAM, SLOGAN, WHATSAPP } from "@/data/config";
+import { BRAND, CITY, INSTAGRAM, MAPS, SLOGAN, WHATSAPP } from "@/data/config";
 import Link from "next/link";
-import { FaInstagram, FaWhatsapp } from "react-icons/fa";
+import { FaInstagram, FaMapMarkerAlt, FaWhatsapp } from "react-icons/fa";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -41,6 +41,13 @@ export default function Footer() {
               </Link>
 
               <Link
+                href="/?categoria=Pronta+Entrega#produtos"
+                className="text-muted hover:text-primary w-fit text-sm transition-colors"
+              >
+                Pronta entrega
+              </Link>
+
+              <Link
                 href="/#cores"
                 className="text-muted hover:text-primary w-fit text-sm transition-colors"
               >
@@ -52,13 +59,6 @@ export default function Footer() {
                 className="text-muted hover:text-primary w-fit text-sm transition-colors"
               >
                 Por que Florisse?
-              </Link>
-
-              <Link
-                href="/#cuidados"
-                className="text-muted hover:text-primary w-fit text-sm transition-colors"
-              >
-                Cuidados
               </Link>
 
               <Link
@@ -96,7 +96,15 @@ export default function Footer() {
                 Instagram
               </a>
 
-              <span className="text-muted text-sm">{CITY}</span>
+              <a
+                href={MAPS}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted hover:text-primary flex w-fit items-center gap-2 text-sm transition-colors"
+              >
+                <FaMapMarkerAlt className="text-base" />
+                {CITY}
+              </a>
             </div>
           </div>
         </div>

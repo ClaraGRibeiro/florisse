@@ -21,13 +21,6 @@ export default function ProductActions({
 
   return (
     <div className="mt-8">
-      <div className="border-border/70 bg-muted/10 rounded-[1.25rem] border px-4 py-4">
-        <p className="text-muted text-sm leading-relaxed">
-          Cada peça é feita à mão especialmente para você. As cores e medidas
-          podem ser personalizadas conforme disponibilidade.
-        </p>
-      </div>
-
       <button
         type="button"
         onClick={onAddToCart}

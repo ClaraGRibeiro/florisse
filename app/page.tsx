@@ -1,7 +1,6 @@
 "use client";
 
 import Cores from "@/components/Cores";
-import Cuidados from "@/components/Cuidados";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import PorQueFlorisse from "@/components/Porque";
@@ -47,9 +46,8 @@ export default function Home() {
       />
 
       <Cores formatColor={formatColor} />
-      <Cuidados />
-      <Sobre />
       <PorQueFlorisse />
+      <Sobre />
       <Footer />
 
       {showTop && (

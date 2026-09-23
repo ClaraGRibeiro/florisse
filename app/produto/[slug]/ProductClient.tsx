@@ -18,7 +18,6 @@ import ProductRelated from "@/components/product/ProductRelated";
 import Share from "@/components/product/Share";
 
 import { formatColor } from "@/utils/format";
-import FreightBadge from "@/components/freight/FreightBadge";
 
 const colors = colorsData as Color[];
 
@@ -360,32 +359,6 @@ export default function ProductClient({ slug }: ProductClientProps) {
           />
         </div>
 
-        <div className="border-primary/10 bg-primary/5 mt-10 rounded-3xl border p-5 sm:p-6">
-          <p className="text-foreground text-sm font-semibold">
-            Frete para o seu endereço
-          </p>
-
-          <p className="text-muted mt-1 text-xs leading-5">
-            O cálculo usa o CEP salvo no botão de localização do cabeçalho e as
-            dimensões do tamanho selecionado.
-          </p>
-
-          <div className="mt-4">
-            {isCustomSize ? (
-              <p className="text-muted text-sm">
-                Para tamanho personalizado, o frete será recalculado após a
-                confirmação das medidas.
-              </p>
-            ) : (
-              <FreightBadge
-                weight={currentSize.peso}
-                width={currentSize.largura}
-                length={currentSize.comprimento}
-                height={currentSize.altura}
-              />
-            )}
-          </div>
-        </div>
         <ProductRelated product={product} products={products} />
 
         {showTop && (

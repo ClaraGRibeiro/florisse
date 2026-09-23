@@ -54,9 +54,7 @@ export default function ProductSizes({
           const hasKit = size.label.toUpperCase().includes("KIT");
 
           const economy =
-            size.no_discount != null
-              ? size.no_discount - size.price
-              : null;
+            size.no_discount != null ? size.no_discount - size.price : null;
 
           return (
             <button
@@ -137,9 +135,7 @@ export default function ProductSizes({
                   min="1"
                   inputMode="numeric"
                   value={customLength}
-                  onChange={(event) =>
-                    onCustomLengthChange(event.target.value)
-                  }
+                  onChange={(event) => onCustomLengthChange(event.target.value)}
                   placeholder="Ex.: 150"
                   aria-label="Comprimento em centímetros"
                   className="border-border bg-background text-foreground placeholder:text-muted focus:border-primary focus:ring-primary/10 h-12 w-full rounded-xl border px-4 pr-14 text-sm transition-all outline-none focus:ring-2"
@@ -162,9 +158,7 @@ export default function ProductSizes({
                   min="1"
                   inputMode="numeric"
                   value={customWidth}
-                  onChange={(event) =>
-                    onCustomWidthChange(event.target.value)
-                  }
+                  onChange={(event) => onCustomWidthChange(event.target.value)}
                   placeholder="Ex.: 60"
                   aria-label="Largura em centímetros"
                   className="border-border bg-background text-foreground placeholder:text-muted focus:border-primary focus:ring-primary/10 h-12 w-full rounded-xl border px-4 pr-14 text-sm transition-all outline-none focus:ring-2"

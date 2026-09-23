@@ -13,7 +13,7 @@ export type ProntaEntrega = {
 
 const prontaEntrega: ProntaEntrega[] = [
   {
-    name: "KIT Mesa Posta Tradicional 7 peças",
+    name: "KIT Mesa Posta Tradicional",
     productId: "trilho-tradicional",
     color: "marrom",
     images: {
