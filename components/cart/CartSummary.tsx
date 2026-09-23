@@ -73,15 +73,6 @@ export default function CartSummary({
               </div>
             )}
 
-            {hasRegularItems && (
-              <div className="flex items-center justify-between gap-4 text-sm">
-                <span className="text-muted">Frete</span>
-                <span className="text-muted text-right">
-                  Calculado pelo WhatsApp
-                </span>
-              </div>
-            )}
-
             <div className="border-border/70 mt-4 border-t pt-4">
               <div className="flex items-end justify-between gap-4">
                 <span className="text-muted text-sm font-medium">

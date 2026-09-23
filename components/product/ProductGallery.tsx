@@ -66,7 +66,7 @@ export default function ProductGallery({
             className="bg-primary/50 absolute bottom-4 left-1/2 z-20 max-w-[calc(100%-2rem)] -translate-x-1/2 rounded-full px-4 py-2 text-center text-[11px] leading-relaxed text-white shadow-md backdrop-blur-md"
             aria-live="polite"
           >
-            {currentImage.alt}
+            Na imagem: {currentImage.alt}
           </div>
         )}
 
