@@ -51,45 +51,48 @@ export default function ProductFilters({
         {filters.map((filter) => {
           const isReady = filter === "Pronta Entrega";
 
-          return (
-            <button
-              key={filter}
-              type="button"
-              onClick={() => setCategory(filter)}
-              className={`relative flex cursor-pointer items-center gap-2 rounded-full px-4 py-2.5 text-sm font-medium transition-all duration-300 ${
-                category === filter
-                  ? "bg-primary text-primary-foreground shadow-sm"
-                  : isReady
-                    ? "border-primary/30 bg-primary/5 text-primary hover:border-primary/50 hover:bg-primary/10 border"
-                    : "border-border bg-background text-muted hover:border-primary/30 hover:text-primary border"
-              }`}
-            >
-              {isReady && (
-                <span
-                  className={`text-sm ${
-                    category === filter
-                      ? "text-primary-foreground"
-                      : "text-primary"
-                  }`}
-                >
-                  ✦
-                </span>
-              )}
+          return (<button
+  key={filter}
+  type="button"
+  onClick={() => setCategory(filter)}
+  className={`relative flex cursor-pointer items-center gap-2 rounded-full px-4 py-2.5 text-sm transition-all duration-300 ${
+    category === filter
+      ? isReady
+        ? "bg-primary text-primary-foreground shadow-md shadow-primary/20"
+        : "bg-primary text-primary-foreground shadow-sm"
+      : isReady
+        ? "border-primary/40 bg-primary/10 text-primary hover:border-primary/60 hover:bg-primary/15 hover:shadow-sm"
+        : "border-border bg-background text-muted hover:border-primary/30 hover:text-primary border"
+  } ${isReady ? "border font-semibold" : "font-medium"}`}
+>
+  {isReady && (
+    <span
+      className={`flex h-5 w-5 items-center justify-center rounded-full text-[11px] ${
+        category === filter
+          ? "bg-primary-foreground/15 text-primary-foreground"
+          : "bg-primary/15 text-primary"
+      }`}
+    >
+      ✦
+    </span>
+  )}
 
-              {filter}
+  <span>{filter}</span>
 
-              {categoryCounts[filter] !== undefined && (
-                <span
-                  className={`text-xs ${
-                    category === filter
-                      ? "text-primary-foreground/80"
-                      : "text-muted"
-                  }`}
-                >
-                  {categoryCounts[filter]}
-                </span>
-              )}
-            </button>
+  {categoryCounts[filter] !== undefined && (
+    <span
+      className={`rounded-full px-1.5 py-0.5 text-[11px] ${
+        category === filter
+          ? "bg-primary-foreground/15 text-primary-foreground/80"
+          : isReady
+            ? "text-primary"
+            : "text-muted"
+      }`}
+    >
+      {categoryCounts[filter]}
+    </span>
+  )}
+</button>
           );
         })}
       </div>
@@ -137,7 +140,7 @@ export default function ProductFilters({
         <div className="border-primary/20 bg-primary/5 rounded-2xl border px-4 py-3.5 shadow-sm">
           <p className="text-foreground/80 text-sm leading-relaxed">
             <span className="text-primary font-semibold">
-              <span>✦</span> Quer receber mais rápido?
+              <span>✦</span>  DISPONÍVEL AGORA!
             </span>{" "}
             Essas peças já estão prontas para você. Escolha sua favorita e fale
             comigo pelo WhatsApp!

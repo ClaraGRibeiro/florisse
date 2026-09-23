@@ -13,14 +13,14 @@ export type ProntaEntrega = {
 
 const prontaEntrega: ProntaEntrega[] = [
   {
-    name: "KIT Mesa Posta Tradicional",
+    name: "KIT Mesa Posta Tradicional 7 peças",
     productId: "trilho-tradicional",
     color: "marrom",
     images: {
       marrom: [
         {
           url: "/products/mesa-posta/trilho-tradicional/marrom-2.webp",
-          alt: "KIT 6 (37 cm) + 1 (100 × 25 cm)",
+          alt: "KIT 7 peças: 6 (37 cm) + 1 (100 × 25 cm)",
         },
         {
           url: "/products/mesa-posta/trilho-tradicional/marrom.webp",
@@ -32,7 +32,7 @@ const prontaEntrega: ProntaEntrega[] = [
         },
       ],
     },
-    size: "KIT 6 (37 cm) + 1 (100 × 25 cm)",
+    size: "KIT 7 peças: 6 (37 cm) + 1 (100 × 25 cm)",
     price: (27 + 27 + 27 + 27 + 27 + 27 + 65) * DISCOUNT,
     quantity: 1,
   },

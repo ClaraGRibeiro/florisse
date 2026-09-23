@@ -34,7 +34,7 @@ const tapetes = [
         altura: 15,
       },
       {
-        label: "KIT 2 (100 × 45 cm)",
+        label: "KIT 2 peças: (100 × 45 cm)",
         price: (100 + 100) * DISCOUNT,
         no_discount: 100 + 100,
         peso: PACKAGE + 0.32 + 0.32,
@@ -43,7 +43,7 @@ const tapetes = [
         altura: 15,
       },
       {
-        label: "KIT 2 (65 × 45 cm) e 1 (120 × 45 cm)",
+        label: "KIT 3 peças: 2 (65 × 45 cm) e 1 (120 × 45 cm)",
         price: (30 + 30 + 120) * DISCOUNT,
         no_discount: 30 + 30 + 120,
         peso: PACKAGE + 0.22 + 0.22 + 0.42,
@@ -102,7 +102,7 @@ const tapetes = [
         altura: 15,
       },
       {
-        label: "KIT 2 (100 × 45 cm)",
+        label: "KIT 2 peças: 2 (100 × 45 cm)",
         price: (100 + 100) * DISCOUNT,
         no_discount: 100 + 100,
         peso: PACKAGE + 0.32 + 0.32,
@@ -111,7 +111,7 @@ const tapetes = [
         altura: 15,
       },
       {
-        label: "KIT 2 (65 × 45 cm) e 1 (120 × 45 cm)",
+        label: "KIT 3 peças: 2 (65 × 45 cm) e 1 (120 × 45 cm)",
         price: (30 + 30 + 120) * DISCOUNT,
         no_discount: 30 + 30 + 120,
         peso: PACKAGE + 0.22 + 0.22 + 0.42,
@@ -170,7 +170,7 @@ const tapetes = [
         altura: 15,
       },
       {
-        label: "KIT 2 (100 × 45 cm)",
+        label: "KIT 2 peças: 2 (100 × 45 cm)",
         price: (110 + 110) * DISCOUNT,
         no_discount: 110 + 110,
         peso: PACKAGE + 0.345 + 0.345,
@@ -179,7 +179,7 @@ const tapetes = [
         altura: 15,
       },
       {
-        label: "KIT 2 (65 × 45 cm) e 1 (120 × 45 cm)",
+        label: "KIT 3 peças: 2 (65 × 45 cm) e 1 (120 × 45 cm)",
         price: (35 + 35 + 130) * DISCOUNT,
         no_discount: 35 + 35 + 130,
         peso: PACKAGE + 0.245 + 0.245 + 0.445,
@@ -238,7 +238,7 @@ const tapetes = [
         altura: 15,
       },
       {
-        label: "KIT 2 (100 × 45 cm)",
+        label: "KIT 2 peças: 2 (100 × 45 cm)",
         price: (110 + 110) * DISCOUNT,
         no_discount: 110 + 110,
         peso: PACKAGE + 0.38 + 0.38,
@@ -247,7 +247,7 @@ const tapetes = [
         altura: 15,
       },
       {
-        label: "KIT 2 (65 × 45 cm) e 1 (120 × 45 cm)",
+        label: "KIT 3 peças: 2 (65 × 45 cm) e 1 (120 × 45 cm)",
         price: (35 + 35 + 130) * DISCOUNT,
         no_discount: 35 + 35 + 130,
         peso: PACKAGE + 0.28 + 0.28 + 0.48,
@@ -306,7 +306,7 @@ const tapetes = [
         altura: 15,
       },
       {
-        label: "KIT 2 (100 × 50 cm)",
+        label: "KIT 2 peças: 2 (100 × 50 cm)",
         price: (115 + 115) * DISCOUNT,
         no_discount: 115 + 115,
         peso: PACKAGE + 0.44 + 0.44,
@@ -315,7 +315,7 @@ const tapetes = [
         altura: 15,
       },
       {
-        label: "KIT 2 (70 × 50 cm) e 1 (120 × 50 cm)",
+        label: "KIT 3 peças: 2 (70 × 50 cm) e 1 (120 × 50 cm)",
         price: (50 + 50 + 145) * DISCOUNT,
         no_discount: 50 + 50 + 145,
         peso: PACKAGE + 0.34 + 0.34 + 0.54,
@@ -337,18 +337,18 @@ const tapetes = [
       "alecrim-verde militar": [
         {
           url: "/products/tapetes/tapete-janine/alecrim-verde militar.webp",
-          alt: "KIT 2 (70 × 50 cm) e 1 (170 × 50 cm)",
+          alt: "KIT 3 peças: 2 (70 × 50 cm) e 1 (170 × 50 cm)",
         },
         {
           url: "/products/tapetes/tapete-janine/alecrim-verde militar-2.webp",
-          alt: "KIT 2 (70 × 50 cm)",
+          alt: "KIT 2 peças: 2 (70 × 50 cm)",
         },
       ],
 
       "cru-marrom-bege": [
         {
           url: "/products/tapetes/tapete-janine/cru-marrom-bege.webp",
-          alt: "KIT 2 (70 × 50 cm)",
+          alt: "KIT 2 peças: 2 (70 × 50 cm)",
         },
         {
           url: "/products/tapetes/tapete-janine/cru-marrom-bege-2.webp",
@@ -370,7 +370,7 @@ const tapetes = [
       "cru-verde militar-alecrim": [
         {
           url: "/products/tapetes/tapete-janine/cru-verde militar-alecrim.webp",
-          alt: "KIT 2 (70 × 50 cm)",
+          alt: "KIT 2 peças: 2 (70 × 50 cm)",
         },
         {
           url: "/products/tapetes/tapete-janine/cru-verde militar-alecrim-2.webp",
@@ -381,7 +381,7 @@ const tapetes = [
       "bege-alecrim-cru": [
         {
           url: "/products/tapetes/tapete-janine/bege-alecrim-cru.webp",
-          alt: "KIT 2 (100 × 50 cm)",
+          alt: "KIT 2 peças: 2 (100 × 50 cm)",
         },
         {
           url: "/products/tapetes/tapete-janine/bege-alecrim-cru-2.webp",
@@ -424,7 +424,7 @@ const tapetes = [
         altura: 15,
       },
       {
-        label: "KIT 2 (100 × 50 cm)",
+        label: "KIT 2 peças: 2 (100 × 50 cm)",
         price: (125 + 125) * DISCOUNT,
         no_discount: 125 + 125,
         peso: PACKAGE + 0.41 + 0.41,
@@ -433,7 +433,7 @@ const tapetes = [
         altura: 15,
       },
       {
-        label: "KIT 2 (70 × 50 cm) e 1 (120 × 50 cm)",
+        label: "KIT 3 peças: 2 (70 × 50 cm) e 1 (120 × 50 cm)",
         price: (60 + 60 + 155) * DISCOUNT,
         no_discount: 60 + 60 + 155,
         peso: PACKAGE + 0.31 + 0.31 + 0.51,
@@ -492,7 +492,7 @@ const tapetes = [
         altura: 15,
       },
       {
-        label: "KIT 2 (100 × 50 cm)",
+        label: "KIT 2 peças: 2 (100 × 50 cm)",
         price: (125 + 125) * DISCOUNT,
         no_discount: 125 + 125,
         peso: PACKAGE + 0.5 + 0.5,
@@ -501,7 +501,7 @@ const tapetes = [
         altura: 15,
       },
       {
-        label: "KIT 2 (70 × 50 cm) e 1 (120 × 50 cm)",
+        label: "KIT 3 peças: 2 (70 × 50 cm) e 1 (120 × 50 cm)",
         price: (60 + 60 + 155) * DISCOUNT,
         no_discount: 60 + 60 + 155,
         peso: PACKAGE + 0.4 + 0.4 + 0.6,
@@ -556,7 +556,7 @@ const tapetes = [
         altura: 15,
       },
       {
-        label: "KIT 2 (100 × 50 cm)",
+        label: "KIT 2 peças: 2 (100 × 50 cm)",
         price: (125 + 125) * DISCOUNT,
         no_discount: 125 + 125,
         peso: PACKAGE + 0.5 + 0.5,
@@ -565,7 +565,7 @@ const tapetes = [
         altura: 15,
       },
       {
-        label: "KIT 2 (70 × 50 cm) e 1 (120 × 50 cm)",
+        label: "KIT 3 peças: 2 (70 × 50 cm) e 1 (120 × 50 cm)",
         price: (60 + 60 + 155) * DISCOUNT,
         no_discount: 60 + 60 + 155,
         peso: PACKAGE + 0.4 + 0.4 + 0.6,
@@ -624,7 +624,7 @@ const tapetes = [
         altura: 15,
       },
       {
-        label: "KIT 2 (100 × 50 cm)",
+        label: "KIT 2 peças: 2 (100 × 50 cm)",
         price: (125 + 125) * DISCOUNT,
         no_discount: 125 + 125,
         peso: PACKAGE + 0.55 + 0.55,
@@ -633,7 +633,7 @@ const tapetes = [
         altura: 15,
       },
       {
-        label: "KIT 2 (70 × 50 cm) e 1 (120 × 50 cm)",
+        label: "KIT 3 peças: 2 (70 × 50 cm) e 1 (120 × 50 cm)",
         price: (60 + 60 + 155) * DISCOUNT,
         no_discount: 60 + 60 + 155,
         peso: PACKAGE + 0.45 + 0.45 + 0.65,
@@ -692,7 +692,7 @@ const tapetes = [
         altura: 15,
       },
       {
-        label: "KIT 2 (100 × 50 cm)",
+        label: "KIT 2 peças: 2 (100 × 50 cm)",
         price: (140 + 140) * DISCOUNT,
         no_discount: 140 + 140,
         peso: PACKAGE + 0.42 + 0.42,
@@ -701,7 +701,7 @@ const tapetes = [
         altura: 15,
       },
       {
-        label: "KIT 2 (70 × 50 cm) e 1 (120 × 50 cm)",
+        label: "KIT 3 peças: 2 (70 × 50 cm) e 1 (120 × 50 cm)",
         price: (75 + 75 + 170) * DISCOUNT,
         no_discount: 75 + 75 + 170,
         peso: PACKAGE + 0.495 + 0.495,

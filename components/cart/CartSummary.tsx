@@ -266,7 +266,7 @@ export default function CartSummary({
             onClick={onFinish}
             className="bg-primary text-primary-foreground hover:bg-primary-hover w-full cursor-pointer rounded-full px-7 py-4 text-base font-semibold shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl sm:w-auto"
           >
-            Finalizar pedido
+            Finalizar pelo WhatsApp
           </button>
         </div>
       </div>

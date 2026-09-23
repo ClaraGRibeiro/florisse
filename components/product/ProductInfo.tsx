@@ -6,11 +6,15 @@ import ProductColors from "./ProductColors";
 import ProductSizes from "./ProductSizes";
 
 import {
+  FaCottonBureau,
+  FaDollarSign,
   FaHeart,
   FaPalette,
   FaRulerCombined,
   FaWhatsapp,
+  FaYarn,
 } from "react-icons/fa";
+import { FaBellConcierge } from "react-icons/fa6";
 
 type ProductInfoProps = {
   product: Product;
@@ -75,7 +79,9 @@ export default function ProductInfo({
 }: ProductInfoProps) {
   const currentSize =
     selectedSize !== null ? product.sizes[selectedSize] : undefined;
-
+  const hasKit = product.sizes.some((size) =>
+    size.label.toUpperCase().includes("KIT"),
+  );
   return (
     <div className="flex flex-col">
       <p className="text-primary text-xs font-semibold tracking-[0.18em] uppercase">
@@ -99,26 +105,48 @@ export default function ProductInfo({
           </>
         ) : currentSize ? (
           <div className="flex items-end gap-3">
-            <span className="text-primary font-serif text-3xl font-semibold">
-              R$ {currentSize.price.toFixed(2)}
-            </span>
-
-            {currentSize.no_discount && (
-              <span className="text-muted pb-1 text-sm line-through">
-                R$ {currentSize.no_discount}
+            <div className="flex flex-wrap items-end gap-x-3 gap-y-1">
+              <span className="text-primary font-serif text-3xl font-semibold">
+                R$ {currentSize.price.toFixed(2).replace(".", ",")}
               </span>
+
+              {currentSize.no_discount != null && (
+                <span className="text-muted-foreground pb-1 text-sm line-through">
+                  R$ {currentSize.no_discount.toFixed(2).replace(".", ",")}
+                </span>
+              )}
+            </div>
+
+            {currentSize.no_discount != null && (
+              <div className="mt-1 flex items-center gap-2">
+                <span className="text-primary text-sm font-semibold">
+                  Economize R${" "}
+                  {(currentSize.no_discount - currentSize.price)
+                    .toFixed(2)
+                    .replace(".", ",")}
+                </span>
+              </div>
             )}
           </div>
         ) : null}
       </div>
+      {hasKit && (
+        <div className="mt-4 flex items-center gap-3">
+          <FaDollarSign size={15} className="text-primary shrink-0" />
+
+          <span className="text-foreground text-sm">
+            LEVE O <span className="text-primary font-semibold">KIT</span> E
+            ECONOMIZE <span className="text-primary font-semibold">10%</span>
+          </span>
+        </div>
+      )}
 
       <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
         <div className="flex items-center gap-3">
-          <FaHeart size={15} className="text-primary shrink-0" />
+          <FaPalette size={15} className="text-primary shrink-0" />
 
-          <span className="text-foreground text-sm">Feito à mão</span>
+          <span className="text-foreground text-sm">Cores personalizáveis</span>
         </div>
-
         <div className="flex items-center gap-3">
           <FaRulerCombined size={15} className="text-primary shrink-0" />
 
@@ -128,9 +156,24 @@ export default function ProductInfo({
         </div>
 
         <div className="flex items-center gap-3">
-          <FaPalette size={15} className="text-primary shrink-0" />
+          <FaCottonBureau size={15} className="text-primary shrink-0" />
 
-          <span className="text-foreground text-sm">Cores personalizáveis</span>
+          <span className="text-foreground text-sm">
+            Barbante nº 6 85% algodão
+          </span>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <FaBellConcierge size={15} className="text-primary shrink-0" />
+
+          <span className="text-foreground text-sm">
+            Produção sob encomenda
+          </span>
+        </div>
+        <div className="flex items-center gap-3">
+          <FaHeart size={15} className="text-primary shrink-0" />
+
+          <span className="text-foreground text-sm">Feito à mão</span>
         </div>
 
         <div className="flex items-center gap-3">

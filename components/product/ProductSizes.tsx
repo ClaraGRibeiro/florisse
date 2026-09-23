@@ -51,19 +51,38 @@ export default function ProductSizes({
         {product.sizes.map((size, index) => {
           const isSelected = !isCustomSize && selectedSize === index;
 
+          const hasKit = size.label.toUpperCase().includes("KIT");
+
+          const economy =
+            size.no_discount != null
+              ? size.no_discount - size.price
+              : null;
+
           return (
             <button
               key={`${size.label}-${index}`}
               type="button"
               onClick={() => onSizeChange(index)}
               aria-pressed={isSelected}
-              className={`cursor-pointer rounded-full border px-5 py-2.5 text-sm font-medium transition-all duration-300 ${
+              className={`flex cursor-pointer items-center gap-2 rounded-2xl border px-5 py-2.5 text-left text-sm font-medium transition-all duration-300 ${
                 isSelected
                   ? "border-primary bg-primary text-primary-foreground shadow-sm"
                   : "border-border bg-background text-foreground hover:border-primary/50 hover:text-primary"
               }`}
             >
-              {size.label}
+              <span>{size.label}</span>
+
+              {hasKit && economy !== null && (
+                <span
+                  className={`shrink-0 rounded-full px-2 py-1 text-[10px] font-bold tracking-wide ${
+                    isSelected
+                      ? "bg-primary-foreground/15 text-primary-foreground"
+                      : "bg-primary/10 text-primary"
+                  }`}
+                >
+                  -10%
+                </span>
+              )}
             </button>
           );
         })}
@@ -118,7 +137,9 @@ export default function ProductSizes({
                   min="1"
                   inputMode="numeric"
                   value={customLength}
-                  onChange={(event) => onCustomLengthChange(event.target.value)}
+                  onChange={(event) =>
+                    onCustomLengthChange(event.target.value)
+                  }
                   placeholder="Ex.: 150"
                   aria-label="Comprimento em centímetros"
                   className="border-border bg-background text-foreground placeholder:text-muted focus:border-primary focus:ring-primary/10 h-12 w-full rounded-xl border px-4 pr-14 text-sm transition-all outline-none focus:ring-2"
@@ -141,7 +162,9 @@ export default function ProductSizes({
                   min="1"
                   inputMode="numeric"
                   value={customWidth}
-                  onChange={(event) => onCustomWidthChange(event.target.value)}
+                  onChange={(event) =>
+                    onCustomWidthChange(event.target.value)
+                  }
                   placeholder="Ex.: 60"
                   aria-label="Largura em centímetros"
                   className="border-border bg-background text-foreground placeholder:text-muted focus:border-primary focus:ring-primary/10 h-12 w-full rounded-xl border px-4 pr-14 text-sm transition-all outline-none focus:ring-2"
