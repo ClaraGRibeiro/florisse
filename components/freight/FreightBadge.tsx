@@ -30,7 +30,7 @@ export default function FreightBadge({
       <p className="text-muted flex items-center gap-1.5 text-xs">
         <FaMapMarkerAlt className="shrink-0" size={11} />
         Defina seu CEP para ver o frete{" "}
-        <span className="font-semibold">aproximado</span>
+        <span className="font-semibold">(estimativa)</span>
       </p>
     );
   }
@@ -57,7 +57,7 @@ export default function FreightBadge({
     <div className={compact ? "text-xs" : "text-sm"}>
       <p className="text-foreground flex items-center gap-1.5 font-medium">
         <FaTruck className="text-primary shrink-0" size={11} />
-        Frete <span className="font-semibold">aproximado</span>{" "}
+        Frete <span className="font-semibold">(estimativa)</span>{" "}
         {formatFreightPrice(estimate.price)}
       </p>
 

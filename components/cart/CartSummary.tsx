@@ -46,8 +46,32 @@ export default function CartSummary({
     0,
   );
 
+  /*
+   * Soma a economia de todos os produtos que possuem
+   * preço original (no_discount).
+   *
+   * Exemplo:
+   * Kit normal: R$ 180,00
+   * Kit com desconto: R$ 162,00
+   * Quantidade: 1
+   *
+   * Economia = R$ 18,00
+   */
+  const totalEconomy = regularItems.reduce((acc, item) => {
+    if (
+      item.no_discount == null ||
+      !Number.isFinite(item.no_discount) ||
+      item.no_discount <= item.price
+    ) {
+      return acc;
+    }
+
+    return acc + (item.no_discount - item.price) * item.quantity;
+  }, 0);
+
   const hasCustomOrders = customItems.length > 0;
   const hasRegularItems = regularItems.length > 0;
+  const hasEconomy = totalEconomy > 0;
 
   const canShowFinalTotal =
     hasRegularItems &&
@@ -131,7 +155,7 @@ export default function CartSummary({
           {/* =========================================================
               VALORES
           ========================================================== */}
-          <div className="mt-5 space-y-3">
+          <div className="mt-5 space-y-4">
             {/* Produtos normais */}
             {hasRegularItems && (
               <div className="flex items-center justify-between gap-4 text-sm">
@@ -143,12 +167,25 @@ export default function CartSummary({
               </div>
             )}
 
+            {/* Economia dos kits */}
+            {hasEconomy && (
+              <div className="bg-primary/5 border-primary/10 flex items-center justify-between gap-4 rounded-xl border p-3 text-sm">
+                <span className="text-foreground font-medium">
+                  Economia com kits
+                </span>
+
+                <span className="text-primary font-semibold">
+                  {formatFreightPrice(totalEconomy)}
+                </span>
+              </div>
+            )}
+
             {/* Frete */}
             {hasRegularItems && (
               <div className="flex items-center justify-between gap-4 text-sm">
                 <span className="text-muted">
                   Frete{" "}
-                  <span className="font-semibold">aproximado</span>
+                  <span className="font-semibold">(estimativa)</span>
                 </span>
 
                 {!hasCep ? (

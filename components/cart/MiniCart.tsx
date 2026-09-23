@@ -82,7 +82,7 @@ export default function MiniCart({
                 </span>
 
                 <p id="mini-cart-title" className="text-sm font-semibold">
-                  Adicionado ao carrinho
+                  Adicionado
                 </p>
               </div>
 

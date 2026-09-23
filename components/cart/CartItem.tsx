@@ -71,7 +71,7 @@ export default function CartItem({
 
                   {item.quantity > 1 && (
                     <p className="text-muted mt-2 text-[11px]">
-                      Frete <span className="font-semibold">aproximado</span>{" "}
+                      Frete <span className="font-semibold">(estimativa)</span>{" "}
                       considerado {item.quantity}{" "}
                       {item.quantity === 1 ? "unidade" : "unidades"} no resumo
                       do pedido.

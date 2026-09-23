@@ -149,19 +149,18 @@ export default function Header() {
               <FaMapMarkerAlt size={17} aria-hidden="true" />
             </button>
 
-            <Link href="/carrinho" aria-label="Abrir carrinho">
-              <button
-                type="button"
-                className="bg-primary relative flex h-11 w-11 cursor-pointer items-center justify-center rounded-full text-white shadow-md transition hover:scale-105"
-              >
-                <FaCartPlus size={20} aria-hidden="true" />
+            <Link
+              href="/carrinho"
+              aria-label="Abrir carrinho"
+              className="bg-primary relative flex h-11 w-11 cursor-pointer items-center justify-center rounded-full text-white shadow-md transition hover:scale-105"
+            >
+              <FaCartPlus size={20} aria-hidden="true" />
 
-                {totalItems > 0 && (
-                  <span className="absolute -top-1 -right-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-bold text-white">
-                    {totalItems}
-                  </span>
-                )}
-              </button>
+              {totalItems > 0 && (
+                <span className="absolute -top-1 -right-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-bold text-white">
+                  {totalItems}
+                </span>
+              )}
             </Link>
 
             <a

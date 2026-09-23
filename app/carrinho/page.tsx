@@ -350,7 +350,7 @@ Gostaria de confirmar a disponibilidade e combinar a entrega.`;
                 {cep ? (
                   <>
                     Os fretes{" "}
-                    <span className="font-semibold">aproximados</span>{" "}
+                    <span className="font-semibold">(estimativa)</span>{" "}
                     exibidos abaixo estão baseados no CEP salvo{" "}
                     <strong className="text-foreground">
                       {formatStoredCep(cep)}
@@ -361,7 +361,7 @@ Gostaria de confirmar a disponibilidade e combinar a entrega.`;
                   <>
                     Defina seu CEP no botão de localização do cabeçalho para
                     calcular os fretes{" "}
-                    <span className="font-semibold">aproximados</span>{" "}
+                    <span className="font-semibold">(estimativa)</span>{" "}
                     automaticamente.
                   </>
                 )}

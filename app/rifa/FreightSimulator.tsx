@@ -280,7 +280,7 @@ export default function FreightSimulator({
 
           <p className="text-muted mt-1 text-xs leading-5">
             Informe seu CEP para consultar o valor{" "}
-            <span className="font-semibold">aproximado</span> da entrega.
+            <span className="font-semibold">(estimativa)</span> da entrega.
           </p>
         </div>
       </div>

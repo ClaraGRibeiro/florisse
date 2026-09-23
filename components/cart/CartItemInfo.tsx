@@ -8,6 +8,11 @@ type CartItemInfoProps = {
 export default function CartItemInfo({ item }: CartItemInfoProps) {
   const subtotal = item.price * item.quantity;
 
+  const economy =
+    item.type === "product" && item.no_discount != null
+      ? (item.no_discount - item.price) * item.quantity
+      : 0;
+
   return (
     <div className="flex items-start justify-between gap-4">
       <div>
@@ -36,6 +41,13 @@ export default function CartItemInfo({ item }: CartItemInfoProps) {
             Pedido personalizado · valor sob consulta
           </div>
         )}
+
+        {economy > 0 && (
+          <div className="bg-primary/5 text-primary mt-3 inline-flex items-center rounded-full px-3 py-1.5 text-xs font-semibold">
+            Economia: R${" "}
+            {economy.toFixed(2).replace(".", ",")}
+          </div>
+        )}
       </div>
 
       <div className="text-right">
@@ -49,7 +61,7 @@ export default function CartItemInfo({ item }: CartItemInfoProps) {
               R$ {subtotal.toFixed(2).replace(".", ",")}
             </p>
 
-            {item.no_discount && (
+            {item.no_discount != null && item.no_discount > item.price && (
               <p className="text-muted text-sm font-medium whitespace-nowrap line-through">
                 R${" "}
                 {(item.no_discount * item.quantity)
