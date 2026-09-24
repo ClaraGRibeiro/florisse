@@ -371,13 +371,23 @@ const tapetes = [
       },
     ],
 
-    colors: ["telha-verde limao-vermelho-preto"],
+    colors: ["preto-cinza", "telha-verde limao-vermelho-preto"],
 
     images: {
+      "preto-cinza": [
+        {
+          url: "/products/tapetes/tapete-gisele/preto-cinza.webp",
+          alt: "73 × 52 cm",
+        },
+        {
+          url: "/products/tapetes/tapete-gisele/preto-cinza-2.webp",
+          alt: "73 × 52 cm",
+        },
+      ],
       "telha-verde limao-vermelho-preto": [
         {
           url: "/products/tapetes/tapete-gisele/telha-verde limao-vermelho-preto.webp",
-          alt: "210 × 65 cm)",
+          alt: "210 × 65 cm",
         },
       ],
     },
