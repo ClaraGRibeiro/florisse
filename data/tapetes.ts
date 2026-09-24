@@ -346,28 +346,28 @@ const tapetes = [
     sizes: [
       {
         label: "70 × 50 cm",
-        price: 60,
+        price: 55,
         sales: 0,
       },
       {
         label: "100 × 50 cm",
-        price: 125,
+        price: 110,
         sales: 0,
       },
       {
         label: "120 × 50 cm",
-        price: 155,
+        price: 150,
         sales: 1,
       },
       {
         label: "KIT 2 peças: 2 (100 × 50 cm)",
-        price: (125 + 125) * DISCOUNT,
-        no_discount: 125 + 125,
+        price: (110 + 110) * DISCOUNT,
+        no_discount: 110 + 110,
       },
       {
         label: "KIT 3 peças: 2 (70 × 50 cm) e 1 (120 × 50 cm)",
-        price: (60 + 60 + 155) * DISCOUNT,
-        no_discount: 60 + 60 + 155,
+        price: (55 + 55 + 150) * DISCOUNT,
+        no_discount: 55 + 55 + 150,
       },
     ],
 
