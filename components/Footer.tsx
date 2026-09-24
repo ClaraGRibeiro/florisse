@@ -120,6 +120,20 @@ export default function Footer() {
             Feito à mão com carinho.
           </p>
         </div>
+
+        <div className="mt-5 text-center">
+          <p className="text-muted text-xs">
+            Desenvolvido por{" "}
+            <a
+              href="https://www.linkedin.com/in/clara-gon%C3%A7alves-ribeiro-66b07a213/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-foreground hover:text-primary font-medium transition-colors"
+            >
+              Clara Ribeiro
+            </a>
+          </p>
+        </div>
       </div>
     </footer>
   );
