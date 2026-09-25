@@ -3,7 +3,7 @@
 import colorsData from "@/data/colors.json";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { FaArrowLeft, FaArrowUp } from "react-icons/fa";
+import { FaArrowLeft, FaArrowUp, FaPalette, FaPinterest } from "react-icons/fa";
 
 import { useCart } from "@/hooks/useCart";
 import { useScrollTop } from "@/hooks/useScrollTop";
@@ -18,6 +18,8 @@ import ProductRelated from "@/components/product/ProductRelated";
 import Share from "@/components/product/Share";
 
 import { formatColor } from "@/utils/format";
+import Link from "next/link";
+import { motion } from "framer-motion";
 
 const colors = colorsData as Color[];
 
@@ -269,7 +271,6 @@ export default function ProductClient({ slug }: ProductClientProps) {
             onClose={() => setMiniCartOpen(false)}
           />
         )}
-
         <div className="mb-2 flex items-center justify-between gap-4">
           <button
             type="button"
@@ -283,7 +284,6 @@ export default function ProductClient({ slug }: ProductClientProps) {
 
           <Share product={product} />
         </div>
-
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(380px,0.95fr)] lg:gap-16 xl:gap-20">
           <div>
             <ProductGallery
@@ -358,9 +358,103 @@ export default function ProductClient({ slug }: ProductClientProps) {
             onAddToCart={handleAdd}
           />
         </div>
-
         <ProductRelated product={product} products={products} />
 
+        <section className="border-border mt-16 border-t pt-16">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6">
+            <motion.div
+              initial={{
+                opacity: 0,
+                y: 20,
+              }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+              }}
+              viewport={{
+                once: true,
+                amount: 0.2,
+              }}
+              transition={{
+                duration: 0.6,
+                ease: "easeOut",
+              }}
+              className="mb-10 text-center"
+            >
+              <p className="text-primary text-xs font-semibold tracking-[0.2em] uppercase">
+                Deixe a criatividade fluir
+              </p>
+
+              <h2 className="text-foreground mt-3 font-serif text-3xl font-semibold tracking-tight sm:text-4xl">
+                Ainda procurando inspiração?
+              </h2>
+
+              <p className="text-muted mx-auto mt-3 max-w-xl text-sm leading-6 sm:text-base">
+                Escolha uma cor para imaginar sua peça ou veja outras ideias de
+                crochê no Pinterest.
+              </p>
+            </motion.div>
+          </div>
+
+          <div className="grid gap-3 sm:grid-cols-2">
+            <Link
+              href="/#cores"
+              className="group border-border bg-background hover:border-primary/30 hover:bg-primary/5 focus-visible:ring-primary flex items-center gap-4 rounded-2xl border p-4 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+            >
+              <div
+                className="bg-primary/10 text-primary flex h-12 w-12 shrink-0 items-center justify-center rounded-full transition-transform duration-300 group-hover:scale-110"
+                aria-hidden="true"
+              >
+                <FaPalette size={20} />
+              </div>
+
+              <div className="min-w-0 flex-1">
+                <h3 className="text-foreground font-serif text-sm font-semibold sm:text-base">
+                  Em dúvida de qual cor usar?
+                </h3>
+
+                <p className="text-muted mt-1 text-xs leading-relaxed sm:text-sm">
+                  Veja nossas cores e combinações para encontrar o tom ideal.
+                </p>
+
+                <span className="text-primary mt-2 inline-block text-[10px] font-semibold tracking-wide uppercase transition-transform duration-300 group-hover:translate-x-1">
+                  Ver combinações →
+                </span>
+              </div>
+            </Link>
+
+            <Link
+              href={`https://br.pinterest.com/search/pins/?q=${encodeURIComponent(
+                `crochê ${product.name}`,
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Ver inspirações de ${product.name} no Pinterest`}
+              className="group border-primary/20 bg-primary/5 hover:border-primary/40 hover:bg-primary/10 focus-visible:ring-primary flex items-center gap-4 rounded-2xl border p-4 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+            >
+              <div
+                className="bg-primary flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-white shadow-sm transition-transform duration-300 group-hover:scale-110"
+                aria-hidden="true"
+              >
+                <FaPinterest size={21} />
+              </div>
+
+              <div className="min-w-0 flex-1">
+                <h3 className="text-foreground font-serif text-sm font-semibold sm:text-base">
+                  Quer mais ideias?
+                </h3>
+
+                <p className="text-muted mt-1 text-xs leading-relaxed sm:text-sm">
+                  Encontre referências e inspirações de crochê no Pinterest.
+                </p>
+
+                <span className="text-primary mt-2 inline-block text-[10px] font-semibold tracking-wide uppercase transition-transform duration-300 group-hover:translate-x-1">
+                  Explorar no Pinterest →
+                </span>
+              </div>
+            </Link>
+          </div>
+        </section>
         {showTop && (
           <button
             title="Voltar para o início"

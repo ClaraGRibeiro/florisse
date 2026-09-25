@@ -22,25 +22,10 @@ export default function ProductRelated({
   product,
   products,
 }: ProductRelatedProps) {
-  /*
-   * IMPORTANTE:
-   * Não lemos sessionStorage durante a renderização inicial.
-   *
-   * O servidor não possui window/sessionStorage, enquanto o
-   * navegador possui. Ler o storage diretamente no useState
-   * fazia o servidor renderizar uma lista diferente da lista
-   * renderizada pelo cliente durante a hidratação.
-   */
   const [visitedProducts, setVisitedProducts] = useState<Set<string>>(
     () => new Set(),
   );
 
-  /*
-   * Carrega os produtos visitados somente depois da hidratação.
-   *
-   * Isso garante que o HTML inicial do servidor e o HTML inicial
-   * do cliente sejam iguais.
-   */
   useEffect(() => {
     if (!product?.name) {
       return;
