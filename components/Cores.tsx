@@ -8,7 +8,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { FaPalette } from "react-icons/fa";
+import { FaPalette, FaPinterest } from "react-icons/fa";
 
 import { useModalAccessibility } from "@/hooks/useModalAccessibility";
 import { formatPath } from "@/utils/format";
@@ -456,13 +456,14 @@ export default function Cores({ formatColor }: CoresProps) {
                     </h2>
                   </div>
                 </div>
-
-                <p
-                  id="color-modal-description"
-                  className="text-muted mt-4 text-sm leading-relaxed"
-                >
-                  Veja algumas combinações que podem funcionar com essa cor.
-                </p>
+                <div className="flex items-center justify-between gap-4 wrap-normal">
+                  <p
+                    id="color-modal-description"
+                    className="text-muted mt-4 text-sm leading-relaxed"
+                  >
+                    Veja algumas combinações que podem funcionar com essa cor.
+                  </p>
+                </div>
               </div>
 
               <div className="flex-1 overflow-y-auto px-6 py-5 sm:px-7">
@@ -549,7 +550,7 @@ export default function Cores({ formatColor }: CoresProps) {
                   </div>
                 )}
 
-                {productsWithColor.length > 0 && (
+                {activeColorData && (
                   <div>
                     <div className="mb-4 flex items-end justify-between gap-4">
                       <div>
@@ -562,7 +563,9 @@ export default function Cores({ formatColor }: CoresProps) {
                         </h3>
 
                         <p className="text-muted mt-1 text-sm">
-                          Veja peças que podem ganhar esse tom.
+                          {productsWithColor.length > 0
+                            ? "Veja peças que podem ganhar esse tom."
+                            : "Ainda não temos uma peça dessa cor na galeria, mas veja no Pinterest."}
                         </p>
                       </div>
 
@@ -574,79 +577,109 @@ export default function Cores({ formatColor }: CoresProps) {
                       )}
                     </div>
 
-                    {productsWithColor.length > 0 && (
-                      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-                        {productsWithColor.map((item, index) => {
-                          const { product, color } = item;
+                    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+                      {productsWithColor.map((item, index) => {
+                        const { product, color } = item;
 
-                          const image = getProductImage(product, color);
+                        const image = getProductImage(product, color);
+                        const price = getProductPrice(product);
 
-                          const price = getProductPrice(product);
-
-                          return (
-                            <motion.div
-                              key={`${product.name}-${color}`}
-                              initial={{
-                                opacity: 0,
-                                y: 12,
-                              }}
-                              animate={{
-                                opacity: 1,
-                                y: 0,
-                              }}
-                              transition={{
-                                duration: 0.3,
-                                delay: index * 0.05,
-                              }}
+                        return (
+                          <motion.div
+                            key={`${product.name}-${color}`}
+                            initial={{
+                              opacity: 0,
+                              y: 12,
+                            }}
+                            animate={{
+                              opacity: 1,
+                              y: 0,
+                            }}
+                            transition={{
+                              duration: 0.3,
+                              delay: index * 0.05,
+                            }}
+                          >
+                            <Link
+                              href={`/produto/${formatPath(product.name)}`}
+                              onClick={() => setSelectedColorName(null)}
+                              className="group border-border bg-background hover:border-primary/20 focus-visible:ring-primary block overflow-hidden rounded-2xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
                             >
-                              <Link
-                                href={`/produto/${formatPath(product.name)}`}
-                                onClick={() => setSelectedColorName(null)}
-                                className="group border-border bg-background hover:border-primary/20 focus-visible:ring-primary block overflow-hidden rounded-2xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
-                              >
-                                <div className="bg-muted/10 relative aspect-square overflow-hidden">
-                                  <Image
-                                    src={image}
-                                    alt={product.name}
-                                    fill
-                                    sizes="(max-width: 640px) 45vw, 30vw"
-                                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                                  />
+                              <div className="bg-muted/10 relative aspect-square overflow-hidden">
+                                <Image
+                                  src={image}
+                                  alt={product.name}
+                                  fill
+                                  sizes="(max-width: 640px) 45vw, 30vw"
+                                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                                />
 
-                                  <div className="absolute inset-0 bg-linear-to-t from-black/35 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                                <div className="absolute inset-0 bg-linear-to-t from-black/35 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
-                                  <span className="bg-card/90 text-foreground absolute bottom-2 left-2 rounded-full px-2.5 py-1 text-[9px] font-semibold tracking-wide uppercase opacity-0 shadow-sm backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100">
-                                    Ver peça
-                                  </span>
-                                </div>
+                                <span className="bg-card/90 text-foreground absolute bottom-2 left-2 rounded-full px-2.5 py-1 text-[9px] font-semibold tracking-wide uppercase opacity-0 shadow-sm backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100">
+                                  Ver peça
+                                </span>
+                              </div>
 
-                                <div className="p-3">
-                                  <h4 className="text-foreground truncate font-serif text-sm font-semibold sm:text-base">
-                                    {product.name}
-                                  </h4>
+                              <div className="p-3">
+                                <h4 className="text-foreground truncate font-serif text-sm font-semibold sm:text-base">
+                                  {product.name}
+                                </h4>
 
-                                  <p className="text-muted mt-1 truncate text-[10px] sm:text-xs">
-                                    {color
-                                      .split("-")
-                                      .map(formatColor)
-                                      .join(" · ")}
+                                <p className="text-muted mt-1 truncate text-[10px] sm:text-xs">
+                                  {color
+                                    .split("-")
+                                    .map(formatColor)
+                                    .join(" · ")}
+                                </p>
+
+                                {price && (
+                                  <p className="text-muted mt-1 text-xs sm:text-sm">
+                                    A partir{" "}
+                                    <span className="text-foreground font-semibold">
+                                      {price}
+                                    </span>
                                   </p>
+                                )}
+                              </div>
+                            </Link>
+                          </motion.div>
+                        );
+                      })}
 
-                                  {price && (
-                                    <p className="text-muted mt-1 text-xs sm:text-sm">
-                                      A partir de{" "}
-                                      <span className="text-foreground font-semibold">
-                                        {price}
-                                      </span>
-                                    </p>
-                                  )}
-                                </div>
-                              </Link>
-                            </motion.div>
-                          );
-                        })}
-                      </div>
-                    )}
+                      <Link
+                        href={`https://br.pinterest.com/search/pins/?q=${encodeURIComponent(
+                          `moda casa crochê na cor ${activeColorData.name}`,
+                        )}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`Ver inspirações de ${activeColorData.name} no Pinterest`}
+                        className="group border-primary/30 bg-primary/5 hover:border-primary/50 hover:bg-primary/10 focus-visible:ring-primary flex h-full min-h-62.5 flex-col items-center justify-center rounded-2xl border border-dashed p-5 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+                      >
+                        <div className="flex flex-1 flex-col items-center justify-center gap-4">
+                          <div
+                            className="bg-primary flex h-14 w-14 items-center justify-center rounded-full text-white shadow-md transition-transform duration-300 group-hover:scale-110"
+                            aria-hidden="true"
+                          >
+                            <FaPinterest size={27} />
+                          </div>
+
+                          <div>
+                            <p className="text-foreground font-serif text-sm font-semibold sm:text-base">
+                              Inspire-se
+                            </p>
+
+                            <p className="text-muted mt-1 max-w-37.5 text-[11px] leading-relaxed sm:text-xs">
+                              Veja ideias e referências de crochê na web
+                            </p>
+                          </div>
+                        </div>
+
+                        <span className="text-primary mt-4 text-[10px] font-semibold tracking-wide uppercase transition-transform duration-300 group-hover:translate-x-1">
+                          Explorar no Pinterest →
+                        </span>
+                      </Link>
+                    </div>
                   </div>
                 )}
               </div>
