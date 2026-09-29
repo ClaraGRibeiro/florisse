@@ -260,7 +260,7 @@ export default function ProductClient({ slug }: ProductClientProps) {
 
   return (
     <main className="bg-background min-h-screen scroll-mt-20">
-      <div className="mx-auto max-w-7xl px-4 pt-2 pb-16 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl px-4 py-10 pb-16 sm:px-6 md:py-14 lg:px-8">
         {addedItem && (
           <MiniCart
             isOpen={miniCartOpen}
