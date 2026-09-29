@@ -99,6 +99,15 @@ const prontaEntrega: ProntaEntrega[] = [
     price: 80,
     quantity: 1,
   },
+  {
+    name: null,
+    productId: "tapete-gisele",
+    color: "preto-cinza",
+    images: null,
+    size: "73 × 52 cm",
+    price: 50,
+    quantity: 1,
+  },
 ];
 
 export default prontaEntrega;
