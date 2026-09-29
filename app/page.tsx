@@ -20,6 +20,7 @@ import {
 import { WHATSAPP } from "@/data/config";
 import { formatColor, formatPath } from "@/utils/format";
 import { FaArrowUp, FaWhatsapp } from "react-icons/fa";
+import GalleryPreview from "@/components/GalleryPreview";
 
 export default function Home() {
   const products = getProducts();
@@ -46,6 +47,7 @@ export default function Home() {
       />
 
       <Cores formatColor={formatColor} />
+      <GalleryPreview/>
       <PorQueFlorisse />
       <Sobre />
       <Footer />

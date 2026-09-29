@@ -122,3 +122,23 @@ export function getReadyProducts(): ReadyProduct[] {
 export function getProductsFromCategory(category: string): string[] {
   return getProductsByCategory(category).map((product) => product.name);
 }
+
+export interface GalleryItem {
+  productName: string;
+  category: string;
+  color: string;
+  images: Product["images"][string];
+}
+
+export function getGalleryItems(): GalleryItem[] {
+  return products.flatMap((product) =>
+    Object.entries(product.images)
+      .filter(([, images]) => images.length > 0)
+      .map(([color, images]) => ({
+        productName: product.name,
+        category: product.category,
+        color,
+        images,
+      })),
+  );
+}
