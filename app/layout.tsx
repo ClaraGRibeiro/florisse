@@ -5,6 +5,7 @@ import "./globals.css";
 import { CartProvider } from "@/hooks/useCart";
 import Header from "@/components/Header";
 import { BRAND, CITY, SITE, SLOGAN } from "@/data/config";
+import ScrollToTop from "@/components/ScrollToTop";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -125,6 +126,7 @@ export default function RootLayout({
       <body className="flex min-h-full flex-col">
         <CartProvider>
           <Header />
+          <ScrollToTop />
           {children}
         </CartProvider>
       </body>
