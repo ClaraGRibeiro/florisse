@@ -104,7 +104,7 @@ function GalleryCard({ item }: { item: GalleryItem }) {
       }}
       className="scroll-mt-20 overflow-hidden"
     >
-      <article className="break-inside-avoid">
+      <article className="mb-2 break-inside-avoid">
         <Link
           href={productHref}
           aria-label={`Ver ${item.productName} na cor ${formatColor(item.color)}`}
