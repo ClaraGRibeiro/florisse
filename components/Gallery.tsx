@@ -12,42 +12,76 @@ interface GalleryProps {
 }
 
 function GalleryImage({
-  src,
+  images,
   alt,
 }: {
-  src: string;
+  images: GalleryItem["images"];
   alt: string;
 }) {
-  const [loaded, setLoaded] = useState(false);
+  const [firstLoaded, setFirstLoaded] = useState(false);
+  const [secondLoaded, setSecondLoaded] = useState(false);
+  const [hovered, setHovered] = useState(false);
+
+  const firstImage = images[0];
+  const secondImage = images[1];
+
+  if (!firstImage) {
+    return null;
+  }
+
+  const hasSecondImage = Boolean(secondImage);
 
   return (
-    <div className="relative overflow-hidden rounded-2xl">
-      {/* Loading */}
-      {!loaded && (
+    <div
+      className="relative overflow-hidden rounded-2xl"
+      onMouseEnter={() => {
+        if (hasSecondImage) {
+          setHovered(true);
+        }
+      }}
+      onMouseLeave={() => setHovered(false)}
+    >
+      {/* Loading da primeira imagem */}
+      {!firstLoaded && (
         <div
-          className="absolute inset-0 flex items-center justify-center bg-muted/30"
+          className="absolute inset-0 z-20 flex items-center justify-center bg-muted/30"
           aria-hidden="true"
         >
           <div className="h-7 w-7 animate-spin rounded-full border-2 border-border border-t-primary" />
         </div>
       )}
 
+      {/* Primeira imagem */}
       <img
-        src={src}
+        src={firstImage.url}
         alt={alt}
         className={`block h-auto w-full transition-opacity duration-500 ${
-          loaded ? "opacity-100" : "opacity-0"
+          hovered && secondLoaded ? "opacity-0" : "opacity-100"
         }`}
         loading="lazy"
-        onLoad={() => setLoaded(true)}
+        onLoad={() => setFirstLoaded(true)}
+        onError={() => setFirstLoaded(true)}
       />
+
+      {/* Segunda imagem */}
+      {secondImage && (
+        <img
+          src={secondImage.url}
+          alt=""
+          aria-hidden="true"
+          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${
+            hovered && secondLoaded ? "opacity-100" : "opacity-0"
+          }`}
+          loading="lazy"
+          onLoad={() => setSecondLoaded(true)}
+          onError={() => setSecondLoaded(true)}
+        />
+      )}
     </div>
   );
 }
 
 function GalleryCard({ item }: { item: GalleryItem }) {
-  const image = item.images[0];
-
   const productHref = `/produto/${formatPath(item.productName)}`;
 
   return (
@@ -77,8 +111,8 @@ function GalleryCard({ item }: { item: GalleryItem }) {
           className="group block"
         >
           <GalleryImage
-            src={image.url}
-            alt={`${item.productName} — ${formatColor(item.color)} — ${image.alt}`}
+            images={item.images}
+            alt={`${item.productName} — ${formatColor(item.color)} — ${item.images[0]?.alt ?? ""}`}
           />
         </Link>
 
