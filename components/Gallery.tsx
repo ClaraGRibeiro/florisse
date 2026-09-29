@@ -115,16 +115,6 @@ function GalleryCard({ item }: { item: GalleryItem }) {
             alt={`${item.productName} — ${formatColor(item.color)} — ${item.images[0]?.alt ?? ""}`}
           />
         </Link>
-
-        <div className="px-1 pt-2">
-          <p className="text-sm leading-tight font-medium">
-            {item.productName}
-          </p>
-
-          <p className="text-muted mt-0.5 text-xs">
-            {formatColor(item.color)}
-          </p>
-        </div>
       </article>
     </motion.section>
   );
