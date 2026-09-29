@@ -3,7 +3,7 @@ export interface ProductImage {
   alt: string;
 }
 
-export interface Productcolors {
+export interface ProductColor {
   name: string;
   hex: string[];
 }
@@ -11,16 +11,16 @@ export interface Productcolors {
 export interface ProductSize {
   label: string;
   price: number;
-  no_discount?: number;
+  noDiscount?: number;
   sales?: number;
 }
 
 export interface Product {
-  total_sales?: number;
+  totalSales?: number;
   name: string;
   category: string;
 
-  colors: Productcolors[];
+  colors: ProductColor[];
   images: Record<string, ProductImage[]>;
   sizes: ProductSize[];
 }

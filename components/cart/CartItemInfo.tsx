@@ -9,8 +9,8 @@ export default function CartItemInfo({ item }: CartItemInfoProps) {
   const subtotal = item.price * item.quantity;
 
   const economy =
-    item.type === "product" && item.no_discount != null
-      ? (item.no_discount - item.price) * item.quantity
+    item.type === "product" && item.noDiscount != null
+      ? (item.noDiscount - item.price) * item.quantity
       : 0;
 
   return (
@@ -60,10 +60,10 @@ export default function CartItemInfo({ item }: CartItemInfoProps) {
               R$ {subtotal.toFixed(2).replace(".", ",")}
             </p>
 
-            {item.no_discount != null && item.no_discount > item.price && (
+            {item.noDiscount != null && item.noDiscount > item.price && (
               <p className="text-muted text-sm font-medium whitespace-nowrap line-through">
                 R${" "}
-                {(item.no_discount * item.quantity)
+                {(item.noDiscount * item.quantity)
                   .toFixed(2)
                   .replace(".", ",")}
               </p>

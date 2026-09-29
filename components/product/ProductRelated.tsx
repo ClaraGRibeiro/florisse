@@ -46,9 +46,9 @@ export default function ProductRelated({
         }
       }
 
-      /*
-       * A página atual também passa a ser considerada visitada.
-       */
+      
+
+
       visited.add(product.name);
 
       setVisitedProducts(visited);
@@ -58,10 +58,10 @@ export default function ProductRelated({
         JSON.stringify(Array.from(visited)),
       );
     } catch {
-      /*
-       * Se o sessionStorage estiver indisponível ou
-       * corrompido, mantemos o comportamento determinístico.
-       */
+      
+
+
+
       const fallback = new Set<string>();
 
       fallback.add(product.name);
@@ -84,16 +84,16 @@ export default function ProductRelated({
       .map((candidate, originalIndex) => {
         let score = 0;
 
-        /*
-         * Mesma categoria.
-         */
+        
+
+
         if (candidate.category === product.category) {
           score += 100;
         }
 
-        /*
-         * Cores em comum.
-         */
+        
+
+
         const candidateColors = getProductColors(candidate);
 
         let sharedColors = 0;
@@ -112,9 +112,9 @@ export default function ProductRelated({
           score += 10;
         }
 
-        /*
-         * Faixa de preço semelhante.
-         */
+        
+
+
         const candidatePrice = getProductPrice(candidate);
 
         if (
@@ -142,34 +142,34 @@ export default function ProductRelated({
         };
       });
 
-    /*
-     * Ordenação totalmente determinística.
-     *
-     * Não usamos Math.random(), Date.now() ou qualquer
-     * comportamento que possa gerar listas diferentes
-     * entre servidor e cliente.
-     */
+    
+
+
+
+
+
+
     scoredProducts.sort((a, b) => {
-      /*
-       * Produtos ainda não visitados vêm primeiro.
-       */
+      
+
+
       if (a.wasVisited !== b.wasVisited) {
         return a.wasVisited ? 1 : -1;
       }
 
-      /*
-       * Maior relevância primeiro.
-       */
+      
+
+
       if (b.score !== a.score) {
         return b.score - a.score;
       }
 
-      /*
-       * Desempate determinístico.
-       *
-       * Usar o índice original também é determinístico,
-       * pois products é uma lista estável recebida como prop.
-       */
+      
+
+
+
+
+
       return a.originalIndex - b.originalIndex;
     });
 
@@ -185,26 +185,26 @@ export default function ProductRelated({
 
     const selected: Product[] = [];
 
-    /*
-     * Primeiro: até 3 produtos com cores em comum.
-     */
+    
+
+
     sameColorFresh.slice(0, 3).forEach((item) => {
       if (selected.length < 3) {
         selected.push(item.product);
       }
     });
 
-    /*
-     * Depois: pelo menos 1 produto de cor diferente,
-     * quando disponível.
-     */
+    
+
+
+
     if (selected.length < 4 && differentColorFresh.length > 0) {
       selected.push(differentColorFresh[0].product);
     }
 
-    /*
-     * Completa até 4 produtos.
-     */
+    
+
+
     if (selected.length < 4) {
       const selectedNames = new Set(selected.map((item) => item.name));
 
@@ -231,10 +231,10 @@ export default function ProductRelated({
           return false;
         }).length;
 
-        /*
-         * Evita que os quatro cards acabem excessivamente
-         * concentrados nas mesmas cores.
-         */
+        
+
+
+
         if (item.sharedColors > 0 && sameColorCount >= 3) {
           continue;
         }
@@ -245,10 +245,10 @@ export default function ProductRelated({
       }
     }
 
-    /*
-     * Se não houver 4 produtos novos, completa com
-     * produtos já visitados.
-     */
+    
+
+
+
     if (selected.length < 4) {
       const selectedNames = new Set(selected.map((item) => item.name));
 

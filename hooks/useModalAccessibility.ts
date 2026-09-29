@@ -21,7 +21,7 @@ export function useModalAccessibility({
   useEffect(() => {
     if (!isOpen) return;
 
-    // Bloqueia o scroll da página enquanto o modal está aberto
+    
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 

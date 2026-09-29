@@ -27,7 +27,7 @@ function normalizeProduct(product: RawProduct): Product {
     sizes: product.sizes,
     colors,
     images,
-    total_sales: getTotalSales(product),
+    totalSales: getTotalSales(product),
   };
 }
 
@@ -51,7 +51,7 @@ export function getProductsByCategory(category: string): Product[] {
 
 export function getBestSelling(): Product {
   return products.reduce((best, product) => {
-    if ((product.total_sales ?? 0) > (best.total_sales ?? 0)) {
+    if ((product.totalSales ?? 0) > (best.totalSales ?? 0)) {
       return product;
     }
 
@@ -63,7 +63,7 @@ export function getBestSellingByCategory(): Record<string, Product> {
   return products.reduce<Record<string, Product>>((acc, product) => {
     const current = acc[product.category];
 
-    if (!current || (product.total_sales ?? 0) > (current.total_sales ?? 0)) {
+    if (!current || (product.totalSales ?? 0) > (current.totalSales ?? 0)) {
       acc[product.category] = product;
     }
 
@@ -92,7 +92,7 @@ export function getCategoryCounts(): Record<string, number> {
 }
 
 export function getReadyProducts(): ReadyProduct[] {
-  return productsData.prontaEntrega
+  return productsData.readyToDeliver
     .map((ready) => {
       const product = products.find(
         (item) => formatPath(item.name) === ready.productId,

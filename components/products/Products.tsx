@@ -83,7 +83,7 @@ export default function Products({
 
       case "relevancia":
       default:
-        return (b.total_sales ?? 0) - (a.total_sales ?? 0);
+        return (b.totalSales ?? 0) - (a.totalSales ?? 0);
     }
   });
 

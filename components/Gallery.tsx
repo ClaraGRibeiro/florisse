@@ -41,7 +41,7 @@ function GalleryImage({
       }}
       onMouseLeave={() => setHovered(false)}
     >
-      {/* Loading da primeira imagem */}
+      {}
       {!firstLoaded && (
         <div
           className="absolute inset-0 z-20 flex items-center justify-center bg-muted/30"
@@ -51,7 +51,7 @@ function GalleryImage({
         </div>
       )}
 
-      {/* Primeira imagem */}
+      {}
       <img
         src={firstImage.url}
         alt={alt}
@@ -63,7 +63,7 @@ function GalleryImage({
         onError={() => setFirstLoaded(true)}
       />
 
-      {/* Segunda imagem */}
+      {}
       {secondImage && (
         <img
           src={secondImage.url}
@@ -82,7 +82,7 @@ function GalleryImage({
 }
 
 function GalleryCard({ item }: { item: GalleryItem }) {
-  const productHref = `/produto/${formatPath(item.productName)}`;
+  const productHref = `/product/${formatPath(item.productName)}`;
 
   return (
     <motion.section

@@ -10,7 +10,7 @@ export type CartItemEditorValues = {
   customLength?: string;
   customWidth?: string;
   price: number;
-  no_discount?: number;
+  noDiscount?: number;
   image: string;
 };
 

@@ -22,9 +22,9 @@ export default function ProductFilters({
     .reduce((total, filter) => total + (categoryCounts[filter] ?? 0), 0);
   return (
     <div className="mt-10 flex flex-col items-center gap-4">
-      {/* Categorias */}
+      {}
       <div className="bg-muted/10 flex flex-wrap justify-center gap-2 rounded-full p-1.5">
-        {/* Todos */}
+        {}
         <button
           type="button"
           onClick={() => setCategory("Todos")}
@@ -98,7 +98,7 @@ export default function ProductFilters({
         })}
       </div>
 
-      {/* Ordenação */}
+      {}
       {category !== "Pronta Entrega" ? (
         <div className="flex items-center gap-2">
           <span className="text-muted text-sm">Ordenar por</span>

@@ -147,7 +147,7 @@ export default function GalleryPreview() {
     >
       {" "}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* TÍTULO */}
+        {}
         <div className="mx-auto mb-10 max-w-xl px-5 text-center sm:mb-14">
           <span className="text-primary text-xs font-semibold tracking-[0.3em] uppercase">
             Galeria
@@ -162,16 +162,16 @@ export default function GalleryPreview() {
           </p>
         </div>
 
-        {/* COMPOSIÇÃO */}
+        {}
         <Link
-          href="/galeria"
+          href="/gallery"
           aria-label="Explorar a galeria completa"
           className="group relative mx-auto block h-[450px] w-full max-w-6xl sm:h-[500px] lg:h-[540px]"
         >
-          {/* Mancha orgânica de fundo */}
+          {}
           <div className="bg-primary/5 absolute top-1/2 left-1/2 h-[72%] w-[72%] -translate-x-1/2 -translate-y-1/2 rounded-[48%_52%_55%_45%/52%_45%_55%_48%] blur-3xl transition-transform duration-1000 group-hover:scale-105" />
 
-          {/* IMAGENS */}
+          {}
           {items.map((item, index) => {
             const position = positions[index];
 
@@ -239,7 +239,7 @@ export default function GalleryPreview() {
             );
           })}
 
-          {/* BOTÃO CENTRAL */}
+          {}
           <motion.div
             className="absolute top-1/2 left-1/2 z-40 -translate-x-1/2 -translate-y-1/2"
             animate={{

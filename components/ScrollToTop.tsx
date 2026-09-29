@@ -7,8 +7,8 @@ export default function ScrollToTop() {
   const pathname = usePathname();
 
   useEffect(() => {
-    // Se houver uma âncora (#produtos, #cores etc.),
-    // deixa o navegador cuidar do scroll até ela.
+    
+    
     if (window.location.hash) {
       return;
     }

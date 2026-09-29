@@ -57,7 +57,7 @@ export default function Header() {
             </div>
           </Link>
 
-          {/* Desktop */}
+          {}
           <nav className="hidden items-center gap-4 lg:flex">
             {navItems.map((item) => (
               <a
@@ -71,7 +71,7 @@ export default function Header() {
 
             {RAFFLE && (
               <Link
-                href="/rifa"
+                href="/raffle"
                 className="border-secondary/20 bg-secondary/10 text-secondary hover:bg-secondary/15 flex cursor-pointer items-center gap-2 rounded-full border px-4 py-2.5 text-sm font-semibold shadow-sm transition-all hover:scale-[1.03]"
               >
                 <FaClover size={14} aria-hidden="true" />
@@ -81,7 +81,7 @@ export default function Header() {
             )}
 
             <Link
-              href="/carrinho"
+              href="/cart"
               className="bg-primary text-primary-foreground hover:bg-primary-hover flex cursor-pointer items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium shadow-md transition-all hover:scale-[1.03]"
             >
               <FaCartPlus size={16} aria-hidden="true" />
@@ -106,10 +106,10 @@ export default function Header() {
             </a>
           </nav>
 
-          {/* Mobile */}
+          {}
           <div className="flex items-center gap-2 lg:hidden">
             <Link
-              href="/carrinho"
+              href="/cart"
               aria-label="Abrir carrinho"
               className="bg-primary relative flex h-11 w-11 cursor-pointer items-center justify-center rounded-full text-white shadow-md transition hover:scale-105"
             >
@@ -201,7 +201,7 @@ export default function Header() {
 
           {RAFFLE && (
             <Link
-              href="/rifa"
+              href="/raffle"
               onClick={closeMenu}
               className="border-border text-secondary hover:text-secondary-hover flex items-center gap-3 border-b py-4 text-base font-semibold transition-colors"
             >
@@ -218,7 +218,7 @@ export default function Header() {
 
         <div className="border-border mt-auto border-t p-5">
           <Link
-            href="/carrinho"
+            href="/cart"
             onClick={closeMenu}
             className="bg-primary text-primary-foreground hover:bg-primary-hover focus-visible:ring-primary flex w-full cursor-pointer items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-medium shadow-md transition focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
           >

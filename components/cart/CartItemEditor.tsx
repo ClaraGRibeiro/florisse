@@ -138,7 +138,7 @@ export default function CartItemEditor({
     }
 
     let newPrice = item.price;
-    let newNoDiscount = item.no_discount;
+    let newNoDiscount = item.noDiscount;
 
     if (isCustomSize) {
       newPrice = 0;
@@ -146,7 +146,7 @@ export default function CartItemEditor({
     } else if (selectedSize !== null) {
       const size = product.sizes[selectedSize];
       newPrice = size.price;
-      newNoDiscount = size.no_discount;
+      newNoDiscount = size.noDiscount;
     }
 
     let newImage = item.image;
@@ -167,7 +167,7 @@ export default function CartItemEditor({
       customLength: newCustomLength,
       customWidth: newCustomWidth,
       price: newPrice,
-      no_discount: newNoDiscount,
+      noDiscount: newNoDiscount,
       image: newImage,
     });
   }
@@ -363,7 +363,7 @@ export default function CartItemEditor({
               }`}
             >
               <span>{size.label}</span>
-              {size.no_discount && (
+              {size.noDiscount && (
                 <span
                   className={
                     !isCustomSize && selectedSize === index

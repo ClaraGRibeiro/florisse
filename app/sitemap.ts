@@ -7,7 +7,7 @@ import { SITE } from "@/data/config";
 export default function sitemap(): MetadataRoute.Sitemap {
   const productUrls: MetadataRoute.Sitemap = productsData.products.map(
     (product) => ({
-      url: `${SITE}/produto/${formatPath(product.name)}`,
+      url: `${SITE}/product/${formatPath(product.name)}`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.8,
@@ -22,7 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
-      url: `${SITE}/galeria`,
+      url: `${SITE}/gallery`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.8,

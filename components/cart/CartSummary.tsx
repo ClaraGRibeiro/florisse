@@ -30,14 +30,14 @@ export default function CartSummary({
 
   const totalEconomy = regularItems.reduce((acc, item) => {
     if (
-      item.no_discount == null ||
-      !Number.isFinite(item.no_discount) ||
-      item.no_discount <= item.price
+      item.noDiscount == null ||
+      !Number.isFinite(item.noDiscount) ||
+      item.noDiscount <= item.price
     ) {
       return acc;
     }
 
-    return acc + (item.no_discount - item.price) * item.quantity;
+    return acc + (item.noDiscount - item.price) * item.quantity;
   }, 0);
 
   const hasCustomOrders = customItems.length > 0;

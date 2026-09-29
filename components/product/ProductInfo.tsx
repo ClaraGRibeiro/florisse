@@ -110,18 +110,18 @@ export default function ProductInfo({
                 R$ {currentSize.price.toFixed(2).replace(".", ",")}
               </span>
 
-              {currentSize.no_discount != null && (
+              {currentSize.noDiscount != null && (
                 <span className="text-muted-foreground pb-1 text-sm line-through">
-                  R$ {currentSize.no_discount.toFixed(2).replace(".", ",")}
+                  R$ {currentSize.noDiscount.toFixed(2).replace(".", ",")}
                 </span>
               )}
             </div>
 
-            {currentSize.no_discount != null && (
+            {currentSize.noDiscount != null && (
               <div className="mt-1 flex items-center gap-2">
                 <span className="text-primary text-sm font-semibold">
                   Economize R${" "}
-                  {(currentSize.no_discount - currentSize.price)
+                  {(currentSize.noDiscount - currentSize.price)
                     .toFixed(2)
                     .replace(".", ",")}
                 </span>

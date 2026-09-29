@@ -18,7 +18,7 @@ type CartItem = {
   customLength?: string;
   customWidth?: string;
   price: number;
-  no_discount?: number;
+  noDiscount?: number;
   image: string;
   quantity: number;
 };
@@ -102,10 +102,10 @@ function isValidCartItem(value: unknown): value is CartItem {
   }
 
   if (
-    value.no_discount !== undefined &&
-    (typeof value.no_discount !== "number" ||
-      !Number.isFinite(value.no_discount) ||
-      value.no_discount < 0)
+    value.noDiscount !== undefined &&
+    (typeof value.noDiscount !== "number" ||
+      !Number.isFinite(value.noDiscount) ||
+      value.noDiscount < 0)
   ) {
     return false;
   }
@@ -136,7 +136,7 @@ function areSameCartConfiguration(first: CartItem, second: CartItem): boolean {
     first.customLength === second.customLength &&
     first.customWidth === second.customWidth &&
     first.price === second.price &&
-    first.no_discount === second.no_discount
+    first.noDiscount === second.noDiscount
   );
 }
 

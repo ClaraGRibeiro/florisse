@@ -106,7 +106,7 @@ export default function Hero({ bestSelling, formatPath }: HeroProps) {
           className="relative flex justify-center md:justify-end"
         >
           <Link
-            href={`/produto/${formatPath(bestSelling.name)}`}
+            href={`/product/${formatPath(bestSelling.name)}`}
             className="group block w-full max-w-125"
           >
             <div className="relative">
@@ -137,8 +137,8 @@ export default function Hero({ bestSelling, formatPath }: HeroProps) {
                   </h3>
 
                   <p className="mt-1 text-xs text-white/80 sm:text-sm">
-                    {bestSelling.total_sales}{" "}
-                    {bestSelling.total_sales === 1
+                    {bestSelling.totalSales}{" "}
+                    {bestSelling.totalSales === 1
                       ? "peça vendida"
                       : "peças vendidas"}
                   </p>

@@ -29,31 +29,31 @@ export function ProductCard({
   readyPrice?: number;
   readyQuantity?: number;
 }) {
-  /*
-   * Cor que está sendo apenas pré-visualizada
-   * enquanto o mouse está sobre a bolinha.
-   */
+  
+
+
+
   const [hoveredColor, setHoveredColor] = useState<string | null>(null);
 
-  /*
-   * Cor efetivamente selecionada pelo clique.
-   *
-   * Para produtos de Pronta Entrega, a cor já começa
-   * selecionada em readyColor.
-   */
+  
+
+
+
+
+
   const [selectedColorName, setSelectedColorName] = useState<string | null>(
     readyColor ?? null,
   );
 
   const firstSize = product.sizes[0];
 
-  /*
-   * A cor exibida segue esta prioridade:
-   *
-   * 1. Cor em hover, para permitir pré-visualização;
-   * 2. Cor que o usuário clicou;
-   * 3. Primeira cor do produto.
-   */
+  
+
+
+
+
+
+
   const displayedColorName =
     hoveredColor ?? selectedColorName ?? product.colors[0]?.name;
 
@@ -63,7 +63,7 @@ export function ProductCard({
 
   const isBestSelling =
     bestSellingByCategory[product.category]?.name === product.name &&
-    (product.total_sales ?? 0) > 0;
+    (product.totalSales ?? 0) > 0;
 
   const isReadyProduct = readyQuantity !== undefined;
 
@@ -80,14 +80,14 @@ Valor: R$ ${readyPrice?.toFixed(2).replace(".", ",")}`,
     window.open(WHATSAPP + `?text=${message}`, "_blank", "noopener,noreferrer");
   };
 
-  /*
-   * Quando o usuário clica em uma cor:
-   *
-   * - impede a navegação do Link;
-   * - fixa a cor selecionada;
-   * - a cor continua selecionada mesmo depois
-   *   que o mouse sair da bolinha.
-   */
+  
+
+
+
+
+
+
+
   const handleColorClick = (
     event: React.MouseEvent<HTMLButtonElement>,
     colorName: string,
@@ -219,9 +219,9 @@ Valor: R$ ${readyPrice?.toFixed(2).replace(".", ",")}`,
                   .replace(".", ",")}
               </span>
 
-              {!isReadyProduct && firstSize.no_discount && (
+              {!isReadyProduct && firstSize.noDiscount && (
                 <span className="text-muted text-xs line-through">
-                  R$ {firstSize.no_discount}
+                  R$ {firstSize.noDiscount}
                 </span>
               )}
             </div>
@@ -251,7 +251,7 @@ Valor: R$ ${readyPrice?.toFixed(2).replace(".", ",")}`,
     </div>
   ) : (
     <Link
-      href={`/produto/${formatPath(product.name)}`}
+      href={`/product/${formatPath(product.name)}`}
       className="group block cursor-pointer"
     >
       {cardContent}

@@ -1,11 +1,11 @@
 "use client";
 
-import Cores from "@/components/Cores";
+import Colors from "@/components/Colors";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
-import PorQueFlorisse from "@/components/Porque";
+import WhyFlorisse from "@/components/WhyFlorisse";
 import Products from "@/components/products/Products";
-import Sobre from "@/components/Sobre";
+import About from "@/components/About";
 
 import { useScrollTop } from "@/hooks/useScrollTop";
 import {
@@ -46,10 +46,10 @@ export default function Home() {
         categoryCounts={categoryCounts}
       />
 
-      <Cores formatColor={formatColor} />
+      <Colors formatColor={formatColor} />
       <GalleryPreview/>
-      <PorQueFlorisse />
-      <Sobre />
+      <WhyFlorisse />
+      <About />
       <Footer />
 
       {showTop && (

@@ -1,15 +1,15 @@
-import tapetes from "./tapetes";
-import mesaPosta from "./mesaposta";
-import bolsas from "./bolsa";
-import prontaEntrega from "./prontaEntrega";
+import rugs from "./rugs";
+import tableware from "./tableware";
+import bags from "./bags";
+import readyToDeliver from "./readyToDeliver";
 
 import { DISCOUNT } from "./config";
 
-const products = [...tapetes, ...mesaPosta, ...bolsas];
+const products = [...rugs, ...tableware, ...bags];
 
 const productsData = {
   products,
-  prontaEntrega,
+  readyToDeliver,
   DISCOUNT,
 };
 

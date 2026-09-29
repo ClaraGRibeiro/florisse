@@ -54,7 +54,7 @@ export default function ProductSizes({
           const hasKit = size.label.toUpperCase().includes("KIT");
 
           const economy =
-            size.no_discount != null ? size.no_discount - size.price : null;
+            size.noDiscount != null ? size.noDiscount - size.price : null;
 
           return (
             <button

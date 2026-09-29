@@ -24,9 +24,9 @@ export const RAFFLEITEM = {
   category: "Mesa posta",
 
   image: [
-    "/products/mesa-posta/trilho-tradicional/marrom-2.webp",
-    "/products/mesa-posta/trilho-tradicional/marrom.webp",
-    "/products/mesa-posta/sousplat-tradicional/marrom.webp",
+    "/products/tableware/trilho-tradicional/marrom-2.webp",
+    "/products/tableware/trilho-tradicional/marrom.webp",
+    "/products/tableware/sousplat-tradicional/marrom.webp",
   ],
 
   description:

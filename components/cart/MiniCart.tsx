@@ -123,7 +123,7 @@ export default function MiniCart({
             </div>
 
             <Link
-              href="/carrinho"
+              href="/cart"
               onClick={onClose}
               className="bg-primary text-primary-foreground hover:bg-primary-hover mt-4 flex items-center justify-center rounded-full px-4 py-3 text-sm font-semibold shadow-md transition-all duration-300 hover:-translate-y-0.5"
             >

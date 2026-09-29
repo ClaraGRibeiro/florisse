@@ -51,7 +51,7 @@ export default function Footer() {
                 href="/#cores"
                 className="text-muted hover:text-primary w-fit text-sm transition-colors"
               >
-                Cores
+                Colors
               </Link>
 
               <Link
@@ -65,7 +65,7 @@ export default function Footer() {
                 href="/#sobre"
                 className="text-muted hover:text-primary w-fit text-sm transition-colors"
               >
-                Sobre
+                About
               </Link>
             </nav>
           </div>

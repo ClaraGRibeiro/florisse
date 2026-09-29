@@ -20,8 +20,8 @@ export default function CartItemQuantity({
 }: CartItemQuantityProps) {
   const [value, setValue] = useState(String(item.quantity));
 
-  // Mantém o campo sincronizado caso a quantidade seja alterada
-  // pelos botões ou por outra parte do carrinho.
+  
+  
   useEffect(() => {
     setValue(String(item.quantity));
   }, [item.quantity]);
@@ -29,7 +29,7 @@ export default function CartItemQuantity({
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const rawValue = event.target.value;
 
-    // Permite apagar temporariamente o campo enquanto a pessoa digita.
+    
     setValue(rawValue);
 
     if (rawValue === "") {
