@@ -1,4 +1,5 @@
 import { BRAND, CITY, WHATSAPP } from "@/data/config";
+import { getProductUrl } from "@/lib/productUrl";
 import { Product } from "@/types/product";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -106,7 +107,7 @@ export default function Hero({ bestSelling, formatPath }: HeroProps) {
           className="relative flex justify-center md:justify-end"
         >
           <Link
-            href={`/product/${formatPath(bestSelling.name)}`}
+            href={getProductUrl(bestSelling.name, { color: bestSelling.colors[0]?.name })}
             className="group block w-full max-w-125"
           >
             <div className="relative">

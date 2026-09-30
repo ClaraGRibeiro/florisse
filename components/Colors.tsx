@@ -11,6 +11,7 @@ import { useState } from "react";
 import { FaPalette, FaPinterest } from "react-icons/fa";
 
 import { useModalAccessibility } from "@/hooks/useModalAccessibility";
+import { getProductUrl } from "@/lib/productUrl";
 import { formatPath } from "@/utils/format";
 
 interface Color {
@@ -601,7 +602,7 @@ export default function Colors({ formatColor }: ColorsProps) {
                             }}
                           >
                             <Link
-                              href={`/product/${formatPath(product.name)}`}
+                              href={getProductUrl(product.name, { color })}
                               onClick={() => setSelectedColorName(null)}
                               className="group border-border bg-background hover:border-primary/20 focus-visible:ring-primary block overflow-hidden rounded-2xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
                             >

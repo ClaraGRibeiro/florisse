@@ -7,6 +7,7 @@ import { FaWhatsapp } from "react-icons/fa";
 import { WHATSAPP } from "@/data/config";
 import { Product } from "@/types/product";
 import { getGradient } from "@/utils/gradient";
+import { getProductUrl } from "@/lib/productUrl";
 
 import ProductImage from "./ProductImage";
 
@@ -29,30 +30,13 @@ export function ProductCard({
   readyPrice?: number;
   readyQuantity?: number;
 }) {
-  
-
-
-
   const [hoveredColor, setHoveredColor] = useState<string | null>(null);
-
-  
-
-
-
-
 
   const [selectedColorName, setSelectedColorName] = useState<string | null>(
     readyColor ?? null,
   );
 
   const firstSize = product.sizes[0];
-
-  
-
-
-
-
-
 
   const displayedColorName =
     hoveredColor ?? selectedColorName ?? product.colors[0]?.name;
@@ -80,14 +64,6 @@ Valor: R$ ${readyPrice?.toFixed(2).replace(".", ",")}`,
     window.open(WHATSAPP + `?text=${message}`, "_blank", "noopener,noreferrer");
   };
 
-  
-
-
-
-
-
-
-
   const handleColorClick = (
     event: React.MouseEvent<HTMLButtonElement>,
     colorName: string,
@@ -110,9 +86,13 @@ Valor: R$ ${readyPrice?.toFixed(2).replace(".", ",")}`,
         formatColor={formatColor}
       />
 
-      {readyQuantity !== undefined && (
+      {readyQuantity !== undefined ? (
         <div className="bg-background/90 text-primary absolute top-4 left-4 rounded-full px-3.5 py-1.5 text-[11px] font-semibold tracking-wide uppercase shadow-sm backdrop-blur-md">
           DISPONÍVEL AGORA
+        </div>
+      ) : (
+        <div className="bg-background/90 text-primary absolute right-4 bottom-4 rounded-full px-3.5 py-1.5 text-[11px] font-semibold tracking-wide uppercase shadow-sm backdrop-blur-md">
+          SOB ENCOMENDA
         </div>
       )}
 
@@ -251,7 +231,10 @@ Valor: R$ ${readyPrice?.toFixed(2).replace(".", ",")}`,
     </div>
   ) : (
     <Link
-      href={`/product/${formatPath(product.name)}`}
+      href={getProductUrl(product.name, {
+        color: selectedColor?.name,
+        size: firstSize?.label,
+      })}
       className="group block cursor-pointer"
     >
       {cardContent}

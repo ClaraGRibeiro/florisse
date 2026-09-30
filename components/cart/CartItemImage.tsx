@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import ImageWithFallback from "@/components/ui/ImageWithFallback";
-import { formatPath } from "@/utils/format";
+import { getProductUrl } from "@/lib/productUrl";
 
 import type { CartItemType } from "@/components/cart/types";
 
@@ -11,7 +11,7 @@ type CartItemImageProps = {
 
 export default function CartItemImage({ item }: CartItemImageProps) {
   return (
-    <Link href={`/product/${formatPath(item.name)}`} className="block shrink-0">
+    <Link href={getProductUrl(item.name, { color: item.color, size: item.size })} className="block shrink-0">
       <div className="relative h-40 w-full overflow-hidden rounded-[1.25rem] md:h-36 md:w-36">
         <ImageWithFallback
           src={item.image}

@@ -1,14 +1,13 @@
 "use client";
 
 import colorsData from "@/data/colors.json";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { FaArrowLeft, FaArrowUp, FaPalette, FaPinterest } from "react-icons/fa";
 
 import { useCart } from "@/hooks/useCart";
 import { useScrollTop } from "@/hooks/useScrollTop";
 import { getProductBySlug, getProducts } from "@/lib/products";
-import { WHATSAPP } from "@/data/config";
 
 import { Color } from "@/types/color";
 
@@ -37,6 +36,7 @@ type AddedItem = {
 
 export default function ProductClient({ slug }: ProductClientProps) {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const { showTop, scrollToTop } = useScrollTop();
 
@@ -68,8 +68,64 @@ export default function ProductClient({ slug }: ProductClientProps) {
   const [addedItem, setAddedItem] = useState<AddedItem | null>(null);
 
   const addedTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const initializedFromUrl = useRef(false);
 
   const product = getProductBySlug(slug);
+
+  useEffect(() => {
+    if (!product || initializedFromUrl.current) {
+      return;
+    }
+
+    const color = searchParams.get("cor");
+    const size = searchParams.get("tamanho");
+
+    if (color) {
+      const colorIndex = product.colors.findIndex(
+        (item) => item.name === color,
+      );
+
+      if (colorIndex >= 0) {
+        setSelectedColor(colorIndex);
+      }
+    }
+
+    if (size) {
+      const normalizedSize = size.replace(/\s*(?:×|x)\s*/gi, "x").replace(/\s*cm\b/gi, "").replace(/\s+/g, "");
+      const sizeIndex = product.sizes.findIndex(
+        (item) => item.label.replace(/\s*[×x]\s*/gi, "x") === normalizedSize,
+      );
+
+      if (sizeIndex >= 0) {
+        setSelectedSize(sizeIndex);
+      }
+    }
+
+    initializedFromUrl.current = true;
+  }, [product, searchParams]);
+
+  useEffect(() => {
+    if (!product || !initializedFromUrl.current || isOtherColor || isCustomSize) {
+      return;
+    }
+
+    const params = new URLSearchParams();
+    const color = product.colors[selectedColor]?.name;
+    const size = product.sizes[selectedSize]?.label;
+
+    if (color) {
+      params.set("cor", color);
+    }
+
+    if (size) {
+      params.set("tamanho", size.replace(/\s*(?:×|x)\s*/gi, "x").replace(/\s*cm\b/gi, "").replace(/\s+/g, ""));
+    }
+
+    const query = params.toString();
+    const nextUrl = `${window.location.pathname}${query ? `?${query}` : ""}`;
+
+    window.history.replaceState(window.history.state, "", nextUrl);
+  }, [isCustomSize, isOtherColor, product, selectedColor, selectedSize]);
 
   const currentColor = product?.colors[selectedColor];
 
@@ -211,23 +267,6 @@ export default function ProductClient({ slug }: ProductClientProps) {
     setSelectedImage(
       (previous) => (previous - 1 + images.length) % images.length,
     );
-  };
-
-  const handleBuyWhatsApp = () => {
-    if (!canAddToCart) {
-      return;
-    }
-
-    const message = [
-      `Olá! Tenho interesse no ${product.name}.`,
-      `Cor: ${formatColor(cartColor)}.`,
-      isCustomSize
-        ? `Tamanho: personalizado (${customLength} × ${customWidth} cm).`
-        : `Tamanho: ${currentSize.label}.`,
-      `Quantidade: 1.`,
-    ].join("\n");
-
-    window.open(`${WHATSAPP}?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
   };
 
   const handleAdd = () => {
@@ -374,7 +413,6 @@ export default function ProductClient({ slug }: ProductClientProps) {
             onCustomLengthChange={setCustomLength}
             onCustomWidthChange={setCustomWidth}
             onAddToCart={handleAdd}
-            onBuyWhatsApp={handleBuyWhatsApp}
           />
         </div>
         <ProductRelated product={product} products={products} />
