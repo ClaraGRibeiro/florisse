@@ -28,6 +28,7 @@ export default function Products({
   categoryCounts,
 }: ProductsProps) {
   const [category, setCategory] = useState("Todos");
+  const [search, setSearch] = useState("");
   const [sort, setSort] = useState<SortOption>("relevancia");
 
   const handleCategoryChange = (newCategory: string) => {
@@ -48,6 +49,9 @@ export default function Products({
     const params = new URLSearchParams(window.location.search);
 
     const categoryFromUrl = params.get("categoria");
+    const searchFromUrl = params.get("busca") ?? "";
+
+    setSearch(searchFromUrl);
 
     if (categoryFromUrl && filters.includes(categoryFromUrl)) {
       setCategory(categoryFromUrl);
@@ -56,12 +60,43 @@ export default function Products({
     }
   }, [filters]);
 
-  const filteredProducts =
+  const categoryProducts =
     category === "Todos"
       ? products
       : category === "Pronta Entrega"
         ? readyProducts
         : products.filter((product) => product.category === category);
+
+  const normalizeSearch = (value: string) =>
+    value
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .replace(/×/g, "x")
+      .replace(/\s*x\s*/g, "x")
+      .replace(/[^a-z0-9x]+/g, " ")
+      .trim();
+
+  const searchTerms = normalizeSearch(search).split(/\s+/).filter(Boolean);
+
+  const filteredProducts = categoryProducts.filter((product) => {
+    if (searchTerms.length === 0) return true;
+
+    const readyProduct = product as ReadyProduct;
+    const searchableText = normalizeSearch(
+      [
+        product.name,
+        product.category,
+        ...product.colors.map((color) => color.name),
+        ...product.sizes.map((size) => size.label),
+        category === "Pronta Entrega" ? readyProduct.readyColor : "",
+        category === "Pronta Entrega" ? readyProduct.readySize : "",
+        category === "Pronta Entrega" ? "Pronta Entrega" : "",
+      ].join(" "),
+    );
+
+    return searchTerms.every((term) => searchableText.includes(term));
+  });
 
   const sortedProducts = [...filteredProducts].sort((a, b) => {
     switch (sort) {
@@ -119,6 +154,21 @@ export default function Products({
         setCategory={handleCategoryChange}
         filters={filters}
         categoryCounts={categoryCounts}
+        search={search}
+        setSearch={(value) => {
+          setSearch(value);
+
+          const url = new URL(window.location.href);
+
+          if (value.trim()) {
+            url.searchParams.set("busca", value);
+          } else {
+            url.searchParams.delete("busca");
+          }
+
+          window.history.replaceState({}, "", url);
+        }}
+        resultCount={filteredProducts.length}
         sort={sort}
         setSort={setSort}
       />

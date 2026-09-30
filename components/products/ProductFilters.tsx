@@ -5,6 +5,9 @@ type ProductFiltersProps = {
   setCategory: (category: string) => void;
   filters: string[];
   categoryCounts: Record<string, number>;
+  search: string;
+  setSearch: (search: string) => void;
+  resultCount: number;
   sort: SortOption;
   setSort: (sort: SortOption) => void;
 };
@@ -14,6 +17,9 @@ export default function ProductFilters({
   setCategory,
   filters,
   categoryCounts,
+  search,
+  setSearch,
+  resultCount,
   sort,
   setSort,
 }: ProductFiltersProps) {
@@ -22,7 +28,64 @@ export default function ProductFilters({
     .reduce((total, filter) => total + (categoryCounts[filter] ?? 0), 0);
   return (
     <div className="mt-10 flex flex-col items-center gap-4">
-      {}
+      <div className="w-full max-w-2xl">
+        <label htmlFor="search-products" className="sr-only">
+          Buscar produtos
+        </label>
+
+        <div className="border-border bg-background focus-within:border-primary/50 focus-within:ring-primary/10 relative flex items-center rounded-full border shadow-sm transition-all focus-within:ring-2">
+          <svg
+            className="text-muted ml-4 h-5 w-5 shrink-0"
+            viewBox="0 0 24 24"
+            fill="none"
+            aria-hidden="true"
+          >
+            <circle
+              cx="11"
+              cy="11"
+              r="6.5"
+              stroke="currentColor"
+              strokeWidth="1.8"
+            />
+            <path
+              d="M16 16L20 20"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+            />
+          </svg>
+
+          <input
+            id="search-products"
+            type="search"
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+            placeholder="O que você está procurando?"
+            autoComplete="off"
+            className="text-foreground placeholder:text-muted min-w-0 flex-1 bg-transparent px-3 py-3.5 text-sm outline-none sm:text-base"
+          />
+
+          {search && (
+            <button
+              type="button"
+              onClick={() => setSearch("")}
+              aria-label="Limpar busca"
+              className="text-muted hover:text-foreground mr-3 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full transition-colors"
+            >
+              <span aria-hidden="true" className="text-lg leading-none">
+                ×
+              </span>
+            </button>
+          )}
+        </div>
+
+        <p className="text-muted mt-2 text-center text-xs sm:text-sm">
+          {search.trim()
+            ? `${resultCount} ${resultCount === 1 ? "resultado encontrado" : "resultados encontrados"}`
+            : "Busque por nome, categoria, cor ou tamanho"}
+        </p>
+      </div>
+
       <div className="bg-muted/10 flex flex-wrap justify-center gap-2 rounded-full p-1.5">
         {}
         <button
