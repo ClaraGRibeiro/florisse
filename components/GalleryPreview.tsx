@@ -9,16 +9,16 @@ import { formatColor } from "@/utils/format";
 
 const FEATURED_GALLERY = [
   {
-    productName: "Sousplat Tradicional",
-    color: "malva",
+    productName: "Tapete Maravilha",
+    color: "alecrim-verde militar",
   },
   {
     productName: "Bolsa Redinha",
     color: "verde militar",
   },
   {
-    productName: "Tapete Maravilha",
-    color: "alecrim-verde militar",
+    productName: "Sousplat Tradicional",
+    color: "malva",
   },
   {
     productName: "Tapete Nina",
