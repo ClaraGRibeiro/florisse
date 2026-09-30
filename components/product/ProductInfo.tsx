@@ -45,6 +45,7 @@ type ProductInfoProps = {
   onCustomWidthChange: (value: string) => void;
 
   onAddToCart: () => void;
+  onBuyWhatsApp: () => void;
 };
 
 export default function ProductInfo({
@@ -76,6 +77,7 @@ export default function ProductInfo({
   onCustomWidthChange,
 
   onAddToCart,
+  onBuyWhatsApp,
 }: ProductInfoProps) {
   const currentSize =
     selectedSize !== null ? product.sizes[selectedSize] : undefined;
@@ -174,6 +176,7 @@ export default function ProductInfo({
         added={added}
         isCustomSize={isCustomSize}
         onAddToCart={onAddToCart}
+        onBuyWhatsApp={onBuyWhatsApp}
       />
 
       <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">

@@ -8,6 +8,7 @@ import { FaArrowLeft, FaArrowUp, FaPalette, FaPinterest } from "react-icons/fa";
 import { useCart } from "@/hooks/useCart";
 import { useScrollTop } from "@/hooks/useScrollTop";
 import { getProductBySlug, getProducts } from "@/lib/products";
+import { WHATSAPP } from "@/data/config";
 
 import { Color } from "@/types/color";
 
@@ -212,6 +213,23 @@ export default function ProductClient({ slug }: ProductClientProps) {
     );
   };
 
+  const handleBuyWhatsApp = () => {
+    if (!canAddToCart) {
+      return;
+    }
+
+    const message = [
+      `Olá! Tenho interesse no ${product.name}.`,
+      `Cor: ${formatColor(cartColor)}.`,
+      isCustomSize
+        ? `Tamanho: personalizado (${customLength} × ${customWidth} cm).`
+        : `Tamanho: ${currentSize.label}.`,
+      `Quantidade: 1.`,
+    ].join("\n");
+
+    window.open(`${WHATSAPP}?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
+  };
+
   const handleAdd = () => {
     if (!canAddToCart) {
       return;
@@ -356,6 +374,7 @@ export default function ProductClient({ slug }: ProductClientProps) {
             onCustomLengthChange={setCustomLength}
             onCustomWidthChange={setCustomWidth}
             onAddToCart={handleAdd}
+            onBuyWhatsApp={handleBuyWhatsApp}
           />
         </div>
         <ProductRelated product={product} products={products} />
