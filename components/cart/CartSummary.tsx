@@ -110,7 +110,7 @@ export default function CartSummary({
                 <span className="text-foreground font-semibold">
                   Frete e entrega:
                 </span>{" "}
-                não calculamos o frete no site. Ao finalizar, a Florisse
+                frete não é calculado no site. Ao finalizar, a Florisse
                 confirmará pelo WhatsApp o valor do frete e os detalhes da
                 entrega antes da confirmação do pedido.
               </p>

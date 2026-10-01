@@ -13,8 +13,8 @@ const tableware = [
       },
       {
         label: "KIT 6 peças: 6 (37 cm)",
-        price: (27 + 27 + 27 + 27 + 27 + 27 + 65) * DISCOUNT,
-        noDiscount: 27 + 27 + 27 + 27 + 27 + 27 + 65,
+        price: (27 + 27 + 27 + 27 + 27 + 27) * DISCOUNT,
+        noDiscount: 27 + 27 + 27 + 27 + 27 + 27,
       },
     ],
 

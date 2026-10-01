@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 
 import CartHeader from "@/components/cart/CartHeader";
+import CartRelated from "@/components/cart/CartRelated";
 import CartItem from "@/components/cart/CartItem";
 import CartSummary from "@/components/cart/CartSummary";
 import EmptyCart from "@/components/cart/EmptyCart";
@@ -284,6 +285,8 @@ Gostaria de confirmar a disponibilidade, o valor do frete e combinar a entrega.`
               onClear={openClearCartModal}
               onFinish={finishOrder}
             />
+
+            <CartRelated productNames={cart.map((item) => item.name)} />
           </>
         )}
       </div>

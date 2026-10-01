@@ -86,13 +86,9 @@ Valor: R$ ${readyPrice?.toFixed(2).replace(".", ",")}`,
         formatColor={formatColor}
       />
 
-      {readyQuantity !== undefined ? (
+      {readyQuantity !== undefined && (
         <div className="bg-background/90 text-primary absolute top-4 left-4 rounded-full px-3.5 py-1.5 text-[11px] font-semibold tracking-wide uppercase shadow-sm backdrop-blur-md">
           DISPONÍVEL AGORA
-        </div>
-      ) : (
-        <div className="bg-background/90 text-primary absolute right-4 bottom-4 rounded-full px-3.5 py-1.5 text-[11px] font-semibold tracking-wide uppercase shadow-sm backdrop-blur-md">
-          SOB ENCOMENDA
         </div>
       )}
 

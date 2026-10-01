@@ -1,6 +1,7 @@
 import { FaTimes } from "react-icons/fa";
 
 import { Product } from "@/types/product";
+import { useState } from "react";
 
 type ProductSizesProps = {
   product: Product;
@@ -34,19 +35,27 @@ export default function ProductSizes({
 }: ProductSizesProps) {
   const selectedSizeLabel =
     selectedSize !== null ? product.sizes[selectedSize]?.label : undefined;
-
+  const [showSizeTable, setShowSizeTable] = useState(false);
   return (
     <section className="mt-8">
-      <div>
-        <p className="text-muted text-xs font-semibold tracking-[0.14em] uppercase">
-          Tamanho
-        </p>
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="text-muted text-xs font-semibold tracking-[0.14em] uppercase">
+            Tamanho
+          </p>
+          <p className="text-foreground mt-1 text-sm">
+            {isCustomSize ? "Tamanho personalizado" : selectedSizeLabel}
+          </p>
+        </div>
 
-        <p className="text-foreground mt-1 text-sm">
-          {isCustomSize ? "Tamanho personalizado" : selectedSizeLabel}
-        </p>
+        <button
+          type="button"
+          onClick={() => setShowSizeTable(true)}
+          className="cursor-pointer text-muted hover:text-foreground text-xs underline underline-offset-4 transition-colors"
+        >
+          Guia de Medidas
+        </button>
       </div>
-
       <div className="mt-5 flex flex-wrap gap-2.5">
         {product.sizes.map((size, index) => {
           const isSelected = !isCustomSize && selectedSize === index;
@@ -175,6 +184,32 @@ export default function ProductSizes({
             O tamanho personalizado precisa ser combinado antes da compra. O
             valor exibido atualmente é apenas uma referência e o preço será
             negociado de acordo com as medidas escolhidas.
+          </div>
+        </div>
+      )}
+      {showSizeTable && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+          onClick={() => setShowSizeTable(false)}
+        >
+          <div
+            className="bg-background relative max-h-[90vh] max-w-2xl overflow-hidden rounded-2xl shadow-xl"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={() => setShowSizeTable(false)}
+              className="cursor-pointer text-muted hover:text-foreground bg-background/90 absolute top-3 right-3 z-10 flex h-8 w-8 items-center justify-center rounded-full text-lg shadow-sm transition-colors"
+              aria-label="Fechar"
+            >
+              ×
+            </button>
+
+            <img
+              src="/sizetable.webp"
+              alt="Guia de Medidas"
+              className="max-h-[90vh] w-auto object-contain"
+            />
           </div>
         </div>
       )}

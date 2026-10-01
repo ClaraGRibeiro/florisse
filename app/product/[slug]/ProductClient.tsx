@@ -27,12 +27,7 @@ type ProductClientProps = {
   slug: string;
 };
 
-type AddedItem = {
-  name: string;
-  image: string;
-  color: string;
-  size: string;
-};
+
 
 export default function ProductClient({ slug }: ProductClientProps) {
   const router = useRouter();
@@ -65,7 +60,6 @@ export default function ProductClient({ slug }: ProductClientProps) {
 
   const [miniCartOpen, setMiniCartOpen] = useState(false);
 
-  const [addedItem, setAddedItem] = useState<AddedItem | null>(null);
 
   const addedTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const initializedFromUrl = useRef(false);
@@ -274,14 +268,7 @@ export default function ProductClient({ slug }: ProductClientProps) {
       return;
     }
 
-    const miniCartItem: AddedItem = {
-      name: product.name,
-      image: imageSrc,
-      color: formatColor(cartColor),
-      size: isCustomSize
-        ? `${customLength} × ${customWidth} cm`
-        : currentSize.label,
-    };
+
 
     addToCart({
       id: crypto.randomUUID(),
@@ -300,7 +287,6 @@ export default function ProductClient({ slug }: ProductClientProps) {
       quantity: 1,
     });
 
-    setAddedItem(miniCartItem);
     setMiniCartOpen(true);
 
     setAdded(true);
@@ -318,16 +304,10 @@ export default function ProductClient({ slug }: ProductClientProps) {
   return (
     <main className="bg-background min-h-screen scroll-mt-20">
       <div className="mx-auto max-w-6xl px-4 py-10 pb-16 sm:px-6 md:py-14 lg:px-8">
-        {addedItem && (
-          <MiniCart
-            isOpen={miniCartOpen}
-            name={addedItem.name}
-            image={addedItem.image}
-            color={addedItem.color}
-            size={addedItem.size}
-            onClose={() => setMiniCartOpen(false)}
-          />
-        )}
+        <MiniCart
+          isOpen={miniCartOpen}
+          onClose={() => setMiniCartOpen(false)}
+        />
         <div className="mb-2 flex items-center justify-between gap-4">
           <button
             type="button"
