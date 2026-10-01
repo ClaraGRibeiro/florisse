@@ -10,12 +10,21 @@ type ProductPageProps = {
   params: Promise<{
     slug: string;
   }>;
+  searchParams: Promise<{
+    [key: string]: string | string[] | undefined;
+  }>;
 };
 
 export async function generateMetadata({
   params,
+  searchParams,
 }: ProductPageProps): Promise<Metadata> {
   const { slug } = await params;
+  const resolvedSearchParams = await searchParams;
+  const cor =
+    typeof resolvedSearchParams.cor === "string"
+      ? resolvedSearchParams.cor
+      : undefined;
 
   const product = getProductBySlug(slug);
 
@@ -26,9 +35,15 @@ export async function generateMetadata({
     };
   }
 
-  const image = `${SITE}${getProductOgImage(product)}`;
+  const selectedColor =
+    cor && product.images[cor] ? cor : product.colors[0]?.name;
 
-  const title = product.name;
+  const imagePath = getProductOgImage(product, selectedColor);
+  const image = imagePath ? new URL(imagePath, SITE).toString() : undefined;
+
+  const title = selectedColor
+    ? `${product.name} — ${selectedColor}`
+    : product.name;
 
   const description =
     `Uma peça artesanal feita à mão pela ` +
@@ -36,7 +51,14 @@ export async function generateMetadata({
     `. ` +
     `Personalize cores e tamanhos para deixar seu cantinho ainda mais especial.`;
 
-  const url = `${SITE}/product/${slug}`;
+  const urlParams = new URLSearchParams();
+
+  if (selectedColor) {
+    urlParams.set("cor", selectedColor);
+  }
+
+  const query = urlParams.toString();
+  const url = `${SITE}/product/${slug}${query ? `?${query}` : ""}`;
 
   return {
     title,
@@ -53,22 +75,24 @@ export async function generateMetadata({
       siteName: BRAND,
       locale: "pt_BR",
       type: "website",
-      images: [
-        {
-          url: image,
-          width: 800,
-          height: 800,
-          alt: product.name,
-          type: "image/jpeg",
-        },
-      ],
+      ...(image
+        ? {
+            images: [
+              {
+                url: image,
+                alt: product.name,
+                type: "image/jpeg",
+              },
+            ],
+          }
+        : {}),
     },
 
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [image],
+      ...(image ? { images: [image] } : {}),
     },
   };
 }

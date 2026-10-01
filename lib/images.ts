@@ -1,5 +1,4 @@
 import { Product, ProductImage } from "@/types/product";
-import { formatPath } from "@/utils/format";
 
 export function getProductImage(
   product: Product,
@@ -8,6 +7,12 @@ export function getProductImage(
   return product.images[color] ?? [];
 }
 
-export function getProductOgImage(product: Product): string {
-  return `/products/${formatPath(product.category)}/${formatPath(product.name)}/image.jpg`;
+export function getProductOgImage(
+  product: Product,
+  color?: string | null,
+): string | null {
+  const selectedColor = color && product.images[color] ? color : product.colors[0]?.name;
+  const image = selectedColor ? product.images[selectedColor]?.[0] : undefined;
+
+  return image?.url ?? null;
 }

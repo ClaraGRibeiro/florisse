@@ -13,7 +13,7 @@ const bags = [
     images: {
       "verde militar": [
         {
-          url: "/products/bags/bolsa-redinha/verde militar.webp",
+          url: "/products/bags/bolsa-redinha/verde militar.jpg",
           alt: "30 × 30 × 10 cm",
         },
       ],

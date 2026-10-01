@@ -23,14 +23,14 @@ const tableware = [
     images: {
       malva: [
         {
-          url: "/products/tableware/sousplat-tradicional/malva.webp",
+          url: "/products/tableware/sousplat-tradicional/malva.jpg",
           alt: "27 cm",
         },
       ],
 
       marrom: [
         {
-          url: "/products/tableware/sousplat-tradicional/marrom.webp",
+          url: "/products/tableware/sousplat-tradicional/marrom.jpg",
           alt: "37 cm",
         },
       ],
@@ -54,11 +54,11 @@ const tableware = [
     images: {
       marrom: [
         {
-          url: "/products/tableware/trilho-tradicional/marrom.webp",
+          url: "/products/tableware/trilho-tradicional/marrom.jpg",
           alt: "100 × 25 cm",
         },
         {
-          url: "/products/tableware/trilho-tradicional/marrom-2.webp",
+          url: "/products/tableware/trilho-tradicional/marrom-2.jpg",
           alt: "KIT 7 peças: 6 (37 cm) + 1 (100 × 25 cm)",
         },
       ],
@@ -87,15 +87,15 @@ const tableware = [
     images: {
       cinza: [
         {
-          url: "/products/tableware/sousplat-encanto/cinza.webp",
+          url: "/products/tableware/sousplat-encanto/cinza.jpg",
           alt: "37 cm",
         },
         {
-          url: "/products/tableware/sousplat-encanto/cinza-2.webp",
+          url: "/products/tableware/sousplat-encanto/cinza-2.jpg",
           alt: "37 cm",
         },
         {
-          url: "/products/tableware/sousplat-encanto/cinza-3.webp",
+          url: "/products/tableware/sousplat-encanto/cinza-3.jpg",
           alt: "37 cm",
         },
       ],
@@ -119,15 +119,15 @@ const tableware = [
     images: {
       "verde militar-cru-telha": [
         {
-          url: "/products/tableware/trilho-losango/verde militar-cru-telha.webp",
+          url: "/products/tableware/trilho-losango/verde militar-cru-telha.jpg",
           alt: "120 × 35 cm",
         },
         {
-          url: "/products/tableware/trilho-losango/verde militar-cru-telha-2.webp",
+          url: "/products/tableware/trilho-losango/verde militar-cru-telha-2.jpg",
           alt: "120 × 35 cm",
         },
         {
-          url: "/products/tableware/trilho-losango/verde militar-cru-telha-3.webp",
+          url: "/products/tableware/trilho-losango/verde militar-cru-telha-3.jpg",
           alt: "120 × 35 cm",
         },
       ],
@@ -151,11 +151,11 @@ const tableware = [
     images: {
       "cru-bege": [
         {
-          url: "/products/tableware/trilho-floral/cru-bege.webp",
+          url: "/products/tableware/trilho-floral/cru-bege.jpg",
           alt: "110 × 40 cm",
         },
         {
-          url: "/products/tableware/trilho-floral/cru-bege-2.webp",
+          url: "/products/tableware/trilho-floral/cru-bege-2.jpg",
           alt: "110 × 40 cm",
         },
       ],

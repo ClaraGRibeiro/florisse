@@ -38,11 +38,11 @@ const rugs = [
     images: {
       "verde militar": [
         {
-          url: "/products/rugs/tapete-sara/verde militar.webp",
+          url: "/products/rugs/tapete-sara/verde militar.jpg",
           alt: "65 × 45 cm",
         },
         {
-          url: "/products/rugs/tapete-sara/verde militar-2.webp",
+          url: "/products/rugs/tapete-sara/verde militar-2.jpg",
           alt: "65 × 45 cm",
         },
       ],
@@ -86,11 +86,11 @@ const rugs = [
     images: {
       malva: [
         {
-          url: "/products/rugs/tapete-cleo/malva.webp",
+          url: "/products/rugs/tapete-cleo/malva.jpg",
           alt: "65 × 45 cm",
         },
         {
-          url: "/products/rugs/tapete-cleo/malva-2.webp",
+          url: "/products/rugs/tapete-cleo/malva-2.jpg",
           alt: "65 × 45 cm",
         },
       ],
@@ -134,11 +134,11 @@ const rugs = [
     images: {
       bordo: [
         {
-          url: "/products/rugs/tapete-cris/bordo.webp",
+          url: "/products/rugs/tapete-cris/bordo.jpg",
           alt: "65 × 45 cm",
         },
         {
-          url: "/products/rugs/tapete-cris/bordo-2.webp",
+          url: "/products/rugs/tapete-cris/bordo-2.jpg",
           alt: "65 × 45 cm",
         },
       ],
@@ -182,11 +182,11 @@ const rugs = [
     images: {
       vermelho: [
         {
-          url: "/products/rugs/tapete-nina/vermelho.webp",
+          url: "/products/rugs/tapete-nina/vermelho.jpg",
           alt: "70 × 50 cm",
         },
         {
-          url: "/products/rugs/tapete-nina/vermelho-2.webp",
+          url: "/products/rugs/tapete-nina/vermelho-2.jpg",
           alt: "70 × 50 cm",
         },
       ],
@@ -236,55 +236,55 @@ const rugs = [
     images: {
       "alecrim-verde militar": [
         {
-          url: "/products/rugs/tapete-janine/alecrim-verde militar.webp",
+          url: "/products/rugs/tapete-janine/alecrim-verde militar.jpg",
           alt: "KIT 3 peças: 2 (70 × 50 cm) e 1 (170 × 50 cm)",
         },
         {
-          url: "/products/rugs/tapete-janine/alecrim-verde militar-2.webp",
+          url: "/products/rugs/tapete-janine/alecrim-verde militar-2.jpg",
           alt: "KIT 2 peças: 2 (70 × 50 cm)",
         },
       ],
 
       "cru-marrom-bege": [
         {
-          url: "/products/rugs/tapete-janine/cru-marrom-bege.webp",
+          url: "/products/rugs/tapete-janine/cru-marrom-bege.jpg",
           alt: "KIT 2 peças: 2 (70 × 50 cm)",
         },
         {
-          url: "/products/rugs/tapete-janine/cru-marrom-bege-2.webp",
+          url: "/products/rugs/tapete-janine/cru-marrom-bege-2.jpg",
           alt: "100 × 50 cm",
         },
       ],
 
       "verde limao-cru": [
         {
-          url: "/products/rugs/tapete-janine/verde limao-cru.webp",
+          url: "/products/rugs/tapete-janine/verde limao-cru.jpg",
           alt: "70 × 50 cm",
         },
         {
-          url: "/products/rugs/tapete-janine/verde limao-cru-2.webp",
+          url: "/products/rugs/tapete-janine/verde limao-cru-2.jpg",
           alt: "70 × 50 cm",
         },
       ],
 
       "cru-verde militar-alecrim": [
         {
-          url: "/products/rugs/tapete-janine/cru-verde militar-alecrim.webp",
+          url: "/products/rugs/tapete-janine/cru-verde militar-alecrim.jpg",
           alt: "KIT 2 peças: 2 (70 × 50 cm)",
         },
         {
-          url: "/products/rugs/tapete-janine/cru-verde militar-alecrim-2.webp",
+          url: "/products/rugs/tapete-janine/cru-verde militar-alecrim-2.jpg",
           alt: "100 × 50 cm",
         },
       ],
 
       "bege-alecrim-cru": [
         {
-          url: "/products/rugs/tapete-janine/bege-alecrim-cru.webp",
+          url: "/products/rugs/tapete-janine/bege-alecrim-cru.jpg",
           alt: "KIT 2 peças: 2 (100 × 50 cm)",
         },
         {
-          url: "/products/rugs/tapete-janine/bege-alecrim-cru-2.webp",
+          url: "/products/rugs/tapete-janine/bege-alecrim-cru-2.jpg",
           alt: "100 × 50 cm",
         },
       ],
@@ -328,11 +328,11 @@ const rugs = [
     images: {
       "telha-bege": [
         {
-          url: "/products/rugs/tapete-aline/telha-bege.webp",
+          url: "/products/rugs/tapete-aline/telha-bege.jpg",
           alt: "76 × 53 cm",
         },
         {
-          url: "/products/rugs/tapete-aline/telha-bege-2.webp",
+          url: "/products/rugs/tapete-aline/telha-bege-2.jpg",
           alt: "76 × 53 cm",
         },
       ],
@@ -376,17 +376,17 @@ const rugs = [
     images: {
       "preto-cinza": [
         {
-          url: "/products/rugs/tapete-gisele/preto-cinza.webp",
+          url: "/products/rugs/tapete-gisele/preto-cinza.jpg",
           alt: "73 × 52 cm",
         },
         {
-          url: "/products/rugs/tapete-gisele/preto-cinza-2.webp",
+          url: "/products/rugs/tapete-gisele/preto-cinza-2.jpg",
           alt: "73 × 52 cm",
         },
       ],
       "telha-verde limao-vermelho-preto": [
         {
-          url: "/products/rugs/tapete-gisele/telha-verde limao-vermelho-preto.webp",
+          url: "/products/rugs/tapete-gisele/telha-verde limao-vermelho-preto.jpg",
           alt: "210 × 65 cm",
         },
       ],
@@ -430,11 +430,11 @@ const rugs = [
     images: {
       "cru-vermelho": [
         {
-          url: "/products/rugs/tapete-home/cru-vermelho.webp",
+          url: "/products/rugs/tapete-home/cru-vermelho.jpg",
           alt: "185 × 65 cm",
         },
         {
-          url: "/products/rugs/tapete-home/cru-vermelho-2.webp",
+          url: "/products/rugs/tapete-home/cru-vermelho-2.jpg",
           alt: "185 × 65 cm",
         },
       ],
@@ -478,11 +478,11 @@ const rugs = [
     images: {
       "bordo-verde militar": [
         {
-          url: "/products/rugs/tapete-harmonia/bordo-verde militar.webp",
+          url: "/products/rugs/tapete-harmonia/bordo-verde militar.jpg",
           alt: "85 × 50 cm",
         },
         {
-          url: "/products/rugs/tapete-harmonia/bordo-verde militar-2.webp",
+          url: "/products/rugs/tapete-harmonia/bordo-verde militar-2.jpg",
           alt: "85 × 50 cm",
         },
       ],
@@ -526,7 +526,7 @@ const rugs = [
     images: {
       "cru-cinza-bege": [
         {
-          url: "/products/rugs/tapete-hexagonos/cru-cinza-bege.webp",
+          url: "/products/rugs/tapete-hexagonos/cru-cinza-bege.jpg",
           alt: "227 × 63 cm",
         },
       ],
@@ -555,11 +555,11 @@ const rugs = [
     images: {
       "alecrim-verde militar": [
         {
-          url: "/products/rugs/tapete-maravilha/alecrim-verde militar.webp",
+          url: "/products/rugs/tapete-maravilha/alecrim-verde militar.jpg",
           alt: "105 cm",
         },
         {
-          url: "/products/rugs/tapete-maravilha/alecrim-verde militar-2.webp",
+          url: "/products/rugs/tapete-maravilha/alecrim-verde militar-2.jpg",
           alt: "105 cm",
         },
       ],

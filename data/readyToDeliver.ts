@@ -19,15 +19,15 @@ const readyToDeliver: ReadyToDeliver[] = [
     images: {
       marrom: [
         {
-          url: "/products/tableware/trilho-tradicional/marrom-2.webp",
+          url: "/products/tableware/trilho-tradicional/marrom-2.jpg",
           alt: "KIT 7 peças: 6 (37 cm) + 1 (100 × 25 cm)",
         },
         {
-          url: "/products/tableware/trilho-tradicional/marrom.webp",
+          url: "/products/tableware/trilho-tradicional/marrom.jpg",
           alt: "100 × 25 cm",
         },
         {
-          url: "/products/tableware/sousplat-tradicional/marrom.webp",
+          url: "/products/tableware/sousplat-tradicional/marrom.jpg",
           alt: "37 cm",
         },
       ],

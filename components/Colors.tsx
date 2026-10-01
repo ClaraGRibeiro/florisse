@@ -110,7 +110,7 @@ export default function Colors({ formatColor }: ColorsProps) {
   ) => {
     return `/products/${formatPath(product.category)}/${formatPath(
       product.name,
-    )}/${color}.webp`;
+    )}/${color}.jpg`;
   };
 
   const getProductPrice = (product: (typeof products)[number]) => {
