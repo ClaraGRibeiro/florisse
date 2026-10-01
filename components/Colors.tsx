@@ -12,7 +12,7 @@ import { FaPalette, FaPinterest } from "react-icons/fa";
 
 import { useModalAccessibility } from "@/hooks/useModalAccessibility";
 import { getProductUrl } from "@/lib/productUrl";
-import { formatPath } from "@/utils/format";
+import { formatCategory, formatPath } from "@/utils/format";
 
 interface Color {
   name: string;
@@ -108,7 +108,7 @@ export default function Colors({ formatColor }: ColorsProps) {
     product: (typeof products)[number],
     color: string,
   ) => {
-    return `/products/${formatPath(product.category)}/${formatPath(
+    return `/products/${formatPath(formatCategory(product.category) ?? "null")}/${formatPath(
       product.name,
     )}/${color}.jpg`;
   };
