@@ -8,6 +8,7 @@ import { FaArrowLeft, FaArrowUp, FaPalette, FaPinterest } from "react-icons/fa";
 import { useCart } from "@/hooks/useCart";
 import { useScrollTop } from "@/hooks/useScrollTop";
 import { getProductBySlug, getProducts } from "@/lib/products";
+import { WHATSAPP } from "@/data/config";
 
 import { Color } from "@/types/color";
 
@@ -26,8 +27,6 @@ const colors = colorsData as Color[];
 type ProductClientProps = {
   slug: string;
 };
-
-
 
 export default function ProductClient({ slug }: ProductClientProps) {
   const router = useRouter();
@@ -60,7 +59,6 @@ export default function ProductClient({ slug }: ProductClientProps) {
 
   const [miniCartOpen, setMiniCartOpen] = useState(false);
 
-
   const addedTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const initializedFromUrl = useRef(false);
 
@@ -85,9 +83,14 @@ export default function ProductClient({ slug }: ProductClientProps) {
     }
 
     if (size) {
-      const normalizedSize = size.replace(/\s*(?:×|x)\s*/gi, "x").replace(/\s*cm\b/gi, "").replace(/\s+/g, "");
+      const normalizedSize = size
+        .replace(/\s*(?:×|x)\s*/gi, "x")
+        .replace(/\s*cm\b/gi, "")
+        .replace(/\s+/g, "");
+
       const sizeIndex = product.sizes.findIndex(
-        (item) => item.label.replace(/\s*[×x]\s*/gi, "x") === normalizedSize,
+        (item) =>
+          item.label.replace(/\s*[×x]\s*/gi, "x") === normalizedSize,
       );
 
       if (sizeIndex >= 0) {
@@ -112,7 +115,13 @@ export default function ProductClient({ slug }: ProductClientProps) {
     }
 
     if (size) {
-      params.set("tamanho", size.replace(/\s*(?:×|x)\s*/gi, "x").replace(/\s*cm\b/gi, "").replace(/\s+/g, ""));
+      params.set(
+        "tamanho",
+        size
+          .replace(/\s*(?:×|x)\s*/gi, "x")
+          .replace(/\s*cm\b/gi, "")
+          .replace(/\s+/g, ""),
+      );
     }
 
     const query = params.toString();
@@ -172,11 +181,13 @@ export default function ProductClient({ slug }: ProductClientProps) {
   }
 
   const currentSize = product.sizes[selectedSize];
+
   if (!currentSize) {
     return null;
   }
 
   const imageSrc = images[selectedImage]?.url ?? "";
+
   const cartSize = isCustomSize ? "Outro" : currentSize.label;
 
   const cartColor = isOtherColor
@@ -263,12 +274,39 @@ export default function ProductClient({ slug }: ProductClientProps) {
     );
   };
 
-  const handleAdd = () => {
+  const handleBuyWhatsApp = () => {
     if (!canAddToCart) {
       return;
     }
 
+    const message = isCustomSize
+      ? `Olá, Florisse! Quero fazer um pedido personalizado:
 
+Produto: ${product.name}
+Cor: ${cartColor}
+Tamanho: ${customLength} x ${customWidth} cm
+
+Gostaria de confirmar o valor e os detalhes do pedido.`
+      : `Olá, Florisse! Quero comprar:
+
+Produto: ${product.name}
+Cor: ${cartColor}
+Tamanho: ${cartSize}
+Valor: R$ ${currentSize.price.toFixed(2).replace(".", ",")}
+
+Gostaria de confirmar o pedido e o frete.`;
+
+    window.open(
+      `${WHATSAPP}?text=${encodeURIComponent(message)}`,
+      "_blank",
+      "noopener,noreferrer",
+    );
+  };
+
+  const handleAdd = () => {
+    if (!canAddToCart) {
+      return;
+    }
 
     addToCart({
       id: crypto.randomUUID(),
@@ -278,11 +316,8 @@ export default function ProductClient({ slug }: ProductClientProps) {
       size: cartSize,
       customLength: isCustomSize ? customLength : undefined,
       customWidth: isCustomSize ? customWidth : undefined,
-
       price: isCustomSize ? 0 : currentSize.price,
-
       noDiscount: isCustomSize ? undefined : currentSize.noDiscount,
-
       image: imageSrc,
       quantity: 1,
     });
@@ -308,6 +343,7 @@ export default function ProductClient({ slug }: ProductClientProps) {
           isOpen={miniCartOpen}
           onClose={() => setMiniCartOpen(false)}
         />
+
         <div className="mb-2 flex items-center justify-between gap-4">
           <button
             type="button"
@@ -321,6 +357,7 @@ export default function ProductClient({ slug }: ProductClientProps) {
 
           <Share product={product} />
         </div>
+
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(380px,0.95fr)] lg:gap-16 xl:gap-20">
           <div>
             <ProductGallery
@@ -393,8 +430,10 @@ export default function ProductClient({ slug }: ProductClientProps) {
             onCustomLengthChange={setCustomLength}
             onCustomWidthChange={setCustomWidth}
             onAddToCart={handleAdd}
+            onBuyWhatsApp={handleBuyWhatsApp}
           />
         </div>
+
         <ProductRelated product={product} products={products} />
 
         <section className="border-border mt-16 border-t pt-16">
@@ -492,6 +531,7 @@ export default function ProductClient({ slug }: ProductClientProps) {
             </Link>
           </div>
         </section>
+
         {showTop && (
           <button
             title="Voltar para o início"
