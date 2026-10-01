@@ -13,7 +13,7 @@ type HeroProps = {
 export default function Hero({ bestSelling, formatPath }: HeroProps) {
   const imageSrc = `/products/${formatPath(bestSelling.category)}/${formatPath(
     bestSelling.name,
-  )}/${bestSelling.colors[0].name}.webp`;
+  )}/${bestSelling.colors[0].name}.jpg`;
 
   return (
     <motion.section
