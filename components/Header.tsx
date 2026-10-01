@@ -237,7 +237,7 @@ export default function Header() {
             rel="noopener noreferrer"
             onClick={closeMenu}
             aria-label="Instagram da Florisse Crochê"
-            className="border-border text-primary hover:bg-muted focus-visible:ring-primary mt-3 flex w-full cursor-pointer items-center justify-center gap-2 rounded-full border bg-white px-5 py-3 text-sm font-medium shadow-sm transition focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
+            className="border-border text-primary hover:text-white hover:bg-primary focus-visible:ring-primary mt-3 flex w-full cursor-pointer items-center justify-center gap-2 rounded-full border bg-white px-5 py-3 text-sm font-medium shadow-sm transition focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
           >
             <FaInstagram size={16} aria-hidden="true" />
 

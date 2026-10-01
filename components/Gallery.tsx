@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 import colorsData from "@/data/colors.json";
 import { GalleryItem } from "@/lib/products";
@@ -36,6 +37,7 @@ function GalleryImage({
   alt: string;
 }) {
   const [firstLoaded, setFirstLoaded] = useState(false);
+  const [firstFailed, setFirstFailed] = useState(false);
   const [secondLoaded, setSecondLoaded] = useState(false);
   const [hovered, setHovered] = useState(false);
 
@@ -48,9 +50,21 @@ function GalleryImage({
 
   const hasSecondImage = Boolean(secondImage);
 
+  useEffect(() => {
+    if (firstLoaded || firstFailed) {
+      return;
+    }
+
+    const timeout = window.setTimeout(() => {
+      setFirstFailed(true);
+    }, 12000);
+
+    return () => window.clearTimeout(timeout);
+  }, [firstImage.url, firstLoaded, firstFailed]);
+
   return (
     <div
-      className="relative overflow-hidden rounded-2xl"
+      className="bg-muted/20 relative aspect-[4/5] overflow-hidden rounded-2xl"
       onMouseEnter={() => {
         if (hasSecondImage) {
           setHovered(true);
@@ -58,37 +72,53 @@ function GalleryImage({
       }}
       onMouseLeave={() => setHovered(false)}
     >
-      {!firstLoaded && (
+      {!firstLoaded && !firstFailed && (
         <div
-          className="absolute inset-0 z-20 flex items-center justify-center bg-muted/30"
+          className="bg-muted/30 absolute inset-0 z-20 flex items-center justify-center"
           aria-hidden="true"
         >
-          <div className="h-7 w-7 animate-spin rounded-full border-2 border-border border-t-primary" />
+          <div className="border-border border-t-primary h-7 w-7 animate-spin rounded-full border-2" />
         </div>
       )}
 
-      <img
-        src={firstImage.url}
-        alt={alt}
-        className={`block h-auto w-full transition-opacity duration-500 ${
-          hovered && secondLoaded ? "opacity-0" : "opacity-100"
-        }`}
-        loading="lazy"
-        onLoad={() => setFirstLoaded(true)}
-        onError={() => setFirstLoaded(true)}
-      />
+      {firstFailed ? (
+        <div
+          className="text-muted absolute inset-0 flex items-center justify-center px-4 text-center text-sm"
+          role="img"
+          aria-label={`Imagem indisponível: ${alt}`}
+        >
+          Imagem indisponível
+        </div>
+      ) : (
+        <Image
+          src={firstImage.url}
+          alt={alt}
+          fill
+          sizes="(max-width: 479px) 50vw, (max-width: 767px) 50vw, (max-width: 1023px) 33vw, (max-width: 1279px) 25vw, 20vw"
+          loading="lazy"
+          className={`object-cover transition-opacity duration-300 ${
+            hovered && secondLoaded ? "opacity-0" : "opacity-100"
+          }`}
+          onLoad={() => setFirstLoaded(true)}
+          onError={() => {
+            setFirstFailed(true);
+            setFirstLoaded(true);
+          }}
+        />
+      )}
 
-      {secondImage && (
-        <img
+      {secondImage && hovered && (
+        <Image
           src={secondImage.url}
           alt=""
           aria-hidden="true"
-          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${
-            hovered && secondLoaded ? "opacity-100" : "opacity-0"
-          }`}
+          fill
+          sizes="(max-width: 479px) 50vw, (max-width: 767px) 50vw, (max-width: 1023px) 33vw, (max-width: 1279px) 25vw, 20vw"
           loading="lazy"
+          className={`object-cover transition-opacity duration-300 ${
+            secondLoaded ? "opacity-100" : "opacity-0"
+          }`}
           onLoad={() => setSecondLoaded(true)}
-          onError={() => setSecondLoaded(true)}
         />
       )}
     </div>
@@ -295,7 +325,7 @@ export default function Gallery({ items }: GalleryProps) {
       </p>
 
       {filteredItems.length > 0 ? (
-        <div className="columns-2 gap-2 sm:columns-3 md:columns-4 lg:columns-5 xl:columns-6">
+        <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 sm:gap-3 lg:grid-cols-4 xl:grid-cols-5">
           {filteredItems.map((item) => (
             <GalleryCard
               key={`${item.productName}-${item.color}`}
