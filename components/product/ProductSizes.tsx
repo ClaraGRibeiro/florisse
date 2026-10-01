@@ -35,7 +35,7 @@ export default function ProductSizes({
 }: ProductSizesProps) {
   const selectedSizeLabel =
     selectedSize !== null ? product.sizes[selectedSize]?.label : undefined;
-  const [showSizeTable, setShowSizeTable] = useState(false);
+  const [showSizeGuide, setShowSizeGuide] = useState(false);
   return (
     <section className="mt-8">
       <div className="flex items-center justify-between">
@@ -50,7 +50,7 @@ export default function ProductSizes({
 
         <button
           type="button"
-          onClick={() => setShowSizeTable(true)}
+          onClick={() => setShowSizeGuide(true)}
           className="cursor-pointer text-muted hover:text-foreground text-xs underline underline-offset-4 transition-colors"
         >
           Guia de Medidas
@@ -187,10 +187,10 @@ export default function ProductSizes({
           </div>
         </div>
       )}
-      {showSizeTable && (
+      {showSizeGuide && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
-          onClick={() => setShowSizeTable(false)}
+          onClick={() => setShowSizeGuide(false)}
         >
           <div
             className="bg-background relative max-h-[90vh] max-w-2xl overflow-hidden rounded-2xl shadow-xl"
@@ -198,7 +198,7 @@ export default function ProductSizes({
           >
             <button
               type="button"
-              onClick={() => setShowSizeTable(false)}
+              onClick={() => setShowSizeGuide(false)}
               className="cursor-pointer text-muted hover:text-foreground bg-background/90 absolute top-3 right-3 z-10 flex h-8 w-8 items-center justify-center rounded-full text-lg shadow-sm transition-colors"
               aria-label="Fechar"
             >
@@ -206,7 +206,7 @@ export default function ProductSizes({
             </button>
 
             <img
-              src="/sizetable.webp"
+              src="/sizeguide.webp"
               alt="Guia de Medidas"
               className="max-h-[90vh] w-auto object-contain"
             />
