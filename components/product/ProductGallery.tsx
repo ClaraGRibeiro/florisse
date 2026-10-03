@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 import ImageWithFallback from "@/components/ui/ImageWithFallback";
@@ -37,6 +38,8 @@ export default function ProductGallery({
 
   const currentImage = images[selectedImage];
 
+  const touchStartX = useRef<number | null>(null);
+
   const discountPercentage =
     currentPrice !== undefined &&
     originalPrice !== undefined &&
@@ -44,9 +47,38 @@ export default function ProductGallery({
       ? Math.round((1 - currentPrice / originalPrice) * 100)
       : 0;
 
+  const handleTouchStart = (event: React.TouchEvent) => {
+    touchStartX.current = event.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (event: React.TouchEvent) => {
+    if (touchStartX.current === null || !hasMultipleImages) {
+      return;
+    }
+
+    const touchEndX = event.changedTouches[0].clientX;
+    const distance = touchStartX.current - touchEndX;
+
+    const minimumSwipeDistance = 50;
+
+    if (Math.abs(distance) >= minimumSwipeDistance) {
+      if (distance > 0) {
+        onNextImage();
+      } else {
+        onPreviousImage();
+      }
+    }
+
+    touchStartX.current = null;
+  };
+
   return (
     <div className="relative mx-auto w-full max-w-120">
-      <div className="border-border/20 bg-muted/20 relative aspect-9/12 w-full overflow-hidden rounded-4xl border shadow-sm">
+      <div
+        className="border-border/20 bg-muted/20 relative aspect-9/12 w-full touch-pan-y overflow-hidden rounded-4xl border shadow-sm"
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
         <ImageWithFallback
           key={imageSrc ?? "no-image"}
           src={imageSrc}
@@ -61,6 +93,7 @@ export default function ProductGallery({
           fallbackMessage="Não foi possível carregar a imagem"
           className="object-cover"
         />
+
         {currentImage?.alt && (
           <div
             className="bg-primary/50 absolute bottom-4 left-1/2 z-20 max-w-[calc(100%-2rem)] -translate-x-1/2 rounded-full px-4 py-2 text-center text-[11px] leading-relaxed text-white shadow-md backdrop-blur-md"

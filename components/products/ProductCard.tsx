@@ -5,16 +5,15 @@ import { useState } from "react";
 import { FaWhatsapp } from "react-icons/fa";
 
 import { WHATSAPP } from "@/data/config";
+import { getProductUrl } from "@/lib/productUrl";
 import { Product } from "@/types/product";
 import { getGradient } from "@/utils/gradient";
-import { getProductUrl } from "@/lib/productUrl";
 
 import ProductImage from "./ProductImage";
 
 export function ProductCard({
   product,
   bestSellingByCategory,
-  formatPath,
   formatColor,
   readyColor,
   readySize,
@@ -88,7 +87,7 @@ Valor: R$ ${readyPrice?.toFixed(2).replace(".", ",")}`,
 
       {readyQuantity !== undefined && (
         <div className="bg-background/90 text-primary absolute top-4 left-4 rounded-full px-3.5 py-1.5 text-[11px] font-semibold tracking-wide uppercase shadow-sm backdrop-blur-md">
-          DISPONÍVEL AGORA
+          {readyQuantity} {readyQuantity > 1 ? "DISPONÍVEIS" : "DISPONÍVEL"} AGORA
         </div>
       )}
 
@@ -116,14 +115,9 @@ Valor: R$ ${readyPrice?.toFixed(2).replace(".", ",")}`,
         </div>
 
         <div className="mt-5">
-          <p className="text-muted mb-2 text-[11px] font-semibold tracking-[0.14em] uppercase">
-            {readyQuantity !== undefined
-              ? `${readyQuantity} ${
-                  readyQuantity === 1
-                    ? "unidade disponível"
-                    : "unidades disponíveis"
-                }`
-              : `${product.sizes.length} ${product.sizes.length > 1 ? "tamanhos disponíveis" : "tamanho disponível"}`}
+          <p className="text-muted mb-2 text-[11px] hidden font-semibold tracking-[0.14em] uppercase md:block">
+            {readyQuantity === undefined &&
+             `${product.sizes.length} ${product.sizes.length > 1 ? "tamanhos disponíveis" : "tamanho disponível"}`}
           </p>
 
           {readyQuantity !== undefined ? (
@@ -135,53 +129,90 @@ Valor: R$ ${readyPrice?.toFixed(2).replace(".", ",")}`,
                   background: getGradient(selectedColor?.hex ?? []),
                 }}
               />
-
               <span className="text-muted text-xs font-medium">
                 {formatColor(readyColor ?? "")}
               </span>
             </div>
           ) : (
             <div className="flex flex-wrap items-center gap-2">
-              {product.colors.slice(0, 7).map((color) => {
-                const isSelected = selectedColorName === color.name;
-                const isHovered = hoveredColor === color.name;
+              <div className="flex items-center gap-2 md:hidden">
+                {product.colors.slice(0, 3).map((color) => {
+                  const isSelected = selectedColorName === color.name;
+                  const isHovered = hoveredColor === color.name;
 
-                return (
-                  <button
-                    key={color.name}
-                    type="button"
-                    title={`Selecionar ${formatColor(color.name)}`}
-                    aria-label={`Selecionar ${product.name} na cor ${formatColor(
-                      color.name,
-                    )}`}
-                    aria-pressed={isSelected}
-                    onMouseEnter={() => setHoveredColor(color.name)}
-                    onMouseLeave={() => setHoveredColor(null)}
-                    onClick={(event) => handleColorClick(event, color.name)}
-                    className={`border-background h-6 w-6 cursor-pointer rounded-full border-2 shadow-sm transition-all duration-200 ${
-                      isSelected
-                        ? "ring-primary/40 scale-125 ring-2"
-                        : isHovered
-                          ? "ring-primary/20 scale-110 ring-2"
-                          : "hover:scale-110"
-                    }`}
-                    style={{
-                      background: getGradient(color.hex),
-                    }}
-                  />
-                );
-              })}
+                  return (
+                    <button
+                      key={color.name}
+                      type="button"
+                      title={`Selecionar ${formatColor(color.name)}`}
+                      aria-label={`Selecionar ${product.name} na cor ${formatColor(color.name)}`}
+                      aria-pressed={isSelected}
+                      onMouseEnter={() => setHoveredColor(color.name)}
+                      onMouseLeave={() => setHoveredColor(null)}
+                      onClick={(event) => handleColorClick(event, color.name)}
+                      className={`border-background h-6 w-6 cursor-pointer rounded-full border-2 shadow-sm transition-all duration-200 ${
+                        isSelected
+                          ? "ring-primary/40 scale-125 ring-2"
+                          : isHovered
+                            ? "ring-primary/20 scale-110 ring-2"
+                            : "hover:scale-110"
+                      }`}
+                      style={{
+                        background: getGradient(color.hex),
+                      }}
+                    />
+                  );
+                })}
 
-              {product.colors.length > 7 && (
-                <span className="text-muted ml-1 text-xs font-medium">
-                  +{product.colors.length - 7}
-                </span>
-              )}
+                {product.colors.length > 3 && (
+                  <span className="text-muted ml-1 text-xs font-medium">
+                    +{product.colors.length - 3}
+                  </span>
+                )}
+              </div>
+
+              <div className="hidden items-center gap-2 md:flex">
+                {product.colors.slice(0, 7).map((color) => {
+                  const isSelected = selectedColorName === color.name;
+                  const isHovered = hoveredColor === color.name;
+
+                  return (
+                    <button
+                      key={color.name}
+                      type="button"
+                      title={`Selecionar ${formatColor(color.name)}`}
+                      aria-label={`Selecionar ${product.name} na cor ${formatColor(
+                        color.name,
+                      )}`}
+                      aria-pressed={isSelected}
+                      onMouseEnter={() => setHoveredColor(color.name)}
+                      onMouseLeave={() => setHoveredColor(null)}
+                      onClick={(event) => handleColorClick(event, color.name)}
+                      className={`border-background h-6 w-6 cursor-pointer rounded-full border-2 shadow-sm transition-all duration-200 ${
+                        isSelected
+                          ? "ring-primary/40 scale-125 ring-2"
+                          : isHovered
+                            ? "ring-primary/20 scale-110 ring-2"
+                            : "hover:scale-110"
+                      }`}
+                      style={{
+                        background: getGradient(color.hex),
+                      }}
+                    />
+                  );
+                })}
+
+                {product.colors.length > 7 && (
+                  <span className="text-muted ml-1 text-xs font-medium">
+                    +{product.colors.length - 7}
+                  </span>
+                )}
+              </div>
             </div>
           )}
         </div>
 
-        <div className="border-border/70 mt-6 flex items-end justify-between gap-4 border-t pt-5">
+        <div className="border-border/70 mt-6 flex-wrap flex items-end justify-between gap-4 border-t pt-5">
           <div>
             <p className="text-muted text-[11px] font-medium tracking-wide uppercase">
               {isReadyProduct ? "Valor da peça" : "A partir de"}

@@ -163,7 +163,7 @@ export default function Colors({ formatColor }: ColorsProps) {
           </p>
         </div>
 
-        <div className="mx-auto grid max-w-6xl grid-cols-4 gap-x-3 gap-y-6 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12">
+        <div className="mx-auto grid max-w-6xl grid-cols-5 gap-x-3 gap-y-6 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12">
           {colors.map((color) => {
             const isLight =
               color.hex.toLowerCase() === "#ffffff" ||

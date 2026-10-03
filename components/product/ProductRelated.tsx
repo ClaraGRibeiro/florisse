@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
+import { useEffect, useMemo, useState } from "react";
 
-import { Product } from "@/types/product";
 import { getProductColors } from "@/lib/colors";
 import { getProductPrice } from "@/lib/pricing";
 import { getBestSellingByCategory } from "@/lib/products";
+import { Product } from "@/types/product";
 import { formatColor, formatPath } from "@/utils/format";
 
 import { ProductCard } from "../products/ProductCard";
@@ -46,9 +46,6 @@ export default function ProductRelated({
         }
       }
 
-      
-
-
       visited.add(product.name);
 
       setVisitedProducts(visited);
@@ -58,10 +55,6 @@ export default function ProductRelated({
         JSON.stringify(Array.from(visited)),
       );
     } catch {
-      
-
-
-
       const fallback = new Set<string>();
 
       fallback.add(product.name);
@@ -84,15 +77,9 @@ export default function ProductRelated({
       .map((candidate, originalIndex) => {
         let score = 0;
 
-        
-
-
         if (candidate.category === product.category) {
           score += 100;
         }
-
-        
-
 
         const candidateColors = getProductColors(candidate);
 
@@ -111,9 +98,6 @@ export default function ProductRelated({
         if (sharedColors >= 2) {
           score += 10;
         }
-
-        
-
 
         const candidatePrice = getProductPrice(candidate);
 
@@ -142,33 +126,14 @@ export default function ProductRelated({
         };
       });
 
-    
-
-
-
-
-
-
     scoredProducts.sort((a, b) => {
-      
-
-
       if (a.wasVisited !== b.wasVisited) {
         return a.wasVisited ? 1 : -1;
       }
 
-      
-
-
       if (b.score !== a.score) {
         return b.score - a.score;
       }
-
-      
-
-
-
-
 
       return a.originalIndex - b.originalIndex;
     });
@@ -185,25 +150,15 @@ export default function ProductRelated({
 
     const selected: Product[] = [];
 
-    
-
-
     sameColorFresh.slice(0, 3).forEach((item) => {
       if (selected.length < 3) {
         selected.push(item.product);
       }
     });
 
-    
-
-
-
     if (selected.length < 4 && differentColorFresh.length > 0) {
       selected.push(differentColorFresh[0].product);
     }
-
-    
-
 
     if (selected.length < 4) {
       const selectedNames = new Set(selected.map((item) => item.name));
@@ -231,10 +186,6 @@ export default function ProductRelated({
           return false;
         }).length;
 
-        
-
-
-
         if (item.sharedColors > 0 && sameColorCount >= 3) {
           continue;
         }
@@ -244,10 +195,6 @@ export default function ProductRelated({
         selectedNames.add(item.product.name);
       }
     }
-
-    
-
-
 
     if (selected.length < 4) {
       const selectedNames = new Set(selected.map((item) => item.name));
@@ -312,7 +259,7 @@ export default function ProductRelated({
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-12 grid grid-cols-2 gap-2 md:gap-6 lg:grid-cols-3 xl:grid-cols-4">
           {relatedProducts.map((relatedProduct, index) => (
             <motion.div
               key={relatedProduct.name}
