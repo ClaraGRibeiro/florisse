@@ -19,7 +19,7 @@ export default function ColorsPreview() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.8 }}
-      className="scroll-mt-20 overflow-hidden bg-[radial-gradient(circle_at_20%_20%,rgba(194,92,52,0.25),transparent_60%),radial-gradient(circle_at_80%_30%,rgba(74,93,58,0.25),transparent_60%),radial-gradient(circle_at_50%_100%,rgba(202,157,45,0.25),transparent_60%)] py-16 sm:py-20 lg:py-28"
+      className="scroll-mt-20 overflow-hidden bg-[radial-gradient(circle_at_20%_20%,rgba(194,92,52,0.22),transparent_50%),radial-gradient(circle_at_80%_30%,rgba(74,93,58,0.22),transparent_50%),radial-gradient(circle_at_50%_100%,rgba(202,157,45,0.22),transparent_50%)] py-16 sm:py-20 lg:py-28"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Link

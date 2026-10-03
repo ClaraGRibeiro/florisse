@@ -97,7 +97,7 @@ const readyToDeliver: ReadyToDeliver[] = [
     images: null,
     size: "37 cm",
     price: 25,
-    quantity: 2,
+    quantity: 1,
   },
   {
     name: null,
