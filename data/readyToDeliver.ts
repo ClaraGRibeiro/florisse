@@ -65,6 +65,15 @@ const readyToDeliver: ReadyToDeliver[] = [
   },
   {
     name: null,
+    productId: "tapete-meia-lua-samuel",
+    color: "cinza",
+    images: null,
+    size: "100 × 50 cm",
+    price: 150,
+    quantity: 1,
+  },
+  {
+    name: null,
     productId: "tapete-janine",
     color: "verde limao-cru",
     images: null,

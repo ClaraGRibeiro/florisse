@@ -123,7 +123,7 @@ Valor: R$ ${readyPrice?.toFixed(2).replace(".", ",")}`,
                     ? "unidade disponível"
                     : "unidades disponíveis"
                 }`
-              : `${product.sizes.length} tamanhos disponíveis`}
+              : `${product.sizes.length} ${product.sizes.length > 1 ? "tamanhos disponíveis" : "tamanho disponível"}`}
           </p>
 
           {readyQuantity !== undefined ? (

@@ -534,6 +534,38 @@ const rugs = [
   },
 
   {
+    name: "Tapete Meia Lua Samuel",
+    category: "Tapetes",
+
+    sizes: [
+      {
+        label: "100 × 50 cm",
+        price: 150,
+        sales: 0,
+      },
+    ],
+
+    colors: ["cinza"],
+
+    images: {
+      "cinza": [
+        {
+          url: "/products/rugs/tapete-meia-lua-samuel/cinza.jpg",
+          alt: "100 × 50 cm",
+        },
+        {
+          url: "/products/rugs/tapete-meia-lua-samuel/cinza-2.jpg",
+          alt: "100 × 50 cm",
+        },
+        {
+          url: "/products/rugs/tapete-meia-lua-samuel/cinza-3.jpg",
+          alt: "100 × 50 cm",
+        },
+      ],
+    },
+  },
+
+  {
     name: "Tapete Maravilha",
     category: "Tapetes",
 
