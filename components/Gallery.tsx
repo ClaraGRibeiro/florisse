@@ -215,9 +215,7 @@ export default function Gallery({ items }: GalleryProps) {
           Todos
           <span
             className={`text-xs ${
-              category === "Todos"
-                ? "text-primary-foreground/80"
-                : "text-muted"
+              category === "Todos" ? "text-primary-foreground/80" : "text-muted"
             }`}
           >
             {items.length}
@@ -292,7 +290,7 @@ export default function Gallery({ items }: GalleryProps) {
                 aria-pressed={isSelected}
                 className={`flex shrink-0 items-center gap-2 rounded-full border px-3 py-2 text-sm transition-all ${
                   isSelected
-                    ? "border-primary bg-primary/10 text-foreground ring-1 ring-primary"
+                    ? "border-primary bg-primary/10 text-foreground ring-primary ring-1"
                     : "border-border bg-background text-foreground hover:border-primary/50"
                 }`}
               >
@@ -314,12 +312,17 @@ export default function Gallery({ items }: GalleryProps) {
           : `${filteredItems.length} resultados`}
         {category !== "Todos" && (
           <>
-            {" "}em <strong className="text-foreground">{category}</strong>
+            {" "}
+            em <strong className="text-foreground">{category}</strong>
           </>
         )}
         {selectedColor !== "all" && (
           <>
-            {" "}para <strong className="text-foreground">{formatColor(selectedColor)}</strong>
+            {" "}
+            para{" "}
+            <strong className="text-foreground">
+              {formatColor(selectedColor)}
+            </strong>
           </>
         )}
       </p>
@@ -334,12 +337,13 @@ export default function Gallery({ items }: GalleryProps) {
           ))}
         </div>
       ) : (
-        <div className="rounded-2xl border border-dashed border-border px-6 py-16 text-center">
+        <div className="border-border rounded-2xl border border-dashed px-6 py-16 text-center">
           <p className="font-serif text-xl font-semibold">
             Nenhuma peça encontrada.
           </p>
           <p className="text-muted-foreground mt-2 text-sm">
-            Experimente outra categoria ou cor, ou veja todas as peças da galeria.
+            Experimente outra categoria ou cor, ou veja todas as peças da
+            galeria.
           </p>
           <button
             type="button"

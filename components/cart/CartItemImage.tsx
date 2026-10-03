@@ -11,7 +11,10 @@ type CartItemImageProps = {
 
 export default function CartItemImage({ item }: CartItemImageProps) {
   return (
-    <Link href={getProductUrl(item.name, { color: item.color, size: item.size })} className="block shrink-0">
+    <Link
+      href={getProductUrl(item.name, { color: item.color, size: item.size })}
+      className="block shrink-0"
+    >
       <div className="relative h-40 w-full overflow-hidden rounded-[1.25rem] md:h-36 md:w-36">
         <ImageWithFallback
           src={item.image}

@@ -60,7 +60,7 @@ export default function ProductActions({
         onClick={onBuyWhatsApp}
         disabled={!canAddToCart}
         aria-label="Comprar pelo WhatsApp"
-        className="border-primary text-primary hover:bg-primary/5 mt-3 flex h-14 w-full cursor-pointer items-center justify-center gap-3 rounded-full border px-6 text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md disabled:cursor-not-allowed disabled:border-muted/30 disabled:text-muted"
+        className="border-primary text-primary hover:bg-primary/5 disabled:border-muted/30 disabled:text-muted mt-3 flex h-14 w-full cursor-pointer items-center justify-center gap-3 rounded-full border px-6 text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md disabled:cursor-not-allowed"
       >
         <FaWhatsapp className="text-base" />
         Comprar pelo WhatsApp

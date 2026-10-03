@@ -31,7 +31,6 @@ const normalizeColor = (value: string) =>
     .replace(/[\u0300-\u036f]/g, "")
     .trim();
 
-
 export function getColorHex(color: string): string[] {
   const colorMap = new Map(colors.map((item) => [item.name, item.hex]));
 
@@ -94,7 +93,9 @@ export function getProductsByColor(
           return true;
         }
 
-        return normalizedProductColor.split("-").includes(normalizedSelectedColor);
+        return normalizedProductColor
+          .split("-")
+          .includes(normalizedSelectedColor);
       })
       .map((color) => ({
         product,
@@ -130,6 +131,7 @@ export function getProductStartingPrice(product: Product): string | null {
 
 export function getColorBySlug(slug: string): Color | undefined {
   return colors.find(
-    (color) => formatPath(color.name) === normalizeColor(slug).replace(/\s+/g, "-"),
+    (color) =>
+      formatPath(color.name) === normalizeColor(slug).replace(/\s+/g, "-"),
   );
 }

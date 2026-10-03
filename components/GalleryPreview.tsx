@@ -143,7 +143,7 @@ export default function GalleryPreview() {
       transition={{
         duration: 0.8,
       }}
-      className="overflow-hidden scroll-mt-20 py-16 sm:py-20 lg:py-24"
+      className="scroll-mt-20 overflow-hidden py-16 sm:py-20 lg:py-24"
     >
       {" "}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

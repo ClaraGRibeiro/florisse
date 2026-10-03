@@ -21,7 +21,6 @@ export function useModalAccessibility({
   useEffect(() => {
     if (!isOpen) return;
 
-    
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 

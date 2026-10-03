@@ -89,8 +89,7 @@ export default function ProductClient({ slug }: ProductClientProps) {
         .replace(/\s+/g, "");
 
       const sizeIndex = product.sizes.findIndex(
-        (item) =>
-          item.label.replace(/\s*[×x]\s*/gi, "x") === normalizedSize,
+        (item) => item.label.replace(/\s*[×x]\s*/gi, "x") === normalizedSize,
       );
 
       if (sizeIndex >= 0) {
@@ -102,7 +101,12 @@ export default function ProductClient({ slug }: ProductClientProps) {
   }, [product, searchParams]);
 
   useEffect(() => {
-    if (!product || !initializedFromUrl.current || isOtherColor || isCustomSize) {
+    if (
+      !product ||
+      !initializedFromUrl.current ||
+      isOtherColor ||
+      isCustomSize
+    ) {
       return;
     }
 

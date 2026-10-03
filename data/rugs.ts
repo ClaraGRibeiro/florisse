@@ -548,7 +548,7 @@ const rugs = [
     colors: ["cinza"],
 
     images: {
-      "cinza": [
+      cinza: [
         {
           url: "/products/rugs/tapete-meia-lua-samuel/cinza.jpg",
           alt: "100 × 50 cm",

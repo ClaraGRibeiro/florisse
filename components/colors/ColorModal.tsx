@@ -39,9 +39,7 @@ export default function ColorModal({
 
   const productsWithColor = useMemo(
     () =>
-      selectedColorName
-        ? getProductsByColor(products, selectedColorName)
-        : [],
+      selectedColorName ? getProductsByColor(products, selectedColorName) : [],
     [products, selectedColorName],
   );
 
@@ -164,9 +162,7 @@ export default function ColorModal({
                               <button
                                 key={colorNameInCombo}
                                 type="button"
-                                onClick={() =>
-                                  onSelectColor(colorNameInCombo)
-                                }
+                                onClick={() => onSelectColor(colorNameInCombo)}
                                 title={`Ver combinações com ${formatColor(
                                   foundColor.name,
                                 )}`}

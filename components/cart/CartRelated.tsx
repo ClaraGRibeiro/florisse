@@ -26,7 +26,9 @@ export default function CartRelated({ productNames }: CartRelatedProps) {
     }
 
     const cartNames = new Set(cartProducts.map((product) => product.name));
-    const cartCategories = new Set(cartProducts.map((product) => product.category));
+    const cartCategories = new Set(
+      cartProducts.map((product) => product.category),
+    );
     const cartColors = new Set(
       cartProducts.flatMap((product) => Array.from(getProductColors(product))),
     );

@@ -20,8 +20,6 @@ export default function CartItemQuantity({
 }: CartItemQuantityProps) {
   const [value, setValue] = useState(String(item.quantity));
 
-  
-  
   useEffect(() => {
     setValue(String(item.quantity));
   }, [item.quantity]);
@@ -29,7 +27,6 @@ export default function CartItemQuantity({
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const rawValue = event.target.value;
 
-    
     setValue(rawValue);
 
     if (rawValue === "") {

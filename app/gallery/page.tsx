@@ -15,8 +15,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: `Galeria | ${BRAND}`,
-    description:
-      `Veja as peças da ${BRAND} em diferentes cores e combinações.`,
+    description: `Veja as peças da ${BRAND} em diferentes cores e combinações.`,
     url: `${SITE}/gallery`,
     siteName: BRAND,
     locale: "pt_BR",

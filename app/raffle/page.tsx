@@ -25,9 +25,7 @@ export default function RafflePage() {
         setTimeout(() => {
           setCopied(false);
         }, 2000);
-      } catch {
-        
-      }
+      } catch {}
 
       return;
     }
@@ -38,9 +36,7 @@ export default function RafflePage() {
         text: `Olha essa rifa da ${BRAND}! 🧶✨`,
         url,
       });
-    } catch {
-      
-    }
+    } catch {}
   };
 
   return (

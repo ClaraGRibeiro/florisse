@@ -107,7 +107,9 @@ export default function Hero({ bestSelling, formatPath }: HeroProps) {
           className="relative flex justify-center md:justify-end"
         >
           <Link
-            href={getProductUrl(bestSelling.name, { color: bestSelling.colors[0]?.name })}
+            href={getProductUrl(bestSelling.name, {
+              color: bestSelling.colors[0]?.name,
+            })}
             className="group block w-full max-w-125"
           >
             <div className="relative">

@@ -107,10 +107,6 @@ export default function RaffleNumbers({ rafflePrice }: RaffleNumbersProps) {
 
   const raffleHasWinner = winner !== "" && winNumber !== "";
 
-  
-
-
-
   useEffect(() => {
     if (!raffleHasWinner || !winnerRef.current) {
       return;

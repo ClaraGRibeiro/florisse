@@ -259,7 +259,7 @@ export default function ProductRelated({
           </p>
         </motion.div>
 
-      <div className="mt-12 grid grid-cols-2 gap-2 md:gap-6 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="mt-12 grid grid-cols-2 gap-2 md:gap-6 lg:grid-cols-3 xl:grid-cols-4">
           {relatedProducts.map((relatedProduct, index) => (
             <motion.div
               key={relatedProduct.name}

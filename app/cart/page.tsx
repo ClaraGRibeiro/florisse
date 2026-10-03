@@ -31,12 +31,6 @@ export default function Cart() {
   const [confirmationModal, setConfirmationModal] =
     useState<Confirmation | null>(null);
 
-  
-
-
-
-
-
   const regularItems = useMemo(
     () => cart.filter((item) => item.type === "product"),
     [cart],
@@ -187,9 +181,7 @@ Gostaria de confirmar a disponibilidade, o valor do frete e combinar a entrega.`
               <span>Suas escolhas</span>
             </div>
 
-            {
-
-}
+            {}
             {regularItems.length > 0 && (
               <section>
                 <div className="mb-4 flex items-center gap-3">
@@ -234,9 +226,7 @@ Gostaria de confirmar a disponibilidade, o valor do frete e combinar a entrega.`
               </section>
             )}
 
-            {
-
-}
+            {}
             {customItems.length > 0 && (
               <section className="mt-10">
                 <div className="border-primary/20 bg-primary/5 mb-5 rounded-[1.75rem] border p-5 sm:p-6">

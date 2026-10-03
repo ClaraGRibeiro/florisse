@@ -51,7 +51,7 @@ export default function ProductSizes({
         <button
           type="button"
           onClick={() => setShowSizeGuide(true)}
-          className="cursor-pointer text-muted hover:text-foreground text-xs underline underline-offset-4 transition-colors"
+          className="text-muted hover:text-foreground cursor-pointer text-xs underline underline-offset-4 transition-colors"
         >
           Guia de Medidas
         </button>
@@ -199,7 +199,7 @@ export default function ProductSizes({
             <button
               type="button"
               onClick={() => setShowSizeGuide(false)}
-              className="cursor-pointer text-muted hover:text-foreground bg-background/90 absolute top-3 right-3 z-10 flex h-8 w-8 items-center justify-center rounded-full text-lg shadow-sm transition-colors"
+              className="text-muted hover:text-foreground bg-background/90 absolute top-3 right-3 z-10 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full text-lg shadow-sm transition-colors"
               aria-label="Fechar"
             >
               ×

@@ -15,7 +15,13 @@ export function getProductUrl(
   }
 
   if (options?.size) {
-    params.set("tamanho", options.size.replace(/\s*(?:×|x)\s*/gi, "x").replace(/\s*cm\b/gi, "").replace(/\s+/g, ""));
+    params.set(
+      "tamanho",
+      options.size
+        .replace(/\s*(?:×|x)\s*/gi, "x")
+        .replace(/\s*cm\b/gi, "")
+        .replace(/\s+/g, ""),
+    );
   }
 
   const query = params.toString();

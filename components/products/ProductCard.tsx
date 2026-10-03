@@ -87,7 +87,8 @@ Valor: R$ ${readyPrice?.toFixed(2).replace(".", ",")}`,
 
       {readyQuantity !== undefined && (
         <div className="bg-background/90 text-primary absolute top-4 left-4 rounded-full px-3.5 py-1.5 text-[11px] font-semibold tracking-wide uppercase shadow-sm backdrop-blur-md">
-          {readyQuantity} {readyQuantity > 1 ? "DISPONÍVEIS" : "DISPONÍVEL"} AGORA
+          {readyQuantity} {readyQuantity > 1 ? "DISPONÍVEIS" : "DISPONÍVEL"}{" "}
+          AGORA
         </div>
       )}
 
@@ -115,9 +116,9 @@ Valor: R$ ${readyPrice?.toFixed(2).replace(".", ",")}`,
         </div>
 
         <div className="mt-5">
-          <p className="text-muted mb-2 text-[11px] hidden font-semibold tracking-[0.14em] uppercase md:block">
+          <p className="text-muted mb-2 hidden text-[11px] font-semibold tracking-[0.14em] uppercase md:block">
             {readyQuantity === undefined &&
-             `${product.sizes.length} ${product.sizes.length > 1 ? "tamanhos disponíveis" : "tamanho disponível"}`}
+              `${product.sizes.length} ${product.sizes.length > 1 ? "tamanhos disponíveis" : "tamanho disponível"}`}
           </p>
 
           {readyQuantity !== undefined ? (
@@ -212,7 +213,7 @@ Valor: R$ ${readyPrice?.toFixed(2).replace(".", ",")}`,
           )}
         </div>
 
-        <div className="border-border/70 mt-6 flex-wrap flex items-end justify-between gap-4 border-t pt-5">
+        <div className="border-border/70 mt-6 flex flex-wrap items-end justify-between gap-4 border-t pt-5">
           <div>
             <p className="text-muted text-[11px] font-medium tracking-wide uppercase">
               {isReadyProduct ? "Valor da peça" : "A partir de"}

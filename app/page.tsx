@@ -47,7 +47,7 @@ export default function Home() {
       />
 
       <ColorsPreview />
-      <GalleryPreview/>
+      <GalleryPreview />
       <WhyFlorisse />
       <About />
       <Footer />

@@ -63,9 +63,7 @@ export default function CartItemInfo({ item }: CartItemInfoProps) {
             {item.noDiscount != null && item.noDiscount > item.price && (
               <p className="text-muted text-sm font-medium whitespace-nowrap line-through">
                 R${" "}
-                {(item.noDiscount * item.quantity)
-                  .toFixed(2)
-                  .replace(".", ",")}
+                {(item.noDiscount * item.quantity).toFixed(2).replace(".", ",")}
               </p>
             )}
           </>

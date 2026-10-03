@@ -7,8 +7,6 @@ export default function ScrollToTop() {
   const pathname = usePathname();
 
   useEffect(() => {
-    
-    
     if (window.location.hash) {
       return;
     }
