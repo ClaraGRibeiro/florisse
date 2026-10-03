@@ -127,3 +127,9 @@ export function getProductStartingPrice(product: Product): string | null {
     currency: "BRL",
   });
 }
+
+export function getColorBySlug(slug: string): Color | undefined {
+  return colors.find(
+    (color) => formatPath(color.name) === normalizeColor(slug).replace(/\s+/g, "-"),
+  );
+}

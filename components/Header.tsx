@@ -12,7 +12,7 @@ import { FaClover } from "react-icons/fa6";
 const navItems = [
   { label: "Início", href: "/#inicio" },
   { label: "Produtos", href: "/#produtos" },
-  { label: "Cores", href: "/#cores" },
+  { label: "Cores", href: "/cores" },
   { label: "Galeria", href: "/gallery" },
   { label: "Sobre", href: "/#sobre" },
 ];

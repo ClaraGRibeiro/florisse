@@ -1,8 +1,10 @@
 import { AnimatePresence, motion } from "framer-motion";
+import Link from "next/link";
 import { FaPalette } from "react-icons/fa";
 
 import { Color, Palette } from "@/lib/colors";
 import { useModalAccessibility } from "@/hooks/useModalAccessibility";
+import { formatPath } from "@/utils/format";
 
 type PaletteModalProps = {
   isOpen: boolean;
@@ -10,7 +12,6 @@ type PaletteModalProps = {
   colors: Color[];
   formatColor: (name: string) => string;
   onClose: () => void;
-  onSelectColor: (colorName: string) => void;
 };
 
 export default function PaletteModal({
@@ -19,7 +20,6 @@ export default function PaletteModal({
   colors,
   formatColor,
   onClose,
-  onSelectColor,
 }: PaletteModalProps) {
   const accessibility = useModalAccessibility({
     isOpen,
@@ -118,12 +118,12 @@ export default function PaletteModal({
                         }
 
                         return (
-                          <button
+                          <Link
                             key={colorName}
-                            type="button"
-                            onClick={() => onSelectColor(colorName)}
+                            href={`/cores/${formatPath(foundColor.name)}`}
+                            onClick={onClose}
                             title={formatColor(foundColor.name)}
-                            aria-label={`Ver combinações com ${formatColor(
+                            aria-label={`Ver peças na cor ${formatColor(
                               foundColor.name,
                             )}`}
                             className="group/color focus-visible:ring-primary cursor-pointer text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
@@ -138,7 +138,7 @@ export default function PaletteModal({
                             <span className="text-muted group-hover/color:text-primary mt-1.5 block truncate text-center text-[10px] font-medium transition-colors sm:text-xs">
                               {formatColor(foundColor.name)}
                             </span>
-                          </button>
+                          </Link>
                         );
                       })}
                     </div>

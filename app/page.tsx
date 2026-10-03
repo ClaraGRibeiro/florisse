@@ -1,6 +1,6 @@
 "use client";
 
-import Colors from "@/components/Colors";
+import ColorsPreview from "@/components/ColorsPreview";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import WhyFlorisse from "@/components/WhyFlorisse";
@@ -33,7 +33,7 @@ export default function Home() {
   const { showTop, scrollToTop } = useScrollTop();
 
   return (
-    <div className="bg-background text-foreground min-h-screen">
+    <div className="bg-card text-foreground min-h-screen">
       <Hero bestSelling={bestSelling} formatPath={formatPath} />
 
       <Products
@@ -46,7 +46,7 @@ export default function Home() {
         categoryCounts={categoryCounts}
       />
 
-      <Colors formatColor={formatColor} />
+      <ColorsPreview />
       <GalleryPreview/>
       <WhyFlorisse />
       <About />
