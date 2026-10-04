@@ -179,16 +179,16 @@ export default function ProductInfo({
         onBuyWhatsApp={onBuyWhatsApp}
       />
 
-      <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
+      <div className="mt-6 grid grid-cols-2 gap-3">
         <div className="flex items-center gap-3">
           <FaPalette size={15} className="text-primary shrink-0" />
 
-          <span className="text-foreground text-sm">Cores personalizáveis</span>
+          <span className="text-foreground text-xs sm:text-sm">Cores personalizáveis</span>
         </div>
         <div className="flex items-center gap-3">
           <FaRulerCombined size={15} className="text-primary shrink-0" />
 
-          <span className="text-foreground text-sm">
+          <span className="text-foreground text-xs sm:text-sm">
             Tamanhos à sua escolha
           </span>
         </div>
@@ -196,7 +196,7 @@ export default function ProductInfo({
         <div className="flex items-center gap-3">
           <FaCottonBureau size={15} className="text-primary shrink-0" />
 
-          <span className="text-foreground text-sm">
+          <span className="text-foreground text-xs sm:text-sm">
             Barbante nº 6 85% algodão
           </span>
         </div>
@@ -204,22 +204,22 @@ export default function ProductInfo({
         <div className="flex items-center gap-3">
           <FaBellConcierge size={15} className="text-primary shrink-0" />
 
-          <span className="text-foreground text-sm">
+          <span className="text-foreground text-xs sm:text-sm">
             Produção sob encomenda
           </span>
         </div>
         <div className="flex items-center gap-3">
           <FaHeart size={15} className="text-primary shrink-0" />
 
-          <span className="text-foreground text-sm">Feito à mão</span>
+          <span className="text-foreground text-xs sm:text-sm">Feito à mão e com carinho</span>
         </div>
 
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-3 sm:col-span-2">
             <FaWhatsapp size={16} className="text-primary shrink-0" />
 
-            <span className="text-foreground text-sm">
-              Pedido confirmado pelo WhatsApp
+            <span className="text-foreground text-xs sm:text-sm">
+              Pedido feito pelo WhatsApp
             </span>
           </div>
         </div>

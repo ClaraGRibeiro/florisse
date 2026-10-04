@@ -24,8 +24,7 @@ export default function HeroTitle() {
       transition={{ delay: 0.15, duration: 0.6 }}
       className="text-foreground mt-5 max-w-2xl font-serif text-4xl leading-[1.08] font-semibold tracking-tight sm:text-5xl lg:text-6xl"
     >
-      O detalhe que 
-      <br />adiciona {" "}
+      O detalhe que traz <br />
       <span className="text-primary relative inline-block min-w-[5ch] italic">
         <AnimatePresence mode="wait">
           <motion.span
