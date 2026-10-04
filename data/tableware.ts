@@ -44,7 +44,7 @@ const tableware = [
     sizes: [
       {
         label: "100 × 25 cm",
-        price: 65,
+        price: 45,
         sales: 0,
       },
     ],
@@ -72,13 +72,13 @@ const tableware = [
     sizes: [
       {
         label: "37 cm",
-        price: 27,
+        price: 25,
         sales: 0,
       },
       {
         label: "KIT 6 peças: 6 (37 cm)",
-        price: (27 + 27 + 27 + 27 + 27 + 27) * DISCOUNT,
-        noDiscount: 27 + 27 + 27 + 27 + 27 + 27,
+        price: (25 + 25 + 25 + 25 + 25 + 25) * DISCOUNT,
+        noDiscount: 25 + 25 + 25 + 25 + 25 + 25,
       },
     ],
 
