@@ -3,9 +3,8 @@
 import { motion } from "framer-motion";
 import { useEffect, useMemo, useState } from "react";
 
-import { getProductColors } from "@/lib/colors";
-import { getProductPrice } from "@/lib/pricing";
 import { getBestSellingByCategory } from "@/lib/products";
+import { getRelatedProducts } from "@/lib/relatedProducts";
 import { Product } from "@/types/product";
 import { formatColor, formatPath } from "@/utils/format";
 
@@ -63,159 +62,10 @@ export default function ProductRelated({
     }
   }, [product?.name]);
 
-  const relatedProducts = useMemo(() => {
-    if (!product || products.length <= 1) {
-      return [];
-    }
-
-    const currentColors = getProductColors(product);
-
-    const currentPrice = getProductPrice(product);
-
-    const scoredProducts = products
-      .filter((candidate) => candidate.name !== product.name)
-      .map((candidate, originalIndex) => {
-        let score = 0;
-
-        if (candidate.category === product.category) {
-          score += 100;
-        }
-
-        const candidateColors = getProductColors(candidate);
-
-        let sharedColors = 0;
-
-        currentColors.forEach((color) => {
-          if (candidateColors.has(color)) {
-            sharedColors += 1;
-          }
-        });
-
-        if (sharedColors > 0) {
-          score += 30;
-        }
-
-        if (sharedColors >= 2) {
-          score += 10;
-        }
-
-        const candidatePrice = getProductPrice(candidate);
-
-        if (
-          Number.isFinite(currentPrice) &&
-          Number.isFinite(candidatePrice) &&
-          currentPrice > 0
-        ) {
-          const priceDifference =
-            Math.abs(candidatePrice - currentPrice) / currentPrice;
-
-          if (priceDifference <= 0.2) {
-            score += 20;
-          } else if (priceDifference <= 0.4) {
-            score += 10;
-          }
-        }
-
-        return {
-          product: candidate,
-          score,
-          sharedColors,
-          originalIndex,
-
-          wasVisited: visitedProducts.has(candidate.name),
-        };
-      });
-
-    scoredProducts.sort((a, b) => {
-      if (a.wasVisited !== b.wasVisited) {
-        return a.wasVisited ? 1 : -1;
-      }
-
-      if (b.score !== a.score) {
-        return b.score - a.score;
-      }
-
-      return a.originalIndex - b.originalIndex;
-    });
-
-    const freshProducts = scoredProducts.filter((item) => !item.wasVisited);
-
-    const sameColorFresh = freshProducts.filter(
-      (item) => item.sharedColors > 0,
-    );
-
-    const differentColorFresh = freshProducts.filter(
-      (item) => item.sharedColors === 0,
-    );
-
-    const selected: Product[] = [];
-
-    sameColorFresh.slice(0, 3).forEach((item) => {
-      if (selected.length < 3) {
-        selected.push(item.product);
-      }
-    });
-
-    if (selected.length < 4 && differentColorFresh.length > 0) {
-      selected.push(differentColorFresh[0].product);
-    }
-
-    if (selected.length < 4) {
-      const selectedNames = new Set(selected.map((item) => item.name));
-
-      for (const item of freshProducts) {
-        if (selected.length >= 4) {
-          break;
-        }
-
-        if (selectedNames.has(item.product.name)) {
-          continue;
-        }
-
-        const candidateColors = getProductColors(item.product);
-
-        const sameColorCount = selected.filter((selectedProduct) => {
-          const selectedColors = getProductColors(selectedProduct);
-
-          for (const color of candidateColors) {
-            if (selectedColors.has(color)) {
-              return true;
-            }
-          }
-
-          return false;
-        }).length;
-
-        if (item.sharedColors > 0 && sameColorCount >= 3) {
-          continue;
-        }
-
-        selected.push(item.product);
-
-        selectedNames.add(item.product.name);
-      }
-    }
-
-    if (selected.length < 4) {
-      const selectedNames = new Set(selected.map((item) => item.name));
-
-      const visitedRelevant = scoredProducts.filter(
-        (item) => item.wasVisited && !selectedNames.has(item.product.name),
-      );
-
-      for (const item of visitedRelevant) {
-        if (selected.length >= 4) {
-          break;
-        }
-
-        selected.push(item.product);
-
-        selectedNames.add(item.product.name);
-      }
-    }
-
-    return selected;
-  }, [product, products, visitedProducts]);
+  const relatedProducts = useMemo(
+    () => getRelatedProducts(product, products, visitedProducts),
+    [product, products, visitedProducts],
+  );
 
   if (relatedProducts.length === 0) {
     return null;

@@ -3,8 +3,8 @@
 import { motion } from "framer-motion";
 import { useMemo } from "react";
 
-import { getProductColors } from "@/lib/colors";
 import { getBestSellingByCategory, getProducts } from "@/lib/products";
+import { getRelatedProductsForCart } from "@/lib/relatedProducts";
 import { formatColor, formatPath } from "@/utils/format";
 
 import { ProductCard } from "../products/ProductCard";
@@ -16,49 +16,10 @@ type CartRelatedProps = {
 export default function CartRelated({ productNames }: CartRelatedProps) {
   const products = getProducts();
 
-  const relatedProducts = useMemo(() => {
-    const cartProducts = products.filter((product) =>
-      productNames.includes(product.name),
-    );
-
-    if (!cartProducts.length || products.length <= cartProducts.length) {
-      return [];
-    }
-
-    const cartNames = new Set(cartProducts.map((product) => product.name));
-    const cartCategories = new Set(
-      cartProducts.map((product) => product.category),
-    );
-    const cartColors = new Set(
-      cartProducts.flatMap((product) => Array.from(getProductColors(product))),
-    );
-
-    return products
-      .filter((product) => !cartNames.has(product.name))
-      .map((product, index) => {
-        const productColors = getProductColors(product);
-        const sharedColors = Array.from(productColors).filter((color) =>
-          cartColors.has(color),
-        ).length;
-
-        let score = 0;
-
-        if (cartCategories.has(product.category)) {
-          score += 100;
-        }
-
-        if (sharedColors > 0) {
-          score += 30 + Math.min(sharedColors, 2) * 10;
-        }
-
-        score += Math.min(product.totalSales ?? 0, 20);
-
-        return { product, score, index };
-      })
-      .sort((a, b) => b.score - a.score || a.index - b.index)
-      .slice(0, 4)
-      .map(({ product }) => product);
-  }, [productNames, products]);
+  const relatedProducts = useMemo(
+    () => getRelatedProductsForCart(productNames, products),
+    [productNames, products],
+  );
 
   if (!relatedProducts.length) {
     return null;

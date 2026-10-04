@@ -5,6 +5,7 @@ import { formatCategory } from "@/utils/format";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import HeroTitle from "./HeroTitle";
 
 type HeroProps = {
   bestSelling: Product;
@@ -40,16 +41,7 @@ export default function Hero({ bestSelling, formatPath }: HeroProps) {
             Feito à mão · Feito para você
           </motion.p>
 
-          <motion.h2
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.15, duration: 0.6 }}
-            className="text-foreground mt-5 max-w-2xl font-serif text-4xl leading-[1.08] font-semibold tracking-tight sm:text-5xl lg:text-6xl"
-          >
-            O detalhe que transforma uma casa em{" "}
-            <span className="text-primary italic">lar.</span>
-          </motion.h2>
+         <HeroTitle/>
 
           <motion.p
             initial={{ opacity: 0, y: 15 }}
