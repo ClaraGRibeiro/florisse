@@ -161,46 +161,7 @@ export default function ProductFilters({
         })}
       </div>
 
-      {}
-      {category !== "Pronta Entrega" ? (
-        <div className="flex items-center gap-2">
-          <span className="text-muted text-sm">Ordenar por</span>
-
-          <div className="relative">
-            <select
-              id="sort-products"
-              value={sort}
-              onChange={(event) => setSort(event.target.value as SortOption)}
-              className="border-border/70 bg-background text-foreground hover:border-primary/40 focus:border-primary focus:ring-primary/10 cursor-pointer appearance-none rounded-full border py-2.5 pr-10 pl-4 text-sm font-medium shadow-sm transition-all duration-200 outline-none hover:shadow-md focus:ring-2"
-            >
-              <option value="relevancia">Relevância</option>
-
-              <option value="menor-preco">Menor preço</option>
-
-              <option value="maior-preco">Maior preço</option>
-
-              <option value="az">A - Z</option>
-
-              <option value="za">Z - A</option>
-            </select>
-
-            <svg
-              className="text-muted pointer-events-none absolute top-1/2 right-4 h-4 w-4 -translate-y-1/2"
-              viewBox="0 0 20 20"
-              fill="none"
-              aria-hidden="true"
-            >
-              <path
-                d="M5 7.5L10 12.5L15 7.5"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </div>
-        </div>
-      ) : (
+      {category === "Pronta Entrega" && (
         <div className="border-primary/20 bg-primary/5 rounded-2xl border px-4 py-3.5 shadow-sm">
           <p className="text-foreground/80 text-sm leading-relaxed">
             <span className="text-primary font-semibold">
@@ -211,6 +172,43 @@ export default function ProductFilters({
           </p>
         </div>
       )}
+      <div className="flex items-center gap-2">
+        <span className="text-muted text-sm">Ordenar por</span>
+
+        <div className="relative">
+          <select
+            id="sort-products"
+            value={sort}
+            onChange={(event) => setSort(event.target.value as SortOption)}
+            className="border-border/70 bg-background text-foreground hover:border-primary/40 focus:border-primary focus:ring-primary/10 cursor-pointer appearance-none rounded-full border py-2.5 pr-10 pl-4 text-sm font-medium shadow-sm transition-all duration-200 outline-none hover:shadow-md focus:ring-2"
+          >
+            <option value="relevancia">Relevância</option>
+
+            <option value="menor-preco">Menor preço</option>
+
+            <option value="maior-preco">Maior preço</option>
+
+            <option value="az">A - Z</option>
+
+            <option value="za">Z - A</option>
+          </select>
+
+          <svg
+            className="text-muted pointer-events-none absolute top-1/2 right-4 h-4 w-4 -translate-y-1/2"
+            viewBox="0 0 20 20"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M5 7.5L10 12.5L15 7.5"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </div>
+      </div>
     </div>
   );
 }
