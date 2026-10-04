@@ -1,6 +1,7 @@
 import { DISCOUNT } from "./config";
 
 const rugs = [
+  // Tapete Sara
   {
     name: "Tapete Sara",
     category: "Tapetes",
@@ -13,23 +14,23 @@ const rugs = [
       },
       {
         label: "100 × 45 cm",
-        price: 100,
+        price: 80,
         sales: 0,
       },
       {
         label: "120 × 45 cm",
-        price: 120,
+        price: 110,
         sales: 0,
       },
       {
         label: "KIT 2 peças: (100 × 45 cm)",
-        price: (100 + 100) * DISCOUNT,
-        noDiscount: 100 + 100,
+        price: (80 + 80) * DISCOUNT,
+        noDiscount: 80 + 80,
       },
       {
         label: "KIT 3 peças: 2 (65 × 45 cm) e 1 (120 × 45 cm)",
-        price: (30 + 30 + 120) * DISCOUNT,
-        noDiscount: 30 + 30 + 120,
+        price: (30 + 30 + 110) * DISCOUNT,
+        noDiscount: 30 + 30 + 110,
       },
     ],
 
@@ -49,6 +50,7 @@ const rugs = [
     },
   },
 
+  // Tapete Cleo
   {
     name: "Tapete Cleo",
     category: "Tapetes",
@@ -61,23 +63,23 @@ const rugs = [
       },
       {
         label: "100 × 45 cm",
-        price: 100,
+        price: 80,
         sales: 0,
       },
       {
         label: "120 × 45 cm",
-        price: 120,
+        price: 110,
         sales: 0,
       },
       {
-        label: "KIT 2 peças: 2 (100 × 45 cm)",
-        price: (100 + 100) * DISCOUNT,
-        noDiscount: 100 + 100,
+        label: "KIT 2 peças: (100 × 45 cm)",
+        price: (80 + 80) * DISCOUNT,
+        noDiscount: 80 + 80,
       },
       {
         label: "KIT 3 peças: 2 (65 × 45 cm) e 1 (120 × 45 cm)",
-        price: (30 + 30 + 120) * DISCOUNT,
-        noDiscount: 30 + 30 + 120,
+        price: (30 + 30 + 110) * DISCOUNT,
+        noDiscount: 30 + 30 + 110,
       },
     ],
 
@@ -97,6 +99,7 @@ const rugs = [
     },
   },
 
+  // Tapete Cris
   {
     name: "Tapete Cris",
     category: "Tapetes",
@@ -109,23 +112,23 @@ const rugs = [
       },
       {
         label: "100 × 45 cm",
-        price: 110,
+        price: 100,
         sales: 0,
       },
       {
         label: "120 × 45 cm",
-        price: 130,
+        price: 125,
         sales: 0,
       },
       {
         label: "KIT 2 peças: 2 (100 × 45 cm)",
-        price: (110 + 110) * DISCOUNT,
-        noDiscount: 110 + 110,
+        price: (100 + 100) * DISCOUNT,
+        noDiscount: 100 + 100,
       },
       {
         label: "KIT 3 peças: 2 (65 × 45 cm) e 1 (120 × 45 cm)",
-        price: (35 + 35 + 130) * DISCOUNT,
-        noDiscount: 35 + 35 + 130,
+        price: (35 + 35 + 125) * DISCOUNT,
+        noDiscount: 35 + 35 + 125,
       },
     ],
 
@@ -145,6 +148,7 @@ const rugs = [
     },
   },
 
+  // Tapete Nina
   {
     name: "Tapete Nina",
     category: "Tapetes",
@@ -157,23 +161,23 @@ const rugs = [
       },
       {
         label: "100 × 45 cm",
-        price: 110,
+        price: 100,
         sales: 0,
       },
       {
         label: "120 × 45 cm",
-        price: 130,
+        price: 125,
         sales: 0,
       },
       {
         label: "KIT 2 peças: 2 (100 × 45 cm)",
-        price: (110 + 110) * DISCOUNT,
-        noDiscount: 110 + 110,
+        price: (100 + 100) * DISCOUNT,
+        noDiscount: 100 + 100,
       },
       {
         label: "KIT 3 peças: 2 (65 × 45 cm) e 1 (120 × 45 cm)",
-        price: (35 + 35 + 130) * DISCOUNT,
-        noDiscount: 35 + 35 + 130,
+        price: (35 + 35 + 125) * DISCOUNT,
+        noDiscount: 35 + 35 + 125,
       },
     ],
 
@@ -193,6 +197,7 @@ const rugs = [
     },
   },
 
+  // Tapete Janine
   {
     name: "Tapete Janine",
     category: "Tapetes",
@@ -200,12 +205,12 @@ const rugs = [
     sizes: [
       {
         label: "70 × 50 cm",
-        price: 50,
-        sales: 6,
+        price: 55,
+        sales: 7,
       },
       {
         label: "100 × 50 cm",
-        price: 115,
+        price: 110,
         sales: 5,
       },
       {
@@ -215,13 +220,13 @@ const rugs = [
       },
       {
         label: "KIT 2 peças: 2 (100 × 50 cm)",
-        price: (115 + 115) * DISCOUNT,
-        noDiscount: 115 + 115,
+        price: (110 + 110) * DISCOUNT,
+        noDiscount: 110 + 110,
       },
       {
         label: "KIT 3 peças: 2 (70 × 50 cm) e 1 (120 × 50 cm)",
-        price: (50 + 50 + 145) * DISCOUNT,
-        noDiscount: 50 + 50 + 145,
+        price: (55 + 55 + 145) * DISCOUNT,
+        noDiscount: 55 + 55 + 145,
       },
     ],
 
@@ -291,54 +296,7 @@ const rugs = [
     },
   },
 
-  {
-    name: "Tapete Aline",
-    category: "Tapetes",
-
-    sizes: [
-      {
-        label: "70 × 50 cm",
-        price: 60,
-        sales: 0,
-      },
-      {
-        label: "100 × 50 cm",
-        price: 125,
-        sales: 0,
-      },
-      {
-        label: "120 × 50 cm",
-        price: 155,
-        sales: 0,
-      },
-      {
-        label: "KIT 2 peças: 2 (100 × 50 cm)",
-        price: (125 + 125) * DISCOUNT,
-        noDiscount: 125 + 125,
-      },
-      {
-        label: "KIT 3 peças: 2 (70 × 50 cm) e 1 (120 × 50 cm)",
-        price: (60 + 60 + 155) * DISCOUNT,
-        noDiscount: 60 + 60 + 155,
-      },
-    ],
-
-    colors: ["telha-bege"],
-
-    images: {
-      "telha-bege": [
-        {
-          url: "/products/rugs/tapete-aline/telha-bege.jpg",
-          alt: "76 × 53 cm",
-        },
-        {
-          url: "/products/rugs/tapete-aline/telha-bege-2.jpg",
-          alt: "76 × 53 cm",
-        },
-      ],
-    },
-  },
-
+  // Tapete Gisele
   {
     name: "Tapete Gisele",
     category: "Tapetes",
@@ -356,7 +314,7 @@ const rugs = [
       },
       {
         label: "120 × 50 cm",
-        price: 150,
+        price: 145,
         sales: 1,
       },
       {
@@ -366,8 +324,8 @@ const rugs = [
       },
       {
         label: "KIT 3 peças: 2 (70 × 50 cm) e 1 (120 × 50 cm)",
-        price: (55 + 55 + 150) * DISCOUNT,
-        noDiscount: 55 + 55 + 150,
+        price: (55 + 55 + 145) * DISCOUNT,
+        noDiscount: 55 + 55 + 145,
       },
     ],
 
@@ -393,6 +351,56 @@ const rugs = [
     },
   },
 
+  // Tapete Aline
+  {
+    name: "Tapete Aline",
+    category: "Tapetes",
+
+    sizes: [
+      {
+        label: "70 × 50 cm",
+        price: 65,
+        sales: 0,
+      },
+      {
+        label: "100 × 50 cm",
+        price: 130,
+        sales: 0,
+      },
+      {
+        label: "120 × 50 cm",
+        price: 160,
+        sales: 0,
+      },
+      {
+        label: "KIT 2 peças: 2 (100 × 50 cm)",
+        price: (130 + 130) * DISCOUNT,
+        noDiscount: 130 + 130,
+      },
+      {
+        label: "KIT 3 peças: 2 (70 × 50 cm) e 1 (120 × 50 cm)",
+        price: (65 + 65 + 160) * DISCOUNT,
+        noDiscount: 65 + 65 + 160,
+      },
+    ],
+
+    colors: ["telha-bege"],
+
+    images: {
+      "telha-bege": [
+        {
+          url: "/products/rugs/tapete-aline/telha-bege.jpg",
+          alt: "76 × 53 cm",
+        },
+        {
+          url: "/products/rugs/tapete-aline/telha-bege-2.jpg",
+          alt: "76 × 53 cm",
+        },
+      ],
+    },
+  },
+
+  // Tapete Home
   {
     name: "Tapete Home",
     category: "Tapetes",
@@ -400,28 +408,28 @@ const rugs = [
     sizes: [
       {
         label: "70 × 50 cm",
-        price: 60,
+        price: 65,
         sales: 0,
       },
       {
         label: "100 × 50 cm",
-        price: 125,
+        price: 130,
         sales: 0,
       },
       {
         label: "120 × 50 cm",
-        price: 155,
+        price: 160,
         sales: 1,
       },
       {
         label: "KIT 2 peças: 2 (100 × 50 cm)",
-        price: (125 + 125) * DISCOUNT,
-        noDiscount: 125 + 125,
+        price: (130 + 130) * DISCOUNT,
+        noDiscount: 130 + 130,
       },
       {
         label: "KIT 3 peças: 2 (70 × 50 cm) e 1 (120 × 50 cm)",
-        price: (60 + 60 + 155) * DISCOUNT,
-        noDiscount: 60 + 60 + 155,
+        price: (65 + 65 + 160) * DISCOUNT,
+        noDiscount: 65 + 65 + 160,
       },
     ],
 
@@ -441,6 +449,7 @@ const rugs = [
     },
   },
 
+  // Tapete Harmonia
   {
     name: "Tapete Harmonia",
     category: "Tapetes",
@@ -448,28 +457,28 @@ const rugs = [
     sizes: [
       {
         label: "70 × 50 cm",
-        price: 60,
+        price: 65,
         sales: 0,
       },
       {
         label: "100 × 50 cm",
-        price: 125,
+        price: 130,
         sales: 2,
       },
       {
         label: "120 × 50 cm",
-        price: 155,
+        price: 160,
         sales: 0,
       },
       {
         label: "KIT 2 peças: 2 (100 × 50 cm)",
-        price: (125 + 125) * DISCOUNT,
-        noDiscount: 125 + 125,
+        price: (130 + 130) * DISCOUNT,
+        noDiscount: 130 + 130,
       },
       {
         label: "KIT 3 peças: 2 (70 × 50 cm) e 1 (120 × 50 cm)",
-        price: (60 + 60 + 155) * DISCOUNT,
-        noDiscount: 60 + 60 + 155,
+        price: (65 + 65 + 160) * DISCOUNT,
+        noDiscount: 65 + 65 + 160,
       },
     ],
 
@@ -489,6 +498,7 @@ const rugs = [
     },
   },
 
+  // Tapete Hexagonos
   {
     name: "Tapete Hexagonos",
     category: "Tapetes",
@@ -496,28 +506,28 @@ const rugs = [
     sizes: [
       {
         label: "70 × 50 cm",
-        price: 75,
+        price: 65,
         sales: 0,
       },
       {
         label: "100 × 50 cm",
-        price: 140,
+        price: 130,
         sales: 0,
       },
       {
         label: "120 × 50 cm",
-        price: 170,
+        price: 160,
         sales: 1,
       },
       {
         label: "KIT 2 peças: 2 (100 × 50 cm)",
-        price: (140 + 140) * DISCOUNT,
-        noDiscount: 140 + 140,
+        price: (130 + 130) * DISCOUNT,
+        noDiscount: 130 + 130,
       },
       {
         label: "KIT 3 peças: 2 (70 × 50 cm) e 1 (120 × 50 cm)",
-        price: (75 + 75 + 170) * DISCOUNT,
-        noDiscount: 75 + 75 + 170,
+        price: (65 + 65 + 160) * DISCOUNT,
+        noDiscount: 65 + 65 + 160,
       },
     ],
 
@@ -533,6 +543,7 @@ const rugs = [
     },
   },
 
+  // Tapete Meia Lua Samuel
   {
     name: "Tapete Meia Lua Samuel",
     category: "Tapetes",
@@ -565,6 +576,7 @@ const rugs = [
     },
   },
 
+  // Tapete Maravilha
   {
     name: "Tapete Maravilha",
     category: "Tapetes",
