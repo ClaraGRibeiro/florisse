@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
-import "./globals.css";
-import { CartProvider } from "@/hooks/useCart";
 import Header from "@/components/Header";
-import { BRAND, CITY, SITE, SLOGAN } from "@/data/config";
 import ScrollToTop from "@/components/ScrollToTop";
+import FloatingActions from "@/components/floatingActions";
+import { BRAND, CITY, SITE, SLOGAN } from "@/data/config";
+import { CartProvider } from "@/hooks/useCart";
+import "./globals.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -128,6 +129,7 @@ export default function RootLayout({
           <Header />
           <ScrollToTop />
           {children}
+          <FloatingActions />
         </CartProvider>
       </body>
     </html>

@@ -3,8 +3,8 @@
 import { useMemo, useState } from "react";
 
 import CartHeader from "@/components/cart/CartHeader";
-import CartRelated from "@/components/cart/CartRelated";
 import CartItem from "@/components/cart/CartItem";
+import CartRelated from "@/components/cart/CartRelated";
 import CartSummary from "@/components/cart/CartSummary";
 import EmptyCart from "@/components/cart/EmptyCart";
 import RemoveConfirmationModal, {

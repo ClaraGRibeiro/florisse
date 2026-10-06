@@ -3,12 +3,12 @@
 import colorsData from "@/data/colors.json";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { FaArrowLeft, FaArrowUp, FaPalette, FaPinterest } from "react-icons/fa";
+import { FaArrowLeft, FaPalette, FaPinterest } from "react-icons/fa";
 
 import { useCart } from "@/hooks/useCart";
-import { useScrollTop } from "@/hooks/useScrollTop";
-import { getProductBySlug, getProducts } from "@/lib/products";
+
 import { WHATSAPP } from "@/data/config";
+import { getProductBySlug, getProducts } from "@/lib/products";
 
 import { Color } from "@/types/color";
 
@@ -18,9 +18,8 @@ import ProductInfo from "@/components/product/ProductInfo";
 import ProductRelated from "@/components/product/ProductRelated";
 import Share from "@/components/product/Share";
 
-import { formatColor } from "@/utils/format";
-import Link from "next/link";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const colors = colorsData as Color[];
 
@@ -32,7 +31,6 @@ export default function ProductClient({ slug }: ProductClientProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const { showTop, scrollToTop } = useScrollTop();
 
   const products = getProducts();
   const { addToCart } = useCart();
@@ -535,16 +533,6 @@ Gostaria de confirmar o pedido e o frete.`;
             </Link>
           </div>
         </section>
-
-        {showTop && (
-          <button
-            title="Voltar para o início"
-            onClick={scrollToTop}
-            className="bg-primary fixed right-6 bottom-6 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full text-white shadow-lg transition hover:scale-105"
-          >
-            <FaArrowUp size={18} />
-          </button>
-        )}
       </div>
     </main>
   );

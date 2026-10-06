@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 
-import { getProductBySlug } from "@/lib/products";
 import { getProductOgImage } from "@/lib/images";
+import { getProductBySlug } from "@/lib/products";
 
-import ProductClient from "./ProductClient";
 import { BRAND, SITE } from "@/data/config";
+import ProductClient from "./ProductClient";
 
 type ProductPageProps = {
   params: Promise<{

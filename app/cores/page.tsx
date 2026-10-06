@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import Footer from "@/components/Footer";
-import Colors from "@/components/Colors";
+import Colors from "@/components/colors/Colors";
 import { BRAND, SITE } from "@/data/config";
 
 export const metadata: Metadata = {
