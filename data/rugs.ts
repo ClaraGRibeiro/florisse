@@ -14,23 +14,23 @@ const rugs = [
       },
       {
         label: "100 × 45 cm",
-        price: 80,
+        price: 70,
         sales: 0,
       },
       {
         label: "120 × 45 cm",
-        price: 110,
+        price: 95,
         sales: 0,
       },
       {
         label: "KIT 2 peças: (100 × 45 cm)",
-        price: (80 + 80) * DISCOUNT,
-        noDiscount: 80 + 80,
+        price: (70 + 70) * DISCOUNT,
+        noDiscount: 70 + 70,
       },
       {
         label: "KIT 3 peças: 2 (65 × 45 cm) e 1 (120 × 45 cm)",
-        price: (30 + 30 + 110) * DISCOUNT,
-        noDiscount: 30 + 30 + 110,
+        price: (30 + 30 + 95) * DISCOUNT,
+        noDiscount: 30 + 30 + 95,
       },
     ],
 
@@ -63,23 +63,23 @@ const rugs = [
       },
       {
         label: "100 × 45 cm",
-        price: 80,
+        price: 70,
         sales: 0,
       },
       {
         label: "120 × 45 cm",
-        price: 110,
+        price: 95,
         sales: 0,
       },
       {
         label: "KIT 2 peças: (100 × 45 cm)",
-        price: (80 + 80) * DISCOUNT,
-        noDiscount: 80 + 80,
+        price: (70 + 70) * DISCOUNT,
+        noDiscount: 70 + 70,
       },
       {
         label: "KIT 3 peças: 2 (65 × 45 cm) e 1 (120 × 45 cm)",
-        price: (30 + 30 + 110) * DISCOUNT,
-        noDiscount: 30 + 30 + 110,
+        price: (30 + 30 + 95) * DISCOUNT,
+        noDiscount: 30 + 30 + 95,
       },
     ],
 
@@ -112,23 +112,23 @@ const rugs = [
       },
       {
         label: "100 × 45 cm",
-        price: 100,
+        price: 80,
         sales: 0,
       },
       {
         label: "120 × 45 cm",
-        price: 125,
+        price: 100,
         sales: 0,
       },
       {
         label: "KIT 2 peças: 2 (100 × 45 cm)",
-        price: (100 + 100) * DISCOUNT,
-        noDiscount: 100 + 100,
+        price: (80 + 80) * DISCOUNT,
+        noDiscount: 80 + 80,
       },
       {
         label: "KIT 3 peças: 2 (65 × 45 cm) e 1 (120 × 45 cm)",
-        price: (35 + 35 + 125) * DISCOUNT,
-        noDiscount: 35 + 35 + 125,
+        price: (35 + 35 + 100) * DISCOUNT,
+        noDiscount: 35 + 35 + 100,
       },
     ],
 
@@ -161,23 +161,23 @@ const rugs = [
       },
       {
         label: "100 × 45 cm",
-        price: 100,
+        price: 80,
         sales: 0,
       },
       {
         label: "120 × 45 cm",
-        price: 125,
+        price: 100,
         sales: 0,
       },
       {
         label: "KIT 2 peças: 2 (100 × 45 cm)",
-        price: (100 + 100) * DISCOUNT,
-        noDiscount: 100 + 100,
+        price: (80 + 80) * DISCOUNT,
+        noDiscount: 80 + 80,
       },
       {
         label: "KIT 3 peças: 2 (65 × 45 cm) e 1 (120 × 45 cm)",
-        price: (35 + 35 + 125) * DISCOUNT,
-        noDiscount: 35 + 35 + 125,
+        price: (35 + 35 + 100) * DISCOUNT,
+        noDiscount: 35 + 35 + 100,
       },
     ],
 
@@ -197,6 +197,55 @@ const rugs = [
     },
   },
 
+  // Tapete Luana
+  // {
+  //   name: "Tapete Luana",
+  //   category: "Tapetes",
+
+  //   sizes: [
+  //     {
+  //       label: "65 × 45 cm",
+  //       price: 45,
+  //       sales: 0,
+  //     },
+  //     {
+  //       label: "100 × 45 cm",
+  //       price: 95,
+  //       sales: 0,
+  //     },
+  //     {
+  //       label: "120 × 45 cm",
+  //       price: 115,
+  //       sales: 0,
+  //     },
+  //     {
+  //       label: "KIT 2 peças: 2 (100 × 45 cm)",
+  //       price: (95 + 95) * DISCOUNT,
+  //       noDiscount: 95 + 95,
+  //     },
+  //     {
+  //       label: "KIT 3 peças: 2 (65 × 45 cm) e 1 (120 × 45 cm)",
+  //       price: (45 + 45 + 115) * DISCOUNT,
+  //       noDiscount: 45 + 45 + 115,
+  //     },
+  //   ],
+
+  //   colors: ["vermelho-malva-cru"],
+
+  //   images: {
+  //     vermelho-malva-cru: [
+  //       {
+  //         url: "/products/rugs/tapete-nina/vermelho-malva-cru.jpg",
+  //         alt: "65 × 45 cm",
+  //       },
+  //       {
+  //         url: "/products/rugs/tapete-nina/vermelho-malva-cru-2.jpg",
+  //         alt: "65 × 45 cm",
+  //       },
+  //     ],
+  //   },
+  // },
+
   // Tapete Janine
   {
     name: "Tapete Janine",
@@ -215,7 +264,7 @@ const rugs = [
       },
       {
         label: "120 × 50 cm",
-        price: 145,
+        price: 135,
         sales: 1,
       },
       {
@@ -225,8 +274,8 @@ const rugs = [
       },
       {
         label: "KIT 3 peças: 2 (70 × 50 cm) e 1 (120 × 50 cm)",
-        price: (55 + 55 + 145) * DISCOUNT,
-        noDiscount: 55 + 55 + 145,
+        price: (55 + 55 + 135) * DISCOUNT,
+        noDiscount: 55 + 55 + 135,
       },
     ],
 
@@ -314,7 +363,7 @@ const rugs = [
       },
       {
         label: "120 × 50 cm",
-        price: 145,
+        price: 135,
         sales: 1,
       },
       {
@@ -324,8 +373,8 @@ const rugs = [
       },
       {
         label: "KIT 3 peças: 2 (70 × 50 cm) e 1 (120 × 50 cm)",
-        price: (55 + 55 + 145) * DISCOUNT,
-        noDiscount: 55 + 55 + 145,
+        price: (55 + 55 + 135) * DISCOUNT,
+        noDiscount: 55 + 55 + 135,
       },
     ],
 
@@ -506,28 +555,28 @@ const rugs = [
     sizes: [
       {
         label: "70 × 50 cm",
-        price: 65,
+        price: 70,
         sales: 0,
       },
       {
         label: "100 × 50 cm",
-        price: 130,
+        price: 140,
         sales: 0,
       },
       {
         label: "120 × 50 cm",
-        price: 160,
+        price: 165,
         sales: 1,
       },
       {
         label: "KIT 2 peças: 2 (100 × 50 cm)",
-        price: (130 + 130) * DISCOUNT,
-        noDiscount: 130 + 130,
+        price: (140 + 140) * DISCOUNT,
+        noDiscount: 140 + 140,
       },
       {
         label: "KIT 3 peças: 2 (70 × 50 cm) e 1 (120 × 50 cm)",
-        price: (65 + 65 + 160) * DISCOUNT,
-        noDiscount: 65 + 65 + 160,
+        price: (70 + 70 + 165) * DISCOUNT,
+        noDiscount: 70 + 70 + 165,
       },
     ],
 
@@ -589,7 +638,7 @@ const rugs = [
       },
       {
         label: "150 cm",
-        price: 370,
+        price: 560,
         sales: 0,
       },
     ],

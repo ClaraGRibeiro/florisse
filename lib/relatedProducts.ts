@@ -82,9 +82,7 @@ export function getRelatedProducts(
 
   const freshProducts = scoredProducts.filter((item) => !item.wasVisited);
 
-  const sameColorFresh = freshProducts.filter(
-    (item) => item.sharedColors > 0,
-  );
+  const sameColorFresh = freshProducts.filter((item) => item.sharedColors > 0);
 
   const differentColorFresh = freshProducts.filter(
     (item) => item.sharedColors === 0,

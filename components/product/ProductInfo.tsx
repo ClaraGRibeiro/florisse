@@ -183,7 +183,9 @@ export default function ProductInfo({
         <div className="flex items-center gap-3">
           <FaPalette size={15} className="text-primary shrink-0" />
 
-          <span className="text-foreground text-xs sm:text-sm">Cores personalizáveis</span>
+          <span className="text-foreground text-xs sm:text-sm">
+            Cores personalizáveis
+          </span>
         </div>
         <div className="flex items-center gap-3">
           <FaRulerCombined size={15} className="text-primary shrink-0" />
@@ -211,7 +213,9 @@ export default function ProductInfo({
         <div className="flex items-center gap-3">
           <FaHeart size={15} className="text-primary shrink-0" />
 
-          <span className="text-foreground text-xs sm:text-sm">Feito à mão e com carinho</span>
+          <span className="text-foreground text-xs sm:text-sm">
+            Feito à mão e com carinho
+          </span>
         </div>
 
         <div className="flex items-center gap-3">

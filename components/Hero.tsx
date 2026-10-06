@@ -41,7 +41,7 @@ export default function Hero({ bestSelling, formatPath }: HeroProps) {
             Feito à mão · Feito para você
           </motion.p>
 
-         <HeroTitle/>
+          <HeroTitle />
 
           <motion.p
             initial={{ opacity: 0, y: 15 }}
