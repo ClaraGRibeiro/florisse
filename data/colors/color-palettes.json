@@ -1,0 +1,159 @@
+[
+  {
+    "category": "Tons de Vermelho",
+    "colors": ["rosa bebe", "rosa", "pink", "melancia", "vermelho", "bordo"]
+  },
+  {
+    "category": "Tons de Amarelo",
+    "colors": ["cru", "nude", "amarelo bebe", "ouro", "mostarda", "bege"]
+  },
+  {
+    "category": "Tons de Verde",
+    "colors": [
+      "verde agua escuro",
+      "alecrim",
+      "esmeralda",
+      "verde musgo",
+      "verde bandeira",
+      "verde militar"
+    ]
+  },
+  {
+    "category": "Tons de Azul",
+    "colors": [
+      "azul bebe",
+      "verde agua claro",
+      "azul piscina",
+      "jeans",
+      "azul royal",
+      "azul marinho"
+    ]
+  },
+  {
+    "category": "Tons Monocromáticos",
+    "colors": ["branco", "cru", "nude", "cinza", "chumbo", "preto"]
+  },
+  {
+    "category": "Arco-iris",
+    "colors": [
+      "vermelho",
+      "laranja",
+      "ouro",
+      "verde bandeira",
+      "azul piscina",
+      "roxo"
+    ]
+  },
+  {
+    "category": "Primavera",
+    "colors": [
+      "rosa",
+      "salmao",
+      "amarelo bebe",
+      "azul bebe",
+      "alecrim",
+      "lilas claro"
+    ]
+  },
+  {
+    "category": "Verão",
+    "colors": [
+      "azul piscina",
+      "laranja",
+      "pink",
+      "ouro",
+      "azul royal",
+      "verde limao"
+    ]
+  },
+  {
+    "category": "Outono",
+    "colors": ["telha", "mostarda", "marrom", "verde militar", "ouro", "bordo"]
+  },
+  {
+    "category": "Inverno",
+    "colors": [
+      "azul marinho",
+      "bordo",
+      "chumbo",
+      "azul petroleo",
+      "roxo",
+      "cinza"
+    ]
+  },
+  {
+    "category": "Páscoa",
+    "colors": [
+      "amarelo bebe",
+      "rosa bebe",
+      "lilas claro",
+      "verde agua claro",
+      "branco",
+      "cru"
+    ]
+  },
+  {
+    "category": "Chá Revelação",
+    "colors": [
+      "rosa bebe",
+      "azul bebe",
+      "branco",
+      "rosa",
+      "azul piscina",
+      "cru"
+    ]
+  },
+  {
+    "category": "Dia das Mães",
+    "colors": ["rosa", "malva", "nude", "cru", "bege", "ouro"]
+  },
+  {
+    "category": "Dia dos Namorados",
+    "colors": ["rosa", "pink", "vermelho", "bordo", "nude", "branco"]
+  },
+  {
+    "category": "Carnaval",
+    "colors": [
+      "pink",
+      "azul royal",
+      "laranja",
+      "verde limao",
+      "roxo",
+      "amarelo bebe"
+    ]
+  },
+  {
+    "category": "Festa Junina",
+    "colors": [
+      "vermelho",
+      "mostarda",
+      "telha",
+      "verde bandeira",
+      "marrom",
+      "cru"
+    ]
+  },
+  {
+    "category": "Halloween",
+    "colors": ["laranja", "preto", "roxo", "chumbo", "mostarda", "bordo"]
+  },
+  {
+    "category": "Dia dos Pais",
+    "colors": ["azul marinho", "jeans", "cinza", "chumbo", "cru", "marrom"]
+  },
+  {
+    "category": "Natal",
+    "colors": [
+      "vermelho",
+      "verde bandeira",
+      "ouro",
+      "bordo",
+      "verde militar",
+      "azul marinho"
+    ]
+  },
+  {
+    "category": "Ano Novo",
+    "colors": ["branco", "ouro", "cinza", "cru", "nude", "preto"]
+  }
+]

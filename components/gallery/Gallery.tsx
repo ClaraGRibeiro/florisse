@@ -5,7 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-import colorsData from "@/data/colors.json";
+import colorsData from "@/data/colors/colors.json";
 import { GalleryItem } from "@/lib/products";
 import { formatColor } from "@/utils/format";
 import { getProductUrl } from "@/lib/productUrl";

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 
-import Footer from "@/components/Footer";
 import Gallery from "@/components/gallery/Gallery";
 import { BRAND, SITE } from "@/data/config";
 import { getGalleryItems } from "@/lib/products";
@@ -45,8 +44,6 @@ export default function GalleryPage() {
 
         <Gallery items={items} />
       </main>
-
-      <Footer />
     </div>
   );
 }

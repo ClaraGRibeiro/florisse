@@ -1,9 +1,10 @@
 "use client";
 
-import colorPaletteData from "@/data/color-palettes.json";
-import colorsCombinationData from "@/data/colors-combination.json";
-import colorsData from "@/data/colors.json";
-import productsData from "@/data/products";
+import colorPaletteData from "@/data/colors/color-palettes.json";
+import colorsCombinationData from "@/data/colors/colors-combination.json";
+import colorsData from "@/data/colors/colors.json";
+import { getProducts } from "@/lib/products";
+
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
@@ -19,7 +20,7 @@ interface Color {
 }
 
 const colors = colorsData as Color[];
-const products = productsData.products;
+const products = getProducts();
 
 type Palette = {
   category: string;
@@ -56,7 +57,7 @@ export default function Colors() {
                 .replace(/[\u0300-\u036f]/g, "")
                 .trim();
 
-            const normalizedProductColor = normalize(productColor);
+            const normalizedProductColor = normalize(productColor.name);
             const normalizedSelectedColor = normalize(selectedColorName);
 
             if (normalizedProductColor === normalizedSelectedColor) {
@@ -417,12 +418,12 @@ export default function Colors() {
                 <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-4">
                   {productsWithColor.map((item, index) => {
                     const { product, color } = item;
-                    const image = getProductImage(product, color);
+                    const image = getProductImage(product, color.name);
                     const price = getProductPrice(product);
 
                     return (
                       <motion.div
-                        key={`${product.name}-${color}`}
+                        key={`${product.name}-${color.name}`}
                         initial={{ opacity: 0, y: 8 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{
@@ -431,7 +432,7 @@ export default function Colors() {
                         }}
                       >
                         <Link
-                          href={getProductUrl(product.name, { color })}
+                          href={getProductUrl(product.name, {color: color.name})}
                           className="group border-border bg-background hover:border-primary/20 focus-visible:ring-primary block overflow-hidden rounded-xl border transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
                         >
                           <div className="bg-muted/10 relative aspect-square overflow-hidden">
@@ -456,7 +457,7 @@ export default function Colors() {
                             </h5>
 
                             <p className="text-muted mt-0.5 text-[9px] sm:text-[10px]">
-                              {color.split("-").map(formatColor).join(" · ")}
+                              {color.name.split("-").map(formatColor).join(" · ")}
                             </p>
 
                             {price && (

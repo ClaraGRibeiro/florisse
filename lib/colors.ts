@@ -1,6 +1,6 @@
-import colorPaletteData from "@/data/color-palettes.json";
-import colorsCombinationData from "@/data/colors-combination.json";
-import colorsData from "@/data/colors.json";
+import colorPaletteData from "@/data/colors/color-palettes.json";
+import colorsCombinationData from "@/data/colors/colors-combination.json";
+import colorsData from "@/data/colors/colors.json";
 
 import { Product } from "@/types/product";
 import { formatCategory, formatPath } from "@/utils/format";

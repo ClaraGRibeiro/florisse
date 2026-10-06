@@ -1,11 +1,10 @@
 "use client";
 
-import About from "@/components/About";
-import ColorsPreview from "@/components/colors/ColorsPreview";
-import Footer from "@/components/Footer";
-import Hero from "@/components/hero/Hero";
-import Products from "@/components/products/Products";
-import WhyFlorisse from "@/components/WhyFlorisse";
+import About from "@/components/layout/About";
+import ColorsPreview from "@/components/layout/ColorsPreview";
+import Hero from "@/components/layout/Hero";
+import Products from "@/components/layout/Products";
+import WhyFlorisse from "@/components/layout/WhyFlorisse";
 
 import {
   getBestSelling,
@@ -16,7 +15,7 @@ import {
   getReadyProducts,
 } from "@/lib/products";
 
-import GalleryPreview from "@/components/gallery/GalleryPreview";
+import GalleryPreview from "@/components/layout/GalleryPreview";
 import { formatColor, formatPath } from "@/utils/format";
 
 export default function Home() {
@@ -26,7 +25,6 @@ export default function Home() {
   const bestSellingByCategory = getBestSellingByCategory();
   const categories = getCatalogCategories();
   const categoryCounts = getCategoryCounts();
-
 
   return (
     <div className="bg-card text-foreground min-h-screen">
@@ -46,7 +44,6 @@ export default function Home() {
       <GalleryPreview />
       <WhyFlorisse />
       <About />
-      <Footer />
     </div>
   );
 }

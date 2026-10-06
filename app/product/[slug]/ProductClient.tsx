@@ -1,6 +1,6 @@
 "use client";
 
-import colorsData from "@/data/colors.json";
+import colorsData from "@/data/colors/colors.json";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { FaArrowLeft, FaPalette, FaPinterest } from "react-icons/fa";

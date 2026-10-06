@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { FaCheck, FaSearch, FaTimes } from "react-icons/fa";
 
-import colorsData from "@/data/colors.json";
+import colorsData from "@/data/colors/colors.json";
 
 import type { CartItemType } from "@/components/cart/types";
 import type { Product } from "@/types/product";
