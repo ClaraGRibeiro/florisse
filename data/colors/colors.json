@@ -1,154 +1,154 @@
 [
   {
     "name": "branco",
-    "hex": "#FFFFFF"
+    "hex": "#F4F3F1"
   },
   {
     "name": "cru",
-    "hex": "#F5E6CC"
+    "hex": "#E9E6D5"
   },
   {
     "name": "nude",
-    "hex": "#B7AB9F"
+    "hex": "#B3A99D"
   },
   {
     "name": "bege",
-    "hex": "#BB8664"
+    "hex": "#B9896B"
   },
   {
     "name": "marrom",
-    "hex": "#54362A"
+    "hex": "#5D4035"
   },
   {
     "name": "cinza",
-    "hex": "#A8AAAC"
+    "hex": "#A5A8A8"
   },
   {
     "name": "chumbo",
-    "hex": "#576367"
+    "hex": "#515C60"
   },
   {
     "name": "preto",
-    "hex": "#000000"
+    "hex": "#101112"
   },
   {
     "name": "amarelo bebe",
-    "hex": "#F4DA88"
+    "hex": "#F1D978"
   },
   {
     "name": "ouro",
-    "hex": "#EEC049"
+    "hex": "#E7B63B"
   },
   {
     "name": "mostarda",
-    "hex": "#F3A94E"
+    "hex": "#E59A43"
   },
   {
     "name": "rosa bebe",
-    "hex": "#FFC6CC"
+    "hex": "#EFA9B5"
   },
   {
     "name": "rosa",
-    "hex": "#FF7C9E"
+    "hex": "#E96586"
   },
   {
     "name": "pink",
-    "hex": "#F83D77"
+    "hex": "#E91F6B"
   },
   {
     "name": "malva",
-    "hex": "#C3747E"
+    "hex": "#B96F7B"
   },
   {
     "name": "lilas claro",
-    "hex": "#BAA9CE"
+    "hex": "#9E8FC0"
   },
   {
     "name": "magenta",
-    "hex": "#A84778"
+    "hex": "#9E3976"
   },
   {
     "name": "roxo",
-    "hex": "#524673"
+    "hex": "#57447D"
   },
   {
     "name": "salmao",
-    "hex": "#FA9E84"
+    "hex": "#F0927D"
   },
   {
     "name": "laranja",
-    "hex": "#F65C39"
+    "hex": "#F45A3B"
   },
   {
     "name": "telha",
-    "hex": "#C74C26"
+    "hex": "#C84D2B"
   },
   {
     "name": "verde agua claro",
-    "hex": "#7BD1C6"
+    "hex": "#69C8BE"
   },
   {
     "name": "verde agua escuro",
-    "hex": "#10C1B3"
+    "hex": "#08B1A8"
   },
   {
     "name": "verde limao",
-    "hex": "#A0D89A"
+    "hex": "#8CD58D"
   },
   {
     "name": "alecrim",
-    "hex": "#9AB4A2"
+    "hex": "#9BB5A4"
   },
   {
     "name": "esmeralda",
-    "hex": "#709680"
+    "hex": "#69A08A"
   },
   {
     "name": "verde musgo",
-    "hex": "#16705B"
+    "hex": "#006A59"
   },
   {
     "name": "verde bandeira",
-    "hex": "#00733D"
+    "hex": "#00804A"
   },
   {
     "name": "verde militar",
-    "hex": "#5D6532"
+    "hex": "#526449"
   },
   {
     "name": "azul bebe",
-    "hex": "#AEE1F4"
+    "hex": "#8FD2E8"
   },
   {
     "name": "azul piscina",
-    "hex": "#21A2D2"
+    "hex": "#0799D0"
   },
   {
     "name": "azul royal",
-    "hex": "#014B96"
+    "hex": "#0756A0"
   },
   {
     "name": "azul petroleo",
-    "hex": "#017381"
+    "hex": "#007783"
   },
   {
     "name": "jeans",
-    "hex": "#5D6C87"
+    "hex": "#586A83"
   },
   {
     "name": "azul marinho",
-    "hex": "#11244B"
+    "hex": "#172B55"
   },
   {
     "name": "melancia",
-    "hex": "#E84D58"
+    "hex": "#E84D68"
   },
   {
     "name": "vermelho",
-    "hex": "#E81E27"
+    "hex": "#D92135"
   },
   {
     "name": "bordo",
-    "hex": "#822636"
+    "hex": "#7E2639"
   }
 ]
