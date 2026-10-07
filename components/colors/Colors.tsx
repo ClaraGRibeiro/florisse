@@ -4,12 +4,13 @@ import colorPaletteData from "@/data/colors/color-palettes.json";
 import colorsCombinationData from "@/data/colors/colors-combination.json";
 import colorsData from "@/data/colors/colors.json";
 import { getProducts } from "@/lib/products";
+import ColorMixer from "./ColorMixer";
 
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { FaPalette, FaPinterest } from "react-icons/fa";
+import { FaBrush, FaPalette, FaPinterest } from "react-icons/fa";
 
 import { getProductUrl } from "@/lib/productUrl";
 import { formatCategory, formatColor, formatPath } from "@/utils/format";
@@ -35,6 +36,7 @@ export default function Colors() {
   );
 
   const [showPalettes, setShowPalettes] = useState(false);
+    const [showMixer, setShowMixer] = useState(false);
 
   const colorsByPalette = colorPaletteData as Palette[];
 
@@ -212,6 +214,28 @@ export default function Colors() {
 
             <span className="text-foreground-soft group-hover:text-primary mt-2 max-w-20 text-center text-[11px] leading-tight font-medium transition-colors sm:text-xs">
               {showPalettes ? "Ocultar paletas" : "Ideias de paleta"}
+            </span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => {
+              setSelectedColorName(null);
+              setShowPalettes(false);
+              setShowMixer((current) => !current);
+            }}
+            aria-expanded={showMixer}
+            aria-controls="mixer-cores"
+            className="group focus-visible:ring-primary flex cursor-pointer flex-col items-center rounded-2xl p-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+          >
+            <div className="border-primary/20 bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground relative flex h-14 w-14 items-center justify-center overflow-hidden rounded-full border shadow-sm transition-all duration-300 group-hover:-translate-y-1 group-hover:scale-110 group-hover:shadow-lg sm:h-16 sm:w-16">
+              <FaBrush size={20} aria-hidden="true" />
+
+              <div className="absolute inset-0 bg-white/10 opacity-0 transition-opacity group-hover:opacity-100" />
+            </div>
+
+            <span className="text-foreground-soft group-hover:text-primary mt-2 max-w-20 text-center text-[11px] leading-tight font-medium transition-colors sm:text-xs">
+              {showMixer ? "Ocultar teste" : "Teste combinações"}
             </span>
           </button>
         </div>
@@ -432,7 +456,9 @@ export default function Colors() {
                         }}
                       >
                         <Link
-                          href={getProductUrl(product.name, {color: color.name})}
+                          href={getProductUrl(product.name, {
+                            color: color.name,
+                          })}
                           className="group border-border bg-background hover:border-primary/20 focus-visible:ring-primary block overflow-hidden rounded-xl border transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
                         >
                           <div className="bg-muted/10 relative aspect-square overflow-hidden">
@@ -457,7 +483,10 @@ export default function Colors() {
                             </h5>
 
                             <p className="text-muted mt-0.5 text-[9px] sm:text-[10px]">
-                              {color.name.split("-").map(formatColor).join(" · ")}
+                              {color.name
+                                .split("-")
+                                .map(formatColor)
+                                .join(" · ")}
                             </p>
 
                             {price && (
@@ -511,6 +540,18 @@ export default function Colors() {
               </div>
             </div>
           </div>
+        </motion.div>
+      )}
+
+      {showMixer && (
+        <motion.div
+          id="mixer-cores"
+          initial={{ opacity: 0, height: 0, y: -10 }}
+          animate={{ opacity: 1, height: "auto", y: 0 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+          className="mx-auto mt-16 max-w-6xl scroll-mt-24 sm:mt-20"
+        >
+          <ColorMixer colors={colors} />
         </motion.div>
       )}
 
