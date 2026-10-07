@@ -592,9 +592,9 @@ const rugs = [
     },
   },
 
-  // Tapete Meia Lua Samuel
+  // Tapete Meia Lua Léia
   {
-    name: "Tapete Meia Lua Samuel",
+    name: "Tapete Meia Lua Leia",
     category: "Tapetes",
 
     sizes: [
@@ -610,15 +610,15 @@ const rugs = [
     images: {
       cinza: [
         {
-          url: "/products/rugs/tapete-meia-lua-samuel/cinza.jpg",
+          url: "/products/rugs/tapete-meia-lua-leia/cinza.jpg",
           alt: "100 × 50 cm",
         },
         {
-          url: "/products/rugs/tapete-meia-lua-samuel/cinza-2.jpg",
+          url: "/products/rugs/tapete-meia-lua-leia/cinza-2.jpg",
           alt: "100 × 50 cm",
         },
         {
-          url: "/products/rugs/tapete-meia-lua-samuel/cinza-3.jpg",
+          url: "/products/rugs/tapete-meia-lua-leia/cinza-3.jpg",
           alt: "100 × 50 cm",
         },
       ],

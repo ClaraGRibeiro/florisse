@@ -65,7 +65,7 @@ const readyToDeliver: ReadyToDeliver[] = [
   },
   {
     name: null,
-    productId: "tapete-meia-lua-samuel",
+    productId: "tapete-meia-lua-leia",
     color: "cinza",
     images: null,
     size: "100 × 50 cm",
