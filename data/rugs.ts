@@ -197,6 +197,51 @@ const rugs = [
     },
   },
 
+  // Tapete Vintage
+  // {
+  //   name: "Tapete Vintage",
+  //   category: "Tapetes",
+
+  //   sizes: [
+  //     {
+  //       label: "65 × 45 cm",
+  //       price: 45,
+  //       sales: 0,
+  //     },
+  //     {
+  //       label: "100 × 45 cm",
+  //       price: 95,
+  //       sales: 0,
+  //     },
+  //     {
+  //       label: "120 × 45 cm",
+  //       price: 115,
+  //       sales: 0,
+  //     },
+  //     {
+  //       label: "KIT 2 peças: 2 (100 × 45 cm)",
+  //       price: (95 + 95) * DISCOUNT,
+  //       noDiscount: 95 + 95,
+  //     },
+  //     {
+  //       label: "KIT 3 peças: 2 (65 × 45 cm) e 1 (120 × 45 cm)",
+  //       price: (45 + 45 + 115) * DISCOUNT,
+  //       noDiscount: 45 + 45 + 115,
+  //     },
+  //   ],
+
+  //   colors: ["bege"],
+
+  //   images: {
+  //     "bege": [
+  //       {
+  //         url: "/products/rugs/tapete-vintage/bege.jpg",
+  //         alt: "65 × 45 cm",
+  //       },
+  //     ],
+  //   },
+  // },
+
   // Tapete Luana
   // {
   //   name: "Tapete Luana",

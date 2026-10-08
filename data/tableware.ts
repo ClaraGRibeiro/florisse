@@ -1,6 +1,7 @@
 import { DISCOUNT } from "./config";
 
 const tableware = [
+  // Sousplat Tradicional
   {
     name: "Sousplat Tradicional",
     category: "Mesa Posta",
@@ -37,6 +38,7 @@ const tableware = [
     },
   },
 
+  // Trilho Tradicional
   {
     name: "Trilho Tradicional",
     category: "Mesa Posta",
@@ -65,6 +67,7 @@ const tableware = [
     },
   },
 
+  // Sousplat Encanto
   {
     name: "Sousplat Encanto",
     category: "Mesa Posta",
@@ -102,6 +105,67 @@ const tableware = [
     },
   },
 
+  // Sousplat Margarida
+  // {
+  //   name: "Sousplat Margarida",
+  //   category: "Mesa Posta",
+
+  //   sizes: [
+  //     {
+  //       label: "37 cm",
+  //       price: 30,
+  //       sales: 0,
+  //     },
+  //     {
+  //       label: "KIT 6 peças: 6 (37 cm)",
+  //       price: (30 + 30 + 30 + 30 + 30 + 30) * DISCOUNT,
+  //       noDiscount: 30 + 30 + 30 + 30 + 30 + 30,
+  //     },
+  //   ],
+
+  //   colors: ["vermelho"],
+
+  //   images: {
+  //     vermelho: [
+  //       {
+  //         url: "/products/tableware/sousplat-margarida/vermelho.jpg",
+  //         alt: "37 cm",
+  //       },
+  //     ],
+  //   },
+  // },
+
+  // Sousplat Conchas
+  // {
+  //   name: "Sousplat Conchas",
+  //   category: "Mesa Posta",
+
+  //   sizes: [
+  //     {
+  //       label: "37 cm",
+  //       price: 30,
+  //       sales: 0,
+  //     },
+  //     {
+  //       label: "KIT 6 peças: 6 (37 cm)",
+  //       price: (30 + 30 + 30 + 30 + 30 + 30) * DISCOUNT,
+  //       noDiscount: 30 + 30 + 30 + 30 + 30 + 30,
+  //     },
+  //   ],
+
+  //   colors: ["cru-malva-bordo"],
+
+  //   images: {
+  //     "cru-malva-bordo": [
+  //       {
+  //         url: "/products/tableware/sousplat-conchas/cru-malva-bordo.jpg",
+  //         alt: "37 cm",
+  //       },
+  //     ],
+  //   },
+  // },
+
+  // Trilho Losango
   {
     name: "Trilho Losango",
     category: "Mesa Posta",
@@ -134,6 +198,7 @@ const tableware = [
     },
   },
 
+  // Trilho Floral
   {
     name: "Trilho Floral",
     category: "Mesa Posta",
