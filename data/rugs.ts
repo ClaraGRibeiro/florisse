@@ -592,9 +592,9 @@ const rugs = [
     },
   },
 
-  // Tapete Meia Lua Léia
+  // Tapete Meia Léia
   {
-    name: "Tapete Meia Lua Leia",
+    name: "Tapete Meia Leia",
     category: "Tapetes",
 
     sizes: [
@@ -610,15 +610,15 @@ const rugs = [
     images: {
       cinza: [
         {
-          url: "/products/rugs/tapete-meia-lua-leia/cinza.jpg",
+          url: "/products/rugs/tapete-meia-leia/cinza.jpg",
           alt: "100 × 50 cm",
         },
         {
-          url: "/products/rugs/tapete-meia-lua-leia/cinza-2.jpg",
+          url: "/products/rugs/tapete-meia-leia/cinza-2.jpg",
           alt: "100 × 50 cm",
         },
         {
-          url: "/products/rugs/tapete-meia-lua-leia/cinza-3.jpg",
+          url: "/products/rugs/tapete-meia-leia/cinza-3.jpg",
           alt: "100 × 50 cm",
         },
       ],

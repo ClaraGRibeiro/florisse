@@ -152,12 +152,16 @@ function GalleryCard({ item }: { item: GalleryItem }) {
         <Link
           href={productHref}
           aria-label={`Ver ${item.productName} na cor ${formatColor(item.color)}`}
-          className="group block"
+          className="group relative block"
         >
           <GalleryImage
             images={item.images}
             alt={`${item.productName} — ${formatColor(item.color)} — ${item.images[0]?.alt ?? ""}`}
           />
+
+          <span className="text-white absolute bottom-3 left-3 rounded-full bg-muted/60 px-3 py-1.5 text-xs font-medium shadow-sm backdrop-blur-sm transition-transform duration-300 group-hover:-translate-y-0.5">
+            {item.productName}
+          </span>
         </Link>
       </article>
     </motion.section>
