@@ -233,13 +233,9 @@ const rugs = [
   //   colors: ["vermelho-malva-cru"],
 
   //   images: {
-  //     vermelho-malva-cru: [
+  //     "vermelho-malva-cru": [
   //       {
-  //         url: "/products/rugs/tapete-nina/vermelho-malva-cru.jpg",
-  //         alt: "65 × 45 cm",
-  //       },
-  //       {
-  //         url: "/products/rugs/tapete-nina/vermelho-malva-cru-2.jpg",
+  //         url: "/products/rugs/tapete-luana/vermelho-malva-cru.jpg",
   //         alt: "65 × 45 cm",
   //       },
   //     ],
@@ -592,9 +588,9 @@ const rugs = [
     },
   },
 
-  // Tapete Meia Léia
+  // Tapete Léia Meia-Lua
   {
-    name: "Tapete Meia Léia",
+    name: "Tapete Léia Meia-Lua",
     category: "Tapetes",
 
     sizes: [
@@ -610,15 +606,15 @@ const rugs = [
     images: {
       cinza: [
         {
-          url: "/products/rugs/tapete-meia-leia/cinza.jpg",
+          url: "/products/rugs/tapete-leia-meia-lua/cinza.jpg",
           alt: "100 × 50 cm",
         },
         {
-          url: "/products/rugs/tapete-meia-leia/cinza-2.jpg",
+          url: "/products/rugs/tapete-leia-meia-lua/cinza-2.jpg",
           alt: "100 × 50 cm",
         },
         {
-          url: "/products/rugs/tapete-meia-leia/cinza-3.jpg",
+          url: "/products/rugs/tapete-leia-meia-lua/cinza-3.jpg",
           alt: "100 × 50 cm",
         },
       ],
