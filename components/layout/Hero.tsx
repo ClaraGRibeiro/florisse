@@ -1,5 +1,5 @@
 import { BRAND, CITY, WHATSAPP } from "@/data/config";
-import { getProductUrl } from "@/lib/productUrl";
+import { getProductSlug, getProductUrl } from "@/lib/productUrl";
 import { Product } from "@/types/product";
 import { formatCategory } from "@/utils/format";
 import { motion } from "framer-motion";
@@ -13,7 +13,7 @@ type HeroProps = {
 };
 
 export default function Hero({ bestSelling, formatPath }: HeroProps) {
-  const imageSrc = `/products/${formatPath(formatCategory(bestSelling.category) ?? "null")}/${formatPath(
+  const imageSrc = `/products/${formatPath(formatCategory(bestSelling.category) ?? "null")}/${getProductSlug(
     bestSelling.name,
   )}/${bestSelling.colors[0].name}.jpg`;
   return (

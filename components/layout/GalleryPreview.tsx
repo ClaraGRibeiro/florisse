@@ -25,7 +25,7 @@ const FEATURED_GALLERY = [
     color: "vermelho",
   },
   {
-    productName: "Tapete Hexagonos",
+    productName: "Tapete Hexágono",
     color: "cru-cinza-bege",
   },
   {

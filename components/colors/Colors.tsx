@@ -12,7 +12,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { FaBrush, FaPalette, FaPinterest } from "react-icons/fa";
 
-import { getProductUrl } from "@/lib/productUrl";
+import { getProductSlug, getProductUrl } from "@/lib/productUrl";
 import { formatCategory, formatColor, formatPath } from "@/utils/format";
 
 interface Color {
@@ -90,7 +90,7 @@ export default function Colors() {
     product: (typeof products)[number],
     color: string,
   ) => {
-    return `/products/${formatPath(formatCategory(product.category) ?? "null")}/${formatPath(
+    return `/products/${formatPath(formatCategory(product.category) ?? "null")}/${getProductSlug(
       product.name,
     )}/${color}.jpg`;
   };

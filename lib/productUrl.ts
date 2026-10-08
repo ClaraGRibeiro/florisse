@@ -1,5 +1,16 @@
 import { formatPath } from "@/utils/format";
 
+const PRODUCT_SLUG_ALIASES: Record<string, string> = {
+  "tapete-hexagono": "tapete-hexagonos",
+  "tapete-hexagonos": "tapete-hexagonos",
+};
+
+export function getProductSlug(productName: string): string {
+  const normalizedSlug = formatPath(productName);
+
+  return PRODUCT_SLUG_ALIASES[normalizedSlug] ?? normalizedSlug;
+}
+
 export function getProductUrl(
   productName: string,
   options?: {
@@ -7,7 +18,7 @@ export function getProductUrl(
     size?: string | null;
   },
 ): string {
-  const slug = formatPath(productName);
+  const slug = getProductSlug(productName);
   const params = new URLSearchParams();
 
   if (options?.color) {

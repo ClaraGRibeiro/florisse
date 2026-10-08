@@ -1,5 +1,7 @@
 "use client";
 
+import { getCanonicalProductName } from "@/lib/products";
+
 import {
   createContext,
   useContext,
@@ -121,7 +123,10 @@ function parseStoredCart(savedCart: string): CartItem[] {
       return [];
     }
 
-    return parsed.filter(isValidCartItem);
+    return parsed.filter(isValidCartItem).map((item) => ({
+      ...item,
+      name: getCanonicalProductName(item.name),
+    }));
   } catch {
     return [];
   }
@@ -180,20 +185,25 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }, [cart]);
 
   function addToCart(item: CartItem) {
+    const canonicalItem = {
+      ...item,
+      name: getCanonicalProductName(item.name),
+    };
+
     setCart((currentCart) => {
       const existingItem = currentCart.find((currentItem) =>
-        areSameCartConfiguration(currentItem, item),
+        areSameCartConfiguration(currentItem, canonicalItem),
       );
 
       if (!existingItem) {
-        return [...currentCart, item];
+        return [...currentCart, canonicalItem];
       }
 
       return currentCart.map((currentItem) =>
         currentItem.id === existingItem.id
           ? {
               ...currentItem,
-              quantity: currentItem.quantity + item.quantity,
+              quantity: currentItem.quantity + canonicalItem.quantity,
             }
           : currentItem,
       );
@@ -232,6 +242,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       const updatedItem: CartItem = {
         ...currentItem,
         ...updates,
+        name: getCanonicalProductName(updates.name ?? currentItem.name),
       };
 
       const existingItem = currentCart.find(

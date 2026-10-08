@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { getProductOgImage } from "@/lib/images";
 import { getProductBySlug } from "@/lib/products";
+import { getProductSlug } from "@/lib/productUrl";
 
 import { BRAND, SITE } from "@/data/config";
 import ProductClient from "./ProductClient";
@@ -58,7 +59,7 @@ export async function generateMetadata({
   }
 
   const query = urlParams.toString();
-  const url = `${SITE}/product/${slug}${query ? `?${query}` : ""}`;
+  const url = `${SITE}/product/${getProductSlug(product.name)}${query ? `?${query}` : ""}`;
 
   return {
     title,

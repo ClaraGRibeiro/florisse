@@ -2,6 +2,7 @@ import colorPaletteData from "@/data/colors/color-palettes.json";
 import colorsCombinationData from "@/data/colors/colors-combination.json";
 import colorsData from "@/data/colors/colors.json";
 
+import { getProductSlug } from "@/lib/productUrl";
 import { Product } from "@/types/product";
 import { formatCategory, formatPath } from "@/utils/format";
 
@@ -111,7 +112,7 @@ export function getColorImage(product: Product, color: string): string {
     return productImages[0].url;
   }
 
-  return `/products/${formatPath(formatCategory(product.category) ?? "null")}/${formatPath(
+  return `/products/${formatPath(formatCategory(product.category) ?? "null")}/${getProductSlug(
     product.name,
   )}/${color}.jpg`;
 }

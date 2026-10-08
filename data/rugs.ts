@@ -50,9 +50,9 @@ const rugs = [
     },
   },
 
-  // Tapete Cleo
+  // Tapete Cléo
   {
-    name: "Tapete Cleo",
+    name: "Tapete Cléo",
     category: "Tapetes",
 
     sizes: [
@@ -547,9 +547,9 @@ const rugs = [
     },
   },
 
-  // Tapete Hexagonos
+  // Tapete Hexágono
   {
-    name: "Tapete Hexagonos",
+    name: "Tapete Hexágono",
     category: "Tapetes",
 
     sizes: [
@@ -594,7 +594,7 @@ const rugs = [
 
   // Tapete Meia Léia
   {
-    name: "Tapete Meia Leia",
+    name: "Tapete Meia Léia",
     category: "Tapetes",
 
     sizes: [

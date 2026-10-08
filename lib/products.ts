@@ -6,6 +6,7 @@ import { getTotalSales } from "@/lib/pricing";
 import { Product, ReadyProduct } from "@/types/product";
 
 import { formatPath } from "@/utils/format";
+import { getProductSlug } from "@/lib/productUrl";
 
 type RawProduct = (typeof productsData.products)[number];
 
@@ -38,11 +39,22 @@ export function getProducts(): Product[] {
 }
 
 export function getProductBySlug(slug: string): Product | undefined {
-  return products.find((product) => formatPath(product.name) === slug);
+  return products.find(
+    (product) =>
+      getProductSlug(product.name) === slug ||
+      formatPath(product.name) === slug,
+  );
 }
 
 export function getProductByName(name: string): Product | undefined {
-  return products.find((product) => product.name === name);
+  return products.find(
+    (product) =>
+      product.name === name || getProductSlug(product.name) === getProductSlug(name),
+  );
+}
+
+export function getCanonicalProductName(name: string): string {
+  return getProductByName(name)?.name ?? name;
 }
 
 export function getProductsByCategory(category: string): Product[] {
