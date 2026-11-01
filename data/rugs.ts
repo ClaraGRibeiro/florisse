@@ -646,7 +646,7 @@ const rugs = [
       },
     ],
 
-    colors: ["cinza"],
+    colors: ["cinza", "telha"],
 
     images: {
       cinza: [
@@ -661,6 +661,16 @@ const rugs = [
         {
           url: "/products/rugs/tapete-leia-meia-lua/cinza-3.jpg",
           alt: "100 × 50 cm",
+        },
+      ],
+      telha: [
+        {
+          url: "/products/rugs/tapete-leia-meia-lua/telha.jpg",
+          alt: "100 × 48 cm",
+        },
+        {
+          url: "/products/rugs/tapete-leia-meia-lua/telha-2.jpg",
+          alt: "100 × 48 cm",
         },
       ],
     },

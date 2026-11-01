@@ -74,6 +74,15 @@ const readyToDeliver: ReadyToDeliver[] = [
   },
   {
     name: null,
+    productId: "tapete-leia-meia-lua",
+    color: "telha",
+    images: null,
+    size: "100 × 48 cm",
+    price: 150,
+    quantity: 1,
+  },
+  {
+    name: null,
     productId: "tapete-janine",
     color: "verde limao-cru",
     images: null,
