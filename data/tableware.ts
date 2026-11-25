@@ -85,7 +85,7 @@ const tableware = [
       },
     ],
 
-    colors: ["cinza"],
+    colors: ["cinza", "vermelho"],
 
     images: {
       cinza: [
@@ -100,6 +100,16 @@ const tableware = [
         {
           url: "/products/tableware/sousplat-encanto/cinza-3.jpg",
           alt: "37 cm",
+        },
+      ],
+      vermelho: [
+        {
+          url: "/products/tableware/sousplat-encanto/vermelho.jpg",
+          alt: "38 cm",
+        },
+        {
+          url: "/products/tableware/sousplat-encanto/vermelho-2.jpg",
+          alt: "38 cm",
         },
       ],
     },

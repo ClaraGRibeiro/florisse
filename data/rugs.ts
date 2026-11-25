@@ -95,6 +95,10 @@ const rugs = [
           url: "/products/rugs/tapete-cleo/malva-2.jpg",
           alt: "65 × 45 cm",
         },
+        {
+          url: "/products/rugs/tapete-cleo/malva-3.jpg",
+          alt: "65 × 45 cm",
+        },
       ],
     },
   },
@@ -142,6 +146,14 @@ const rugs = [
         },
         {
           url: "/products/rugs/tapete-cris/bordo-2.jpg",
+          alt: "65 × 45 cm",
+        },
+        {
+          url: "/products/rugs/tapete-cris/bordo-3.jpg",
+          alt: "65 × 45 cm",
+        },
+        {
+          url: "/products/rugs/tapete-cris/bordo-4.jpg",
           alt: "65 × 45 cm",
         },
       ],
@@ -326,6 +338,7 @@ const rugs = [
       "verde limao-cru",
       "cru-verde militar-alecrim",
       "bege-alecrim-cru",
+      "bege-marrom",
     ],
 
     images: {
@@ -360,6 +373,10 @@ const rugs = [
           url: "/products/rugs/tapete-janine/verde limao-cru-2.jpg",
           alt: "70 × 50 cm",
         },
+        {
+          url: "/products/rugs/tapete-janine/verde limao-cru-3.jpg",
+          alt: "70 × 50 cm",
+        },
       ],
 
       "cru-verde militar-alecrim": [
@@ -381,6 +398,17 @@ const rugs = [
         {
           url: "/products/rugs/tapete-janine/bege-alecrim-cru-2.jpg",
           alt: "100 × 50 cm",
+        },
+      ],
+
+      "bege-marrom": [
+        {
+          url: "/products/rugs/tapete-janine/bege-marrom.jpg",
+          alt: "70 × 50 cm",
+        },
+        {
+          url: "/products/rugs/tapete-janine/bege-marrom-2.jpg",
+          alt: "70 × 50 cm",
         },
       ],
     },
