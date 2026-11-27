@@ -19,6 +19,26 @@ const bags = [
       ],
     },
   },
+  {
+    name: "Bolsa Hobo",
+    category: "Bolsas",
+    sizes: [
+      {
+        label: "40 × 40 × 10 cm",
+        price: 180,
+        sales: 1,
+      },
+    ],
+    colors: ["cru-bege"],
+    images: {
+      "cru-bege": [
+        {
+          url: "/products/bags/bolsa-hobo/cru-bege.jpg",
+          alt: "40 × 40 × 10 cm",
+        },
+      ],
+    },
+  },
 ];
 
 export default bags;

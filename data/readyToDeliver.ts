@@ -56,6 +56,15 @@ const readyToDeliver: ReadyToDeliver[] = [
   },
   {
     name: null,
+    productId: "tapete-nina",
+    color: "preto-vermelho",
+    images: null,
+    size: "KIT 2 peças: 67 × 47 cm",
+    price: 70,
+    quantity: 2,
+  },
+  {
+    name: null,
     productId: "tapete-leia-meia-lua",
     color: "cinza",
     images: null,

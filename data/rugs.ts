@@ -148,14 +148,6 @@ const rugs = [
           url: "/products/rugs/tapete-cris/bordo-2.jpg",
           alt: "65 × 45 cm",
         },
-        {
-          url: "/products/rugs/tapete-cris/bordo-3.jpg",
-          alt: "65 × 45 cm",
-        },
-        {
-          url: "/products/rugs/tapete-cris/bordo-4.jpg",
-          alt: "65 × 45 cm",
-        },
       ],
     },
   },
@@ -193,7 +185,7 @@ const rugs = [
       },
     ],
 
-    colors: ["vermelho"],
+    colors: ["vermelho", "preto-vermelho"],
 
     images: {
       vermelho: [
@@ -204,6 +196,20 @@ const rugs = [
         {
           url: "/products/rugs/tapete-nina/vermelho-2.jpg",
           alt: "70 × 50 cm",
+        },
+      ],
+      "preto-vermelho": [
+        {
+          url: "/products/rugs/tapete-nina/preto-vermelho.jpg",
+          alt: "67 × 47 cm",
+        },
+        {
+          url: "/products/rugs/tapete-nina/preto-vermelho-2.jpg",
+          alt: "67 × 47 cm",
+        },
+        {
+          url: "/products/rugs/tapete-nina/preto-vermelho-3.jpg",
+          alt: "67 × 47 cm",
         },
       ],
     },
