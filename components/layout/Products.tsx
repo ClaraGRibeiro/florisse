@@ -98,7 +98,10 @@ export default function Products({
     return searchTerms.every((term) => searchableText.includes(term));
   });
 
-  const sortedProducts = [...filteredProducts].sort((a, b) => {
+  const sortedProducts = 
+  category === "Pronta Entrega"
+    ? filteredProducts
+    : [...filteredProducts].sort((a, b) => {
     switch (sort) {
       case "menor-preco":
         return a.sizes[0].price - b.sizes[0].price;
