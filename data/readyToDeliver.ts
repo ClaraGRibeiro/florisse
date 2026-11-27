@@ -13,30 +13,6 @@ export type ReadyToDeliver = {
 
 const readyToDeliver: ReadyToDeliver[] = [
   {
-    name: "KIT Mesa Posta Tradicional",
-    productId: "trilho-tradicional",
-    color: "marrom",
-    images: {
-      marrom: [
-        {
-          url: "/products/tableware/trilho-tradicional/marrom-2.jpg",
-          alt: "KIT 7 peças: 6 (37 cm) + 1 (100 × 25 cm)",
-        },
-        {
-          url: "/products/tableware/trilho-tradicional/marrom.jpg",
-          alt: "100 × 25 cm",
-        },
-        {
-          url: "/products/tableware/sousplat-tradicional/marrom.jpg",
-          alt: "37 cm",
-        },
-      ],
-    },
-    size: "KIT 7 peças: 6 (37 cm) + 1 (100 × 25 cm)",
-    price: (27 + 27 + 27 + 27 + 27 + 27 + 65) * DISCOUNT,
-    quantity: 1,
-  },
-  {
     name: null,
     productId: "tapete-cleo",
     color: "malva",
@@ -65,24 +41,6 @@ const readyToDeliver: ReadyToDeliver[] = [
   },
   {
     name: null,
-    productId: "tapete-leia-meia-lua",
-    color: "cinza",
-    images: null,
-    size: "100 × 50 cm",
-    price: 150,
-    quantity: 1,
-  },
-  {
-    name: null,
-    productId: "tapete-leia-meia-lua",
-    color: "telha",
-    images: null,
-    size: "100 × 48 cm",
-    price: 150,
-    quantity: 1,
-  },
-  {
-    name: null,
     productId: "tapete-janine",
     color: "verde limao-cru",
     images: null,
@@ -98,6 +56,49 @@ const readyToDeliver: ReadyToDeliver[] = [
     size: "KIT 2 peças: 70 × 50 cm",
     price: 100,
     quantity: 2,
+  },
+  {
+    name: "KIT Mesa Posta Tradicional",
+    productId: "trilho-tradicional",
+    color: "marrom",
+    images: {
+      marrom: [
+        {
+          url: "/products/tableware/trilho-tradicional/marrom-2.jpg",
+          alt: "KIT 7 peças: 6 (37 cm) + 1 (100 × 25 cm)",
+        },
+        {
+          url: "/products/tableware/trilho-tradicional/marrom.jpg",
+          alt: "100 × 25 cm",
+        },
+        {
+          url: "/products/tableware/sousplat-tradicional/marrom.jpg",
+          alt: "37 cm",
+        },
+      ],
+    },
+    size: "KIT 7 peças: 6 (37 cm) + 1 (100 × 25 cm)",
+    price: (27 + 27 + 27 + 27 + 27 + 27 + 65) * DISCOUNT,
+    quantity: 1,
+  },
+
+  {
+    name: null,
+    productId: "tapete-leia-meia-lua",
+    color: "cinza",
+    images: null,
+    size: "100 × 50 cm",
+    price: 150,
+    quantity: 1,
+  },
+  {
+    name: null,
+    productId: "tapete-leia-meia-lua",
+    color: "telha",
+    images: null,
+    size: "100 × 48 cm",
+    price: 150,
+    quantity: 1,
   },
   {
     name: null,
